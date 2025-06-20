@@ -5,7 +5,7 @@ import React from 'react';
 import { Word } from './WordTable';
 
 interface WordInfoProps {
-  selectedWord: Word | null;
+  selectedWord?: Word | null;
 }
 
 // New WordInfo component to display selected word details

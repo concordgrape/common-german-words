@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
+import {useRouter} from 'next/navigation';
 
 // Define the interface for a Word object
 export interface Word {
@@ -12,11 +13,12 @@ export interface Word {
 
 // WordTable component props interface
 interface WordTableProps {
-  onRowClick: (word: Word) => void;
+  /*onRowClick: (word: Word) => void;*/
+  selectedWord?: Word | null;
 }
 
 // WordTable component
-export const WordTable: React.FC<WordTableProps> = ({ onRowClick }) => {
+export const WordTable: React.FC<WordTableProps> = ({ /*onRowClick, */selectedWord }) => {
   // Sample data for the table, explicitly typed as an array of Word objects
  /* const [words, setWords] = useState<Word[]>([
     { id: 1, term: 'produce', type: 'verb', tags: ['cause', 'make'] },
@@ -57,6 +59,7 @@ export const WordTable: React.FC<WordTableProps> = ({ onRowClick }) => {
 
   // Create a ref for the dropdown container
   const sortDropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   // Effect to determine if the screen is mobile based on window width
   /*useEffect(() => {
@@ -96,6 +99,12 @@ export const WordTable: React.FC<WordTableProps> = ({ onRowClick }) => {
     };
   }, [showSortDropdown]); // Re-run effect when showSortDropdown changes
 
+  useEffect(() => {
+  if (selectedWord && !expandedRows.includes(selectedWord.id)) {
+    setExpandedRows([selectedWord.id]);
+  }
+}, [selectedWord]);
+
 
   // Filter words based on search term
   const filteredWords = words.filter((word: Word) =>
@@ -111,9 +120,11 @@ export const WordTable: React.FC<WordTableProps> = ({ onRowClick }) => {
     }
   });
 
+
+
   // Toggle expanded row by ID and pass clicked word to parent
   const toggleRow = (word: Word) => {
-    onRowClick(word); // Pass the entire word object to the parent
+    /*onRowClick(word); // Pass the entire word object to the parent
 
     setExpandedRows((prevExpandedRows) => {
       if (prevExpandedRows.includes(word.id)) {
@@ -121,7 +132,8 @@ export const WordTable: React.FC<WordTableProps> = ({ onRowClick }) => {
       } else {
         return [...prevExpandedRows, word.id];
       }
-    });
+    });*/
+    router.push(`/browse/${encodeURIComponent(word.term)}`); // Navigate to the word's page
   };
 
   // Function to handle sorting
