@@ -102,6 +102,8 @@ export const WordTable: React.FC<WordTableProps> = ({ /*onRowClick, */selectedWo
   useEffect(() => {
   if (selectedWord && !expandedRows.includes(selectedWord.id)) {
     setExpandedRows([selectedWord.id]);
+  } else {
+    setExpandedRows([words[0].id]);
   }
 }, [selectedWord]);
 
@@ -198,7 +200,7 @@ export const WordTable: React.FC<WordTableProps> = ({ /*onRowClick, */selectedWo
         {sortedWords.map((word: Word) => (
           <div key={word.id} className="group">
             <div
-              className="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-700 transition-colors duration-200"
+              className={`flex items-center justify-between p-4 cursor-pointer hover:bg-gray-700 transition-colors duration-200 ${expandedRows.includes(word.id) ? 'bg-gray-700' : ''}`}
               onClick={() => toggleRow(word)}
             >
               {/* Status Indicator */}
@@ -220,20 +222,19 @@ export const WordTable: React.FC<WordTableProps> = ({ /*onRowClick, */selectedWo
                 className="p-1 rounded-full hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
                 aria-label={expandedRows.includes(word.id) ? "Collapse" : "Expand"}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-gray-400 transform transition-transform duration-200 ${expandedRows.includes(word.id) ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-gray-400 transform transition-transform duration-200 ${expandedRows.includes(word.id) ? '-rotate-90' : ''}`} viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
             </div>
-            {/* Collapsible Content */}
+            {/* Collapsible Content 
             <div
               className={`overflow-hidden transition-all duration-300 ease-in-out ${
                 expandedRows.includes(word.id) ? 'max-h-screen opacity-100 p-4' : 'max-h-0 opacity-0'
               } bg-gray-700 text-gray-300 border-t border-gray-600`}
             >
-              {/* You can add more detailed content here when a row is expanded */}
               <p>Details for &quot;{word.term}&quot; would go here.</p>
-            </div>
+            </div>*/}
           </div>
         ))}
       </div>
