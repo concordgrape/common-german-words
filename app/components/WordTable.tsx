@@ -145,7 +145,7 @@ export const WordTable: React.FC<WordTableProps> = ({ /*onRowClick, */selectedWo
   };
 
   return (
-    <div className="w-full max-w-2xl md:w-1/2 bg-gray-800 rounded-lg shadow-lg overflow-hidden min-h-[600px]">
+    <div className="w-full max-w-2xl md:w-1/2 bg-[#313248] rounded-lg shadow-lg overflow-hidden min-h-[600px]">
       {/* Header with Search and Sort */}
       <div className="p-4 flex items-center justify-between border-b border-gray-700">
         {/* Search Input */}
@@ -168,7 +168,7 @@ export const WordTable: React.FC<WordTableProps> = ({ /*onRowClick, */selectedWo
         <div className="relative" ref={sortDropdownRef}> {/* Attach the ref here */}
           <button
             onClick={() => setShowSortDropdown(!showSortDropdown)}
-            className="p-2 rounded-full bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
+            className="p-2 rounded-full bg-black/20 hover:bg-black/20 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
             aria-label="Sort"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
@@ -179,7 +179,7 @@ export const WordTable: React.FC<WordTableProps> = ({ /*onRowClick, */selectedWo
             <div className="absolute right-0 mt-2 w-42 bg-gray-700 rounded-md shadow-lg z-10 pt-2 pb-2">
               <button
                 onClick={() => handleSort('asc')}
-                className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600"
+                className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-black/20"
               >
                 Alphabetically A-Z
               </button>
@@ -200,7 +200,7 @@ export const WordTable: React.FC<WordTableProps> = ({ /*onRowClick, */selectedWo
         {sortedWords.map((word: Word) => (
           <div key={word.id} className="group">
             <div
-              className={`flex items-center justify-between p-4 cursor-pointer hover:bg-gray-700 transition-colors duration-200 ${expandedRows.includes(word.id) ? 'bg-gray-700' : ''}`}
+              className={`flex items-center justify-between p-4 cursor-pointer hover:bg-black/20 transition-colors duration-200 ${expandedRows.includes(word.id) ? 'bg-black/20' : ''}`}
               onClick={() => toggleRow(word)}
             >
               {/* Status Indicator */}
@@ -227,14 +227,13 @@ export const WordTable: React.FC<WordTableProps> = ({ /*onRowClick, */selectedWo
                 </svg>
               </button>
             </div>
-            {/* Collapsible Content 
             <div
-              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+              className={`overflow-hidden ${
                 expandedRows.includes(word.id) ? 'max-h-screen opacity-100 p-4' : 'max-h-0 opacity-0'
-              } bg-gray-700 text-gray-300 border-t border-gray-600`}
+              } bg-gray-700 text-gray-300 border-t border-gray-600 visible sm:hidden md:hidden`}
             >
               <p>Details for &quot;{word.term}&quot; would go here.</p>
-            </div>*/}
+            </div>
           </div>
         ))}
       </div>
