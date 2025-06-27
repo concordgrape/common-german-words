@@ -374,96 +374,67 @@ const toggleRow = (word: Word) => {
 
   return (
     <div className="w-full max-w-2xl items-start md:w-1/2 bg-black/40 rounded-lg shadow-lg overflow-hidden mt-5">
-      {/* Header with Search and Sort */}
+        {/* Header with Search and Sort */}
         <div className="p-4 border-b border-gray-700">
-        {/* Search Input */}
-        <div className="relative flex items-center w-full max-w-sm mb-4">
-            <input
-            type="text"
-            placeholder="Search..."
-            className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={searchTerm}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
-            />
-            <span className="absolute left-3 text-gray-400">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-            </svg>
-            </span>
-        </div>
-
-        {/* Sort Buttons Row */}
-        <div className="grid grid-cols-2 gap-0 mb-4">
-            {sortOptions.map((option, index) => (
-            <SortButton
-                key={option.id}
-                label={option.label}
-                isActive={activeSort === option.id}
-                onClick={() => handleSortChange(option.id)}
-                index={index}
-            />
-            ))}
-        </div>
-
-        {/* Sort Icon and Dropdown */}
-        <div className="relative" ref={sortDropdownRef}>
-            <button
-            onClick={() => setShowSortDropdown(!showSortDropdown)}
-            className="p-2 rounded-full bg-[#21252B] hover:bg-black/20 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-            aria-label="Sort"
-            >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 9.414V17a1 1 0 01-1.293.956l-2-1A1 1 0 017 15V9.414L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
-            </svg>
-            </button>
-            {showSortDropdown && (
-            <div className="absolute right-0 mt-2 w-42 bg-gray-700 rounded-md shadow-lg z-10 pt-2 pb-2">
-                <button
-                onClick={() => handleSort('asc')}
-                className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-black/20"
-                >
-                Alphabetically A-Z
-                </button>
-                <hr className="text-sm text-gray-600" />
-                <button
-                onClick={() => handleSort('desc')}
-                className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600"
-                >
-                Alphabetically Z-A
-                </button>
+            {/* Search Input */}
+            <div className="relative flex items-center w-full mb-4">
+                <input
+                type="text"
+                placeholder="Search..."
+                className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={searchTerm}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                />
+                <span className="absolute left-3 text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                </svg>
+                </span>
             </div>
-            )}
-        </div>
-        </div>
 
-        {/* Sort Icon and Dropdown */}
-        <div className="relative" ref={sortDropdownRef}> {/* Attach the ref here */}
-          <button
-            onClick={() => setShowSortDropdown(!showSortDropdown)}
-            className="p-2 rounded-full bg-black/20 hover:bg-black/20 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-            aria-label="Sort"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 9.414V17a1 1 0 01-1.293.956l-2-1A1 1 0 017 15V9.414L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
-            </svg>
-          </button>
-          {showSortDropdown && (
-            <div className="absolute right-0 mt-2 w-42 bg-gray-700 rounded-md shadow-lg z-10 pt-2 pb-2">
-              <button
-                onClick={() => handleSort('asc')}
-                className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-black/20"
-              >
-                Alphabetically A-Z
-              </button>
-              <hr className="text-sm text-gray-600" />
-              <button
-                onClick={() => handleSort('desc')}
-                className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600"
-              >
-                Alphabetically Z-A
-              </button>
+            {/* Sort Buttons Row */}
+            <div className="grid grid-cols-2 gap-0 mb-4 max-w-[300px]">
+                {sortOptions.map((option, index) => (
+                <SortButton
+                    key={option.id}
+                    label={option.label}
+                    isActive={activeSort === option.id}
+                    onClick={() => handleSortChange(option.id)}
+                    index={index}
+                />
+                ))}
             </div>
-          )}
+            
+            {/* Sort Icon and Dropdown */}
+            <div className="flex justify-end" ref={sortDropdownRef}>
+                <div className="relative">
+                    <button
+                        onClick={() => setShowSortDropdown(!showSortDropdown)}
+                        className="p-2 rounded-full bg-black/20 hover:bg-black/20 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
+                        aria-label="Sort">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 9.414V17a1 1 0 01-1.293.956l-2-1A1 1 0 017 15V9.414L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
+                        </svg>
+                    </button>
+                    {showSortDropdown && (
+                        <div className="absolute right-0 mt-2 w-42 bg-gray-700 rounded-md shadow-lg z-10 pt-2 pb-2">
+                            <button
+                                onClick={() => handleSort('asc')}
+                                className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-black/20"
+                            >
+                                Alphabetically A-Z
+                            </button>
+                            <hr className="text-sm text-gray-600" />
+                            <button
+                                onClick={() => handleSort('desc')}
+                                className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600"
+                            >
+                                Alphabetically Z-A
+                            </button>
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
 
       {/* Table Rows */}
