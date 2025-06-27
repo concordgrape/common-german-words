@@ -30,7 +30,7 @@ const Navbar = () => {
   }, []); // Empty dependency array means this effect runs once on mount and cleans up on unmount
 
   return (
-    <nav className="bg-[#262839] p-4">
+    <nav className="bg-[#262839] p-4 top-0 fixed w-full z-5">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo/Brand */}
         <Link href="/" className="text-white text-2xl font-bold">

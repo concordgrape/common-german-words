@@ -7,27 +7,18 @@ import { WordInfo } from '@/app/components/WordInfo';
 import { Word } from '@/app/components/WordTable';
 
 const words: Word[] = [
-  { id: 1, term: 'produce', type: 'verb', tags: ['cause', 'make'] },
-  { id: 2, term: 'make', type: 'verb', tags: ['produce', 'do'] },
-  { id: 3, term: 'establish', type: 'verb', tags: ['start', 'develop'] },
-  { id: 4, term: 'build', type: 'verb', tags: ['produce', 'assemble'] },
-  { id: 5, term: 'generate', type: 'verb', tags: ['cause', 'make'] },
-  { id: 6, term: 'form', type: 'verb', tags: ['produce', 'build'] },
-  { id: 7, term: 'construct', type: 'verb', tags: ['build', 'form'] },
-  { id: 8, term: 'cause', type: 'verb', tags: ['make', 'work'] },
-  { id: 9, term: 'originate', type: 'verb', tags: ['make', 'start'] },
-  { id: 10, term: 'set up', type: 'verb', tags: ['start', 'establish'] },
-];
+  { id: 11, term: 'improve', type: 'verb', tags: ['plan', 'modify'] }]
 
 const MainWordPage: React.FC = () => {
+    const [selectedWord, setSelectedWord] = React.useState<Word>(words[0]);
   return (
-    <div className="min-h-screen bg-[#262839] text-white p-4 flex flex-col md:flex-row items-start justify-center space-y-4 md:space-y-0 md:space-x-4">
+<div className="min-h-screen bg-[#323944] pt-20 p-4 text-white flex flex-col md:flex-row md:justify-start md:items-start md:space-x-8 max-w-7xl mx-auto">
       {/* WordTable Component */}
-      <WordTable /*onRowClick={setSelectedWord}*/ selectedWord={words[0]}/>
+      <WordTable onRowClick={setSelectedWord} /*selectedWord={words[0]}*//>
 
       {/* Information Display Component */}
       <div className='hidden md:block sm:block'>
-        <WordInfo selectedWord={words[0]} />
+        <WordInfo selectedWord={selectedWord} />
       </div>
     </div>
   );
