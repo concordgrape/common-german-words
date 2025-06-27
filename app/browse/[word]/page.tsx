@@ -226,12 +226,12 @@ useEffect(() => {
 }, [params?.word]);
 
   return (
-<div className="min-h-screen bg-[#323944] pt-20 p-4 text-white flex flex-col md:flex-row md:justify-start md:items-start md:space-x-8 max-w-7xl mx-auto">
+<div className="min-h-screen bg-[#323944] pt-20 p-4 text-white flex flex-col md:flex-row md:justify-start md:items-start max-w-7xl">
       {/* WordTable Component */}
       <WordTable onRowClick={setSelectedWord} /*selectedWord={words[0]}*//>
 
       {/* Information Display Component */}
-      <div className='hidden md:block'>
+      <div className='hidden sm:block md:block'>
         <WordInfo selectedWord={selectedWord} />
       </div>
     </div>

@@ -11,7 +11,7 @@ interface WordInfoProps {
 // New WordInfo component to display selected word details
 export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
   return (
-<div className="fixed top-24 px-8 w-full max-w-7xl ml-15 flex">
+<div className="fixed top-24 px-8 w-full md:w-[400px] lg:w-full max-w-7xl sm:ml-0 lg:ml-5 md:ml-0 flex">
   <div className="w-full max-w-sm bg-[#21252B] rounded-lg shadow-lg p-6 min-h-[500px] flex flex-col">
     {selectedWord ? (
       <div className="text-center">
