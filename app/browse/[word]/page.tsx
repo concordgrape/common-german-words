@@ -231,7 +231,7 @@ useEffect(() => {
       <WordTable onRowClick={setSelectedWord} /*selectedWord={words[0]}*//>
 
       {/* Information Display Component */}
-      <div className='hidden sm:block md:block'>
+      <div className='hidden md:block'>
         <WordInfo selectedWord={selectedWord} />
       </div>
     </div>
