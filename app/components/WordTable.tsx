@@ -373,15 +373,15 @@ const toggleRow = (word: Word) => {
   };
 
   return (
-    <div className="w-full sm:max-w-lg md:max-w-lg lg:max-w-xl items-start bg-black/40 rounded-lg shadow-lg overflow-hidden mt-5">
-        {/* Header with Search and Sort */}
-        <div className="p-4 border-b border-gray-700">
+    <div className={`w-full p-4 items-start bg-[#FFFFFF] rounded-lg overflow-hidden mt-5`}>
+        {/* Header with Search and Sort border border-1 border-[#B1B1B1]*/}
+        <div className="p-4">
             {/* Search Input */}
             <div className="relative flex items-center w-full mb-4">
                 <input
                 type="text"
                 placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#F2F2F2] text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={searchTerm}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                 />
@@ -406,28 +406,28 @@ const toggleRow = (word: Word) => {
             </div>
             
             {/* Sort Icon and Dropdown */}
-            <div className="flex justify-end" ref={sortDropdownRef}>
+            <div className="flex justify-start" ref={sortDropdownRef}>
                 <div className="relative">
                     <button
                         onClick={() => setShowSortDropdown(!showSortDropdown)}
-                        className="p-2 rounded-full bg-black/20 hover:bg-black/20 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
+                        className="p-2 rounded-full bg-black/10 hover:bg-black/20 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
                         aria-label="Sort">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 9.414V17a1 1 0 01-1.293.956l-2-1A1 1 0 017 15V9.414L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
                         </svg>
                     </button>
                     {showSortDropdown && (
-                        <div className="absolute right-0 mt-2 w-42 bg-gray-700 rounded-md shadow-lg z-10 pt-2 pb-2">
+                        <div className="absolute left-0 mt-2 w-42 bg-[#F2F2F2] rounded-md shadow-lg z-10 pt-2 pb-2 text-gray-700">
                             <button
                                 onClick={() => handleSort('asc')}
-                                className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-black/20"
+                                className="block w-full text-left px-4 py-2 text-sm hover:bg-black/20"
                             >
                                 Alphabetically A-Z
                             </button>
                             <hr className="text-sm text-gray-600" />
                             <button
                                 onClick={() => handleSort('desc')}
-                                className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600"
+                                className="block w-full text-left px-4 py-2 text-sm hover:bg-black/20"
                             >
                                 Alphabetically Z-A
                             </button>
@@ -438,14 +438,14 @@ const toggleRow = (word: Word) => {
         </div>
 
       {/* Table Rows */}
-      <div className="divide-y divide-gray-700">
+      <div className="">
         {sortedWords.map((word: Word) => (
           <div
             key={word.id}
             ref={(el) => {
                 wordRefs.current[word.id] = el;
             }}
-            className="group"
+            className="group border-1 border-[#F2F2F2] mb-2 rounded-md"
             >
             <div
               className={`flex items-center justify-between p-4 cursor-pointer hover:bg-white/10 transition-colors duration-200 ${expandedRows.includes(word.id) ? 'bg-white/20' : ''}`}
@@ -460,7 +460,7 @@ const toggleRow = (word: Word) => {
               {/* Tags */}
               <div className="flex-none flex items-center space-x-2 mr-4">
                 {word.tags.map((tag: string) => (
-                  <span key={tag} className="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded-full">
+                  <span key={tag} className="bg-blue-600 text-gray-200 text-xs px-2 py-1 rounded-full">
                     #{tag}
                   </span>
                 ))}
@@ -478,7 +478,7 @@ const toggleRow = (word: Word) => {
             <div
               className={`overflow-hidden ${
                 expandedRows.includes(word.id) ? 'max-h-screen opacity-100 p-4' : 'max-h-0 opacity-0'
-              } bg-gray-700 text-gray-300 border-t border-gray-600 visible sm:hidden md:hidden`}
+              } bg-gray-700 text-gray-300 border-1 border-[#B1B1B1] visible sm:hidden md:hidden`}
             >
               <p>Details for &quot;{word.term}&quot; would go here.</p>
             </div>

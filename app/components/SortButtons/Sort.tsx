@@ -31,8 +31,8 @@ const SortButton: React.FC<SortButtonProps> = ({ label, isActive, onClick, index
         transition-all duration-200 ease-in-out
         ${
           isActive
-            ? 'bg-gray-700 text-white shadow-md' // Active state styling
-            : 'bg-gray-800 text-gray-300 hover:bg-gray-600 hover:text-white' // Inactive state styling
+            ? 'bg-orange-400 text-white shadow-md' // Active state styling
+            : 'bg-[#F2F2F2] text-black hover:bg-gray-200' // Inactive state styling
         }
         focus:outline-none focus:ring-0
         sm:text-base // Larger text on small screens and up

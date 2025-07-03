@@ -11,11 +11,11 @@ interface WordInfoProps {
 // New WordInfo component to display selected word details
 export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
   return (
-<div className="">
-  <div className="w-full max-w-sm bg-[#21252B] rounded-lg shadow-lg p-6 min-h-[500px] flex flex-col">
+<div className="w-full">
+  <div className="w-full bg-[#027AFB] rounded-lg shadow-lg p-6 flex flex-col">
     {selectedWord ? (
       <div className="text-center">
-        <h2 className="text-2xl font-bold mb-2 text-blue-400">{selectedWord.term}</h2>
+        <h2 className="text-2xl font-bold mb-2 text-white">{selectedWord.term}</h2>
         <p className="text-gray-300 mb-4">
           Type: <span className="font-medium text-gray-200">{selectedWord.type}</span>
         </p>
@@ -26,7 +26,7 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
             </span>
           ))}
         </div>
-        <p className="mt-4 text-gray-400 text-sm">
+        <p className="mt-4 text-gray-200 text-sm">
           More detailed information about &quot;{selectedWord.term}&quot; would appear here.
         </p>
       </div>

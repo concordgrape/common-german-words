@@ -12,14 +12,14 @@ const words: Word[] = [
 const MainWordPage: React.FC = () => {
     const [selectedWord, setSelectedWord] = React.useState<Word>(words[0]);
   return (
-<div className="min-h-screen max-w-[1200px] bg-[#323944] pt-20 p-4 text-white grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
+<div className="min-h-screen max-w-[1000px] pt-20 p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
   {/* WordTable (left column) */}
   <div className="z-10">
     <WordTable onRowClick={setSelectedWord} />
   </div>
 
   {/* WordInfo (right column) */}
-  <div className="hidden sm:block md:block sticky top-24 self-start z-20">
+  <div className="hidden sm:block md:block sticky ml-10 top-40 self-start z-20">
     <WordInfo selectedWord={selectedWord} />
   </div>
 </div>
