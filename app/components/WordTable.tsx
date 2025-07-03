@@ -478,7 +478,7 @@ const toggleRow = (word: Word) => {
             <div
               className={`overflow-hidden ${
                 expandedRows.includes(word.id) ? 'max-h-screen opacity-100 p-4' : 'max-h-0 opacity-0'
-              } bg-gray-700 text-gray-300 border-1 border-[#B1B1B1] visible sm:hidden md:hidden`}
+              } bg-[#027AFB] rounded-md text-white visible sm:hidden md:hidden`}
             >
               <p>Details for &quot;{word.term}&quot; would go here.</p>
             </div>
