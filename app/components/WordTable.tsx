@@ -373,7 +373,7 @@ const toggleRow = (word: Word) => {
   };
 
   return (
-    <div className={`w-full p-4 items-start bg-[#FFFFFF] rounded-lg overflow-hidden mt-5`}>
+    <div className={`w-full p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] rounded-lg overflow-hidden mt-5`}>
         {/* Header with Search and Sort border border-1 border-[#B1B1B1]*/}
         <div className="p-4">
             {/* Search Input */}
