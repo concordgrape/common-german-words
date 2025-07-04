@@ -445,7 +445,7 @@ const toggleRow = (word: Word) => {
             ref={(el) => {
                 wordRefs.current[word.id] = el;
             }}
-            className={`group border-1 mb-1 rounded-md ${expandedRows.includes(word.id) ? 'border-blue-500' : 'border-[#F2F2F2]'}`}
+            className={`group border-1 mb-1 rounded-md ${expandedRows.includes(word.id) ? 'border-blue-300' : 'border-[#F2F2F2]'}`}
             >
             <div
               className={`flex items-center justify-between p-3 cursor-pointer transition-colors duration-200 ${expandedRows.includes(word.id) ? '' : 'hover:bg-gray-100'}`}
