@@ -445,10 +445,10 @@ const toggleRow = (word: Word) => {
             ref={(el) => {
                 wordRefs.current[word.id] = el;
             }}
-            className="group border-1 border-[#F2F2F2] mb-1 rounded-md"
+            className={`group border-1 mb-1 rounded-md ${expandedRows.includes(word.id) ? 'border-blue-500' : 'border-[#F2F2F2]'}`}
             >
             <div
-              className={`flex items-center justify-between p-3 cursor-pointer hover:bg-white/10 transition-colors duration-200 ${expandedRows.includes(word.id) ? 'bg-white/20' : ''}`}
+              className={`flex items-center justify-between p-3 cursor-pointer transition-colors duration-200 ${expandedRows.includes(word.id) ? '' : 'hover:bg-gray-100'}`}
               onClick={() => toggleRow(word)}
             >
               {/* Status Indicator */}
@@ -476,7 +476,7 @@ const toggleRow = (word: Word) => {
               </button>
             </div>
             <div
-                className={`transition-max-height overflow-hidden bg-[#027AFB] rounded-md text-white visible sm:hidden md:hidden
+                className={`transition-max-height overflow-hidden bg-[#027AFB] rounded-b-sm text-white visible sm:hidden md:hidden
                     ${expandedRows.includes(word.id) ? 'max-h-40 opacity-100 p-4' : 'max-h-0 opacity-0 p-0'}`}
                 >
                 <p>Details for &quot;{word.term}&quot; would go here.</p>
