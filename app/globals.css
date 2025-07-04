@@ -30,3 +30,8 @@ body {
     display: block;
   }
 }
+
+/* Transition for expanding table view on mobile */
+.transition-max-height {
+  transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
