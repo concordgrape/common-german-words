@@ -196,7 +196,7 @@ const toggleRow = (word: Word) => {
 
       {/* Table Rows */}
       <Virtuoso
-        style={{ height: '200vh', overflow: 'scroll' }} // Adjust height
+        style={{ height: `100vh`, overflow: 'scroll' }} // Adjust height
         totalCount={sortedWords.length}
         data={sortedWords}
         itemContent={(index, word: Word) => (
