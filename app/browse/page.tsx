@@ -12,7 +12,7 @@ const MainWordPage: React.FC = () => {
     const [words, setWords] = React.useState<Word[]>([]);
 
 useEffect(() => {
-    fetchBasicWords("german", "poop"/*process.env.NEXT_PUBLIC_API_PASSWORD || ""*/).then(setWords);
+    fetchBasicWords("german", process.env.NEXT_PUBLIC_API_PASSWORD || "").then(setWords);
   }, []);
 
   useEffect(() => {
