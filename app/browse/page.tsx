@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import { WordTable } from '@/app/components/WordTable';
@@ -38,7 +38,9 @@ const MainWordPage: React.FC = () => {
     <div className="min-h-screen w-full top-15 pt-20 p-2 sm:p-4 md:p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
       {/* WordTable (left column) */}
       <div className="z-10">
-        <WordTable onRowClick={setSelectedWord} selectedWord={selectedWord} words={words} />
+            <Suspense fallback={<div>Loading...</div>}>
+                    <WordTable onRowClick={setSelectedWord} selectedWord={selectedWord} words={words} />
+            </Suspense>
       </div>
 
       {/* WordInfo (right column) */}
