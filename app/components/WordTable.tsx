@@ -5,6 +5,7 @@ import SortButton, { SortOption } from './SortButtons/Sort';
 import { Virtuoso } from 'react-virtuoso';
 import { Word } from '../helpers/fetchBasicWordList';
 import { useSearchParams, useRouter } from "next/navigation";
+import { useIsMobile } from '../helpers/utils';
 
 // WordTable component props interface
 interface WordTableProps {
@@ -147,7 +148,8 @@ const displayedWords = sortedWords.slice(
 
 // Adjust Virtuoso height
 const rowHeight = 54;
-const virtuosoHeight = `${displayedWords.length * rowHeight}px`;
+const isMobile = useIsMobile(); 
+const virtuosoHeight = `${displayedWords.length * rowHeight + (isMobile ? 56 : 0)}px`;
 
 
 

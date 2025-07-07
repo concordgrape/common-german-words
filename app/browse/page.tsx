@@ -35,7 +35,7 @@ const MainWordPage: React.FC = () => {
   }, [words, searchParams]);
 
   return (
-    <div className="min-h-screen w-full top-15 pt-20 p-2 sm:p-4 md:p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
+    <div className="min-h-screen w-full sm:top-15 md:top-15 pt-20 p-2 sm:p-4 md:p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
       {/* WordTable (left column) */}
       <div className="z-10">
         <WordTable onRowClick={setSelectedWord} selectedWord={selectedWord} words={words} />
