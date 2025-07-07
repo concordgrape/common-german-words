@@ -223,23 +223,51 @@ CustomScroller.displayName = "CustomScroller";
         {/* Header with Search and Sort border border-1 border-[#B1B1B1]*/}
         <div className="p-4">
   <div className="flex justify-between items-center mb-4">
-    <button
-      onClick={() => changePage(currentPage - 1)}
-      disabled={currentPage <= 1}
-      className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
-    >
-      Previous
-    </button>
+<button
+  onClick={() => changePage(currentPage - 1)}
+  disabled={currentPage <= 1}
+  className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 flex items-center gap-2"
+>
+  <svg
+    width={20}
+    height={20}
+    viewBox="0 0 20 20"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+    />
+  </svg>
+  Previous
+</button>
+
     <span className="text-gray-600">
       Page {currentPage} of {totalPages}
     </span>
-    <button
-      onClick={() => changePage(currentPage + 1)}
-      disabled={currentPage >= totalPages}
-      className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
-    >
-      Next
-    </button>
+<button
+  onClick={() => changePage(currentPage + 1)}
+  disabled={currentPage >= totalPages}
+  className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 flex items-center gap-2"
+>
+  Next
+  <svg
+    width={20}
+    height={20}
+    viewBox="0 0 20 20"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+    />
+  </svg>
+</button>
+
   </div>
 
             {/* Search Input */}
