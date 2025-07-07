@@ -29,6 +29,10 @@ const [selectedWord, setSelectedWord] = useState<Word | null>(null);
         return;
       }
     }
+
+      if (typeof window !== 'undefined' && window.innerWidth >= 768) {
+    setSelectedWord(words[0]);
+  }
   }, [words, searchParams]);
 
   return (
