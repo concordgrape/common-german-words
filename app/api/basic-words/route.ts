@@ -49,8 +49,9 @@ export async function GET(req: NextRequest) {
         word: doc.id,
         id: index,
         part_of_speech: data.part_of_speech || null,
+        frequency: data.frequency || 0, // include frequency
       };
-    });
+    }).sort((a, b) => b.frequency - a.frequency); // sort by frequency DESC
 
     // ✅ Store in Redis for 1 hour
     await redis.set(cacheKey, JSON.stringify({ words }), {
