@@ -1,39 +1,51 @@
 "use client";
 
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import { WordTable } from '@/app/components/WordTable';
 import { WordInfo } from '@/app/components/WordInfo';
 import { fetchBasicWords, Word } from '../helpers/fetchBasicWordList';
 
 const MainWordPage: React.FC = () => {
-    const [selectedWord, setSelectedWord] = React.useState<Word>();
-    const [words, setWords] = React.useState<Word[]>([]);
+  const [selectedWord, setSelectedWord] = useState<Word>();
+  const [words, setWords] = useState<Word[]>([]);
+  const searchParams = useSearchParams();
 
-useEffect(() => {
+  // Fetch words
+  useEffect(() => {
     fetchBasicWords("german", process.env.NEXT_PUBLIC_API_PASSWORD || "").then(setWords);
   }, []);
 
+  // Select word from ?word= if present
   useEffect(() => {
-    console.log("Words fetched:", words);
+    if (words.length === 0) return;
+
+    const wordParam = searchParams.get("word");
+    if (wordParam) {
+      const match = words.find((w) => w.word.toLowerCase() === wordParam.toLowerCase());
+      if (match) {
+        setSelectedWord(match);
+        return;
+      }
+    }
+
+    // fallback to first word if no match
     setSelectedWord(words[0]);
-  }, [words]);
+  }, [words, searchParams]);
 
   return (
-<div className="min-h-screen max-w-[1000px] pt-20 p-2 sm:p-4 sm:pt-20 md:p-4 md:pt-20 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
-  {/* WordTable (left column) */}
-  <div className="z-10">
-    <WordTable onRowClick={setSelectedWord} words={words} />
-  </div>
+    <div className="min-h-screen w-full top-15 pt-20 p-2 sm:p-4 md:p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
+      {/* WordTable (left column) */}
+      <div className="z-10">
+        <WordTable onRowClick={setSelectedWord} selectedWord={selectedWord} words={words} />
+      </div>
 
-  {/* WordInfo (right column) */}
-  <div className="hidden sm:block md:block sticky ml-10 top-40 self-start z-20">
-    <WordInfo selectedWord={selectedWord} />
-  </div>
-</div>
-
-
+      {/* WordInfo (right column) */}
+      <div className="hidden sm:block md:block sticky top-25 self-start z-20">
+        <WordInfo selectedWord={selectedWord} />
+      </div>
+    </div>
   );
 };
 

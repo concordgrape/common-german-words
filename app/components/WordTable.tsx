@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import SortButton, { SortOption } from './SortButtons/Sort';
 import { Virtuoso } from 'react-virtuoso';
 import { Word } from '../helpers/fetchBasicWordList';
+import { useSearchParams, useRouter } from "next/navigation";
 
 // WordTable component props interface
 interface WordTableProps {
@@ -12,10 +13,10 @@ interface WordTableProps {
   words: Word[]
 }
 
+const ITEMS_PER_PAGE = 100;
+
 // WordTable component
 export const WordTable: React.FC<WordTableProps> = ({ onRowClick, selectedWord, words }) => {
-  // State for search term, explicitly typed as string
-  const [searchTerm, setSearchTerm] = useState<string>('');
   // State for sorting, 'asc' or 'desc', explicitly typed
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   // State to manage expanded rows, explicitly typed to an array of numbers
@@ -28,6 +29,30 @@ export const WordTable: React.FC<WordTableProps> = ({ onRowClick, selectedWord, 
   // Create a ref for the dropdown container
   const sortDropdownRef = useRef<HTMLDivElement>(null);
   const wordRefs = useRef<Record<number, HTMLDivElement | null>>({});
+
+const searchParams = useSearchParams();
+const router = useRouter();
+
+const initialSearch = searchParams.get("search") || "";
+const [searchTerm, setSearchTerm] = useState<string>(initialSearch);
+
+  const pageParam = parseInt(searchParams.get("page") || "1", 10);
+  const currentPage = Math.max(1, isNaN(pageParam) ? 1 : pageParam);
+
+  const changePage = (newPage: number) => {
+    const params = new URLSearchParams(window.location.search);
+    params.set("page", String(newPage));
+    router.push(`?${params.toString()}`);
+  };
+// Reset to page 1 when the search term changes
+useEffect(() => {
+  if (searchTerm) {
+    const params = new URLSearchParams(window.location.search);
+    params.set("page", "1");
+    router.push(`?${params.toString()}`);
+  }
+}, [searchTerm]);
+
 
 useEffect(() => {
   if (selectedWord) {
@@ -80,20 +105,49 @@ if (!partiallyInView && fullyInView) {
   }
 }, [selectedWord]);
 
+const scoredWords = words
+  .map((word) => {
+    const lowerWord = word.word.toLowerCase();
+    const lowerSearch = searchTerm.toLowerCase();
+    let score = 0;
 
-  // Filter words based on search term
-  const filteredWords = words.filter((word: Word) =>
-    word.word.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  // Sort words based on term and current sort order
-  const sortedWords = [...filteredWords].sort((a: Word, b: Word) => {
-    if (sortOrder === 'asc') {
-      return a.word.localeCompare(b.word);
-    } else {
-      return b.word.localeCompare(a.word);
+    if (lowerWord === lowerSearch) {
+      score = 3; // exact match
+    } else if (lowerWord.startsWith(lowerSearch)) {
+      score = 2; // prefix match
+    } else if (lowerWord.includes(lowerSearch)) {
+      score = 1; // substring match
     }
-  });
+
+    return { ...word, _score: score };
+  })
+  .filter((word) => word._score > 0);
+
+// Then sort by relevance score first, then by word
+const sortedWords =     scoredWords.sort((a, b) => {
+  if (b._score !== a._score) {
+    return b._score - a._score;
+  }
+
+  return sortOrder === 'asc'
+    ? a.word.localeCompare(b.word)
+    : b.word.localeCompare(a.word);
+});
+
+
+const totalPages = Math.ceil(sortedWords.length / ITEMS_PER_PAGE);
+
+
+// Only show paginated results if not filtering
+const displayedWords = sortedWords.slice(
+  (currentPage - 1) * ITEMS_PER_PAGE,
+  currentPage * ITEMS_PER_PAGE
+);
+
+
+// Adjust Virtuoso height
+const rowHeight = 54;
+const virtuosoHeight = `${displayedWords.length * rowHeight}px`;
 
 
 
@@ -101,10 +155,19 @@ if (!partiallyInView && fullyInView) {
 const toggleRow = (word: Word) => {
   onRowClick(word); // Notify parent
 
-  setExpandedRows((prevExpandedRows) =>
-    prevExpandedRows[0] === word.id ? [] : [word.id]
-  );
+  const params = new URLSearchParams(window.location.search);
+  if (selectedWord?.id === word.id) {
+    // Collapse and remove word from URL
+    setExpandedRows([]);
+    params.delete("word");
+  } else {
+    setExpandedRows([word.id]);
+    params.set("word", word.word);
+  }
+
+  window.history.pushState({}, "", `?${params.toString()}`);
 };
+
 
 
     const sortOptions: SortOption[] = [
@@ -129,19 +192,72 @@ const toggleRow = (word: Word) => {
     setShowSortDropdown(false); // Close the dropdown after selection
   };
 
+const handleSearchChange = (value: string) => {
+  const params = new URLSearchParams(window.location.search);
+
+  if (value.trim() === "") {
+    params.delete("search");
+  } else {
+    params.set("search", value);
+    params.set("page", "1");
+  }
+
+  window.history.pushState({}, "", `?${params.toString()}`);
+  setSearchTerm(value);
+};
+
+
+
+
+  const CustomScroller = React.forwardRef<HTMLDivElement>((props, ref) => (
+  <div ref={ref} {...props} />
+));
+CustomScroller.displayName = "CustomScroller";
+
+
   return (
-    <div className={`w-full p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] rounded-lg overflow-hidden mt-5`}>
+    <div className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] rounded-lg overflow-hidden mt-5`}>
         {/* Header with Search and Sort border border-1 border-[#B1B1B1]*/}
         <div className="p-4">
+  <div className="flex justify-between items-center mb-4">
+    <button
+      onClick={() => changePage(currentPage - 1)}
+      disabled={currentPage <= 1}
+      className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+    >
+      Previous
+    </button>
+    <span className="text-gray-600">
+      Page {currentPage} of {totalPages}
+    </span>
+    <button
+      onClick={() => changePage(currentPage + 1)}
+      disabled={currentPage >= totalPages}
+      className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+    >
+      Next
+    </button>
+  </div>
+
             {/* Search Input */}
             <div className="relative flex items-center w-full mb-4">
                 <input
-                type="text"
-                placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#F2F2F2] text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={searchTerm}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
-                />
+  type="text"
+  placeholder="Search..."
+  className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#F2F2F2] text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  value={searchTerm}
+  onChange={(e) => handleSearchChange(e.target.value)}
+/>
+{searchTerm && (
+  <button
+    onClick={() => handleSearchChange("")}
+    className="absolute right-3 text-gray-400 hover:text-gray-600"
+    aria-label="Clear"
+  >
+    &times;
+  </button>
+)}
+
                 <span className="absolute left-3 text-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
@@ -195,54 +311,80 @@ const toggleRow = (word: Word) => {
         </div>
 
       {/* Table Rows */}
-      <Virtuoso
-        style={{ height: `100vh`, overflow: 'scroll' }} // Adjust height
-        totalCount={sortedWords.length}
-        data={sortedWords}
-        itemContent={(index, word: Word) => (
-            <div
-            key={word.id}
-            ref={(el) => {
-                wordRefs.current[word.id] = el;
-            }}
-            className={`group border-1 mb-1 rounded-md ${expandedRows.includes(word.id) ? 'border-blue-300' : 'border-[#F2F2F2]'}`}
-            >
-            <div
-              className={`flex items-center justify-between p-3 cursor-pointer transition-colors duration-200 ${expandedRows.includes(word.id) ? '' : 'hover:bg-gray-100'}`}
-              onClick={() => toggleRow(word)}
-            >
-              {/* Status Indicator */}
-              <span className="h-2 w-2 rounded-full bg-green-500 mr-3"></span>
-              {/* Word Term */}
-              <div className="flex-1 text-left font-medium">{word.word}</div>
-              {/* Word Type */}
-              <div className="flex-none text-gray-400 text-sm mr-4">{word.part_of_speech}</div>
-              {/* Tags 
-              <div className="flex-none flex items-center space-x-2 mr-4">
-                {word.tags.map((tag: string) => (
-                  <span key={tag} className="bg-blue-600 text-gray-200 text-xs px-2 py-1 rounded-full">
-                    #{tag}
-                  </span>
-                ))}
-              </div>*/}
-              {/* Expand/Collapse Icon */}
-              <button
-                className="p-1 rounded-full hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-                aria-label={expandedRows.includes(word.id) ? "Collapse" : "Expand"}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-gray-400 transform transition-transform duration-200 ${expandedRows.includes(word.id) ? '-rotate-90' : ''}`} viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </button>
-            </div>
-            <div
-                className={`transition-max-height overflow-hidden bg-[#027AFB] rounded-b-sm text-white visible sm:hidden md:hidden
-                    ${expandedRows.includes(word.id) ? 'max-h-40 opacity-100 p-4' : 'max-h-0 opacity-0 p-0'}`}
-                >
-                <p>Details for &quot;{word.word}&quot; would go here.</p>
-            </div>
-          </div>
-        )} />
+      {displayedWords.length === 0 ? (
+  <div className="flex justify-center items-center h-64">
+    <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent" />
+  </div>
+) : (
+  <Virtuoso
+  data={displayedWords}
+  style={{ height: virtuosoHeight }}
+  components={{
+    Scroller: CustomScroller,
+  }}
+  itemContent={(index, word) => (
+    <div
+      key={word.id}
+      ref={(el) => {
+        wordRefs.current[word.id] = el;
+      }}
+      className={`group border-1 ${
+        expandedRows.includes(word.id) ? "border-blue-300" : "border-[#F2F2F2]"
+      }`}
+    >
+      <div
+        className={`flex items-center justify-between p-3 cursor-pointer transition-colors duration-200 ${
+          expandedRows.includes(word.id) ? "" : "hover:bg-gray-100"
+        }`}
+        onClick={() => toggleRow(word)}
+      >
+        {/* Status Indicator */}
+        <span className="h-2 w-2 rounded-full bg-green-500 mr-3"></span>
+
+        {/* Word Term */}
+        <div className="flex-1 text-left font-medium">{word.word}</div>
+
+        {/* Word Type */}
+        <div className="flex-none text-gray-400 text-sm mr-4">
+          {word.part_of_speech}
+        </div>
+
+        {/* Expand/Collapse Icon */}
+        <button
+          className="p-1 rounded-full hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
+          aria-label={expandedRows.includes(word.id) ? "Collapse" : "Expand"}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className={`h-5 w-5 text-gray-400 transform transition-transform duration-200 ${
+              expandedRows.includes(word.id) ? "-rotate-90" : ""
+            }`}
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        className={`transition-max-height overflow-hidden bg-[#027AFB] text-white visible sm:hidden md:hidden ${
+          expandedRows.includes(word.id)
+            ? "max-h-40 opacity-100 p-4"
+            : "max-h-0 opacity-0 p-0"
+        }`}
+      >
+        <p>Details for &quot;{word.word}&quot; would go here.</p>
+      </div>
+    </div>
+  )}
+/>
+)}
+
     </div>
   );
 };
