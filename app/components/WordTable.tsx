@@ -254,7 +254,7 @@ CustomScroller.displayName = "CustomScroller";
 {searchTerm && (
   <button
     onClick={() => handleSearchChange("")}
-    className="absolute right-3 text-gray-400 hover:text-gray-600"
+    className="absolute right-3 text-gray-400 hover:text-gray-600 w-10 h-10"
     aria-label="Clear"
   >
     &times;
@@ -312,9 +312,17 @@ CustomScroller.displayName = "CustomScroller";
                 </div>
             </div>
         </div>
+{displayedWords.length === 0 && (
+  <div>
+    <h1 className='mt-5 mb-2'>{`'${searchTerm}' not found, example words:`}</h1>
+           <button className="text-blue-500 bg-blue-200 py-2 px-4 rounded-sm">haus</button>
+           <button className="text-blue-500 bg-blue-200 py-2 px-4 rounded-sm ml-2">gehen</button>
+                      <button className="text-blue-500 bg-blue-200 py-2 px-4 rounded-sm ml-2">das</button>
 
+  </div>
+)}
       {/* Table Rows */}
-      {displayedWords.length === 0 ? (
+      {(displayedWords.length === 0 && words.length === 0) ? (
   <div className="flex justify-center items-center h-64">
     <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent" />
   </div>
