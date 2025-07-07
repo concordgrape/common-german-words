@@ -6,6 +6,7 @@ import { Virtuoso } from 'react-virtuoso';
 import { Word } from '../helpers/fetchBasicWordList';
 import { useSearchParams, useRouter } from "next/navigation";
 import { useIsMobile } from '../helpers/utils';
+import {DropdownWordInfo} from './DropdownWordInfo';
 
 // WordTable component props interface
 interface WordTableProps {
@@ -149,7 +150,7 @@ const displayedWords = sortedWords.slice(
 // Adjust Virtuoso height
 const rowHeight = 54;
 const isMobile = useIsMobile(); 
-const virtuosoHeight = `${displayedWords.length * rowHeight + (isMobile ? 56 : 0)}px`;
+const virtuosoHeight = `${displayedWords.length * rowHeight + (isMobile ? 1000 : 0)}px`;
 
 
 
@@ -376,11 +377,11 @@ CustomScroller.displayName = "CustomScroller";
       <div
         className={`transition-max-height overflow-hidden bg-[#027AFB] text-white visible sm:hidden md:hidden ${
           expandedRows.includes(word.id)
-            ? "max-h-40 opacity-100 p-4"
-            : "max-h-0 opacity-0 p-0"
+            ? "opacity-100 p-4"
+            : "opacity-0 p-0"
         }`}
       >
-        <p>Details for &quot;{word.word}&quot; would go here.</p>
+<DropdownWordInfo word={word} isOpen={expandedRows.includes(word.id)} />
       </div>
     </div>
   )}
