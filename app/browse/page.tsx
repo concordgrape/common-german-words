@@ -8,7 +8,7 @@ import { WordInfo } from '@/app/components/WordInfo';
 import { fetchBasicWords, Word } from '../helpers/fetchBasicWordList';
 
 const MainWordPage: React.FC = () => {
-  const [selectedWord, setSelectedWord] = useState<Word>();
+const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [words, setWords] = useState<Word[]>([]);
   const searchParams = useSearchParams();
 
@@ -35,7 +35,14 @@ const MainWordPage: React.FC = () => {
     <div className="min-h-screen w-full sm:top-15 md:top-15 pt-20 p-2 sm:p-4 md:p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
       {/* WordTable (left column) */}
       <div className="z-10">
-        <WordTable onRowClick={setSelectedWord} selectedWord={selectedWord} words={words} />
+<WordTable
+  onRowClick={(word) => {
+          setSelectedWord(word); // select new word
+
+  }}
+  selectedWord={selectedWord}
+  words={words}
+/>
       </div>
 
       {/* WordInfo (right column) */}
