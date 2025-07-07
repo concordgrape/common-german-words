@@ -312,7 +312,7 @@ CustomScroller.displayName = "CustomScroller";
                 </div>
             </div>
         </div>
-{displayedWords.length === 0 && (
+{(displayedWords.length === 0 && searchTerm) && (
   <div>
     <h1 className='mt-5 mb-2'>{`'${searchTerm}' not found, example words:`}</h1>
            <button className="text-blue-500 bg-blue-200 py-2 px-4 rounded-sm">haus</button>
