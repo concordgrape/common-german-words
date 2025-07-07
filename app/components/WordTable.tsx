@@ -10,9 +10,9 @@ import {DropdownWordInfo} from './DropdownWordInfo';
 
 // WordTable component props interface
 interface WordTableProps {
-  onRowClick: (word: Word) => void;
+  onRowClick: (word: Word | null) => void;
   selectedWord?: Word | null;
-  words: Word[]
+  words: Word[];
 }
 
 const ITEMS_PER_PAGE = 100;
@@ -156,20 +156,25 @@ const virtuosoHeight = `${displayedWords.length * rowHeight + (isMobile ? 1000 :
 
   // Toggle expanded row by ID and pass clicked word to parent
 const toggleRow = (word: Word) => {
-  onRowClick(word); // Notify parent
-
   const params = new URLSearchParams(window.location.search);
-  if (selectedWord?.id === word.id) {
-    // Collapse and remove word from URL
+
+  const isCurrentlyExpanded = expandedRows.includes(word.id);
+
+  if (isCurrentlyExpanded && isMobile) {
+    // Collapse this row
     setExpandedRows([]);
     params.delete("word");
+    onRowClick(null); // also clear selectedWord if needed
   } else {
+    // Expand this row
     setExpandedRows([word.id]);
     params.set("word", word.word);
+    onRowClick(word);
   }
 
   window.history.pushState({}, "", `?${params.toString()}`);
 };
+
 
 
 

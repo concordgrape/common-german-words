@@ -29,9 +29,6 @@ const MainWordPage: React.FC = () => {
         return;
       }
     }
-
-    // fallback to first word if no match
-    setSelectedWord(words[0]);
   }, [words, searchParams]);
 
   return (
