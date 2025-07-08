@@ -62,7 +62,10 @@ useEffect(() => {
 <div className="w-full bg-[#027AFB] rounded-lg shadow-lg p-6 flex flex-col max-h-[80vh] overflow-y-auto">
 {fullData ? (
   <div className="text-white space-y-4">
+  <div className="relative w-full">
     <h2 className="text-2xl font-bold text-center">{selectedWord.word}</h2>
+    <h2 className="text-lg font-bold absolute left-0 top-0"><i>{selectedWord.rank}</i></h2>
+  </div>
 
     <p className="text-center text-gray-200 italic">
       {fullData.part_of_speech} · {fullData.gender} · [{fullData.phonetic_spelling}]

@@ -351,6 +351,14 @@ CustomScroller.displayName = "CustomScroller";
                 </div>
             </div>
         </div>
+        <div className="flex px-4 py-2 bg-[#F9F9F9] text-gray-600 font-semibold border-b border-gray-200 text-sm">
+          <div className="w-2 mr-2"></div>
+          <div className="w-5">#</div>
+          <div className="flex-1">Word</div>
+          <div className="w-[40px] text-center">Rank</div>
+          <div className="w-[80px] text-right">Type</div>
+          <div className="w-5 ml-5"></div>
+        </div>
 {(displayedWords.length === 0 && searchTerm) && (
   <div>
     <h1 className='mt-5 mb-2'>{`'${searchTerm}' not found, example words:`}</h1>
