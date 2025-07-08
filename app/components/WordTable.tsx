@@ -19,8 +19,6 @@ const ITEMS_PER_PAGE = 100;
 
 // WordTable component
 export const WordTable: React.FC<WordTableProps> = ({ onRowClick, selectedWord, words }) => {
-  // State for sorting, 'asc' or 'desc', explicitly typed
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   // State to manage expanded rows, explicitly typed to an array of numbers
   const [expandedRows, setExpandedRows] = useState<number[]>([]);
   // State to detect if the current view is mobile
@@ -132,13 +130,8 @@ const scoredWords = words
 const sortedWords = scoredWords.sort((a, b) => {
   if (activeSort === 'frequency') {
     return b.frequency - a.frequency; // High to low frequency
-  }
-
-  // Default to alphabetically if not frequency
-  if (sortOrder === 'asc') {
-    return a.word.localeCompare(b.word);
   } else {
-    return b.word.localeCompare(a.word);
+    return a.word.localeCompare(b.word);
   }
 });
 
@@ -198,12 +191,6 @@ const toggleRow = (word: Word) => {
     setActiveSort(optionId);
     // In a real application, you would trigger a data sort here
     console.log(`Sorting by: ${optionId}`);
-  };
-
-  // Function to handle sorting
-  const handleSort = (order: 'asc' | 'desc') => {
-    setSortOrder(order);
-    setShowSortDropdown(false); // Close the dropdown after selection
   };
 
 const handleSearchChange = (value: string) => {
@@ -319,38 +306,8 @@ CustomScroller.displayName = "CustomScroller";
                 />
                 ))}
             </div>
-            
-            {/* Sort Icon and Dropdown */}
-            <div className="flex justify-start" ref={sortDropdownRef}>
-                <div className="relative">
-                    <button
-                        onClick={() => setShowSortDropdown(!showSortDropdown)}
-                        className="p-2 rounded-full bg-black/10 hover:bg-black/20 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-                        aria-label="Sort">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 9.414V17a1 1 0 01-1.293.956l-2-1A1 1 0 017 15V9.414L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
-                        </svg>
-                    </button>
-                    {showSortDropdown && (
-                        <div className="absolute left-0 mt-2 w-42 bg-[#F2F2F2] rounded-md shadow-lg z-10 pt-2 pb-2 text-gray-700">
-                            <button
-                                onClick={() => handleSort('asc')}
-                                className="block w-full text-left px-4 py-2 text-sm hover:bg-black/20"
-                            >
-                                Alphabetically A-Z
-                            </button>
-                            <hr className="text-sm text-gray-600" />
-                            <button
-                                onClick={() => handleSort('desc')}
-                                className="block w-full text-left px-4 py-2 text-sm hover:bg-black/20"
-                            >
-                                Alphabetically Z-A
-                            </button>
-                        </div>
-                    )}
-                </div>
-            </div>
         </div>
+        <div className="text-left mb-5">{sortedWords.length} words loaded</div>
         <div className="flex px-4 py-2 bg-[#F9F9F9] text-gray-600 font-semibold border-b border-gray-200 text-sm">
           <div className="w-2 mr-2"></div>
           <div className="w-5">#</div>
