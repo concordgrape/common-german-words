@@ -35,7 +35,7 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       setTimeout(() => {
         setToasts(prev => prev.filter(t => t.id !== id));
       }, 300); // match CSS duration
-    }, 3000);
+    }, 5000);
   };
 
   const handleClose = (id: number) => {
