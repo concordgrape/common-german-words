@@ -105,7 +105,7 @@ export const DropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen
           )}
         </div>
       ) : (
-        <div className="flex justify-center items-center h-64">
+        <div className="flex justify-center items-center h-100">
             <div className="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent" />
         </div>
         )}
