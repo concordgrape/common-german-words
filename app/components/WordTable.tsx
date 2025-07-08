@@ -6,7 +6,9 @@ import { Virtuoso } from 'react-virtuoso';
 import { Word } from '../helpers/fetchBasicWordList';
 import { useSearchParams, useRouter } from "next/navigation";
 import { useIsMobile } from '../helpers/utils';
-import {DropdownWordInfo} from './DropdownWordInfo';
+import { FaQuestionCircle } from 'react-icons/fa';
+import { FaArrowDownShortWide } from "react-icons/fa6";
+import { DropdownWordInfo } from './DropdownWordInfo';
 
 // WordTable component props interface
 interface WordTableProps {
@@ -25,6 +27,7 @@ export const WordTable: React.FC<WordTableProps> = ({ onRowClick, selectedWord, 
   //const [isMobile, setIsMobile] = useState<boolean>(false);
   // State to manage the visibility of the sort dropdown
   const [showSortDropdown, setShowSortDropdown] = useState<boolean>(false);
+  const [isReversed, setIsReversed] = useState(false);
 
       const [activeSort, setActiveSort] = useState<SortOption['id']>('frequency'); // 'alphabetically' is active by default as per screenshot
 
@@ -127,15 +130,17 @@ const scoredWords = words
   .filter((word) => word._score > 0);
 
 // Then sort by relevance score first, then by word
-const sortedWords = scoredWords.sort((a, b) => {
+let sortedWords = scoredWords.sort((a, b) => {
   if (activeSort === 'frequency') {
-    return b.frequency - a.frequency; // High to low frequency
+    return b.frequency - a.frequency;
   } else {
     return a.word.localeCompare(b.word);
   }
 });
 
-
+if (isReversed) {
+  sortedWords = [...sortedWords].reverse();
+}
 
 const totalPages = Math.ceil(sortedWords.length / ITEMS_PER_PAGE);
 
@@ -313,9 +318,21 @@ CustomScroller.displayName = "CustomScroller";
           <div className="w-2 mr-2"></div>
           <div className="w-5">#</div>
           <div className="flex-1">Word</div>
-          <div className="w-[40px] text-center">Rank</div>
+          <div className="relative group w-fit flex items-center gap-1 mr-5">
+            <span>Rank</span>
+            <FaQuestionCircle className="text-gray-400" />
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+              Frequency rank (1 is most common)
+            </div>
+          </div>
           <div className="w-[80px] text-right">Type</div>
-          <div className="w-5 ml-5"></div>
+          <button
+            className="cursor-pointer hover:text-gray-400 w-5 ml-5"
+            onClick={() => setIsReversed(prev => !prev)}
+            aria-label="Toggle sort order"
+          >
+            <FaArrowDownShortWide className={`${isReversed ? 'rotate-180' : ''} transition-transform duration-300`} />
+          </button>
         </div>
 {(displayedWords.length === 0 && searchTerm) && (
   <div>
