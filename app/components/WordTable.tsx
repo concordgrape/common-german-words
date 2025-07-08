@@ -307,7 +307,7 @@ CustomScroller.displayName = "CustomScroller";
                 ))}
             </div>
 
-            <div className="text-left mb-5">{sortedWords.length} words loaded</div>
+            <div className="text-left">{sortedWords.length} words loaded</div>
         </div>
         <div className="flex px-4 py-2 bg-[#F9F9F9] text-gray-600 font-semibold border-b border-gray-200 text-sm">
           <div className="w-2 mr-2"></div>
