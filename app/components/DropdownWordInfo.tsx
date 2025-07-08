@@ -50,8 +50,11 @@ export const DropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen
   } overflow-hidden`}
 >
       {fullData ? (
-  <div className="max-h-[400px] overflow-y-auto p-4 bg-[#027AFB] text-white space-y-4 rounded-b-lg">
-          <h2 className="text-xl font-bold text-center">{word.word}</h2>
+  <div className="max-h-[400px] overflow-y-auto p-4 px-6 bg-[#027AFB] text-white space-y-4 rounded-b-lg">
+        <div className="relative w-full">
+            <h2 className="text-3xl font-bold text-center">{word.word}</h2>
+            <h2 className="text-lg font-bold absolute left-0 top-0"><i>{word.rank}</i></h2>
+        </div>
           <p className="text-center text-gray-200 italic">
             {fullData.part_of_speech} · {fullData.gender} · [{fullData.phonetic_spelling}]
           </p>
