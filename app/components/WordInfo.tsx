@@ -68,7 +68,7 @@ useEffect(() => {
   </div>
 
     <p className="text-center text-gray-200 italic">
-      {fullData.part_of_speech} · {fullData.gender} · [{fullData.phonetic_spelling}]
+      {fullData.part_of_speech} · {fullData.gender ? `${fullData.gender} · ` : ''} [{fullData.phonetic_spelling}]
     </p>
 
     {/* Definitions */}
