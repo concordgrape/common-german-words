@@ -95,8 +95,8 @@ export const DropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen
             <div>
               <h3 className="text-lg font-semibold mb-1">Related Words</h3>
               <div className="flex flex-wrap gap-2">
-                {fullData.connected_words.map((w) => (
-                  <span key={w} className="bg-white/10 px-3 py-1 rounded-full text-sm">
+                {fullData.connected_words.map((w, index) => (
+                  <span key={w + index} className="bg-white/10 px-3 py-1 rounded-full text-sm">
                     {w}
                   </span>
                 ))}
