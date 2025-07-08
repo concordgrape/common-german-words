@@ -155,9 +155,7 @@ const displayedWords = sortedWords.slice(
 // Adjust Virtuoso height
 const rowHeight = 54;
 const isMobile = useIsMobile(); 
-//const virtuosoHeight = `${displayedWords.length * rowHeight + (isMobile ? 1000 : 0)}px`;
-const virtuosoHeight = `${displayedWords.length * rowHeight}px`;
-
+const virtuosoHeight = `${displayedWords.length * rowHeight + (isMobile ? 435 : 0)}px`;
 
   // Toggle expanded row by ID and pass clicked word to parent
 const toggleRow = (word: Word) => {
