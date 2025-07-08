@@ -19,6 +19,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const language = searchParams.get('language');
   const password = searchParams.get('password');
+  const forceRefresh = searchParams.get("refresh") === "true";
 
   if (password !== process.env.NEXT_PUBLIC_API_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -33,6 +34,10 @@ export async function GET(req: NextRequest) {
   try {
     const redis = await getRedisClient();
 
+    if (forceRefresh) {
+      await redis.del(cacheKey); // Clear cache if forceRefresh is true
+    }
+
     // ✅ Check Redis cache first
     const cached = await redis.get(cacheKey);
     if (cached) {
@@ -46,10 +51,11 @@ export async function GET(req: NextRequest) {
     const words = snapshot.docs.map((doc, index) => {
       const data = doc.data();
       return {
-        word: doc.id,
         id: index,
+        word: doc.id,
         part_of_speech: data.part_of_speech || null,
         frequency: data.frequency || 0, // include frequency
+        rank: data.rank || 0,
       };
     }).sort((a, b) => b.frequency - a.frequency); // sort by frequency DESC
 

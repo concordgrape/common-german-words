@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
   const language = searchParams.get('language');
   const word = searchParams.get('word');
   const password = searchParams.get('apiKey');
+  const forceRefresh = searchParams.get("refresh") === "true";
 
   if (password !== process.env.NEXT_PUBLIC_API_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -33,6 +34,10 @@ export async function GET(req: NextRequest) {
 
   try {
     const redis = await getRedisClient();
+
+    if (forceRefresh) {
+        await redis.del(cacheKey); // Clear cache if forceRefresh is true
+    }
 
     // ✅ Try Redis first
     const cached = await redis.get(cacheKey);

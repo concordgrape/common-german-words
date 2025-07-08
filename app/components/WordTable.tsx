@@ -28,6 +28,9 @@ export const WordTable: React.FC<WordTableProps> = ({ onRowClick, selectedWord, 
   // State to manage the visibility of the sort dropdown
   const [showSortDropdown, setShowSortDropdown] = useState<boolean>(false);
 
+      const [activeSort, setActiveSort] = useState<SortOption['id']>('frequency'); // 'alphabetically' is active by default as per screenshot
+
+
   // Create a ref for the dropdown container
   const sortDropdownRef = useRef<HTMLDivElement>(null);
   const wordRefs = useRef<Record<number, HTMLDivElement | null>>({});
@@ -126,15 +129,19 @@ const scoredWords = words
   .filter((word) => word._score > 0);
 
 // Then sort by relevance score first, then by word
-const sortedWords =     scoredWords.sort((a, b) => {
-  if (b._score !== a._score) {
-    return b._score - a._score;
+const sortedWords = scoredWords.sort((a, b) => {
+  if (activeSort === 'frequency') {
+    return b.frequency - a.frequency; // High to low frequency
   }
 
-  return sortOrder === 'asc'
-    ? a.word.localeCompare(b.word)
-    : b.word.localeCompare(a.word);
+  // Default to alphabetically if not frequency
+  if (sortOrder === 'asc') {
+    return a.word.localeCompare(b.word);
+  } else {
+    return b.word.localeCompare(a.word);
+  }
 });
+
 
 
 const totalPages = Math.ceil(sortedWords.length / ITEMS_PER_PAGE);
@@ -185,7 +192,6 @@ const toggleRow = (word: Word) => {
     { id: 'next-review', label: 'next review' },
   ];
 
-    const [activeSort, setActiveSort] = useState<SortOption['id']>('alphabetically'); // 'alphabetically' is active by default as per screenshot
 
   // Type for the handler function
   const handleSortChange = (optionId: SortOption['id']) => {
@@ -384,14 +390,18 @@ CustomScroller.displayName = "CustomScroller";
       >
         {/* Status Indicator */}
         <span className="h-2 w-2 rounded-full bg-green-500 mr-3"></span>
+                <span className="mr-3 text-gray-400">{index}</span>
 
         {/* Word Term */}
         <div className="flex-1 text-left font-medium">{word.word}</div>
 
+<div className="w-[40px] text-center text-gray-400 text-sm mr-3">{word.rank}</div>
+
         {/* Word Type */}
-        <div className="flex-none text-gray-400 text-sm mr-4">
-          {word.part_of_speech}
-        </div>
+<div className="w-[80px] text-right text-gray-400 text-sm mr-4">
+  {word.part_of_speech}
+</div>
+
 
         {/* Expand/Collapse Icon */}
         <button

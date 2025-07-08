@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Word } from '../helpers/fetchBasicWordList';
 
 interface WordInfoProps {
@@ -22,34 +22,36 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
   const [fullData, setFullData] = useState<FullWordData | null>(null);
   // Add this to your component state
 const [visibleExamples, setVisibleExamples] = useState(4);
+const lastFetchedWord = useRef<string | null>(null);
 
-  useEffect(() => {
-    if (!selectedWord) {
-      setFullData(null);
-      return;
-    }
+useEffect(() => {
+  if (!selectedWord || selectedWord.word === lastFetchedWord.current) {
+    return;
+  }
 
-    const fetchData = async () => {
-      try {
-        const res = await fetch(
-          `/api/word?language=german&word=${selectedWord.word}&apiKey=${process.env.NEXT_PUBLIC_API_PASSWORD}`
-        );
-        const json = await res.json();
-        if (json.word) {
-          setFullData(json.word);
-        } else {
-          setFullData(null);
-        }
-      } catch (error) {
-        console.error("Error fetching word info:", error);
+  const fetchData = async () => {
+    try {
+      const res = await fetch(
+        `/api/word?language=german&word=${selectedWord.word}&apiKey=${process.env.NEXT_PUBLIC_API_PASSWORD}`
+      );
+      const json = await res.json();
+      if (json.word) {
+        setFullData(json.word);
+        console.log("fetching words")
+      } else {
         setFullData(null);
       }
-    };
+      lastFetchedWord.current = selectedWord.word;
+    } catch (error) {
+      console.error("Error fetching word info:", error);
+      setFullData(null);
+    }
+  };
 
-    fetchData();
+  fetchData();
+  setVisibleExamples(4); // reset
+}, [selectedWord]);
 
-    setVisibleExamples(4); // reset visible example count
-  }, [selectedWord]);
 
   if (!selectedWord) {
     return <div className="w-full" />;
