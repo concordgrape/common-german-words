@@ -169,7 +169,7 @@ const displayedWords = sortedWords.slice(
 // Adjust Virtuoso height
 const rowHeight = 54;
 const isMobile = useIsMobile(); 
-const virtuosoHeight = `${displayedWords.length * rowHeight + ((isMobile && expandedRows.length > 0) ? 435 : 0) + 45}px`;
+const virtuosoHeight = `${filteredWords.length * rowHeight + ((isMobile && expandedRows.length > 0) ? 435 : 0) + 45}px`;
 
   // Toggle expanded row by ID and pass clicked word to parent
 const toggleRow = (word: Word) => {
@@ -338,7 +338,7 @@ CustomScroller.displayName = "CustomScroller";
               </select>
             </div>
 
-            <div className="text-left">{filteredWords.length} words loaded</div>
+            <div className="text-left">{filteredWords.length} {filteredWords.length > 1 ? 'words' : 'word'} loaded {selectedType != 'All' ? `- displaying ${selectedType.toLowerCase()}s` : ''}</div>
         </div>
         <div className="flex px-4 py-2 bg-[#F9F9F9] text-gray-600 font-semibold border-b border-gray-200 text-sm">
           <div className="w-2 mr-2"></div>
