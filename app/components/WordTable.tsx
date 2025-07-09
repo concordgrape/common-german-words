@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import SortButton, { SortOption } from './SortButtons/Sort';
 import { Virtuoso } from 'react-virtuoso';
 import { Word } from '../helpers/fetchBasicWordList';
@@ -27,6 +27,7 @@ export const WordTable: React.FC<WordTableProps> = ({ onRowClick, selectedWord, 
   //const [isMobile, setIsMobile] = useState<boolean>(false);
   // State to manage the visibility of the sort dropdown
   const [showSortDropdown, setShowSortDropdown] = useState<boolean>(false);
+  const [selectedType, setSelectedType] = useState<string>('All');
   const [isReversed, setIsReversed] = useState(false);
 
       const [activeSort, setActiveSort] = useState<SortOption['id']>('frequency'); // 'alphabetically' is active by default as per screenshot
@@ -44,6 +45,8 @@ const [searchTerm, setSearchTerm] = useState<string>(initialSearch);
 
   const pageParam = parseInt(searchParams.get("page") || "1", 10);
   const currentPage = Math.max(1, isNaN(pageParam) ? 1 : pageParam);
+
+  const wordTypes = ['All', 'Verb', 'Adjective', 'Noun', 'Interjection', 'Adverb'];
 
   const changePage = (newPage: number) => {
     const params = new URLSearchParams(window.location.search);
@@ -142,7 +145,13 @@ if (isReversed) {
   sortedWords = [...sortedWords].reverse();
 }
 
-const totalPages = Math.ceil(sortedWords.length / ITEMS_PER_PAGE);
+  const filteredWords = useMemo(() => {
+  return selectedType === 'All'
+    ? sortedWords
+    : sortedWords.filter(word => word.part_of_speech?.toLowerCase() === selectedType.toLowerCase());
+}, [selectedType, sortedWords]);
+
+const totalPages = Math.ceil(filteredWords.length / ITEMS_PER_PAGE);
 
 
 // Only show paginated results if not filtering
@@ -298,19 +307,33 @@ CustomScroller.displayName = "CustomScroller";
             </div>
 
             {/* Sort Buttons Row */}
-            <div className="grid grid-cols-2 gap-0 mb-4 max-w-[300px]">
+            <div className="flex gap-4 items-center mb-4">
+              <div className="grid grid-cols-2 gap-0 max-w-[300px]">
                 {sortOptions.map((option, index) => (
-                <SortButton
+                  <SortButton
                     key={option.id}
                     label={option.label}
                     isActive={activeSort === option.id}
                     onClick={() => handleSortChange(option.id)}
                     index={index}
-                />
+                  />
                 ))}
+              </div>
+
+              <select
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+                className="px-3 py-2 rounded-md bg-gray-100 cursor-pointer text-sm"
+              >
+                {wordTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <div className="text-left">{sortedWords.length} words loaded</div>
+            <div className="text-left">{filteredWords.length} words loaded</div>
         </div>
         <div className="flex px-4 py-2 bg-[#F9F9F9] text-gray-600 font-semibold border-b border-gray-200 text-sm">
           <div className="w-2 mr-2"></div>
@@ -349,7 +372,10 @@ CustomScroller.displayName = "CustomScroller";
   </div>
 ) : (
   <Virtuoso
-  data={displayedWords}
+    data={filteredWords.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  )}
   style={{ height: virtuosoHeight }}
   components={{
     Scroller: CustomScroller,
@@ -383,7 +409,7 @@ CustomScroller.displayName = "CustomScroller";
         </div>
 
         {/* Translation */}
-        <div className="flex-1 pl-5 text-center font-medium text-gray-500 text-sm"><i>{truncateString(word.translation, isMobile ? word.word.length > 8 ? 5 : 15 : 30)}</i></div>
+        <div className="flex-1 text-center font-medium text-gray-500"><i>{truncateString(word.translation, isMobile ? word.word.length > 8 ? 5 : 15 : 30)}</i></div>
 
 <div className="w-[10px] sm:w-[40px] md:w-[40px] text-center text-gray-400 text-sm mr-3">{word.rank}</div>
 
