@@ -317,14 +317,14 @@ CustomScroller.displayName = "CustomScroller";
           <div className="w-5">#</div>
           <div className="w-5">Word</div>
           <div className="text-center flex-1">Translation</div>
-          <div className="relative group w-fit flex items-center gap-1 mr-5">
+          <div className="relative group w-fit flex items-center gap-1 mr-0 sm:mr-5 md:mr-5">
             <span>Rank</span>
-            <FaQuestionCircle className="text-gray-400" />
+            <FaQuestionCircle className="text-gray-400  hidden sm:block md:block" />
             <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
               Frequency rank (1 is most common)
             </div>
           </div>
-          <div className="w-[80px] text-right">Type</div>
+          <div className="w-[50px] sm:w-[80px] md:w-[80px] text-right">Type</div>
           <button
             className="cursor-pointer hover:text-gray-400 w-5 ml-5"
             onClick={() => setIsReversed(prev => !prev)}
@@ -361,7 +361,7 @@ CustomScroller.displayName = "CustomScroller";
         wordRefs.current[word.id] = el;
       }}
       className={`group border-1 ${
-        expandedRows.includes(word.id) ? "border-blue-300" : "border-[#F2F2F2]"
+        expandedRows.includes(word.id) ? "border-blue-300" : "border-[#F2F2F2] max-h-[54px]"
       }`}
     >
       <div
@@ -383,12 +383,12 @@ CustomScroller.displayName = "CustomScroller";
         </div>
 
         {/* Translation */}
-        <div className="flex-1 pl-5 text-center font-medium text-gray-500 text-sm"><i>{truncateString(word.translation)}</i></div>
+        <div className="flex-1 pl-5 text-center font-medium text-gray-500 text-sm"><i>{truncateString(word.translation, isMobile ? word.word.length > 8 ? 5 : 15 : 30)}</i></div>
 
-<div className="w-[40px] text-center text-gray-400 text-sm mr-3">{word.rank}</div>
+<div className="w-[10px] sm:w-[40px] md:w-[40px] text-center text-gray-400 text-sm mr-3">{word.rank}</div>
 
         {/* Word Type */}
-<div className="w-[80px] text-right text-gray-400 text-sm mr-4">
+<div className="w-[60px] sm:w-[80px] md:w-[80px] text-right text-gray-400 text-sm mr-4">
   {word.part_of_speech}
 </div>
 
