@@ -116,16 +116,21 @@ if (!partiallyInView && fullyInView) {
 
 const scoredWords = words
   .map((word) => {
-    const lowerWord = word.word.toLowerCase();
     const lowerSearch = searchTerm.toLowerCase();
+    const wordText = word.word.toLowerCase();
+    const translationText = word.translation?.toLowerCase() || '';
     let score = 0;
 
-    if (lowerWord === lowerSearch) {
+    // Check both word and translation
+    const matchesWord = wordText.includes(lowerSearch);
+    const matchesTranslation = translationText.includes(lowerSearch);
+
+    if (wordText === lowerSearch || translationText === lowerSearch) {
       score = 3; // exact match
-    } else if (lowerWord.startsWith(lowerSearch)) {
+    } else if (wordText.startsWith(lowerSearch) || translationText.startsWith(lowerSearch)) {
       score = 2; // prefix match
-    } else if (lowerWord.includes(lowerSearch)) {
-      score = 1; // substring match
+    } else if (matchesWord || matchesTranslation) {
+      score = 1; // partial match
     }
 
     return { ...word, _score: score };
