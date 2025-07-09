@@ -46,7 +46,7 @@ const [searchTerm, setSearchTerm] = useState<string>(initialSearch);
   const pageParam = parseInt(searchParams.get("page") || "1", 10);
   const currentPage = Math.max(1, isNaN(pageParam) ? 1 : pageParam);
 
-  const wordTypes = ['All', 'Verb', 'Adjective', 'Noun', 'Interjection', 'Adverb'];
+  const wordTypes = ['All', 'Verb', 'Adjective', 'Noun', 'Interjection', 'Adverb', 'Determiner'];
 
   const changePage = (newPage: number) => {
     const params = new URLSearchParams(window.location.search);
@@ -338,7 +338,7 @@ CustomScroller.displayName = "CustomScroller";
               </select>
             </div>
 
-            <div className="text-left">{filteredWords.length} {filteredWords.length > 1 ? 'words' : 'word'} loaded {selectedType != 'All' ? `- displaying ${selectedType.toLowerCase()}s` : ''}</div>
+            <div className="text-left">{filteredWords.length} {filteredWords.length > 1 ? selectedType != 'All' ? `${selectedType.toLowerCase()}s` : 'words' : 'word'} loaded</div>
         </div>
         <div className="flex px-4 py-2 bg-[#F9F9F9] text-gray-600 font-semibold border-b border-gray-200 text-sm">
           <div className="w-2 mr-2"></div>
