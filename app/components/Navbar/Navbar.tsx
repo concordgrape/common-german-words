@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
+import Link from 'next/link';
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,12 +24,12 @@ export const Navbar: React.FC = () => {
   return (
     <div className="bg-blue-500">
       <nav className="fixed w-full z-100 px-4 py-4 flex justify-between items-center bg-[#323944]">
-        <a className="text-3xl font-bold leading-none" href="#">
-          <svg className="h-12 w-12" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <Link className="text-3xl font-bold leading-none" href="/">
+         <svg className="h-12 w-12" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="45" fill="#3B82F6" />
             <text x="50%" y="54%" textAnchor="middle" fontSize="36" fill="white" dy=".3em" fontFamily="Arial">MC</text>
           </svg>
-        </a>
+        </Link>
         <div className="lg:hidden">
           <button onClick={toggleMenu} className="flex items-center text-white p-3">
             <svg className="block h-4 w-4 fill-current" viewBox="0 0 20 20">
@@ -49,8 +50,7 @@ export const Navbar: React.FC = () => {
           <li><a className="text-sm text-gray-400 hover:text-gray-500" href="#">Pricing</a></li>
           <li><a className="text-sm text-gray-400 hover:text-gray-500" href="#">Contact</a></li>
         </ul>
-        <a className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-white hover:bg-gray-300 text-sm text-gray-900 font-bold rounded-xl transition duration-200" href="#" onClick={() => alert("sign in clicked")}>Sign In</a>
-        <a className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200" href="#" onClick={() => alert("sign up clicked")}>Sign up</a>
+        <a className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-white hover:bg-gray-200 text-sm text-[#013c57] font-bold rounded-sm transition duration-200" href="/signin">👋&nbsp;&nbsp;Sign In</a>
       </nav>
 
       <div

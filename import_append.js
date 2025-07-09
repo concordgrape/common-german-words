@@ -5,7 +5,7 @@ const serviceAccount = require('./serviceAccountKey.json');
 admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 const db = admin.firestore();
 
-const rankedData = JSON.parse(fs.readFileSync('ranked_words.json', 'utf8'));
+const rankedData = JSON.parse(fs.readFileSync('german_words_simple_translations.json', 'utf8'));
 
 const BATCH_SIZE = 500; // Firestore max batch size
 const MAX_RETRIES = 5;
@@ -49,15 +49,15 @@ async function appendRanksToExistingWords() {
 
       if (!docSnap.exists) {
         skippedCount++;
+        console.warn(`⚠️ Skipped missing document for word: "${word}"`);
         continue;
       }
 
       batch.update(docRef, {
-        rank: data.rank,
-        frequency: data.frequency, // ⬅️ add frequency field
+        translation: data,
       });
 
-      console.log(`✅ Queued: "${word}" → rank: ${data.rank}, freq: ${data.frequency}`);
+      console.log(`✅ Queued: "${word}" → rank: ${data}, freq: ${data.frequency}`);
       opsInBatch++;
     }
 

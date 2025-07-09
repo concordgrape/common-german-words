@@ -1,0 +1,75 @@
+'use client';
+
+import React from 'react';
+
+import { FaGoogle, FaApple } from "react-icons/fa";
+
+const LoginForm: React.FC = () => {
+  return (
+      <div className="w-full m-auto max-h-[600px] max-w-md bg-white p-8 rounded-xl shadow">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Sign in</h2>
+
+        <form className="space-y-5">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email address
+            </label>
+            <input
+              id="email"
+              type="email"
+              className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              placeholder="you@example.com"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              placeholder="••••••••"
+            />
+          </div>
+
+          <div className="flex items-center justify-between text-sm">
+            <label className="flex items-center gap-2">
+              <input type="checkbox" className="form-checkbox" />
+              Remember me
+            </label>
+            <a href="#" className="text-indigo-600 hover:underline font-medium">
+              Forgot password?
+            </a>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md transition duration-150"
+          >
+            Sign in
+          </button>
+        </form>
+
+        <div className="my-6 flex items-center justify-center text-gray-400 text-sm">
+          <div className="w-full border-t border-gray-200" />
+          <span className="px-2 text-center">Or continue with</span>
+          <div className="w-full border-t border-gray-200" />
+        </div>
+
+        <div className="flex flex-col items-center justify-center">
+        <button className="w-[200px] flex items-center justify-center gap-4 border border-gray-300 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100">
+            <FaGoogle />
+            Sign in with Google
+        </button>
+        <button className="w-[200px] mt-2 flex items-center justify-center gap-4 border border-gray-300 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100">
+            <FaApple />
+            Sign in with Apple
+        </button>
+        </div>
+      </div>
+  );
+};
+
+export default LoginForm;
