@@ -56,7 +56,7 @@ export const DropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen
             <h2 className="text-lg font-bold absolute left-0 top-0"><i>{word.rank}</i></h2>
         </div>
           <p className="text-center text-gray-200 italic">
-            {fullData.part_of_speech} · {fullData.gender} · [{fullData.phonetic_spelling}]
+            {fullData.part_of_speech} · {fullData.gender.length ? `${fullData.gender} · ` : ''} [{fullData.phonetic_spelling}]
           </p>
 
           {/* Definitions */}
