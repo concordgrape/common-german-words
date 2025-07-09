@@ -56,6 +56,8 @@ export async function GET(req: NextRequest) {
         part_of_speech: data.part_of_speech || null,
         frequency: data.frequency || 0, // include frequency
         rank: data.rank || 0,
+        translation: data.definitions[0] || '',
+        gender: data.gender || '',
       };
     }).sort((a, b) => b.frequency - a.frequency); // sort by frequency DESC
 

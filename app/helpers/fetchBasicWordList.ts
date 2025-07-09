@@ -6,6 +6,8 @@ export interface Word {
     part_of_speech: string | null;
     frequency: number; 
     rank: number; 
+    translation: string;
+    gender: string;
 }
 
 export async function fetchBasicWords(language: string, password: string): Promise<Word[]> {

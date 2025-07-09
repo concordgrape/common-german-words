@@ -5,7 +5,7 @@ import SortButton, { SortOption } from './SortButtons/Sort';
 import { Virtuoso } from 'react-virtuoso';
 import { Word } from '../helpers/fetchBasicWordList';
 import { useSearchParams, useRouter } from "next/navigation";
-import { useIsMobile } from '../helpers/utils';
+import { truncateString, useIsMobile } from '../helpers/utils';
 import { FaQuestionCircle } from 'react-icons/fa';
 import { FaArrowDownShortWide } from "react-icons/fa6";
 import { DropdownWordInfo } from './DropdownWordInfo';
@@ -155,7 +155,7 @@ const displayedWords = sortedWords.slice(
 // Adjust Virtuoso height
 const rowHeight = 54;
 const isMobile = useIsMobile(); 
-const virtuosoHeight = `${displayedWords.length * rowHeight + ((isMobile && expandedRows.length > 0) ? 435 : 0)}px`;
+const virtuosoHeight = `${displayedWords.length * rowHeight + ((isMobile && expandedRows.length > 0) ? 435 : 0) + 45}px`;
 
   // Toggle expanded row by ID and pass clicked word to parent
 const toggleRow = (word: Word) => {
@@ -315,7 +315,8 @@ CustomScroller.displayName = "CustomScroller";
         <div className="flex px-4 py-2 bg-[#F9F9F9] text-gray-600 font-semibold border-b border-gray-200 text-sm">
           <div className="w-2 mr-2"></div>
           <div className="w-5">#</div>
-          <div className="flex-1">Word</div>
+          <div className="w-5">Word</div>
+          <div className="text-center flex-1">Translation</div>
           <div className="relative group w-fit flex items-center gap-1 mr-5">
             <span>Rank</span>
             <FaQuestionCircle className="text-gray-400" />
@@ -374,7 +375,15 @@ CustomScroller.displayName = "CustomScroller";
                 <span className="mr-3 text-gray-400">{index}</span>
 
         {/* Word Term */}
-        <div className="flex-1 text-left font-medium">{word.word}</div>
+        <div className="text-left font-medium">
+          {word.word}
+          {word.gender.toLowerCase() == 'masculine' && <span className="text-gray-700 text-sm"><i>, der</i></span>}
+          {word.gender.toLowerCase() == 'feminine' && <span className="text-gray-700 text-sm"><i>, die</i></span>}
+          {word.gender.toLowerCase() == 'neuter' && <span className="text-gray-700 text-sm"><i>, das</i></span>}
+        </div>
+
+        {/* Translation */}
+        <div className="flex-1 pl-5 text-center font-medium text-gray-500 text-sm"><i>{truncateString(word.translation)}</i></div>
 
 <div className="w-[40px] text-center text-gray-400 text-sm mr-3">{word.rank}</div>
 

@@ -14,3 +14,10 @@ export function useIsMobile(breakpoint: number = 768): boolean {
 
   return isMobile;
 }
+
+export function truncateString(str: string, maxLength = 30) {
+  const textAfterColon = str.includes(':') ? str.split(':').pop()!.trim() : str;
+  return textAfterColon.length > maxLength 
+    ? textAfterColon.slice(0, maxLength - 3) + '...' 
+    : textAfterColon;
+}
