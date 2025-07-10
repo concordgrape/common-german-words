@@ -55,11 +55,13 @@ export const Navbar: React.FC = () => {
           <li><a className="text-sm text-gray-400 hover:text-gray-500" href="#">Pricing</a></li>
           <li><a className="text-sm text-gray-400 hover:text-gray-500" href="#">Contact</a></li>
         </ul>
-        {user ? 
-          <AvatarDropdown />
-        :
-          <a className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-white hover:bg-gray-200 text-sm text-[#013c57] font-bold rounded-sm transition duration-200" href="/signin">👋&nbsp;&nbsp;Sign In</a>
-        }
+        <div className="hidden lg:block">
+          {user ? 
+            <AvatarDropdown />
+          :
+            <a className="block px-5 py-1.5 leading-loose text-xs text-center font-semibold bg-gray-100 hover:bg-gray-200 rounded-xl" href="/signin">👋&nbsp;&nbsp;Sign In</a>
+          }
+        </div>
       </nav>
 
       <div
@@ -97,7 +99,7 @@ export const Navbar: React.FC = () => {
           </div>
           <div className="mt-auto">
             <div className="pt-6">
-              <a className="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold bg-gray-200 hover:bg-gray-100 rounded-xl" href="#">Sign in</a>
+              <a className="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold bg-gray-200 hover:bg-gray-100 rounded-xl" href="/signin">👋&nbsp;&nbsp;Sign In</a>
               <a className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700 rounded-xl" href="#">Sign Up</a>
             </div>
             <p className="my-4 text-xs text-center text-gray-400">
