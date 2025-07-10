@@ -28,7 +28,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <div className="">
-      <nav className="fixed w-full z-100 px-4 py-3 lg:py-4 flex justify-between items-center bg-white">
+      <nav className="fixed w-full z-100 px-4 py-3 lg:py-4 flex justify-between items-center bg-[#323944]">
         <Link className="text-3xl font-bold leading-none" href="/">
          <svg className="h-10 w-10" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="45" fill="#3B82F6" />
@@ -36,14 +36,14 @@ export const Navbar: React.FC = () => {
           </svg>
         </Link>
         <div className="lg:hidden">
-          <button onClick={toggleMenu} className="flex items-center text-black hover:text-gray-600 cursor-pointer p-3">
+          <button onClick={toggleMenu} className="flex items-center text-white hover:text-gray-600 cursor-pointer p-3">
             <svg className="block h-4 w-4 fill-current" viewBox="0 0 20 20">
               <title>Mobile menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
           </button>
         </div>
-        <ul className="hidden absolute text-black top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
+        <ul className="hidden absolute text-white top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
           <li><a className="text-sm hover:text-gray-500" href="#">Home</a></li>
           <li className="text-gray-300">
             <svg fill="none" stroke="currentColor" className="w-4 h-4" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@ export const Navbar: React.FC = () => {
           {user ? 
             <AvatarDropdown />
           :
-            <a className="block border-2 border-gray-200 px-5 py-1 leading-loose text-sm text-center font-semibold hover:bg-gray-200 rounded-xl" href="/signin">Sign In</a>
+            <a className="block border-2 border-gray-200 px-5 py-1 leading-loose text-sm text-white text-center font-semibold hover:bg-gray-800 rounded-xl" href="/signin">Sign In</a>
           }
         </div>
       </nav>
@@ -81,7 +81,7 @@ export const Navbar: React.FC = () => {
               </svg>
             </a>
             <button onClick={closeMenu} className="navbar-close">
-              <svg className="h-6 w-6 text-black cursor-pointer hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-6 w-6 text-white cursor-pointer hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
