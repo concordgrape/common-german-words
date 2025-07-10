@@ -35,7 +35,7 @@ function GoogleSignInButton() {
 
   return (
     <button
-      className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100 w-full"
+      className="group h-12 px-15 border-2 border-gray-300 rounded-sm transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
       onClick={handleGoogleSignIn} 
       disabled={false}
     >
