@@ -2,7 +2,8 @@
 
 import React from 'react';
 
-import { FaGoogle, FaApple } from "react-icons/fa";
+import { FaApple } from "react-icons/fa";
+import GoogleSignInButton from './SignInWithGoogle';
 
 const LoginForm: React.FC = () => {
   return (
@@ -59,10 +60,7 @@ const LoginForm: React.FC = () => {
         </div>
 
         <div className="flex flex-col items-center justify-center">
-        <button className="w-[200px] flex items-center justify-center gap-4 border border-gray-300 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100">
-            <FaGoogle />
-            Sign in with Google
-        </button>
+          <GoogleSignInButton />
         <button className="w-[200px] mt-2 flex items-center justify-center gap-4 border border-gray-300 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100">
             <FaApple />
             Sign in with Apple

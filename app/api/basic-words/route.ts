@@ -54,14 +54,14 @@ export async function GET(req: NextRequest) {
         id: index,
         word: doc.id,
         part_of_speech: data.part_of_speech || null,
-        frequency: data.frequency || 0, // include frequency
+        frequency: data.frequency || 0,
         rank: data.rank || 0,
         translation: data.translation || '',
         gender: data.gender || '',
       };
-    }).sort((a, b) => b.frequency - a.frequency); // sort by frequency DESC
+    }).sort((a, b) => b.frequency - a.frequency);
 
-    // ✅ Store in Redis for 1 hour
+    // ✅ Cache the result for 1 hour
     await redis.set(cacheKey, JSON.stringify({ words }), {
       EX: 3600,
     });

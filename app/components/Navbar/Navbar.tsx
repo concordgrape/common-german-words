@@ -4,12 +4,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 
+import { useUser } from '@/app/context/UserContext';
+import AvatarDropdown from './AvatarDropdown';
+
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
+
+  const { user } = useUser();
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -50,7 +55,11 @@ export const Navbar: React.FC = () => {
           <li><a className="text-sm text-gray-400 hover:text-gray-500" href="#">Pricing</a></li>
           <li><a className="text-sm text-gray-400 hover:text-gray-500" href="#">Contact</a></li>
         </ul>
-        <a className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-white hover:bg-gray-200 text-sm text-[#013c57] font-bold rounded-sm transition duration-200" href="/signin">👋&nbsp;&nbsp;Sign In</a>
+        {user ? 
+          <AvatarDropdown />
+        :
+          <a className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-white hover:bg-gray-200 text-sm text-[#013c57] font-bold rounded-sm transition duration-200" href="/signin">👋&nbsp;&nbsp;Sign In</a>
+        }
       </nav>
 
       <div
