@@ -408,9 +408,15 @@ CustomScroller.displayName = "CustomScroller";
         {/* Word Term */}
         <div className="text-left font-medium">
           {word.word}
-          {word.gender.toLowerCase() == 'masculine' && <span className="text-gray-700 text-sm"><i>, der</i></span>}
-          {word.gender.toLowerCase() == 'feminine' && <span className="text-gray-700 text-sm"><i>, die</i></span>}
-          {word.gender.toLowerCase() == 'neuter' && <span className="text-gray-700 text-sm"><i>, das</i></span>}
+          {(word.part_of_speech && word.part_of_speech.toLowerCase() == 'determiner') ?
+          <></>
+          :
+          <>
+            {word.gender.toLowerCase() == 'masculine' && <span className="text-gray-700 text-sm"><i>, der</i></span>}
+            {word.gender.toLowerCase() == 'feminine' && <span className="text-gray-700 text-sm"><i>, die</i></span>}
+            {word.gender.toLowerCase() == 'neuter' && <span className="text-gray-700 text-sm"><i>, das</i></span>}
+          </>
+          }
         </div>
 
         {/* Translation */}
