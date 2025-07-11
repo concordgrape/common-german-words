@@ -346,6 +346,7 @@ CustomScroller.displayName = "CustomScroller";
             isActive={selectedCEFR === option.id}
             onClick={() => setSelectedCEFR(option.id as 'All' | 'A1' | 'A2' | 'B1' | '+')}
             index={index}
+            color={'bg-orange-400'}
           />
         ))}
       </div>
@@ -378,6 +379,7 @@ CustomScroller.displayName = "CustomScroller";
             isActive={activeSort === option.id}
             onClick={() => handleSortChange(option.id)}
             index={index}
+            color={'bg-gray-400'}
           />
         ))}
       </div>

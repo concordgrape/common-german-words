@@ -11,11 +11,12 @@ interface SortButtonProps {
   label: string;
   isActive: boolean;
   onClick: () => void;
-  index: number; // Added index to determine button position
+  index: number;
+  color: string;
 }
 
 // SortButton component for individual sort options
-const SortButton: React.FC<SortButtonProps> = ({ label, isActive, onClick, index }) => {
+const SortButton: React.FC<SortButtonProps> = ({ label, isActive, onClick, index, color }) => {
   // Determine if specific corners should be rounded based on index
   const isTopLeft = index === 0;
   const isTopRight = index === 1;
@@ -31,7 +32,7 @@ const SortButton: React.FC<SortButtonProps> = ({ label, isActive, onClick, index
         transition-all duration-200 ease-in-out
         ${
           isActive
-            ? 'bg-orange-400 text-white shadow-md' // Active state styling
+            ? `${color} text-white shadow-md` // Active state styling
             : 'bg-[#F2F2F2] text-black hover:bg-gray-200' // Inactive state styling
         }
         focus:outline-none focus:ring-0
