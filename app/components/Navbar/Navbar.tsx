@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { useUser } from '@/app/context/UserContext';
 import AvatarDropdown from './AvatarDropdown';
@@ -29,15 +30,12 @@ export const Navbar: React.FC = () => {
   return (
     <div className="">
       <nav className="fixed w-full z-100 px-4 py-3 lg:py-4 flex justify-between items-center bg-[#323944]">
-        <Link className="text-3xl font-bold leading-none" href="/">
-         <svg className="h-10 w-10" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="45" fill="#3B82F6" />
-            <text x="50%" y="54%" textAnchor="middle" fontSize="36" fill="white" dy=".3em" fontFamily="Arial">MC</text>
-          </svg>
+        <Link className="text-3xl font-bold leading-none flex" href="/">
+          <Image src="/de.webp" alt="Logo" width={70} height={70} quality={100} unoptimized />
         </Link>
         <div className="lg:hidden">
-          <button onClick={toggleMenu} className="flex items-center text-white hover:text-gray-600 cursor-pointer p-3">
-            <svg className="block h-4 w-4 fill-current" viewBox="0 0 20 20">
+          <button onClick={toggleMenu} className="flex items-center text-white hover:text-gray-300 cursor-pointer p-3">
+            <svg className="block h-6 w-6 fill-current" viewBox="0 0 20 20">
               <title>Mobile menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
@@ -61,7 +59,7 @@ export const Navbar: React.FC = () => {
                 <Link href="/signin" className="px-4 py-2 text-sm font-semibold text-white bg-clear hover:bg-white/10 rounded-lg">
                   Sign In
                 </Link>
-                <Link href="/signup" className="px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg">
+                <Link href="/signup" className="px-4 py-2 text-sm font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded-lg">
                   Sign Up
                 </Link>
               </div>
@@ -79,20 +77,18 @@ export const Navbar: React.FC = () => {
       >
         <div onClick={closeMenu} className="navbar-backdrop fixed inset-0 bg-white opacity-25" />
         <nav className="relative z-10">
-          <div className="flex items-center mb-8">
+          <div className="flex items-center mb-4">
             <a className="mr-auto text-3xl font-bold leading-none" href="#">
-              <svg className="h-12 w-12" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="45" fill="#3B82F6" />
-                <text x="50%" y="54%" textAnchor="middle" fontSize="36" fill="white" dy=".3em" fontFamily="Arial">MC</text>
-              </svg>
+              <Image src="/de.webp" alt="Logo" width={70} height={70} quality={100} unoptimized />
             </a>
             <button onClick={closeMenu} className="navbar-close">
-              <svg className="h-6 w-6 text-white cursor-pointer hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-6 w-6 text-black cursor-pointer hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
-          <div>
+          <span className="text-gray-700 text-lg"><b>Common German Words</b></span>
+          <div className='mt-4'>
             <ul>
               {['Home', 'About Us', 'Services', 'Pricing', 'Contact'].map((item) => (
                 <li className="mb-1" key={item}>
@@ -109,7 +105,7 @@ export const Navbar: React.FC = () => {
               <a className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700 rounded-xl" href="#">Sign Up</a>
             </div>
             <p className="my-4 text-xs text-center text-gray-400">
-              <span>Copyright © 2021</span>
+              <span>Copyright © 2025</span>
             </p>
           </div>
         </nav>
