@@ -15,7 +15,7 @@ admin.initializeApp({
 const db = admin.firestore();
 
 // Load your JSON file
-const wordsData = JSON.parse(fs.readFileSync('german_words_output_with_information.json', 'utf8'));
+const wordsData = JSON.parse(fs.readFileSync('german_words_temp.json', 'utf8'));
 
 // Upload each word into `languages/german/words/{word}`
 async function importGermanWords() {
@@ -51,8 +51,6 @@ generateWordIdList('german').catch((err) => {
 });
 */
 
-/*
 importGermanWords().catch((err) => {
   console.error('❌ Import failed:', err);
 });
-*/

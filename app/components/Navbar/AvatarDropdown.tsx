@@ -32,7 +32,7 @@ export default function AvatarDropdown() {
     <div className="relative" ref={dropdownRef}>
         <button
             onClick={() => setOpen(!open)}
-            className="flex items-center justify-center w-8 h-8 bg-white rounded-full overflow-hidden hover:bg-gray-300 text-gray-500 transition-colors"
+            className="flex items-center cursor-pointer justify-center w-8 h-8 bg-white rounded-full overflow-hidden hover:bg-gray-300 text-gray-500 transition-colors"
             >
             <svg
                 className="w-6 h-6"

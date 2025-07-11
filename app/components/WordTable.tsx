@@ -31,7 +31,7 @@ export const WordTable: React.FC<WordTableProps> = ({ onRowClick, selectedWord, 
   const [isReversed, setIsReversed] = useState(false);
 
       const [activeSort, setActiveSort] = useState<SortOption['id']>('frequency'); // 'alphabetically' is active by default as per screenshot
-
+const [selectedCEFR, setSelectedCEFR] = useState<'All' | 'A1' | 'A2' | 'B1' | '+'>('All');
 
   // Create a ref for the dropdown container
   const sortDropdownRef = useRef<HTMLDivElement>(null);
@@ -150,11 +150,26 @@ if (isReversed) {
   sortedWords = [...sortedWords].reverse();
 }
 
-  const filteredWords = useMemo(() => {
-  return selectedType === 'All'
-    ? sortedWords
-    : sortedWords.filter(word => word.part_of_speech?.toLowerCase() === selectedType.toLowerCase());
-}, [selectedType, sortedWords]);
+const filteredWords = useMemo(() => {
+  let result = sortedWords;
+
+  if (selectedType !== 'All') {
+    result = result.filter(word => word.part_of_speech?.toLowerCase() === selectedType.toLowerCase());
+  }
+
+if (selectedCEFR === 'A1') {
+  result = result.filter(word => word.rank === 1);
+} else if (selectedCEFR === 'A2') {
+  result = result.filter(word => word.rank === 2);
+} else if (selectedCEFR === 'B1') {
+  result = result.filter(word => word.rank === 3);
+} else if (selectedCEFR === '+') {
+  result = result.filter(word => word.rank === 4 || word.rank === 5);
+}
+
+  return result;
+}, [selectedType, selectedCEFR, sortedWords]);
+
 
 const totalPages = Math.ceil(filteredWords.length / ITEMS_PER_PAGE);
 
@@ -312,31 +327,64 @@ CustomScroller.displayName = "CustomScroller";
             </div>
 
             {/* Sort Buttons Row */}
-            <div className="flex gap-4 items-center mb-4">
-              <div className="grid grid-cols-2 gap-0 max-w-[300px]">
-                {sortOptions.map((option, index) => (
-                  <SortButton
-                    key={option.id}
-                    label={option.label}
-                    isActive={activeSort === option.id}
-                    onClick={() => handleSortChange(option.id)}
-                    index={index}
-                  />
-                ))}
-              </div>
+<div className="flex justify-center mb-4">
+  <div className="flex flex-wrap gap-10 items-start w-full">
+    
+    {/* CEFR Level Buttons */}
+    <div className="flex flex-col items-start">
+      <span className="mb-2 text-sm text-gray-600 font-medium">Filter by Level</span>
+      <div className="grid grid-cols-2 gap-0 max-w-[300px]">
+        {[
+          { id: 'All', label: 'All' },
+          { id: 'A1', label: 'A1' },
+          { id: 'A2', label: 'A2' },
+          { id: 'B1', label: 'B1' },
+        ].map((option, index) => (
+          <SortButton
+            key={option.id}
+            label={option.label}
+            isActive={selectedCEFR === option.id}
+            onClick={() => setSelectedCEFR(option.id as 'All' | 'A1' | 'A2' | 'B1' | '+')}
+            index={index}
+          />
+        ))}
+      </div>
+          <div className="flex flex-col items-start mt-5">
+                  <span className="mb-2 text-sm text-gray-600 font-medium">Part of Speech</span>
 
-              <select
-                value={selectedType}
-                onChange={(e) => setSelectedType(e.target.value)}
-                className="px-3 py-2 rounded-md bg-gray-100 cursor-pointer text-sm"
-              >
-                {wordTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-            </div>
+                          <select
+          value={selectedType}
+          onChange={(e) => setSelectedType(e.target.value)}
+          className="px-3 py-2 rounded-md bg-gray-100 cursor-pointer text-sm col-span-2"
+        >
+          {wordTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
+      </div>
+
+    </div>
+
+    {/* Sort + Part of Speech Filter */}
+    <div className="flex flex-col items-start">
+      <span className="mb-2 text-sm text-gray-600 font-medium">Sort & Type</span>
+      <div className="grid grid-cols-2 gap-0 max-w-[300px]">
+        {sortOptions.map((option, index) => (
+          <SortButton
+            key={option.id}
+            label={option.label}
+            isActive={activeSort === option.id}
+            onClick={() => handleSortChange(option.id)}
+            index={index}
+          />
+        ))}
+      </div>
+    </div>
+
+  </div>
+</div>
 
             <div className="text-left">{filteredWords.length} {filteredWords.length > 1 ? selectedType != 'All' ? `${selectedType.toLowerCase()}s` : 'words' : 'word'} loaded</div>
         </div>
