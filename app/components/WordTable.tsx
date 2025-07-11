@@ -327,8 +327,8 @@ CustomScroller.displayName = "CustomScroller";
             </div>
 
             {/* Sort Buttons Row */}
-<div className="flex justify-center mb-4">
-  <div className="flex flex-wrap gap-10 items-start w-full">
+<div className="flex justify-center mb-5">
+  <div className="flex lg:flex-wrap gap-2 lg:gap-10 items-start w-full">
     
     {/* CEFR Level Buttons */}
     <div className="flex flex-col items-start">
