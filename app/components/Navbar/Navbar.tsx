@@ -14,7 +14,7 @@ export const Navbar: React.FC = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
-  const { user } = useUser();
+  const { user, loading } = useUser();
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -56,11 +56,17 @@ export const Navbar: React.FC = () => {
           <li><a className="text-sm hover:text-gray-500" href="#">Contact</a></li>
         </ul>
         <div className="hidden lg:block">
-          {user ? 
-            <AvatarDropdown />
-          :
-            <a className="block border-2 border-gray-200 px-5 py-1 leading-loose text-sm text-white text-center font-semibold hover:bg-gray-800 rounded-xl" href="/signin">Sign In</a>
-          }
+          {(!user && !loading) ?
+              <div className="flex items-center space-x-4">
+                <Link href="/signin" className="px-4 py-2 text-sm font-semibold text-white bg-clear hover:bg-white/10 rounded-lg">
+                  Sign In
+                </Link>
+                <Link href="/signup" className="px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg">
+                  Sign Up
+                </Link>
+              </div>
+              :
+              <AvatarDropdown loading={loading} />}
         </div>
       </nav>
 
