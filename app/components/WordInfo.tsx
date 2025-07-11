@@ -87,8 +87,8 @@ useEffect(() => {
       <ul className="space-y-2">
         {fullData.examples.slice(0, visibleExamples).map((ex, idx) => (
           <li key={idx} className="text-white/90">
-            <div>🇩🇪 {ex.sentence}</div>
-            <div className="text-white/70">🇬🇧 {ex.translation}</div>
+            <div>🇩🇪 {ex.sentence.replace(/\./g, '')}</div>
+            <div className="text-white/70">🇬🇧 {ex.translation.replace(/\./g, '')}</div>
           </li>
         ))}
       </ul>

@@ -357,6 +357,7 @@ CustomScroller.displayName = "CustomScroller";
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
           className="px-3 py-2 rounded-md bg-gray-100 cursor-pointer text-sm col-span-2 w-full"
+          id="partOfSpeechSelect"
         >
           {wordTypes.map((type) => (
             <option key={type} value={type}>
