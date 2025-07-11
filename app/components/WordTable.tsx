@@ -328,12 +328,12 @@ CustomScroller.displayName = "CustomScroller";
 
             {/* Sort Buttons Row */}
 <div className="flex justify-center mb-5">
-  <div className="flex lg:flex-wrap gap-2 lg:gap-10 items-start w-full">
+  <div className="flex lg:flex-wrap justify-center gap-2 lg:gap-10 items-start w-full">
     
     {/* CEFR Level Buttons */}
     <div className="flex flex-col items-start">
       <span className="mb-2 text-sm text-gray-600 font-medium">Filter by Level</span>
-      <div className="grid grid-cols-2 gap-0 max-w-[300px]">
+      <div className="grid grid-cols-2 gap-0 lg:w-50">
         {[
           { id: 'All', label: 'All' },
           { id: 'A1', label: 'A1' },
@@ -350,13 +350,13 @@ CustomScroller.displayName = "CustomScroller";
           />
         ))}
       </div>
-          <div className="flex flex-col items-start mt-5">
+          <div className="flex flex-col items-start mt-5 w-full">
                   <span className="mb-2 text-sm text-gray-600 font-medium">Part of Speech</span>
 
                           <select
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
-          className="px-3 py-2 rounded-md bg-gray-100 cursor-pointer text-sm col-span-2"
+          className="px-3 py-2 rounded-md bg-gray-100 cursor-pointer text-sm col-span-2 w-full"
         >
           {wordTypes.map((type) => (
             <option key={type} value={type}>
@@ -371,7 +371,7 @@ CustomScroller.displayName = "CustomScroller";
     {/* Sort + Part of Speech Filter */}
     <div className="flex flex-col items-start">
       <span className="mb-2 text-sm text-gray-600 font-medium">Sort & Type</span>
-      <div className="grid grid-cols-2 gap-0 max-w-[300px]">
+      <div className="grid grid-cols-2 gap-0 w-full lg:w-80 max-w-[300px] lg:max-w-[400px] lg:max-w-[350px]">
         {sortOptions.map((option, index) => (
           <SortButton
             key={option.id}
@@ -379,7 +379,7 @@ CustomScroller.displayName = "CustomScroller";
             isActive={activeSort === option.id}
             onClick={() => handleSortChange(option.id)}
             index={index}
-            color={'bg-gray-400'}
+            color={'bg-gray-500'}
           />
         ))}
       </div>
