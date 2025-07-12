@@ -6,7 +6,7 @@ import { Virtuoso } from 'react-virtuoso';
 import { Word } from '../helpers/fetchBasicWordList';
 import { useSearchParams, useRouter } from "next/navigation";
 import { truncateString, useIsMobile } from '../helpers/utils';
-import { FaQuestionCircle } from 'react-icons/fa';
+import { FaCheck, FaPlus, FaQuestionCircle } from 'react-icons/fa';
 import { FaArrowDownShortWide } from "react-icons/fa6";
 import { DropdownWordInfo } from './DropdownWordInfo';
 
@@ -249,7 +249,7 @@ CustomScroller.displayName = "CustomScroller";
 
 
   return (
-    <div className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] rounded-lg overflow-hidden mt-5`}>
+    <div className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] border-1 border-gray-200 rounded-lg overflow-hidden mt-5`}>
         {/* Header with Search and Sort border border-1 border-[#B1B1B1]*/}
         <div className="p-4">
   <div className="flex justify-between items-center mb-4">
@@ -392,11 +392,11 @@ CustomScroller.displayName = "CustomScroller";
             <div className="text-left">{filteredWords.length} {filteredWords.length > 1 ? selectedType != 'All' ? `${selectedType.toLowerCase()}s` : 'words' : 'word'} loaded</div>
         </div>
         <div className="flex px-4 py-2 bg-[#F9F9F9] text-gray-600 font-semibold border-b border-gray-200 text-sm">
-          <div className="w-2 mr-2"></div>
+          {/*<div className="w-2 mr-2"></div>*/}
           <div className="w-5">#</div>
-          <div className="w-5">Word</div>
+          <div className="w-5 hidden sm:block md:block lg:block">Word</div>
           <div className="text-center flex-1">Translation</div>
-          <div className="relative group w-fit flex items-center gap-1 mr-0 sm:mr-5 md:mr-5">
+          <div className="relative group w-fit flex items-center gap-1 mr-5 sm:mr-5 md:mr-5">
             <span>Rank</span>
             <FaQuestionCircle className="text-gray-400  hidden sm:block md:block" />
             <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
@@ -404,6 +404,7 @@ CustomScroller.displayName = "CustomScroller";
             </div>
           </div>
           <div className="w-[50px] sm:w-[80px] md:w-[80px] text-right">Type</div>
+          <div className="w-[50px] sm:w-[60px] md:w-[60px]"></div>
           <button
             className="cursor-pointer hover:text-gray-400 w-5 ml-5"
             onClick={() => setIsReversed(prev => !prev)}
@@ -452,8 +453,8 @@ CustomScroller.displayName = "CustomScroller";
         }`}
         onClick={() => toggleRow(word)}
       >
-        {/* Status Indicator */}
-        <span className="h-2 w-2 rounded-full bg-green-500 mr-3"></span>
+        {/* Status Indicator 
+        <span className="h-2 w-2 rounded-full bg-green-500 mr-3"></span>*/}
                 <span className="mr-3 text-gray-400">{index}</span>
 
         {/* Word Term */}
@@ -501,6 +502,9 @@ CustomScroller.displayName = "CustomScroller";
             />
           </svg>
         </button>
+
+        <button className='w-6 h-6 bg-gray-200 rounded-full hover:bg-orange-400 hover:text-white cursor-pointer mr-2'><FaPlus className='m-auto' size={10}/></button>
+        <button className='w-6 h-6 bg-gray-200 rounded-full hover:bg-green-500 hover:text-white cursor-pointer'><FaCheck className='m-auto' size={10}/></button>
       </div>
 
       <div
