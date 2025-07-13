@@ -19,7 +19,7 @@ interface FullWordData {
   gender: string;
 }
 
-export const DropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen }) => {
+const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen }) => {
   const [fullData, setFullData] = useState<FullWordData | null>(null);
   const [visibleExamples, setVisibleExamples] = useState(4);
 
@@ -44,17 +44,17 @@ export const DropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen
   }, [word.word, isOpen]);
 
   return (
-<div
-  className={`transition-[max-height] duration-500 ease-in-out sm:hidden md:hidden ${
-    isOpen ? "opacity-100" : "max-h-0 opacity-0"
-  } overflow-hidden`}
->
+    <div
+      className={`transition-[max-height] duration-500 ease-in-out sm:hidden md:hidden ${
+        isOpen ? "opacity-100" : "max-h-0 opacity-0"
+      } overflow-hidden`}
+    >
       {fullData ? (
-  <div className="max-h-[400px] overflow-y-auto p-4 px-6 bg-[#027AFB] text-white space-y-4 rounded-b-lg">
-        <div className="relative w-full">
+        <div className="max-h-[400px] overflow-y-auto p-4 px-6 bg-[#027AFB] text-white space-y-4 rounded-b-lg">
+          <div className="relative w-full">
             <h2 className="text-3xl font-bold text-center">{word.word}</h2>
             <h2 className="text-lg font-bold absolute left-0 top-0"><i>{word.rank}</i></h2>
-        </div>
+          </div>
           <p className="text-center text-gray-200 italic">
             {fullData.part_of_speech} · {fullData.gender.length ? `${fullData.gender} · ` : ''} [{fullData.phonetic_spelling}]
           </p>
@@ -106,9 +106,16 @@ export const DropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen
         </div>
       ) : (
         <div className="flex justify-center items-center h-100">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent" />
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent" />
         </div>
-        )}
+      )}
     </div>
   );
 };
+
+export const DropdownWordInfo = React.memo(InnerDropdownWordInfo, (prev, next) => {
+  return (
+    prev.word.word === next.word.word &&
+    prev.isOpen === next.isOpen
+  );
+});

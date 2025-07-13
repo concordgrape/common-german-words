@@ -48,6 +48,9 @@ const [searchTerm, setSearchTerm] = useState<string>(initialSearch);
 
   const wordTypes = ['All', 'Verb', 'Adjective', 'Noun', 'Interjection', 'Adverb', 'Determiner'];
 
+const [checkEnabledById, setCheckEnabledById] = useState<Record<number, boolean>>({});
+const [plusEnabledById, setPlusEnabledById] = useState<Record<number, boolean>>({});
+
   const changePage = (newPage: number) => {
     const params = new URLSearchParams(window.location.search);
     params.set("page", String(newPage));
@@ -182,8 +185,8 @@ const displayedWords = sortedWords.slice(
 
 
 // Adjust Virtuoso height
-const rowHeight = 54;
 const isMobile = useIsMobile(); 
+const rowHeight = isMobile ? 64 : 54;
 const virtuosoHeight = `${displayedWords.length * rowHeight + ((isMobile && expandedRows.length > 0) ? 435 : 0) + 45}px`;
 
   // Toggle expanded row by ID and pass clicked word to parent
@@ -393,20 +396,19 @@ CustomScroller.displayName = "CustomScroller";
         </div>
         <div className="flex px-4 py-2 bg-[#F9F9F9] text-gray-600 font-semibold border-b border-gray-200 text-sm">
           {/*<div className="w-2 mr-2"></div>*/}
-          <div className="w-5">#</div>
-          <div className="w-5 hidden sm:block md:block lg:block">Word</div>
-          <div className="text-center flex-1">Translation</div>
-          <div className="relative group w-fit flex items-center gap-1 mr-5 sm:mr-5 md:mr-5">
+          {/*<div className="w-5">#</div>*/}
+          <div className="ml-0">Word</div>
+          <div className="text-center flex-1 ml-10 mr-10">Translation</div>
+          <div className="relative group w-fit flex items-center gap-1 mr-1 lg:mr-0">
             <span>Rank</span>
             <FaQuestionCircle className="text-gray-400  hidden sm:block md:block" />
             <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
               Frequency rank (1 is most common)
             </div>
           </div>
-          <div className="w-[50px] sm:w-[80px] md:w-[80px] text-right">Type</div>
           <div className="w-[50px] sm:w-[60px] md:w-[60px]"></div>
           <button
-            className="cursor-pointer hover:text-gray-400 w-5 ml-5"
+            className="cursor-pointer hover:text-gray-400 w-5"
             onClick={() => setIsReversed(prev => !prev)}
             aria-label="Toggle sort order"
           >
@@ -444,18 +446,18 @@ CustomScroller.displayName = "CustomScroller";
         wordRefs.current[word.id] = el;
       }}
       className={`group border-1 ${
-        expandedRows.includes(word.id) ? "border-blue-300" : "border-[#F2F2F2] max-h-[54px]"
+        expandedRows.includes(word.id) ? "border-blue-300" : "border-[#F2F2F2] h-[64px] lg:max-h-[54px]"
       }`}
     >
       <div
-        className={`flex items-center justify-between p-3 cursor-pointer transition-colors duration-200 ${
+        className={`flex items-center justify-between p-3 pt-4 cursor-pointer transition-colors duration-200 ${
           expandedRows.includes(word.id) ? "" : "hover:bg-gray-100"
         }`}
         onClick={() => toggleRow(word)}
       >
         {/* Status Indicator 
         <span className="h-2 w-2 rounded-full bg-green-500 mr-3"></span>*/}
-                <span className="mr-3 text-gray-400">{index}</span>
+                {/*<span className="mr-3 text-gray-400">{index}</span>*/}
 
         {/* Word Term */}
         <div className="text-left font-medium">
@@ -477,13 +479,13 @@ CustomScroller.displayName = "CustomScroller";
 <div className="w-[10px] sm:w-[40px] md:w-[40px] text-center text-gray-400 text-sm mr-3">{word.rank}</div>
 
         {/* Word Type */}
-<div className="w-[60px] sm:w-[80px] md:w-[80px] text-right text-gray-400 text-sm mr-4">
+{/*<div className="w-[60px] sm:w-[80px] md:w-[80px] text-right text-gray-400 text-sm mr-4">
   {word.part_of_speech}
-</div>
+</div>*/}
 
 
         {/* Expand/Collapse Icon */}
-        <button
+        {/*<button
           className="p-1 rounded-full hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
           aria-label={expandedRows.includes(word.id) ? "Collapse" : "Expand"}
         >
@@ -501,10 +503,42 @@ CustomScroller.displayName = "CustomScroller";
               clipRule="evenodd"
             />
           </svg>
+        </button>*/}
+
+        <button
+          className={`w-8 h-8 lg:h-6 lg:w-6 ${plusEnabledById[word.id] ? 'bg-orange-400 text-white' : 'bg-gray-200'} rounded-full hover:bg-orange-400 hover:text-white cursor-pointer mr-2`}
+          onClick={(e) => {
+            e.stopPropagation();
+            setPlusEnabledById(prev => {
+              const newState = !prev[word.id];
+              if (newState) {
+                setPlusEnabledById(anim => ({ ...anim, [word.id]: true }));
+                
+              }
+              return { ...prev, [word.id]: newState };
+            });
+          }}
+        >
+          <FaPlus className='m-auto' size={isMobile ? 12 : 10} />
         </button>
 
-        <button className='w-6 h-6 bg-gray-200 rounded-full hover:bg-orange-400 hover:text-white cursor-pointer mr-2'><FaPlus className='m-auto' size={10}/></button>
-        <button className='w-6 h-6 bg-gray-200 rounded-full hover:bg-green-500 hover:text-white cursor-pointer'><FaCheck className='m-auto' size={10}/></button>
+        <button
+          className={`w-8 h-8 lg:h-6 lg:w-6 ${checkEnabledById[word.id] ? 'bg-green-500 text-white' : 'bg-gray-200'} rounded-full hover:bg-green-500 hover:text-white cursor-pointer`}
+          onClick={(e) => {
+            e.stopPropagation();
+            setCheckEnabledById(prev => {
+              const newState = !prev[word.id];
+              if (newState) {
+                setCheckEnabledById(anim => ({ ...anim, [word.id]: true }));
+                
+              }
+              return { ...prev, [word.id]: newState };
+            });
+          }}
+        >
+          <FaCheck className='m-auto' size={isMobile ? 12 : 10} />
+        </button>
+
       </div>
 
       <div

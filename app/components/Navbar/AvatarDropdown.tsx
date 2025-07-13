@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebaseClient";
 import Error from "next/error";
+import { useUser } from "@/app/context/UserContext";
 
 interface AvatarDropdownProps {
   loading?: boolean;
@@ -32,26 +33,35 @@ export default function AvatarDropdown({ loading = false }: AvatarDropdownProps)
     });
   }
 
+  const { user } = useUser();
+
   return (
     <div className={`relative ${loading ? 'max-w-sm animate-pulse' : ''}`} ref={dropdownRef}>
         <button
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              if (loading) return;
+              if (user) {
+                setOpen(!open)
+              } else {
+                window.location.href = '/signin';
+              }
+            }}
             className="flex items-center cursor-pointer justify-center w-10 h-10 bg-gray-200 rounded-full overflow-hidden hover:bg-gray-300 text-gray-500 transition-colors"
-            >
-            {!loading ? (
-              <svg
-                className="w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                fillRule="evenodd"
-                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                clipRule="evenodd"
-                />
-            </svg>
-            ) : <></>}
+        >
+          {!loading ? (
+            <svg
+              className="w-6 h-6"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+          >
+              <path
+              fillRule="evenodd"
+              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+              clipRule="evenodd"
+              />
+          </svg>
+          ) : <></>}
         </button>
 
       {(open && !loading) && (

@@ -33,7 +33,7 @@ export const Navbar: React.FC = () => {
         <Link className="text-3xl font-bold leading-none flex" href="/">
           <Image src="/de.webp" alt="Logo" width={70} height={70} quality={100} unoptimized />
         </Link>
-        <div className="lg:hidden flex gap-4">
+        <div className="lg:hidden flex gap-2">
           <div className='flex items-center space-x-4'>
             <AvatarDropdown loading={loading} />
           </div>
