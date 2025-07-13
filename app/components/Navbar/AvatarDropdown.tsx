@@ -65,10 +65,10 @@ export default function AvatarDropdown({ loading = false }: AvatarDropdownProps)
         </button>
 
       {(open && !loading) && (
-        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50 dark:bg-gray-800 dark:border-gray-700">
-          <ul className="py-1 text-sm text-gray-700 dark:text-gray-200">
+        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+          <ul className="py-1 text-sm text-gray-700">
             <li>
-              <button className="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" onClick={handleLogout}>
+              <button className="w-full text-left block px-4 py-2 hover:bg-gray-100" onClick={handleLogout}>
                 Logout
               </button>
             </li>

@@ -2,7 +2,7 @@ import React from 'react';
 
 // Define the type for a single sort option
 export interface SortOption {
-  id: 'frequency' | 'alphabetically' | 'date-saved' | 'next-review';
+  id: 'frequency' | 'alphabetically' | 'my-saved' | 'my-known';
   label: string;
 }
 

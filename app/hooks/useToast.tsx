@@ -72,24 +72,24 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const getBgColor = (variant: ToastVariant) => {
         switch (variant) {
             case 'error':
-            return 'bg-red-100 dark:bg-red-800';
+            return 'bg-red-100';
             case 'warning':
-            return 'bg-yellow-100 dark:bg-yellow-800';
+            return 'bg-yellow-100';
             case 'success':
             default:
-            return 'bg-blue-100 dark:bg-blue-800';
+            return 'bg-green-100';
         }
     };
 
     const getTextColor = (variant: ToastVariant) => {
         switch (variant) {
             case 'error':
-            return 'text-red-600 dark:text-red-200';
+            return 'text-red-600';
             case 'warning':
-            return 'text-yellow-600 dark:text-yellow-200';
+            return 'text-yellow-600';
             case 'success':
             default:
-            return 'text-blue-500 dark:text-blue-200';
+            return 'text-green-500';
         }
     };
 
@@ -104,21 +104,20 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             <div
               key={id}
               className={`flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow-sm transition-all duration-300 ease-in-out transform
-                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
-                dark:text-gray-400 dark:bg-gray-800`}
+                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
               role="alert"
             >
             <div className={`inline-flex items-center justify-center shrink-0 w-8 h-8 rounded-lg ${getBgColor(variant)} ${getTextColor(variant)}`}>
                 {getIcon(variant)}
               </div>
               <div className="ms-3 text-sm font-normal">
-                <div className="font-semibold text-gray-900 dark:text-white">{title}</div>
+                <div className="font-semibold text-gray-900">{title}</div>
                 {subtitle && <div>{subtitle}</div>}
               </div>
               <button
                 onClick={() => handleClose(id)}
                 type="button"
-                className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8"
                 aria-label="Close"
               >
                 <svg

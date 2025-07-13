@@ -9,6 +9,7 @@ import { truncateString, useIsMobile } from '../helpers/utils';
 import { FaCheck, FaPlus, FaQuestionCircle } from 'react-icons/fa';
 import { FaArrowDownShortWide } from "react-icons/fa6";
 import { DropdownWordInfo } from './DropdownWordInfo';
+import { useToast } from '../hooks/useToast';
 
 // WordTable component props interface
 interface WordTableProps {
@@ -39,6 +40,7 @@ const [selectedCEFR, setSelectedCEFR] = useState<'All' | 'A1' | 'A2' | 'B1' | '+
 
 const searchParams = useSearchParams();
 const router = useRouter();
+const toast = useToast();
 
 const initialSearch = searchParams.get("search") || "";
 const [searchTerm, setSearchTerm] = useState<string>(initialSearch);
@@ -216,8 +218,8 @@ const toggleRow = (word: Word) => {
     const sortOptions: SortOption[] = [
     { id: 'frequency', label: 'by frequency' },
     { id: 'alphabetically', label: 'alphabetically' },
-    { id: 'date-saved', label: 'date saved' },
-    { id: 'next-review', label: 'next review' },
+    { id: 'my-saved', label: 'my saved' },
+    { id: 'my-known', label: 'my known' },
   ];
 
 
@@ -394,7 +396,7 @@ CustomScroller.displayName = "CustomScroller";
 
             <div className="text-left">{filteredWords.length} {filteredWords.length > 1 ? selectedType != 'All' ? `${selectedType.toLowerCase()}s` : 'words' : 'word'} loaded</div>
         </div>
-        <div className="flex px-4 py-2 bg-[#F9F9F9] text-gray-600 font-semibold border-b border-gray-200 text-sm">
+        <div className="flex px-4 py-2 bg-[#F9F9F9] text-gray-600 font-semibold border-b border-gray-200 text-sm z-1">
           {/*<div className="w-2 mr-2"></div>*/}
           {/*<div className="w-5">#</div>*/}
           <div className="ml-0">Word</div>
@@ -511,22 +513,36 @@ onClick={() => {
           </svg>
         </button>*/}
 
-        <button
-          className={`w-8 h-8 lg:h-6 lg:w-6 ${plusEnabledById[word.id] ? 'bg-orange-400 text-white' : 'bg-gray-200'} rounded-full hover:bg-orange-400 hover:text-white cursor-pointer mr-2`}
-          onClick={(e) => {
-            e.stopPropagation();
-            setPlusEnabledById(prev => {
-              const newState = !prev[word.id];
-              if (newState) {
-                setPlusEnabledById(anim => ({ ...anim, [word.id]: true }));
-                
-              }
-              return { ...prev, [word.id]: newState };
-            });
-          }}
-        >
-          <FaPlus className='m-auto' size={isMobile ? 12 : 10} />
-        </button>
+<div className="relative group w-8 h-8 lg:h-6 lg:w-6 mr-2">
+  <button
+    className={`w-full h-full ${
+      plusEnabledById[word.id] ? 'bg-orange-400 text-white' : 'bg-gray-200'
+    } rounded-full hover:bg-orange-400 hover:text-white cursor-pointer`}
+    onClick={(e) => {
+      e.stopPropagation();
+      setPlusEnabledById((prev) => {
+        const newState = !prev[word.id];
+        if (newState) {
+          setPlusEnabledById((anim) => ({ ...anim, [word.id]: true }));
+          toast({
+            title: 'Added to Saved',
+            subtitle: "Added to 'Saved' words",
+            variant: 'success',
+          });
+        }
+        return { ...prev, [word.id]: newState };
+      });
+    }}
+  >
+    <FaPlus className="m-auto" size={isMobile ? 12 : 10} />
+  </button>
+
+  {/* Tooltip */}
+  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 text-xs text-white bg-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+    Save to word list
+  </div>
+</div>
+
 
         <button
           className={`w-8 h-8 lg:h-6 lg:w-6 ${checkEnabledById[word.id] ? 'bg-green-500 text-white' : 'bg-gray-200'} rounded-full hover:bg-green-500 hover:text-white cursor-pointer`}
@@ -536,7 +552,7 @@ onClick={() => {
               const newState = !prev[word.id];
               if (newState) {
                 setCheckEnabledById(anim => ({ ...anim, [word.id]: true }));
-                
+                toast({ title: 'Added to Known', subtitle: "Added to 'Known' words", variant: 'success' });
               }
               return { ...prev, [word.id]: newState };
             });
