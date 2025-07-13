@@ -517,7 +517,7 @@ onClick={() => {
   <button
     className={`w-full h-full ${
       plusEnabledById[word.id] ? 'bg-orange-400 text-white' : 'bg-gray-200'
-    } rounded-full hover:bg-orange-400 hover:text-white cursor-pointer`}
+    } rounded-sm hover:bg-orange-400 hover:text-white cursor-pointer`}
     onClick={(e) => {
       e.stopPropagation();
       setPlusEnabledById((prev) => {
@@ -545,7 +545,7 @@ onClick={() => {
 
 
         <button
-          className={`w-8 h-8 lg:h-6 lg:w-6 ${checkEnabledById[word.id] ? 'bg-green-500 text-white' : 'bg-gray-200'} rounded-full hover:bg-green-500 hover:text-white cursor-pointer`}
+          className={`w-8 h-8 lg:h-6 lg:w-6 ${checkEnabledById[word.id] ? 'bg-green-500 text-white' : 'bg-gray-200'} rounded-sm hover:bg-green-500 hover:text-white cursor-pointer`}
           onClick={(e) => {
             e.stopPropagation();
             setCheckEnabledById(prev => {
