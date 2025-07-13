@@ -37,6 +37,7 @@ const SortButton: React.FC<SortButtonProps> = ({ label, isActive, onClick, index
         }
         focus:outline-none focus:ring-0
         sm:text-base // Larger text on small screens and up
+        border-[0.01vw] border-gray-200
         ${isTopLeft ? 'rounded-tl-lg' : ''}
         ${isTopRight ? 'rounded-tr-lg' : ''}
         ${isBottomLeft ? 'rounded-bl-lg' : ''}

@@ -259,7 +259,7 @@ CustomScroller.displayName = "CustomScroller";
 <button
   onClick={() => changePage(currentPage - 1)}
   disabled={currentPage <= 1}
-  className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 flex items-center gap-2"
+  className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 flex items-center gap-2 border border-1 border-gray-300"
 >
   <svg
     width={20}
@@ -283,7 +283,7 @@ CustomScroller.displayName = "CustomScroller";
 <button
   onClick={() => changePage(currentPage + 1)}
   disabled={currentPage >= totalPages}
-  className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 flex items-center gap-2"
+  className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 flex items-center gap-2 border border-1 border-gray-300"
 >
   Next
   <svg
@@ -308,7 +308,7 @@ CustomScroller.displayName = "CustomScroller";
                 <input
   type="text"
   placeholder="Search..."
-  className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#F2F2F2] text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#F2F2F2] text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200 border-1"
   value={searchTerm}
   onChange={(e) => handleSearchChange(e.target.value)}
 />
@@ -336,7 +336,7 @@ CustomScroller.displayName = "CustomScroller";
     {/* CEFR Level Buttons */}
     <div className="flex flex-col items-start">
       <span className="mb-2 text-sm text-gray-600 font-medium">Filter by Level</span>
-      <div className="grid grid-cols-2 gap-0 lg:w-50">
+      <div className="grid grid-cols-2 gap-0 lg:w-50 border border-1 border-gray-200 rounded-lg">
         {[
           { id: 'All', label: 'All' },
           { id: 'A1', label: 'A1' },
@@ -359,7 +359,7 @@ CustomScroller.displayName = "CustomScroller";
                           <select
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
-          className="px-3 py-2 rounded-md bg-gray-100 cursor-pointer text-sm col-span-2 w-full"
+          className="px-3 py-2 rounded-md bg-gray-100 cursor-pointer text-sm col-span-2 w-full border border-1 border-gray-200 rounded-lg"
           id="partOfSpeechSelect"
         >
           {wordTypes.map((type) => (
@@ -375,7 +375,7 @@ CustomScroller.displayName = "CustomScroller";
     {/* Sort + Part of Speech Filter */}
     <div className="flex flex-col items-start">
       <span className="mb-2 text-sm text-gray-600 font-medium">Sort & Type</span>
-      <div className="grid grid-cols-2 gap-0 w-full lg:w-80 max-w-[300px] lg:max-w-[400px] lg:max-w-[350px]">
+      <div className="grid grid-cols-2 gap-0 w-full lg:w-80 max-w-[300px] lg:max-w-[400px] lg:max-w-[350px] border border-1 border-gray-200 rounded-lg">
         {sortOptions.map((option, index) => (
           <SortButton
             key={option.id}
@@ -439,7 +439,9 @@ CustomScroller.displayName = "CustomScroller";
   components={{
     Scroller: CustomScroller,
   }}
-  itemContent={(index, word) => (
+  itemContent={(localIndex, word) => {
+
+  return (
     <div
       key={word.id}
       ref={(el) => {
@@ -453,7 +455,11 @@ CustomScroller.displayName = "CustomScroller";
         className={`flex items-center justify-between p-3 pt-4 cursor-pointer transition-colors duration-200 ${
           expandedRows.includes(word.id) ? "" : "hover:bg-gray-100"
         }`}
-        onClick={() => toggleRow(word)}
+onClick={() => {
+  toggleRow(word);
+}}
+
+
       >
         {/* Status Indicator 
         <span className="h-2 w-2 rounded-full bg-green-500 mr-3"></span>*/}
@@ -551,7 +557,8 @@ CustomScroller.displayName = "CustomScroller";
 <DropdownWordInfo word={word} isOpen={expandedRows.includes(word.id)} />
       </div>
     </div>
-  )}
+  );
+}}
 />
 )}
 
