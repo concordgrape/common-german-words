@@ -86,8 +86,21 @@ export async function POST(req: NextRequest) {
         'X-Cache': 'MISS',
       },
     });
-  } catch (error) {
+} catch (error: unknown) {
+  if (error instanceof Error) {
+    console.error('TTS Error:', error.message, error.stack);
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } else {
     console.error('TTS Error:', error);
-    return NextResponse.json({ error: 'TTS failed' }, { status: 500 });
+    return new Response(JSON.stringify({ error: 'TTS failed' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
+}
+
+
 }
