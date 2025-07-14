@@ -6,6 +6,7 @@ import { Buffer } from 'buffer';
 import { createClient } from 'redis';
 
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs';
 
 console.log('💬 /api/speak route loaded');
 
