@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { Word } from '../helpers/fetchBasicWordList';
+import GoogleTTSButton from './GoogleTTSButton/GoogleTTSButton';
 
 interface WordInfoProps {
   selectedWord?: Word | null;
@@ -59,13 +60,30 @@ useEffect(() => {
 
   return (
     <div className="w-full">
-<div className="w-full bg-[#027AFB] rounded-lg shadow-lg p-6 flex flex-col max-h-[80vh] overflow-y-auto">
+<div className="w-full bg-[#027AFB] rounded-sm shadow-lg p-6 flex flex-col max-h-[80vh] overflow-y-auto">
 {fullData ? (
   <div className="text-white space-y-4">
-  <div className="relative w-full">
-    <h2 className="text-2xl font-bold text-center">{selectedWord.word}</h2>
-    <h2 className="text-lg font-bold absolute left-0 top-0"><i>{selectedWord.rank}</i></h2>
+<div className="relative w-full">
+  <div className="grid grid-cols-3 items-center w-full">
+    {/* Left: Rank */}
+    <div className="text-left">
+      <h2 className="text-lg font-bold"><i>{selectedWord.rank}</i></h2>
+    </div>
+
+    {/* Center: Word */}
+    <div className="text-center">
+      <h2 className="text-2xl font-bold">{selectedWord.word}</h2>
+    </div>
+
+    {/* Right: TTS Button */}
+    <div className="text-right">
+      <GoogleTTSButton text={selectedWord.word} color={'text-white hover:bg-blue-400'} />
+    </div>
   </div>
+</div>
+
+
+
 
     <p className="text-center text-gray-200 italic">
       {fullData.part_of_speech} · {fullData.gender ? `${fullData.gender} · ` : ''} [{fullData.phonetic_spelling}]
@@ -87,7 +105,10 @@ useEffect(() => {
       <ul className="space-y-2">
         {fullData.examples.slice(0, visibleExamples).map((ex, idx) => (
           <li key={idx} className="text-white/90">
-            <div>🇩🇪 {ex.sentence.replace(/\./g, '')}</div>
+            <div className="flex justify-between items-center">
+              <span>🇩🇪 {ex.sentence.replace(/\./g, '')}</span>
+              <GoogleTTSButton text={ex.sentence} color="text-white hover:bg-blue-400" />
+            </div>
             <div className="text-white/70">🇬🇧 {ex.translation.replace(/\./g, '')}</div>
           </li>
         ))}

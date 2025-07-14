@@ -10,6 +10,8 @@ import { FaCheck, FaPlus, FaQuestionCircle } from 'react-icons/fa';
 import { FaArrowDownShortWide } from "react-icons/fa6";
 import { DropdownWordInfo } from './DropdownWordInfo';
 import { useToast } from '../hooks/useToast';
+import WordPopover from './Popover/Popover';
+
 
 // WordTable component props interface
 interface WordTableProps {
@@ -254,7 +256,7 @@ CustomScroller.displayName = "CustomScroller";
 
 
   return (
-    <div className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] border-1 border-gray-200 rounded-lg overflow-hidden mt-5`}>
+    <div className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] border-1 border-gray-200 overflow-hidden mt-5`}>
         {/* Header with Search and Sort border border-1 border-[#B1B1B1]*/}
         <div className="p-4">
   <div className="flex justify-between items-center mb-4">
@@ -449,13 +451,13 @@ CustomScroller.displayName = "CustomScroller";
       ref={(el) => {
         wordRefs.current[word.id] = el;
       }}
-      className={`group border-1 ${
-        expandedRows.includes(word.id) ? "border-blue-300" : "border-[#F2F2F2] h-[64px] sm:max-h-[54px] md:max-h-[54px] lg:max-h-[54px]"
+      className={`border-1 ${
+        expandedRows.includes(word.id) ? "border-blue-300" : "hover:bg-gray-50 border-[#F2F2F2] h-[64px] sm:max-h-[54px] md:max-h-[54px] lg:max-h-[54px]"
       }`}
     >
       <div
         className={`flex items-center justify-between p-3 pt-4 cursor-pointer transition-colors duration-200 ${
-          expandedRows.includes(word.id) ? "" : "hover:bg-gray-100"
+          expandedRows.includes(word.id) ? "" : ""
         }`}
 onClick={() => {
   toggleRow(word);
@@ -468,18 +470,31 @@ onClick={() => {
                 {/*<span className="mr-3 text-gray-400">{index}</span>*/}
 
         {/* Word Term */}
-        <div className="text-left font-medium">
+    <div className="text-left font-medium px-1 rounded-sm flex items-center gap-1">
+      {/* Hover trigger isolated to just the word */}
+      <span className="relative group inline-block">
+        <span className="hover:bg-gray-200 rounded-sm px-0.5 cursor-pointer">
           {word.word}
-          {(word.part_of_speech && word.part_of_speech.toLowerCase() == 'determiner') ?
-          <></>
-          :
-          <>
-            {word.gender.toLowerCase() == 'masculine' && <span className="text-gray-700 text-sm"><i>, der</i></span>}
-            {word.gender.toLowerCase() == 'feminine' && <span className="text-gray-700 text-sm"><i>, die</i></span>}
-            {word.gender.toLowerCase() == 'neuter' && <span className="text-gray-700 text-sm"><i>, das</i></span>}
-          </>
-          }
-        </div>
+        </span>
+        {/* Popover only visible when hovering the word */}
+        <WordPopover word={word.word} />
+      </span>
+
+      {/* Gender suffix (not hoverable) */}
+      {word.part_of_speech?.toLowerCase() !== 'determiner' && (
+        <>
+          {word.gender.toLowerCase() === 'masculine' && (
+            <span className="text-gray-700 text-sm italic">, der</span>
+          )}
+          {word.gender.toLowerCase() === 'feminine' && (
+            <span className="text-gray-700 text-sm italic">, die</span>
+          )}
+          {word.gender.toLowerCase() === 'neuter' && (
+            <span className="text-gray-700 text-sm italic">, das</span>
+          )}
+        </>
+      )}
+    </div>
 
         {/* Translation */}
         <div className="flex-1 pl-10 text-center font-medium text-gray-500"><i>{truncateString(word.translation, isMobile ? word.word.length > 8 ? 5 : 15 : 30)}</i></div>

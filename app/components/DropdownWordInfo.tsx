@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Word } from "../helpers/fetchBasicWordList";
+import GoogleTTSButton from "./GoogleTTSButton/GoogleTTSButton";
 
 interface DropdownWordInfoProps {
   word: Word;
@@ -51,10 +52,24 @@ const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen }
     >
       {fullData ? (
         <div className="max-h-[400px] overflow-y-auto p-4 px-6 bg-[#027AFB] text-white space-y-4 rounded-b-lg">
-          <div className="relative w-full">
-            <h2 className="text-3xl font-bold text-center">{word.word}</h2>
-            <h2 className="text-lg font-bold absolute left-0 top-0"><i>{word.rank}</i></h2>
-          </div>
+ <div className="relative w-full">
+   <div className="grid grid-cols-3 items-center w-full">
+     {/* Left: Rank */}
+     <div className="text-left">
+       <h2 className="text-lg font-bold"><i>{word.rank}</i></h2>
+     </div>
+ 
+     {/* Center: Word */}
+     <div className="text-center">
+       <h2 className="text-2xl font-bold">{word.word}</h2>
+     </div>
+ 
+     {/* Right: TTS Button */}
+     <div className="text-right">
+       <GoogleTTSButton text={word.word} color={'text-white hover:bg-blue-400'} />
+     </div>
+   </div>
+ </div>
           <p className="text-center text-gray-200 italic">
             {fullData.part_of_speech} · {fullData.gender.length ? `${fullData.gender} · ` : ''} [{fullData.phonetic_spelling}]
           </p>
@@ -74,10 +89,13 @@ const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen }
             <h3 className="text-lg font-semibold mb-1">Examples</h3>
             <ul className="space-y-2">
               {fullData.examples.slice(0, visibleExamples).map((ex, idx) => (
-                <li key={idx}>
-                  <div>🇩🇪 {ex.sentence}</div>
-                  <div className="text-white/70">🇬🇧 {ex.translation}</div>
-                </li>
+                          <li key={idx} className="text-white/90">
+                            <div className="flex justify-between items-center">
+                              <span>🇩🇪 {ex.sentence.replace(/\./g, '')}</span>
+                              <GoogleTTSButton text={ex.sentence} color="text-white hover:bg-blue-400" />
+                            </div>
+                            <div className="text-white/70">🇬🇧 {ex.translation.replace(/\./g, '')}</div>
+                          </li>
               ))}
             </ul>
             {visibleExamples < fullData.examples.length && (
