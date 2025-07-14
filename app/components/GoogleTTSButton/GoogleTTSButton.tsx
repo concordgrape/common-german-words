@@ -30,7 +30,7 @@ if (!res.ok) {
   try {
     const errorJson = await res.json();
     if (errorJson?.error) errorMessage += `: ${errorJson.error}`;
-  } catch (_) {
+  } catch {
     // fallback for binary or non-JSON errors
     errorMessage += ' (non-JSON error body)';
   }
