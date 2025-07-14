@@ -513,7 +513,7 @@ onClick={() => {
           </svg>
         </button>*/}
 
-<div className="relative group w-8 h-8 lg:h-6 lg:w-6 mr-2">
+<div className="relative group w-8 h-8 sm:h-6 md:h-6 sm:w-6 md:w-6 lg:h-6 lg:w-6 mr-2">
   <button
     className={`w-full h-full ${
       plusEnabledById[word.id] ? 'bg-orange-400 text-white' : 'bg-gray-200'
@@ -540,7 +540,7 @@ onClick={() => {
 
 
         <button
-          className={`w-8 h-8 lg:h-6 lg:w-6 ${checkEnabledById[word.id] ? 'bg-green-500 text-white' : 'bg-gray-200'} rounded-sm hover:bg-green-500 hover:text-white cursor-pointer`}
+          className={`w-8 h-8 sm:h-6 md:h-6 sm:w-6 md:w-6 lg:h-6 lg:w-6 ${checkEnabledById[word.id] ? 'bg-green-500 text-white' : 'bg-gray-200'} rounded-sm hover:bg-green-500 hover:text-white cursor-pointer`}
           onClick={(e) => {
             e.stopPropagation();
             setCheckEnabledById(prev => {
