@@ -36,6 +36,10 @@ export async function POST(req: NextRequest) {
   try {
     const { text } = await req.json();
     const cacheKey = `tts:de:${text.trim().toLowerCase()}`;
+    console.log('GOOGLE_CREDENTIALS_BASE64:', !!process.env.GOOGLE_CREDENTIALS_BASE64);
+console.log('Got text:', text);
+console.log('Generated TTS client');
+console.log('Made TTS request');
 
     await connectRedis();
 
@@ -86,21 +90,22 @@ export async function POST(req: NextRequest) {
         'X-Cache': 'MISS',
       },
     });
-} catch (error: unknown) {
-  if (error instanceof Error) {
-    console.error('TTS Error:', error.message, error.stack);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } else {
-    console.error('TTS Error:', error);
-    return new Response(JSON.stringify({ error: 'TTS failed' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+} catch (err: unknown) {
+  console.error('TTS Error Raw:', err);
+
+  const message =
+    err instanceof Error
+      ? err.message
+      : typeof err === 'string'
+      ? err
+      : JSON.stringify(err);
+
+  return new Response(JSON.stringify({ error: message }), {
+    status: 500,
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
+
 
 
 }
