@@ -85,13 +85,14 @@ console.log('Made TTS request');
       EX: 60 * 60 * 24 * 30, // 30 days
     });
 
-    return new NextResponse(audioBuffer, {
-      status: 200,
-      headers: {
-        'Content-Type': 'audio/mpeg',
-        'X-Cache': 'MISS',
-      },
-    });
+return new Response(audioBuffer, {
+  status: 200,
+  headers: {
+    'Content-Type': 'audio/mpeg',
+    'X-Cache': 'MISS',
+  },
+});
+
 } catch (err: unknown) {
   console.error('TTS Error Raw:', err);
 
