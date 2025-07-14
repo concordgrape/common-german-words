@@ -17,6 +17,9 @@ export default function GoogleTTSButton({ text, color }: { text: string; color?:
     }
 
     setLoading(true);
+
+    console.log('reg text: ', text)
+    console.log('json text: ', JSON.stringify({ text }))
 try {
   const res = await fetch('/api/speak', {
     method: 'POST',
