@@ -17,26 +17,28 @@ export default function GoogleTTSButton({ text, color }: { text: string; color?:
     }
 
     setLoading(true);
-    try {
-      const res = await fetch('/api/speak', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text }),
-      });
+try {
+  const res = await fetch('/api/speak', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text }),
+  });
 
-      if (!res.ok) throw new Error('TTS failed');
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`TTS failed (${res.status}): ${errorText}`);
+  }
 
-      const audioBlob = await res.blob();
-      const audioUrl = URL.createObjectURL(audioBlob);
-      const audio = new Audio(audioUrl);
-      audio.play();
+  const audioBlob = await res.blob();
+  const audioUrl = URL.createObjectURL(audioBlob);
+  const audio = new Audio(audioUrl);
+  audio.play();
 
-      lastPlayedRef.current = now;
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+  lastPlayedRef.current = now;
+} catch (err) {
+  console.error('❌ Speak error:', err);
+}
+
   };
 
   return (
