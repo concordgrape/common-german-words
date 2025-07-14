@@ -59,11 +59,8 @@ export const Navbar: React.FC = () => {
         <div className="hidden lg:block">
           {(!user && !loading) ?
               <div className="flex items-center space-x-4">
-                <Link href="/signin" className="px-4 py-2 text-sm font-regular text-black bg-clear hover:bg-gray-200 rounded-lg">
+                <Link href="/signin" className="px-4 py-2 text-sm font-regular text-black bg-clear border-1 border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm">
                   Sign In
-                </Link>
-                <Link href="/signup" className="px-4 py-2 text-sm font-regular text-black bg-gray-200 hover:bg-gray-300 rounded-lg">
-                  Sign Up
                 </Link>
               </div>
               :

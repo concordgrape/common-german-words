@@ -5,6 +5,9 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebaseClient";
 import Error from "next/error";
 import { useUser } from "@/app/context/UserContext";
+import { FaPlus, FaCheck } from "react-icons/fa";
+import { ImExit } from "react-icons/im";
+import { useRouter } from "next/navigation";
 
 interface AvatarDropdownProps {
   loading?: boolean;
@@ -13,6 +16,8 @@ interface AvatarDropdownProps {
 export default function AvatarDropdown({ loading = false }: AvatarDropdownProps) {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -46,7 +51,7 @@ export default function AvatarDropdown({ loading = false }: AvatarDropdownProps)
                 window.location.href = '/signin';
               }
             }}
-            className="flex items-center cursor-pointer justify-center w-10 h-10 bg-gray-200 rounded-full overflow-hidden hover:bg-gray-300 text-gray-500 transition-colors"
+            className="flex items-center cursor-pointer justify-center w-10 h-10 bg-gray-100 rounded-full overflow-hidden hover:shadow-md text-gray-500 border-1 border-gray-300 transition-colors"
         >
           {!loading ? (
             <svg
@@ -68,8 +73,31 @@ export default function AvatarDropdown({ loading = false }: AvatarDropdownProps)
         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
           <ul className="py-1 text-sm text-gray-700">
             <li>
-              <button className="w-full text-left block px-4 py-2 hover:bg-gray-100" onClick={handleLogout}>
+              <button
+                className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100"
+                onClick={() => router.push('/saved')}
+              >
+                <FaPlus className="text-black" />
+                My Saved Words
+              </button>
+            </li>
+            <li>
+              <button
+                className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100"
+                onClick={() => router.push('/known')}
+              >
+                <FaCheck className="text-black" />
+                My Known Words
+              </button>
+            </li>
+            <hr className="h-px my-2 bg-gray-200 border-0 dark:bg-gray-200" />
+            <li>
+              <button
+                className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100"
+                onClick={handleLogout}
+              >
                 Logout
+                <ImExit className="w-5 right-0 text-right" />
               </button>
             </li>
           </ul>
