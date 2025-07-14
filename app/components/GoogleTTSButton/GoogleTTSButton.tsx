@@ -24,10 +24,20 @@ try {
     body: JSON.stringify({ text }),
   });
 
-  if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(`TTS failed (${res.status}): ${errorText}`);
+if (!res.ok) {
+  let errorMessage = `TTS failed (${res.status})`;
+
+  try {
+    const errorJson = await res.json();
+    if (errorJson?.error) errorMessage += `: ${errorJson.error}`;
+  } catch (_) {
+    // fallback for binary or non-JSON errors
+    errorMessage += ' (non-JSON error body)';
   }
+
+  throw new Error(errorMessage);
+}
+
 
   const audioBlob = await res.blob();
   const audioUrl = URL.createObjectURL(audioBlob);
