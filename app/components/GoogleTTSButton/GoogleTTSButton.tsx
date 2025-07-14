@@ -1,10 +1,13 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { useToast } from '@/app/hooks/useToast';
 
 export default function GoogleTTSButton({ text, color }: { text: string; color?: string }) {
   const [loading, setLoading] = useState(false);
   const lastPlayedRef = useRef<number>(0);
+
+  const toast = useToast();
 
   const speak = async () => {
     const now = Date.now();
@@ -18,40 +21,40 @@ export default function GoogleTTSButton({ text, color }: { text: string; color?:
 
     setLoading(true);
 
-    console.log('reg text: ', text)
-    console.log('json text: ', JSON.stringify({ text }))
-try {
-  const res = await fetch('/api/speak', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text }),
-  });
+    try {
+        const res = await fetch('/api/speak', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text }),
+        });
 
-if (!res.ok) {
-  let errorMessage = `TTS failed (${res.status})`;
+        if (!res.ok) {
+        let errorMessage = `TTS failed (${res.status})`;
 
-  try {
-    const errorJson = await res.json();
-    if (errorJson?.error) errorMessage += `: ${errorJson.error}`;
-  } catch {
-    // fallback for binary or non-JSON errors
-    errorMessage += ' (non-JSON error body)';
-  }
+            try {
+                const errorJson = await res.json();
+                if (errorJson?.error) errorMessage += `: ${errorJson.error}`;
+            } catch {
+                // fallback for binary or non-JSON errors
+                errorMessage += ' (non-JSON error body)';
+            }
 
-  throw new Error(errorMessage);
-}
+            throw new Error(errorMessage);
+        }
 
+        const audioBlob = await res.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        audio.play();
 
-  const audioBlob = await res.blob();
-  const audioUrl = URL.createObjectURL(audioBlob);
-  const audio = new Audio(audioUrl);
-  audio.play();
+        lastPlayedRef.current = now;
 
-  lastPlayedRef.current = now;
-} catch (err) {
-  console.error('❌ Speak error:', err);
-}
-
+        setLoading(false);
+    } catch (err) {
+        console.error('❌ Speak error:', err);
+        toast({ title: 'Audio Failed', subtitle: 'Failed to play audio, please try again later', variant: 'error' });
+        setLoading(false);
+    }
   };
 
   return (

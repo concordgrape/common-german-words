@@ -46,7 +46,7 @@ console.log('Made TTS request');
     await connectRedis();
 
     // Check Redis cache
-   /*const cached = await redisClient.get(cacheKey);
+   const cached = await redisClient.get(cacheKey);
     if (cached) {
       const audioBuffer = Buffer.from(cached, 'base64');
       return new NextResponse(audioBuffer, {
@@ -56,7 +56,7 @@ console.log('Made TTS request');
           'X-Cache': 'HIT',
         },
       });
-    }*/
+    }
 
     // Generate TTS
     const client = getTextToSpeechClient();
