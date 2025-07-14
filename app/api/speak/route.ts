@@ -3,6 +3,20 @@ import { NextRequest, NextResponse } from 'next/server';
 import * as textToSpeech from '@google-cloud/text-to-speech';
 import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 import { Buffer } from 'buffer';
+import { createClient } from 'redis';
+
+const redisClient = createClient({
+  url: process.env.REDIS_URL,
+});
+
+let redisConnected = false;
+
+async function connectRedis() {
+  if (!redisConnected) {
+    await redisClient.connect();
+    redisConnected = true;
+  }
+}
 
 function getTextToSpeechClient(): TextToSpeechClient {
   const base64 = process.env.GOOGLE_CREDENTIALS_BASE64;
@@ -18,7 +32,24 @@ function getTextToSpeechClient(): TextToSpeechClient {
 export async function POST(req: NextRequest) {
   try {
     const { text } = await req.json();
+    const cacheKey = `tts:de:${text.trim().toLowerCase()}`;
 
+    await connectRedis();
+
+    // Check Redis cache
+    const cached = await redisClient.get(cacheKey);
+    if (cached) {
+      const audioBuffer = Buffer.from(cached, 'base64');
+      return new NextResponse(audioBuffer, {
+        status: 200,
+        headers: {
+          'Content-Type': 'audio/mpeg',
+          'X-Cache': 'HIT',
+        },
+      });
+    }
+
+    // Generate TTS
     const client = getTextToSpeechClient();
 
     const request: textToSpeech.protos.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest = {
@@ -40,11 +71,16 @@ export async function POST(req: NextRequest) {
 
     const audioBuffer = Buffer.from(response.audioContent as Uint8Array);
 
+    // Cache result in Redis as base64 string
+    await redisClient.set(cacheKey, audioBuffer.toString('base64'), {
+      EX: 60 * 60 * 24 * 30, // 30 days
+    });
+
     return new NextResponse(audioBuffer, {
       status: 200,
       headers: {
         'Content-Type': 'audio/mpeg',
-        'Content-Length': audioBuffer.length.toString(),
+        'X-Cache': 'MISS',
       },
     });
   } catch (error) {

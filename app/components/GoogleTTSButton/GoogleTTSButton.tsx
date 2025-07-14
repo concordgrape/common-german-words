@@ -8,7 +8,7 @@ export default function GoogleTTSButton({ text, color }: { text: string; color?:
 
   const speak = async () => {
     const now = Date.now();
-    const cooldownMs = 10_000;
+    const cooldownMs = 5_000;
 
     if (now - lastPlayedRef.current < cooldownMs) {
       const secondsLeft = Math.ceil((cooldownMs - (now - lastPlayedRef.current)) / 1000);
