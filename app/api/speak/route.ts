@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     await connectRedis();
 
     // Check Redis cache
-    const cached = await redisClient.get(cacheKey);
+   /*const cached = await redisClient.get(cacheKey);
     if (cached) {
       const audioBuffer = Buffer.from(cached, 'base64');
       return new NextResponse(audioBuffer, {
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
           'X-Cache': 'HIT',
         },
       });
-    }
+    }*/
 
     // Generate TTS
     const client = getTextToSpeechClient();
