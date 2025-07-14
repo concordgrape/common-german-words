@@ -400,7 +400,7 @@ CustomScroller.displayName = "CustomScroller";
           {/*<div className="w-2 mr-2"></div>*/}
           {/*<div className="w-5">#</div>*/}
           <div className="ml-0">Word</div>
-          <div className="text-center flex-1 ml-10 mr-10">Translation</div>
+          <div className="text-center flex-1 ml-10 mr-5">Translation</div>
           <div className="relative group w-fit flex items-center gap-1 mr-1 lg:mr-0">
             <span>Rank</span>
             <FaQuestionCircle className="text-gray-400  hidden sm:block md:block" />
@@ -408,7 +408,7 @@ CustomScroller.displayName = "CustomScroller";
               Frequency rank (1 is most common)
             </div>
           </div>
-          <div className="w-[50px] sm:w-[60px] md:w-[60px]"></div>
+          <div className="w-[70px] sm:w-[80px] md:w-[80px]"></div>
           <button
             className="cursor-pointer hover:text-gray-400 w-5"
             onClick={() => setIsReversed(prev => !prev)}
@@ -450,7 +450,7 @@ CustomScroller.displayName = "CustomScroller";
         wordRefs.current[word.id] = el;
       }}
       className={`group border-1 ${
-        expandedRows.includes(word.id) ? "border-blue-300" : "border-[#F2F2F2] h-[64px] lg:max-h-[54px]"
+        expandedRows.includes(word.id) ? "border-blue-300" : "border-[#F2F2F2] h-[64px] sm:max-h-[54px] md:max-h-[54px] lg:max-h-[54px]"
       }`}
     >
       <div
@@ -482,9 +482,9 @@ onClick={() => {
         </div>
 
         {/* Translation */}
-        <div className="flex-1 text-center font-medium text-gray-500"><i>{truncateString(word.translation, isMobile ? word.word.length > 8 ? 5 : 15 : 30)}</i></div>
+        <div className="flex-1 pl-10 text-center font-medium text-gray-500"><i>{truncateString(word.translation, isMobile ? word.word.length > 8 ? 5 : 15 : 30)}</i></div>
 
-<div className="w-[10px] sm:w-[40px] md:w-[40px] text-center text-gray-400 text-sm mr-3">{word.rank}</div>
+<div className="w-[10px] sm:w-[40px] md:w-[40px] text-center text-gray-400 text-sm mr-9">{word.rank}</div>
 
         {/* Word Type */}
 {/*<div className="w-[60px] sm:w-[80px] md:w-[80px] text-right text-gray-400 text-sm mr-4">
@@ -526,8 +526,8 @@ onClick={() => {
           setPlusEnabledById((anim) => ({ ...anim, [word.id]: true }));
           toast({
             title: 'Added to Saved',
-            subtitle: "Added to 'Saved' words",
-            variant: 'success',
+            subtitle: `Added '${word.word} to saved words`,
+            variant: 'known',
           });
         }
         return { ...prev, [word.id]: newState };
@@ -536,11 +536,6 @@ onClick={() => {
   >
     <FaPlus className="m-auto" size={isMobile ? 12 : 10} />
   </button>
-
-  {/* Tooltip */}
-  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 text-xs text-white bg-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-    Save to word list
-  </div>
 </div>
 
 
@@ -552,7 +547,7 @@ onClick={() => {
               const newState = !prev[word.id];
               if (newState) {
                 setCheckEnabledById(anim => ({ ...anim, [word.id]: true }));
-                toast({ title: 'Added to Known', subtitle: "Added to 'Known' words", variant: 'success' });
+                toast({ title: 'Added to Known', subtitle: `Added '${word.word} to known words`, variant: 'success' });
               }
               return { ...prev, [word.id]: newState };
             });

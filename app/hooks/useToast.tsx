@@ -13,7 +13,7 @@ type ToastContextType = {
   showToast: (toast: Omit<ToastData, 'id'>) => void;
 };
 
-type ToastVariant = 'success' | 'error' | 'warning';
+type ToastVariant = 'success' | 'error' | 'warning' | 'known';
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
@@ -50,20 +50,26 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             case 'error':
             return (
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" strokeWidth="2" d="M12 9v4m0 4h.01M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" />
+                  <path stroke="currentColor" strokeWidth="2" d="M12 9v4m0 4h.01M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" />
                 </svg>
             );
             case 'warning':
             return (
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" strokeWidth="2" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a1 1 0 0 0 .86 1.5h18.64a1 1 0 0 0 .86-1.5L13.71 3.86a1 1 0 0 0-1.72 0Z" />
+                  <path stroke="currentColor" strokeWidth="2" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a1 1 0 0 0 .86 1.5h18.64a1 1 0 0 0 .86-1.5L13.71 3.86a1 1 0 0 0-1.72 0Z" />
                 </svg>
+            );
+            case 'known':
+            return (
+              <svg className="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="m17 21-5-4-5 4V3.889a.92.92 0 0 1 .244-.629.808.808 0 0 1 .59-.26h8.333a.81.81 0 0 1 .589.26.92.92 0 0 1 .244.63V21Z"/>
+              </svg>
             );
             case 'success':
             default:
             return (
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 18 20">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.147 15.085a7.159 7.159 0 0 1-6.189 3.307A6.713 6.713 0 0 1 3.1 15.444c-2.679-4.513.287-8.737.888-9.548A4.373 4.373 0 0 0 5 1.608c1.287.953 6.445 3.218 5.537 10.5 1.5-1.122 2.706-3.01 2.853-6.14 1.433 1.049 3.993 5.395 1.757 9.117Z" />
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.147 15.085a7.159 7.159 0 0 1-6.189 3.307A6.713 6.713 0 0 1 3.1 15.444c-2.679-4.513.287-8.737.888-9.548A4.373 4.373 0 0 0 5 1.608c1.287.953 6.445 3.218 5.537 10.5 1.5-1.122 2.706-3.01 2.853-6.14 1.433 1.049 3.993 5.395 1.757 9.117Z" />
                 </svg>
             );
         }
@@ -75,6 +81,8 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             return 'bg-red-100';
             case 'warning':
             return 'bg-yellow-100';
+            case 'known':
+            return 'bg-orange-100';
             case 'success':
             default:
             return 'bg-green-100';
@@ -87,6 +95,8 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             return 'text-red-600';
             case 'warning':
             return 'text-yellow-600';
+            case 'known':
+            return 'text-orange-500';
             case 'success':
             default:
             return 'text-green-500';
