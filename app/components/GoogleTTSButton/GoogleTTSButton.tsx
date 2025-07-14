@@ -8,7 +8,7 @@ export default function GoogleTTSButton({ text, color }: { text: string; color?:
 
   const speak = async () => {
     const now = Date.now();
-    const cooldownMs = 5_000;
+    const cooldownMs = 5000;
 
     if (now - lastPlayedRef.current < cooldownMs) {
       const secondsLeft = Math.ceil((cooldownMs - (now - lastPlayedRef.current)) / 1000);
@@ -50,20 +50,24 @@ export default function GoogleTTSButton({ text, color }: { text: string; color?:
         color ? color + ' lg:mt-1 h-8 w-8 pl-2' : 'text-blue-500 flex items-center justify-center hover:bg-gray-100 w-6 h-6'
       } rounded`}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 14 14"
-        width="1em"
-        height="1em"
-      >
-        <path
-          fill="none"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M3 5H1.5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1H3Zm0 4l3.91 2.81a1 1 0 0 0 1 .08A1 1 0 0 0 8.5 11V3a1 1 0 0 0-.5-.89a1 1 0 0 0-1 .08L3 5m9.5-1a4.38 4.38 0 0 1 1 3a6.92 6.92 0 0 1-1 3.5m-2-5A2.19 2.19 0 0 1 11 7a2.19 2.19 0 0 1-.5 1.5"
-        ></path>
-      </svg>
+      {loading ? (
+        <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      ) : (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 14 14"
+          width="1em"
+          height="1em"
+        >
+          <path
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 5H1.5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1H3Zm0 4l3.91 2.81a1 1 0 0 0 1 .08A1 1 0 0 0 8.5 11V3a1 1 0 0 0-.5-.89a1 1 0 0 0-1 .08L3 5m9.5-1a4.38 4.38 0 0 1 1 3a6.92 6.92 0 0 1-1 3.5m-2-5A2.19 2.19 0 0 1 11 7a2.19 2.19 0 0 1-.5 1.5"
+          ></path>
+        </svg>
+      )}
     </button>
   );
 }
