@@ -5,8 +5,9 @@ import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 import { Buffer } from 'buffer';
 import { createClient } from 'redis';
 
-console.log('💬 /api/speak route loaded');
+export const dynamic = 'force-dynamic'
 
+console.log('💬 /api/speak route loaded');
 
 const redisClient = createClient({
   url: process.env.REDIS_URL,
