@@ -32,7 +32,7 @@ export default function AvatarDropdown({ loading = false }: AvatarDropdownProps)
 
   const handleLogout = () => {
     signOut(auth).then(() => {
-        // Sign-out successful.
+      window.location.reload()
     }).catch((error: Error) => {
         console.log("Logout error:", error);
     });

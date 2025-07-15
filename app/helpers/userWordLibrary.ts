@@ -1,5 +1,7 @@
-import { doc, setDoc, serverTimestamp, getDoc, DocumentData, collection, query, getDocs, limit, DocumentReference, DocumentSnapshot } from 'firebase/firestore';
+import { doc, setDoc, serverTimestamp, getDoc, DocumentData, collection, query, getDocs, limit, DocumentReference, DocumentSnapshot, deleteDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
+import { useUser } from '../context/UserContext';
+import { useRouter } from 'next/navigation';
 
 type WordStatusType = 'saved' | 'known';
 
@@ -8,31 +10,59 @@ interface WordDataWithMeta {
   data: DocumentData;
 }
 
+export function useToggleWordStatus() {
+  const { user } = useUser();
+  const router = useRouter();
 
-/**
- * Set a word status for a user under /users/{uid}/de/cards/{type}/{word}
- * @param uid - Firebase Auth user ID
- * @param word - Word to be saved
- * @param type - 'saved' or 'known'
- */
-export async function setWordStatus(
-  uid: string,
-  word: string,
-  type: WordStatusType
-): Promise<void> {
-  if (!uid || !word || (type !== 'saved' && type !== 'known')) {
-    throw new Error('Invalid arguments provided');
-  }
+  const ensureUser = () => {
+    if (!user?.uid) {
+      router.push('/signin');
+      throw new Error('User not signed in');
+    }
+    return user.uid;
+  };
 
-  const wordStatusRef = doc(db, `users/${uid}/de/cards/${type}/${word}`);
-  const wordRef = doc(db, `languages/german/words/${word}`);
+  const toggleSavedStatus = async (word: string): Promise<void> => {
+    const uid = ensureUser();
+    if (!word) throw new Error('Missing word');
 
-  await setDoc(wordStatusRef, {
-    timestamp: serverTimestamp(),
-    wordRef,
-  });
+    const ref = doc(db, `users/${uid}/de/cards/saved/${word}`);
+    const existing = await getDoc(ref);
+    const wordRef = doc(db, `languages/german/words/${word}`);
+
+    if (existing.exists()) {
+      await deleteDoc(ref);
+    } else {
+      await setDoc(ref, {
+        timestamp: serverTimestamp(),
+        wordRef,
+      });
+    }
+  };
+
+  const toggleKnownStatus = async (word: string): Promise<void> => {
+    const uid = ensureUser();
+    if (!word) throw new Error('Missing word');
+
+    const ref = doc(db, `users/${uid}/de/cards/known/${word}`);
+    const existing = await getDoc(ref);
+    const wordRef = doc(db, `languages/german/words/${word}`);
+
+    if (existing.exists()) {
+      await deleteDoc(ref);
+    } else {
+      await setDoc(ref, {
+        timestamp: serverTimestamp(),
+        wordRef,
+      });
+    }
+  };
+
+  return {
+    toggleSavedStatus,
+    toggleKnownStatus,
+  };
 }
-
 
 /**
  * Fetch full word data from languages/german/words/{word}
@@ -57,7 +87,7 @@ export async function fetchWordData(word: string) {
 
 /**
  * Fetches word data for a user's saved or known words (parallel version).
- * @param uid - User ID
+ * @param user?.uid - User ID
  * @param type - 'saved' or 'known'
  * @param max - Maximum number of words to fetch
  * @returns Array of word data

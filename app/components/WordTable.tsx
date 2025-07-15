@@ -6,11 +6,14 @@ import { Virtuoso } from 'react-virtuoso';
 import { Word } from '../helpers/fetchBasicWordList';
 import { useSearchParams, useRouter } from "next/navigation";
 import { truncateString, useIsMobile } from '../helpers/utils';
-import { FaCheck, FaPlus, FaQuestionCircle } from 'react-icons/fa';
+import { FaQuestionCircle } from 'react-icons/fa';
 import { FaArrowDownShortWide } from "react-icons/fa6";
 import { DropdownWordInfo } from './DropdownWordInfo';
 import { useToast } from '../hooks/useToast';
 import WordPopover from './Popover/Popover';
+import WordStatusButtons from './WordStatusButtons/WordStatusButtons';
+import { fetchWordStatusData, useToggleWordStatus } from '../helpers/userWordLibrary';
+import { useUser } from '../context/UserContext';
 
 
 // WordTable component props interface
@@ -26,12 +29,18 @@ const ITEMS_PER_PAGE = 100;
 export const WordTable: React.FC<WordTableProps> = ({ onRowClick, selectedWord, words }) => {
   // State to manage expanded rows, explicitly typed to an array of numbers
   const [expandedRows, setExpandedRows] = useState<number[]>([]);
+  const [pendingSaved, setPendingSaved] = useState<Set<string>>(new Set());
+const [pendingKnown, setPendingKnown] = useState<Set<string>>(new Set());
+
   // State to detect if the current view is mobile
   //const [isMobile, setIsMobile] = useState<boolean>(false);
   // State to manage the visibility of the sort dropdown
   const [showSortDropdown, setShowSortDropdown] = useState<boolean>(false);
   const [selectedType, setSelectedType] = useState<string>('All');
   const [isReversed, setIsReversed] = useState(false);
+  const [savedWordIds, setSavedWordIds] = useState<Set<string>>(new Set());
+const [knownWordIds, setKnownWordIds] = useState<Set<string>>(new Set());
+
 
       const [activeSort, setActiveSort] = useState<SortOption['id']>('frequency'); // 'alphabetically' is active by default as per screenshot
 const [selectedCEFR, setSelectedCEFR] = useState<'All' | 'A1' | 'A2' | 'B1' | '+'>('All');
@@ -43,6 +52,7 @@ const [selectedCEFR, setSelectedCEFR] = useState<'All' | 'A1' | 'A2' | 'B1' | '+
 const searchParams = useSearchParams();
 const router = useRouter();
 const toast = useToast();
+const { user } = useUser();
 
 const initialSearch = searchParams.get("search") || "";
 const [searchTerm, setSearchTerm] = useState<string>(initialSearch);
@@ -52,15 +62,40 @@ const [searchTerm, setSearchTerm] = useState<string>(initialSearch);
 
   const wordTypes = ['All', 'Verb', 'Adjective', 'Noun', 'Interjection', 'Adverb', 'Determiner'];
 
-const [checkEnabledById, setCheckEnabledById] = useState<Record<number, boolean>>({});
-const [plusEnabledById, setPlusEnabledById] = useState<Record<number, boolean>>({});
+//const [checkEnabledById, setCheckEnabledById] = useState<Record<number, boolean>>({});
+//const [plusEnabledById, setPlusEnabledById] = useState<Record<number, boolean>>({});
+
+  const { toggleSavedStatus, toggleKnownStatus } = useToggleWordStatus();
+
 
   const changePage = (newPage: number) => {
     const params = new URLSearchParams(window.location.search);
     params.set("page", String(newPage));
     router.push(`?${params.toString()}`);
   };
-// Reset to page 1 when the search term changes
+
+useEffect(() => {
+  const fetchStatusData = async () => {
+    if (!user?.uid) return;
+
+    try {
+      const [saved, known] = await Promise.all([
+        fetchWordStatusData(user.uid, 'saved', 5000),
+        fetchWordStatusData(user.uid, 'known', 5000),
+      ]);
+
+      setSavedWordIds(new Set(saved.map(doc => doc.id)));
+      setKnownWordIds(new Set(known.map(doc => doc.id)));
+    } catch (err) {
+      console.error('❌ Error preloading word status:', err);
+    }
+  };
+
+  fetchStatusData();
+}, [user?.uid]);
+
+
+
 useEffect(() => {
   if (searchTerm) {
     const params = new URLSearchParams(window.location.search);
@@ -246,6 +281,41 @@ const handleSearchChange = (value: string) => {
   setSearchTerm(value);
 };
 
+const handlePlusClick = async (word: string) => {
+  try {
+    await toggleSavedStatus(word);
+
+    setSavedWordIds(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(word)) {
+        newSet.delete(word);
+      } else {
+        newSet.add(word);
+      }
+      return newSet;
+    });
+  } catch (err) {
+    console.error('❌ Error toggling saved status:', err);
+  }
+};
+
+const handleCheckClick = async (word: string) => {
+  try {
+    await toggleKnownStatus(word);
+
+    setKnownWordIds(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(word)) {
+        newSet.delete(word);
+      } else {
+        newSet.add(word);
+      }
+      return newSet;
+    });
+  } catch (err) {
+    console.error('❌ Error toggling known status:', err);
+  }
+};
 
 
 
@@ -528,48 +598,60 @@ onClick={() => {
           </svg>
         </button>*/}
 
-<div className="relative group w-8 h-8 sm:h-6 md:h-6 sm:w-6 md:w-6 lg:h-6 lg:w-6 mr-2">
-  <button
-    className={`w-full h-full ${
-      plusEnabledById[word.id] ? 'bg-orange-400 text-white' : 'bg-gray-200'
-    } rounded-sm hover:bg-orange-400 hover:text-white cursor-pointer`}
-    onClick={(e) => {
-      e.stopPropagation();
-      setPlusEnabledById((prev) => {
-        const newState = !prev[word.id];
-        if (newState) {
-          setPlusEnabledById((anim) => ({ ...anim, [word.id]: true }));
-          toast({
-            title: 'Added to Saved',
-            subtitle: `Added '${word.word} to saved words`,
-            variant: 'known',
-          });
-        }
-        return { ...prev, [word.id]: newState };
-      });
-    }}
-  >
-    <FaPlus className="m-auto" size={isMobile ? 12 : 10} />
-  </button>
-</div>
+        <WordStatusButtons
+         //word={word}
+          isPlusEnabled={
+            pendingSaved.has(word.word)
+              ? !savedWordIds.has(word.word) // optimistically flipped
+              : savedWordIds.has(word.word)
+          }
 
+          isCheckEnabled={
+            pendingKnown.has(word.word)
+              ? !knownWordIds.has(word.word)
+              : knownWordIds.has(word.word)
+          }
 
-        <button
-          className={`w-8 h-8 sm:h-6 md:h-6 sm:w-6 md:w-6 lg:h-6 lg:w-6 ${checkEnabledById[word.id] ? 'bg-green-500 text-white' : 'bg-gray-200'} rounded-sm hover:bg-green-500 hover:text-white cursor-pointer`}
-          onClick={(e) => {
+          onPlusClick={(e) => {
             e.stopPropagation();
-            setCheckEnabledById(prev => {
-              const newState = !prev[word.id];
-              if (newState) {
-                setCheckEnabledById(anim => ({ ...anim, [word.id]: true }));
-                toast({ title: 'Added to Known', subtitle: `Added '${word.word} to known words`, variant: 'success' });
-              }
-              return { ...prev, [word.id]: newState };
+
+            setPendingSaved(prev => new Set(prev).add(word.word));
+
+            toast({
+              title: savedWordIds.has(word.word) ? 'Removed from Saved' : 'Added to Saved',
+              subtitle: `'${word.word}' ${savedWordIds.has(word.word) ? 'removed from' : 'added to'} saved words`,
+              variant: 'known',
+            });
+
+            handlePlusClick(word.word).finally(() => {
+              setPendingSaved(prev => {
+                const newSet = new Set(prev);
+                newSet.delete(word.word);
+                return newSet;
+              });
             });
           }}
-        >
-          <FaCheck className='m-auto' size={isMobile ? 12 : 10} />
-        </button>
+
+          onCheckClick={(e) => {
+            e.stopPropagation();
+
+            setPendingKnown(prev => new Set(prev).add(word.word));
+
+            toast({
+              title: knownWordIds.has(word.word) ? 'Removed from Known' : 'Added to Known',
+              subtitle: `'${word.word}' ${knownWordIds.has(word.word) ? 'removed from' : 'added to'} known words`,
+              variant: 'success',
+            });
+
+            handleCheckClick(word.word).finally(() => {
+              setPendingKnown(prev => {
+                const newSet = new Set(prev);
+                newSet.delete(word.word);
+                return newSet;
+              });
+            });
+          }}
+        />
 
       </div>
 
