@@ -102,9 +102,29 @@ export const WordTable: React.FC<WordTableProps> = ({
   let sortedWords = scoredWords.sort((a, b) => {
     if (activeSort === "frequency") {
       return b.frequency - a.frequency;
-    } else {
+    }
+
+    if (activeSort === "alphabetically") {
       return a.word.localeCompare(b.word);
     }
+
+    if (activeSort === "my-saved") {
+      const aSaved = savedWordIds.has(a.word) ? 1 : 0;
+      const bSaved = savedWordIds.has(b.word) ? 1 : 0;
+      // Sort saved to top, then alphabetically
+      if (bSaved !== aSaved) return bSaved - aSaved;
+      return a.word.localeCompare(b.word);
+    }
+
+    if (activeSort === "my-known") {
+      const aKnown = knownWordIds.has(a.word) ? 1 : 0;
+      const bKnown = knownWordIds.has(b.word) ? 1 : 0;
+      // Sort known to top, then alphabetically
+      if (bKnown !== aKnown) return bKnown - aKnown;
+      return a.word.localeCompare(b.word);
+    }
+
+    return 0;
   });
 
   const filteredWords = useMemo(() => {
