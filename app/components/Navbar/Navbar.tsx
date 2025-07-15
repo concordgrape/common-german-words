@@ -35,7 +35,15 @@ export const Navbar: React.FC = () => {
         </Link>
         <div className="lg:hidden flex gap-2">
           <div className='flex items-center space-x-4'>
-            <AvatarDropdown loading={loading} />
+            {(!user && !loading) ?
+              <div className="flex items-center space-x-4">
+                <Link href="/signin" className="px-4 py-2 text-sm font-regular text-black bg-clear border-1 border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm">
+                  Sign In
+                </Link>
+              </div>
+              :
+              <AvatarDropdown loading={loading} />
+            }
           </div>
           <button onClick={toggleMenu} className="flex items-center text-black hover:text-gray-300 cursor-pointer p-3">
             <svg className="block h-6 w-6 fill-current" viewBox="0 0 20 20">
