@@ -37,8 +37,9 @@ export const Navbar: React.FC = () => {
           <div className='flex items-center space-x-4'>
             {(!user && !loading) ?
               <div className="flex items-center space-x-4">
-                <Link href="/signin" className="px-4 py-2 text-sm font-regular text-black bg-clear border-1 border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm">
-                  Sign In
+                <Link href="/signin" className="flex px-4 py-2 text-sm font-regular text-black bg-clear border-1 border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm">
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" aria-labelledby="happyFaceIconTitle" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#000000"> <title id="happyFaceIconTitle">Happy Face</title> <path d="M7.3010863,14.0011479 C8.0734404,15.7578367 9.98813711,17 11.9995889,17 C14.0024928,17 15.913479,15.7546194 16.6925307,14.0055328"/> <line stroke-linecap="round" x1="9" y1="9" x2="9" y2="9"/> <line stroke-linecap="round" x1="15" y1="9" x2="15" y2="9"/> <circle cx="12" cy="12" r="10"/> </svg>
+                  <span className='pl-2'>Sign In</span>
                 </Link>
               </div>
               :
@@ -67,8 +68,9 @@ export const Navbar: React.FC = () => {
         <div className="hidden lg:block">
           {(!user && !loading) ?
               <div className="flex items-center space-x-4">
-                <Link href="/signin" className="px-4 py-2 text-sm font-regular text-black bg-clear border-1 border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm">
-                  Sign In
+                <Link href="/signin" className="flex px-4 py-2 text-sm font-regular text-black bg-clear border-1 border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm">
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" aria-labelledby="happyFaceIconTitle" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" color="#000000"> <title id="happyFaceIconTitle">Happy Face</title> <path d="M7.3010863,14.0011479 C8.0734404,15.7578367 9.98813711,17 11.9995889,17 C14.0024928,17 15.913479,15.7546194 16.6925307,14.0055328"/> <line stroke-linecap="round" x1="9" y1="9" x2="9" y2="9"/> <line stroke-linecap="round" x1="15" y1="9" x2="15" y2="9"/> <circle cx="12" cy="12" r="10"/> </svg>
+                  <span className='pl-2'>Sign In</span>
                 </Link>
               </div>
               :
