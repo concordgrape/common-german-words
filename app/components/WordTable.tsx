@@ -674,23 +674,22 @@ export const WordTable: React.FC<WordTableProps> = ({
 
                       setPendingSaved((prev) => new Set(prev).add(word.word));
 
-                      toast({
-                        title: savedWordIds.has(word.word)
-                          ? "Removed from Saved"
-                          : "Added to Saved",
-                        subtitle: `'${word.word}' ${
-                          savedWordIds.has(word.word)
-                            ? "removed from"
-                            : "added to"
-                        } saved words`,
-                        variant: "known",
-                      });
-
                       handlePlusClick(word.word).finally(() => {
                         setPendingSaved((prev) => {
                           const newSet = new Set(prev);
                           newSet.delete(word.word);
                           return newSet;
+                        });
+                        toast({
+                          title: savedWordIds.has(word.word)
+                            ? "Removed from Saved"
+                            : "Added to Saved",
+                          subtitle: `'${word.word}' ${
+                            savedWordIds.has(word.word)
+                              ? "removed from"
+                              : "added to"
+                          } saved words`,
+                          variant: "known",
                         });
                       });
                     }}
@@ -699,23 +698,22 @@ export const WordTable: React.FC<WordTableProps> = ({
 
                       setPendingKnown((prev) => new Set(prev).add(word.word));
 
-                      toast({
-                        title: knownWordIds.has(word.word)
-                          ? "Removed from Known"
-                          : "Added to Known",
-                        subtitle: `'${word.word}' ${
-                          knownWordIds.has(word.word)
-                            ? "removed from"
-                            : "added to"
-                        } known words`,
-                        variant: "success",
-                      });
-
                       handleCheckClick(word.word).finally(() => {
                         setPendingKnown((prev) => {
                           const newSet = new Set(prev);
                           newSet.delete(word.word);
                           return newSet;
+                        });
+                        toast({
+                          title: knownWordIds.has(word.word)
+                            ? "Removed from Known"
+                            : "Added to Known",
+                          subtitle: `'${word.word}' ${
+                            knownWordIds.has(word.word)
+                              ? "removed from"
+                              : "added to"
+                          } known words`,
+                          variant: "success",
                         });
                       });
                     }}
