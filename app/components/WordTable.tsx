@@ -67,6 +67,75 @@ export const WordTable: React.FC<WordTableProps> = ({
   const pageParam = parseInt(searchParams.get("page") || "1", 10);
   const currentPage = Math.max(1, isNaN(pageParam) ? 1 : pageParam);
 
+  // Adjust Virtuoso height
+  const isMobile = useIsMobile();
+  const rowHeight = isMobile ? 64 : 54;
+
+  const scoredWords = words
+    .map((word) => {
+      const lowerSearch = searchTerm.toLowerCase();
+      const wordText = word.word.toLowerCase();
+      const translationText = word.translation?.toLowerCase() || "";
+      let score = 0;
+
+      // Check both word and translation
+      const matchesWord = wordText.includes(lowerSearch);
+      const matchesTranslation = translationText.includes(lowerSearch);
+
+      if (wordText === lowerSearch || translationText === lowerSearch) {
+        score = 3; // exact match
+      } else if (
+        wordText.startsWith(lowerSearch) ||
+        translationText.startsWith(lowerSearch)
+      ) {
+        score = 2; // prefix match
+      } else if (matchesWord || matchesTranslation) {
+        score = 1; // partial match
+      }
+
+      return { ...word, _score: score };
+    })
+    .filter((word) => word._score > 0);
+
+
+  // Then sort by relevance score first, then by word
+  let sortedWords = scoredWords.sort((a, b) => {
+    if (activeSort === "frequency") {
+      return b.frequency - a.frequency;
+    } else {
+      return a.word.localeCompare(b.word);
+    }
+  });
+
+  const filteredWords = useMemo(() => {
+    let result = sortedWords;
+
+    if (selectedType !== "All") {
+      result = result.filter(
+        (word) =>
+          word.part_of_speech?.toLowerCase() === selectedType.toLowerCase()
+      );
+    }
+
+    if (selectedCEFR === "A1") {
+      result = result.filter((word) => word.rank === 1);
+    } else if (selectedCEFR === "A2") {
+      result = result.filter((word) => word.rank === 2);
+    } else if (selectedCEFR === "B1") {
+      result = result.filter((word) => word.rank === 3);
+    } else if (selectedCEFR === "+") {
+      result = result.filter((word) => word.rank === 4 || word.rank === 5);
+    }
+
+    return result;
+  }, [selectedType, selectedCEFR, sortedWords]);
+
+  // Only show paginated results if not filtering
+  const displayedWords = filteredWords.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
   const wordTypes = [
     "All",
     "Verb",
@@ -87,6 +156,15 @@ export const WordTable: React.FC<WordTableProps> = ({
     params.set("page", String(newPage));
     router.push(`?${params.toString()}`);
   };
+
+  useEffect(() => {
+  const height =
+    displayedWords.length * rowHeight +
+    (isMobile && expandedRows.length > 0 ? 435 : 0) +
+    45;
+
+  setVirtuosoHeight(`${height}px`);
+}, [displayedWords.length, expandedRows.length, isMobile]);
 
   useEffect(() => {
     const fetchStatusData = async () => {
@@ -168,84 +246,13 @@ export const WordTable: React.FC<WordTableProps> = ({
     }
   }, [selectedWord]);
 
-  const scoredWords = words
-    .map((word) => {
-      const lowerSearch = searchTerm.toLowerCase();
-      const wordText = word.word.toLowerCase();
-      const translationText = word.translation?.toLowerCase() || "";
-      let score = 0;
-
-      // Check both word and translation
-      const matchesWord = wordText.includes(lowerSearch);
-      const matchesTranslation = translationText.includes(lowerSearch);
-
-      if (wordText === lowerSearch || translationText === lowerSearch) {
-        score = 3; // exact match
-      } else if (
-        wordText.startsWith(lowerSearch) ||
-        translationText.startsWith(lowerSearch)
-      ) {
-        score = 2; // prefix match
-      } else if (matchesWord || matchesTranslation) {
-        score = 1; // partial match
-      }
-
-      return { ...word, _score: score };
-    })
-    .filter((word) => word._score > 0);
-
-  // Then sort by relevance score first, then by word
-  let sortedWords = scoredWords.sort((a, b) => {
-    if (activeSort === "frequency") {
-      return b.frequency - a.frequency;
-    } else {
-      return a.word.localeCompare(b.word);
-    }
-  });
-
   if (isReversed) {
     sortedWords = [...sortedWords].reverse();
   }
 
-  const filteredWords = useMemo(() => {
-    let result = sortedWords;
-
-    if (selectedType !== "All") {
-      result = result.filter(
-        (word) =>
-          word.part_of_speech?.toLowerCase() === selectedType.toLowerCase()
-      );
-    }
-
-    if (selectedCEFR === "A1") {
-      result = result.filter((word) => word.rank === 1);
-    } else if (selectedCEFR === "A2") {
-      result = result.filter((word) => word.rank === 2);
-    } else if (selectedCEFR === "B1") {
-      result = result.filter((word) => word.rank === 3);
-    } else if (selectedCEFR === "+") {
-      result = result.filter((word) => word.rank === 4 || word.rank === 5);
-    }
-
-    return result;
-  }, [selectedType, selectedCEFR, sortedWords]);
-
   const totalPages = Math.ceil(filteredWords.length / ITEMS_PER_PAGE);
 
-  // Only show paginated results if not filtering
-  const displayedWords = sortedWords.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
-
-  // Adjust Virtuoso height
-  const isMobile = useIsMobile();
-  const rowHeight = isMobile ? 64 : 54;
-  const virtuosoHeight = `${
-    displayedWords.length * rowHeight +
-    (isMobile && expandedRows.length > 0 ? 435 : 0) +
-    45
-  }px`;
+  const [virtuosoHeight, setVirtuosoHeight] = useState<string>("400px");
 
   // Toggle expanded row by ID and pass clicked word to parent
   const toggleRow = (word: Word) => {
@@ -551,10 +558,7 @@ export const WordTable: React.FC<WordTableProps> = ({
         </div>
       ) : (
         <Virtuoso
-          data={filteredWords.slice(
-            (currentPage - 1) * ITEMS_PER_PAGE,
-            currentPage * ITEMS_PER_PAGE
-          )}
+          data={displayedWords}
           style={{ height: virtuosoHeight }}
           components={{
             Scroller: CustomScroller,
