@@ -310,8 +310,8 @@ export const WordTable: React.FC<WordTableProps> = ({
   const sortOptions: SortOption[] = [
     { id: "frequency", label: "by frequency" },
     { id: "alphabetically", label: "alphabetically" },
-    { id: "my-saved", label: "my saved" },
-    { id: "my-known", label: "my known" },
+    { id: "my-saved", label: "saved words" },
+    { id: "my-known", label: "known words" },
   ];
 
   // Type for the handler function
