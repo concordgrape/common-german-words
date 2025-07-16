@@ -1,12 +1,16 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 import { useUser } from '@/app/context/UserContext';
 import AvatarDropdown from './AvatarDropdown';
+import { FaBook, FaHouse } from 'react-icons/fa6';
+import { IoIosSchool } from "react-icons/io";
+import { SlGraph } from "react-icons/sl";
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,7 +19,30 @@ export const Navbar: React.FC = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
+  const pathname = usePathname();
+
   const { user, loading } = useUser();
+  const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
+  const navRefs = useRef<Record<string, HTMLLIElement | null>>({}); 
+
+const links = useMemo(() => [
+  { href: '/', icon: <FaHouse size={18} />, label: 'Home' },
+  { href: '/browse', icon: <FaBook size={18} />, label: 'Browse' },
+  { href: '/learn', icon: <IoIosSchool size={18} />, label: 'Learn' },
+  { href: '/progress', icon: <SlGraph size={18} />, label: 'Progress' },
+], []);
+
+
+  useEffect(() => {
+    const activeLink = links.find(link => pathname === link.href);
+    const ref = activeLink?.href ? navRefs.current[activeLink.href] : null;
+
+    if (ref) {
+      const { offsetLeft, offsetWidth } = ref;
+      setUnderlineStyle({ left: offsetLeft, width: offsetWidth });
+    }
+}, [pathname]);
+
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -53,18 +80,40 @@ export const Navbar: React.FC = () => {
             </svg>
           </button>
         </div>
-        <ul className="hidden absolute text-black top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:items-center lg:w-auto lg:space-x-6">
-          <li><a className="text-sm hover:text-gray-500" href="#">Home</a></li>
-          <li className="text-gray-300">
-            <svg fill="none" stroke="currentColor" className="w-4 h-4" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-            </svg>
-          </li>
-          <li><a className="text-sm font-bold" href="#">About Us</a></li>
-          <li><a className="text-sm hover:text-gray-500" href="#">Services</a></li>
-          <li><a className="text-sm hover:text-gray-500" href="#">Pricing</a></li>
-          <li><a className="text-sm hover:text-gray-500" href="#">Contact</a></li>
-        </ul>
+<div className="hidden lg:block justify-end w-full mr-10 relative">
+  <ul className="flex justify-end w-full lg:space-x-2 mr-10 relative">
+    {/* Underline */}
+    <span
+      className="absolute bottom-0 h-0.5 bg-blue-600 transition-all duration-300"
+      style={{
+        left: underlineStyle.left,
+        width: underlineStyle.width,
+      }}
+    />
+    {links.map(({ href, icon, label }) => {
+      const isActive = pathname === href;
+      return (
+        <li
+          key={label}
+ref={(el) => void (navRefs.current[href] = el)}
+          className="relative flex items-center px-2 py-2"
+        >
+          <Link
+            href={href}
+            className={clsx(
+              'text-sm flex items-center transition-colors duration-200',
+              isActive ? 'text-blue-600' : 'text-gray-700 hover:text-gray-800'
+            )}
+          >
+            {icon}
+            <span className="sr-only">{label}</span>
+          </Link>
+        </li>
+      );
+    })}
+  </ul>
+</div>
+
         <div className="hidden lg:block">
           {(!user && !loading) ?
               <div className="flex items-center space-x-4">
