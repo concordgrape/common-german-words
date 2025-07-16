@@ -1,6 +1,7 @@
 'use client';
 
-import { FaPlus, FaCheck } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
+import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { useIsMobile } from '@/app/helpers/utils';
 //import { Word } from '@/app/helpers/fetchBasicWordList';
 
@@ -30,7 +31,11 @@ export default function WordStatusButtons({
           } rounded-sm hover:bg-orange-400 hover:text-white cursor-pointer`}
           onClick={onPlusClick}
         >
-          <FaPlus className="m-auto" size={isMobile ? 12 : 10} />
+            {isPlusEnabled ? 
+                <FaBookmark className="m-auto" size={isMobile ? 14 : 13} />
+            :
+                <FaRegBookmark className="m-auto" size={isMobile ? 14 : 13} />
+            }
         </button>
       </div>
 

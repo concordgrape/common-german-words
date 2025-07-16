@@ -46,10 +46,12 @@ export const WordTable: React.FC<WordTableProps> = ({
   const [isReversed, setIsReversed] = useState(false);
   const [savedWordIds, setSavedWordIds] = useState<Set<string>>(new Set());
   const [knownWordIds, setKnownWordIds] = useState<Set<string>>(new Set());
+  const [savedTimestamps, setSavedTimestamps] = useState<Map<string, number>>(new Map());
+  const [knownTimestamps, setKnownTimestamps] = useState<Map<string, number>>(new Map());
 
   const [activeSort, setActiveSort] = useState<SortOption["id"]>("frequency"); // 'alphabetically' is active by default as per screenshot
   const [selectedCEFR, setSelectedCEFR] = useState<
-    "All" | "A1" | "A2" | "B1" | "+"
+    "All" | "A1" | "A2" | "B1"
   >("All");
 
   // Create a ref for the dropdown container
@@ -109,19 +111,17 @@ export const WordTable: React.FC<WordTableProps> = ({
     }
 
     if (activeSort === "my-saved") {
-      const aSaved = savedWordIds.has(a.word) ? 1 : 0;
-      const bSaved = savedWordIds.has(b.word) ? 1 : 0;
-      // Sort saved to top, then alphabetically
-      if (bSaved !== aSaved) return bSaved - aSaved;
-      return a.word.localeCompare(b.word);
+      return (
+        (savedTimestamps.get(b.word) ?? 0) -
+        (savedTimestamps.get(a.word) ?? 0)
+      );
     }
 
     if (activeSort === "my-known") {
-      const aKnown = knownWordIds.has(a.word) ? 1 : 0;
-      const bKnown = knownWordIds.has(b.word) ? 1 : 0;
-      // Sort known to top, then alphabetically
-      if (bKnown !== aKnown) return bKnown - aKnown;
-      return a.word.localeCompare(b.word);
+      return (
+        (knownTimestamps.get(b.word) ?? 0) -
+        (knownTimestamps.get(a.word) ?? 0)
+      );
     }
 
     return 0;
@@ -143,8 +143,6 @@ export const WordTable: React.FC<WordTableProps> = ({
       result = result.filter((word) => word.rank === 2);
     } else if (selectedCEFR === "B1") {
       result = result.filter((word) => word.rank === 3);
-    } else if (selectedCEFR === "+") {
-      result = result.filter((word) => word.rank === 4 || word.rank === 5);
     }
 
     return result;
@@ -198,6 +196,13 @@ export const WordTable: React.FC<WordTableProps> = ({
 
         setSavedWordIds(new Set(saved.map((doc) => doc.id)));
         setKnownWordIds(new Set(known.map((doc) => doc.id)));
+
+        setSavedTimestamps(
+          new Map(saved.map((doc) => [doc.id, doc.timestamp.toMillis()]))
+        );
+        setKnownTimestamps(
+          new Map(known.map((doc) => [doc.id, doc.timestamp.toMillis()]))
+        );
       } catch (err) {
         console.error("❌ Error preloading word status:", err);
       }
@@ -272,7 +277,14 @@ export const WordTable: React.FC<WordTableProps> = ({
 
   const totalPages = Math.ceil(filteredWords.length / ITEMS_PER_PAGE);
 
-  const [virtuosoHeight, setVirtuosoHeight] = useState<string>("400px");
+  const initialHeight =
+    displayedWords.length * rowHeight +
+    (isMobile && expandedRows.length > 0 ? 435 : 0) +
+    45;
+
+  const [virtuosoHeight, setVirtuosoHeight] = useState<string>(`${initialHeight}px`);
+
+
 
   // Toggle expanded row by ID and pass clicked word to parent
   const toggleRow = (word: Word) => {
@@ -473,7 +485,7 @@ export const WordTable: React.FC<WordTableProps> = ({
                     isActive={selectedCEFR === option.id}
                     onClick={() =>
                       setSelectedCEFR(
-                        option.id as "All" | "A1" | "A2" | "B1" | "+"
+                        option.id as "All" | "A1" | "A2" | "B1"
                       )
                     }
                     index={index}
@@ -704,6 +716,7 @@ export const WordTable: React.FC<WordTableProps> = ({
                           newSet.delete(word.word);
                           return newSet;
                         });
+                        if (!user) { return; }
                         toast({
                           title: savedWordIds.has(word.word)
                             ? "Removed from Saved"
@@ -728,6 +741,7 @@ export const WordTable: React.FC<WordTableProps> = ({
                           newSet.delete(word.word);
                           return newSet;
                         });
+                        if (!user) { return; }
                         toast({
                           title: knownWordIds.has(word.word)
                             ? "Removed from Known"

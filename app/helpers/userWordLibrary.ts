@@ -1,14 +1,15 @@
-import { doc, setDoc, serverTimestamp, getDoc, DocumentData, collection, query, getDocs, limit, DocumentReference, DocumentSnapshot, deleteDoc } from 'firebase/firestore';
+import { doc, setDoc, serverTimestamp, getDoc, DocumentData, collection, query, getDocs, limit, DocumentReference, deleteDoc, Timestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
 import { useUser } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
 
 type WordStatusType = 'saved' | 'known';
 
-interface WordDataWithMeta {
+type WordDataWithMeta = {
   id: string;
   data: DocumentData;
-}
+  timestamp: Timestamp;
+};
 
 export function useToggleWordStatus() {
   const { user } = useUser();
@@ -85,12 +86,13 @@ export async function fetchWordData(word: string) {
 }
 
 
+
 /**
- * Fetches word data for a user's saved or known words (parallel version).
- * @param user?.uid - User ID
+ * Fetches word data for a user's saved or known words (parallel version), sorted by latest saved.
+ * @param uid - User ID
  * @param type - 'saved' or 'known'
  * @param max - Maximum number of words to fetch
- * @returns Array of word data
+ * @returns Array of word data with metadata including timestamp, sorted by most recent
  */
 export async function fetchWordStatusData(
   uid: string,
@@ -105,23 +107,36 @@ export async function fetchWordStatusData(
   const q = query(cardsColRef, limit(max));
   const snap = await getDocs(q);
 
-  const wordRefs: DocumentReference<DocumentData>[] = [];
+  const wordEntries: { ref: DocumentReference<DocumentData>, timestamp: Timestamp }[] = [];
 
   for (const docSnap of snap.docs) {
     const data = docSnap.data();
-    if (data.wordRef) {
-      wordRefs.push(data.wordRef as DocumentReference<DocumentData>);
+    if (data.wordRef && data.timestamp) {
+      wordEntries.push({
+        ref: data.wordRef as DocumentReference<DocumentData>,
+        timestamp: data.timestamp,
+      });
     }
   }
 
-  const wordSnaps: DocumentSnapshot<DocumentData>[] = await Promise.all(
-    wordRefs.map(ref => getDoc(ref))
+  const wordSnaps = await Promise.all(
+    wordEntries.map(entry => getDoc(entry.ref))
   );
 
-  return wordSnaps
-    .filter((snap): snap is DocumentSnapshot<DocumentData> => snap.exists())
-    .map((snap) => ({
-      id: snap.id,
-      data: snap.data()!,
-    }));
+  const results: WordDataWithMeta[] = wordSnaps
+    .map((snap, i) => {
+      if (!snap.exists()) return null;
+      return {
+        id: snap.id,
+        data: snap.data()!,
+        timestamp: wordEntries[i].timestamp,
+      };
+    })
+    .filter((item): item is WordDataWithMeta => item !== null);
+
+  // Sort by timestamp (newest first)
+  results.sort((a, b) => b.timestamp.toMillis() - a.timestamp.toMillis());
+
+  return results;
 }
+
