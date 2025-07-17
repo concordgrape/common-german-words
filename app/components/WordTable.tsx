@@ -378,7 +378,7 @@ export const WordTable: React.FC<WordTableProps> = ({
 
   return (
     <div
-      className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] border-1 border-gray-200 overflow-hidden mt-5`}
+      className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#21252B] border-1 border-gray-700 overflow-hidden mt-5`}
     >
       {/* Header with Search and Sort border border-1 border-[#B1B1B1]*/}
       <div className="p-4">
@@ -386,7 +386,7 @@ export const WordTable: React.FC<WordTableProps> = ({
           <button
             onClick={() => changePage(currentPage - 1)}
             disabled={currentPage <= 1}
-            className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 flex items-center gap-2 border border-1 border-gray-300"
+            className="px-3 py-2 rounded bg-gray-600 hover:bg-gray-700 disabled:opacity-50 flex items-center gap-2 border border-1 border-gray-700"
           >
             <svg
               width={20}
@@ -404,13 +404,13 @@ export const WordTable: React.FC<WordTableProps> = ({
             Previous
           </button>
 
-          <span className="text-gray-600">
+          <span className="text-gray-300">
             Page {currentPage} of {totalPages}
           </span>
           <button
             onClick={() => changePage(currentPage + 1)}
             disabled={currentPage >= totalPages}
-            className="px-3 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 flex items-center gap-2 border border-1 border-gray-300"
+            className="px-3 py-2 rounded bg-gray-600 hover:bg-gray-700 disabled:opacity-50 flex items-center gap-2 border border-1 border-gray-700"
           >
             Next
             <svg
@@ -434,7 +434,7 @@ export const WordTable: React.FC<WordTableProps> = ({
           <input
             type="text"
             placeholder="Search..."
-            className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#F2F2F2] text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200 border-1"
+            className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#323944] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-700 border-1"
             value={searchTerm}
             onChange={(e) => handleSearchChange(e.target.value)}
           />
@@ -469,10 +469,10 @@ export const WordTable: React.FC<WordTableProps> = ({
           <div className="flex lg:flex-wrap justify-center gap-2 lg:gap-10 items-start w-full">
             {/* CEFR Level Buttons */}
             <div className="flex flex-col items-start">
-              <span className="mb-2 text-sm text-gray-600 font-medium">
+              <span className="mb-2 text-sm text-gray-300 font-medium">
                 Filter by Level
               </span>
-              <div className="grid grid-cols-2 gap-0 lg:w-50 border border-1 border-gray-200 rounded-lg">
+              <div className="grid grid-cols-2 gap-0 lg:w-50 border border-1 border-gray-700 rounded-lg">
                 {[
                   { id: "All", label: "All" },
                   { id: "A1", label: "A1" },
@@ -494,14 +494,14 @@ export const WordTable: React.FC<WordTableProps> = ({
                 ))}
               </div>
               <div className="flex flex-col items-start mt-5 w-full">
-                <span className="mb-2 text-sm text-gray-600 font-medium">
+                <span className="mb-2 text-sm text-gray-300 font-medium">
                   Part of Speech
                 </span>
 
                 <select
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
-                  className="px-3 py-2 rounded-md bg-gray-100 cursor-pointer text-sm col-span-2 w-full border border-1 border-gray-200 rounded-lg"
+                  className="px-3 py-2 rounded-md bg-gray-700 cursor-pointer text-sm col-span-2 w-full text-white border border-1 border-gray-600 rounded-lg"
                   id="partOfSpeechSelect"
                 >
                   {wordTypes.map((type) => (
@@ -515,10 +515,10 @@ export const WordTable: React.FC<WordTableProps> = ({
 
             {/* Sort + Part of Speech Filter */}
             <div className="flex flex-col items-start">
-              <span className="mb-2 text-sm text-gray-600 font-medium">
+              <span className="mb-2 text-sm text-gray-300 font-medium">
                 Sort & Type
               </span>
-              <div className="grid grid-cols-2 gap-0 w-full lg:w-80 max-w-[300px] lg:max-w-[400px] lg:max-w-[350px] border border-1 border-gray-200 rounded-lg">
+              <div className="grid grid-cols-2 gap-0 w-full lg:w-80 max-w-[300px] lg:max-w-[400px] lg:max-w-[350px] border border-1 border-gray-700 rounded-lg">
                 {sortOptions.map((option, index) => (
                   <SortButton
                     key={option.id}
@@ -534,7 +534,7 @@ export const WordTable: React.FC<WordTableProps> = ({
           </div>
         </div>
 
-        <div className="text-left">
+        <div className="text-left text-gray-300">
           {filteredWords.length}{" "}
           {filteredWords.length > 1
             ? selectedType != "All"
@@ -544,7 +544,7 @@ export const WordTable: React.FC<WordTableProps> = ({
           loaded
         </div>
       </div>
-      <div className="flex px-4 py-2 bg-[#F9F9F9] text-gray-600 font-semibold border-b border-gray-200 text-sm z-1">
+      <div className="flex px-4 py-2 bg-[#323944] text-gray-300 font-semibold border-b border-gray-700 text-sm z-1">
         {/*<div className="w-2 mr-2"></div>*/}
         {/*<div className="w-5">#</div>*/}
         <div className="ml-0">Word</div>
@@ -605,7 +605,7 @@ export const WordTable: React.FC<WordTableProps> = ({
                 className={`border-1 ${
                   expandedRows.includes(word.id)
                     ? "border-blue-300"
-                    : "hover:bg-gray-50 border-[#F2F2F2] h-[64px] sm:max-h-[54px] md:max-h-[54px] lg:max-h-[54px]"
+                    : "hover:bg-gray-800 border-gray-700 h-[64px] sm:max-h-[54px] md:max-h-[54px] lg:max-h-[54px]"
                 }`}
               >
                 <div
@@ -624,7 +624,7 @@ export const WordTable: React.FC<WordTableProps> = ({
                   <div className="text-left font-medium px-1 rounded-sm flex items-center gap-1">
                     {/* Hover trigger isolated to just the word */}
                     <span className="relative group inline-block">
-                      <span className="hover:bg-gray-200 rounded-sm px-0.5 cursor-pointer">
+                      <span className="hover:bg-gray-200 rounded-sm px-0.5 cursor-pointer text-white">
                         {word.word}
                       </span>
                       {/* Popover only visible when hovering the word */}
@@ -635,17 +635,17 @@ export const WordTable: React.FC<WordTableProps> = ({
                     {word.part_of_speech?.toLowerCase() !== "determiner" && (
                       <>
                         {word.gender.toLowerCase() === "masculine" && (
-                          <span className="text-gray-700 text-sm italic">
+                          <span className="text-gray-400 text-sm italic">
                             , der
                           </span>
                         )}
                         {word.gender.toLowerCase() === "feminine" && (
-                          <span className="text-gray-700 text-sm italic">
+                          <span className="text-gray-400 text-sm italic">
                             , die
                           </span>
                         )}
                         {word.gender.toLowerCase() === "neuter" && (
-                          <span className="text-gray-700 text-sm italic">
+                          <span className="text-gray-400 text-sm italic">
                             , das
                           </span>
                         )}
