@@ -80,40 +80,39 @@ const links = useMemo(() => [
             </svg>
           </button>
         </div>
-<div className="hidden lg:block justify-end w-full mr-10 relative">
-  <ul className="flex justify-end w-full lg:space-x-2 mr-10 relative">
-    {/* Underline */}
-    <span
-      className="absolute bottom-0 h-0.5 bg-blue-600 transition-all duration-300"
-      style={{
-        left: underlineStyle.left,
-        width: underlineStyle.width,
-      }}
-    />
-    {links.map(({ href, icon, label }) => {
-      const isActive = pathname === href;
-      return (
-        <li
-          key={label}
-ref={(el) => void (navRefs.current[href] = el)}
-          className="relative flex items-center px-2 py-2"
-        >
-          <Link
-            href={href}
-            className={clsx(
-              'text-sm flex items-center transition-colors duration-200',
-              isActive ? 'text-blue-600' : 'text-gray-700 hover:text-gray-800'
-            )}
-          >
-            {icon}
-            <span className="sr-only">{label}</span>
-          </Link>
-        </li>
-      );
-    })}
-  </ul>
-</div>
-
+        <div className="hidden lg:block justify-end w-full mr-10 relative">
+          <ul className="flex justify-end w-full lg:space-x-2 mr-10 relative">
+            {/* Underline */}
+            <span
+              className="absolute bottom-0 h-0.5 bg-blue-600 transition-all duration-300"
+              style={{
+                left: underlineStyle.left,
+                width: underlineStyle.width,
+              }}
+            />
+            {links.map(({ href, icon, label }) => {
+              const isActive = pathname === href;
+              return (
+                <li
+                  key={label}
+                  ref={(el) => void (navRefs.current[href] = el)}
+                  className="relative flex items-center px-2 py-2"
+                >
+                  <Link
+                    href={href}
+                    className={clsx(
+                      'text-sm flex items-center transition-colors duration-200',
+                      isActive ? 'text-blue-600' : 'text-gray-700 hover:text-gray-800'
+                    )}
+                  >
+                    {icon}
+                    <span className='ml-2'>{label}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
         <div className="hidden lg:block">
           {(!user && !loading) ?
               <div className="flex items-center space-x-4">
