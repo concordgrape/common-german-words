@@ -1,86 +1,110 @@
-"use client";
+'use client';
 
-import React, { Suspense } from 'react';
-import { Card } from '../components/Card/Card';
-import { FaBrain } from 'react-icons/fa';
-import { MdQuiz } from 'react-icons/md';
-import { IoLanguage } from "react-icons/io5";
-import { RiNewspaperLine } from "react-icons/ri";
-import { FaBoltLightning } from 'react-icons/fa6';
+import React, { useState, Suspense } from 'react';
+import { BookOpen, Target, Filter } from 'lucide-react';
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const LearnWordPage: React.FC = () => {
+  const [wordCount, setWordCount] = useState(20);
+  const [difficulty, setDifficulty] = useState('all');
+  const [wordType, setWordType] = useState('all');
+  const [showSettings, setShowSettings] = useState(false);
+
   return (
-    <div className="sm:top-15 md:top-15 p-2 sm:p-4 md:p-4 text-white w-full lg:max-w-[1000px] m-auto">
-        <div
-        className={`min-h-[500px] mt-20 py-2 px-1 m-auto mt-5`}
+    <div className="sm:top-15 md:top-15 p-2 sm:p-4 md:p-4 text-black w-full flex justify-center">
+      <div className="min-h-[400px] w-full max-w-[700px] mt-20 py-2 px-1 bg-white flex flex-col items-center transition-all duration-500">
+        <h1 className="mb-4 mt-10 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl">
+          0 words to review
+        </h1>
+
+        {/* Start Learning Button */}
+        <button className="flex flex-col items-center px-4 py-6 mt-10 border-1 border-blue-600 bg-blue-500 text-white hover:bg-blue-600 transition-all duration-600 rounded-xl font-extrabold font-mono">
+          <span className="flex items-center">
+            <IoIosArrowForward className="mt-1 mr-2" />
+            Start Learning
+            <IoIosArrowBack className="mt-1 ml-2" />
+          </span>
+          <span className="relative mt-2 text-xs text-gray-200 font-normal">0 words loaded</span>
+        </button>
+
+        {/* Add Words Button */}
+        <button
+          className="flex px-4 py-6 mt-10 border-1 border-gray-300 bg-gray-200 text-gray-700 hover:shadow-sm transition-all duration-600 rounded-xl font-extrabold font-mono"
+          onClick={() => setShowSettings((prev) => !prev)}
         >
-          <h1 className="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl text-center mt-5">How should you start practising?</h1>
-          <div className='flex bg-blue-400 text-blue-800 font-bold py-3 px-2 rounded-4xl w-45 text-center m-auto shadow-sm mt-5 hover:text-blue-700 hover:shadow-lg transition-all duration-300 ease-in-out'>
-            <IoLanguage className='mt-[1.5px] ml-1' />
-            <span className='pl-[5px] text-center m-auto'>Learning German</span>
+          {showSettings ? 'Hide Settings' : 'Add Words'}
+        </button>
+
+        {/* Settings Section with Transition */}
+        <div
+          className={`overflow-hidden transition-all duration-700 ease-in-out ${
+            showSettings ? 'max-h-[1000px] opacity-100 mt-10' : 'max-h-0 opacity-0'
+          } w-full`}
+        >
+          {/* Word Count */}
+          <div className="border rounded-lg p-4 w-70 lg:w-100 m-auto space-y-3 bg-blue-50 border-blue-100">
+            <label className="flex items-center gap-2 font-medium text-gray-700">
+              <BookOpen className="w-5 h-5 text-blue-500" />
+              <span className="font-extrabold">Number of Words</span>
+            </label>
+            <input
+              type="range"
+              min={5}
+              max={50}
+              step={1}
+              value={wordCount}
+              onChange={(e) => setWordCount(Number(e.target.value))}
+              className="w-full accent-blue-500"
+            />
+            <div className="flex justify-between text-sm text-gray-500">
+              <span>5 words</span>
+              <span className="text-blue-600 font-semibold bg-blue-100 px-3 py-2 rounded-lg">
+                {wordCount} words
+              </span>
+              <span>50 words</span>
+            </div>
           </div>
-          <CardsContainer />
-          <div className='mt-6'>
-            <TipContainer />
+
+          {/* Difficulty */}
+          <div className="border rounded-lg mt-5 p-4 space-y-3 w-70 lg:w-100 m-auto bg-blue-50 border-blue-100">
+            <label className="flex items-center gap-2 font-medium text-gray-700">
+              <Target className="w-5 h-5 text-blue-500" />
+              <span className="font-extrabold">Difficulty Level</span>
+            </label>
+            <select
+              value={difficulty}
+              onChange={(e) => setDifficulty(e.target.value)}
+              className="w-full h-10 border border-blue-100 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="all">All Levels</option>
+              <option value="easy">Beginner</option>
+              <option value="medium">Intermediate</option>
+              <option value="hard">Advanced</option>
+            </select>
+          </div>
+
+          {/* Word Type */}
+          <div className="border rounded-lg mt-5 mb-10 w-70 lg:w-100 m-auto p-4 space-y-3 bg-blue-50 border-blue-100">
+            <label className="flex items-center gap-2 font-medium text-gray-700">
+              <Filter className="w-5 h-5 text-blue-500" />
+              <span className="font-extrabold">Word Type</span>
+            </label>
+            <select
+              value={wordType}
+              onChange={(e) => setWordType(e.target.value)}
+              className="w-full h-10 border border-blue-100 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="all">All Types</option>
+              <option value="noun">Nouns</option>
+              <option value="verb">Verbs</option>
+              <option value="adjective">Adjectives</option>
+            </select>
           </div>
         </div>
+      </div>
     </div>
   );
 };
-
-function CardsContainer() {
-  return (
-    <div className="flex flex-col md:flex-row justify-center items-center gap-6 py-10">
-      <Card
-        icon={FaBrain}
-        iconBgColor="bg-blue-500"
-        title="Flashcard Mode"
-        description="Traditional flashcard learning with spaced repetition"
-        features={['Spaced repetition', 'Audio pronunciation', 'Example sentences']}
-      />
-      <Card
-        icon={MdQuiz}
-        iconBgColor="bg-green-500"
-        title="Quiz Mode"
-        description="Multiple choice questions to test your knowledge"
-        features={['Multiple choice', 'Instant feedback', 'Progress tracking']}
-      />
-      <Card
-        icon={RiNewspaperLine}
-        iconBgColor="bg-purple-500"
-        title="Fill in the Blank"
-        description="Complete sentences with the correct word"
-        features={['Context learning', 'Sentence completion', 'Real usage examples']}
-      />
-    </div>
-  );
-}
-
-function TipContainer() {
-  return (
-    <div className="mx-auto w-[80%] max-w-xl p-6 text-center rounded-md border border-gray-700 bg-[#21252B]">
-      <div className="flex justify-center items-center mb-4 font-extrabold text-xl text-white">
-        <FaBoltLightning className="mr-2" />
-        <span>Today&apos;s Learning Goal</span>
-      </div>
-
-      <p className="text-gray-300 mb-6">
-        Practise consistently to build your vocabulary. Each mode offers a different way to reinforce your learning!
-      </p>
-
-      <div className="grid grid-cols-2 gap-4 text-sm text-gray-400 max-w-md mx-auto">
-        <div className="flex items-center justify-center gap-2">
-          <span className="text-lg">🎯</span>
-          <span>Daily Goal: 20 words</span>
-        </div>
-        <div className="flex items-center justify-center gap-2">
-          <span className="text-lg">🧠</span>
-          <span>Spaced repetition optimized</span>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function LearnPage() {
   return (

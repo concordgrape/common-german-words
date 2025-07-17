@@ -19,7 +19,7 @@ export const Card: React.FC<CardProps> = ({
 }) => {
     const [open, setOpen] = useState(false);
     return (
-        <div className="bg-[#21252B] border-1 border-gray-700 rounded-xl shadow-md p-6 w-full max-w-sm flex flex-col gap-4 text-center transition-all duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-lg">
+        <div className="bg-white rounded-xl shadow-md p-6 w-full max-w-sm flex flex-col gap-4 text-center transition-all duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-lg">
         <div className={`w-18 h-18 mx-auto flex items-center justify-center rounded-xl ${iconBgColor}`}>
             <Icon className="text-white text-4xl" />
         </div>
@@ -30,7 +30,7 @@ export const Card: React.FC<CardProps> = ({
             <li key={index}>{feature}</li>
             ))}
         </ul>
-        <button className="cursor-pointer mt-2 bg-[#323944] text-white text-sm font-medium py-2 px-4 rounded-lg flex items-center justify-center gap-2 hover:bg-[#272A2F] transition" onClick={() => setOpen(true)}>
+        <button className="cursor-pointer mt-2 bg-black text-white text-sm font-medium py-2 px-4 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-800 transition" onClick={() => setOpen(true)}>            Start Learning →
             Start Learning →
         </button>
 

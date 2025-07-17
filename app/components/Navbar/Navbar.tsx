@@ -56,16 +56,15 @@ const links = useMemo(() => [
 
   return (
     <div className="">
-      <nav className="fixed w-full z-100 px-4 py-3 lg:py-4 flex justify-between items-center bg-[#21252B]">
-        <Link className="text-3xl font-bold leading-none flex" href="/">
+      <nav className="fixed w-full z-100 px-4 py-3 lg:py-4 flex justify-between items-center bg-white border-1 border-gray-200">        <Link className="text-3xl font-bold leading-none flex" href="/">
           <Image src="/de.webp" alt="Logo" width={70} height={70} quality={100} unoptimized />
         </Link>
         <div className="lg:hidden flex gap-2">
           <div className='flex items-center space-x-4'>
             {(!user && !loading) ?
               <div className="flex items-center space-x-4">
-                <Link href="/signin" className="flex px-4 w-30 justify-center py-2 text-sm font-regular text-white border-1 border-gray-700 bg-[#323944] hover:border-gray-300 hover:shadow-sm rounded-sm">
-                  <svg width="20px" height="20px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" aria-labelledby="happyFaceIconTitle" stroke="#ffffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" color="#000000"> <title id="happyFaceIconTitle">Happy Face</title> <path d="M7.3010863,14.0011479 C8.0734404,15.7578367 9.98813711,17 11.9995889,17 C14.0024928,17 15.913479,15.7546194 16.6925307,14.0055328"/> <line strokeLinecap="round" x1="9" y1="9" x2="9" y2="9"/> <line strokeLinecap="round" x1="15" y1="9" x2="15" y2="9"/> <circle cx="12" cy="12" r="10"/> </svg>
+                <Link href="/signin" className="flex px-4 py-2 text-sm font-regular text-black bg-clear border-1 border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm">                  
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" aria-labelledby="happyFaceIconTitle" stroke="#000000ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" color="#000000"> <title id="happyFaceIconTitle">Happy Face</title> <path d="M7.3010863,14.0011479 C8.0734404,15.7578367 9.98813711,17 11.9995889,17 C14.0024928,17 15.913479,15.7546194 16.6925307,14.0055328"/> <line strokeLinecap="round" x1="9" y1="9" x2="9" y2="9"/> <line strokeLinecap="round" x1="15" y1="9" x2="15" y2="9"/> <circle cx="12" cy="12" r="10"/> </svg>
                   <span className='pl-2'>Sign In</span>
                 </Link>
               </div>
@@ -74,7 +73,7 @@ const links = useMemo(() => [
             }
           </div>
           <button onClick={toggleMenu} className="flex items-center text-black hover:text-gray-300 cursor-pointer p-3">
-            <svg className="block h-6 w-6 fill-white" viewBox="0 0 20 20">
+            <svg className="block h-6 w-6 fill-current" viewBox="0 0 20 20">
               <title>Mobile menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
@@ -102,7 +101,7 @@ const links = useMemo(() => [
                     href={href}
                     className={clsx(
                       'text-sm flex items-center transition-colors duration-200',
-                      isActive ? 'text-blue-500' : 'text-gray-300 hover:text-gray-400'
+                      isActive ? 'text-blue-600' : 'text-gray-700 hover:text-gray-800'
                     )}
                   >
                     {icon}
@@ -116,8 +115,8 @@ const links = useMemo(() => [
         <div className="hidden lg:block">
           {(!user && !loading) ?
               <div className="flex items-center space-x-4">
-                <Link href="/signin" className="flex px-4 w-30 justify-center py-2 text-sm font-regular text-white border-1 border-gray-700 bg-[#323944] hover:border-gray-300 hover:shadow-sm rounded-sm">
-                  <svg width="20px" height="20px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" aria-labelledby="happyFaceIconTitle" stroke="#ffffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" color="#000000"> <title id="happyFaceIconTitle">Happy Face</title> <path d="M7.3010863,14.0011479 C8.0734404,15.7578367 9.98813711,17 11.9995889,17 C14.0024928,17 15.913479,15.7546194 16.6925307,14.0055328"/> <line strokeLinecap="round" x1="9" y1="9" x2="9" y2="9"/> <line strokeLinecap="round" x1="15" y1="9" x2="15" y2="9"/> <circle cx="12" cy="12" r="10"/> </svg>
+                <Link href="/signin" className="flex px-4 w-30 justify-center py-2 text-sm font-regular text-black border-1 border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm">
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" aria-labelledby="happyFaceIconTitle" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" color="#000000"> <title id="happyFaceIconTitle">Happy Face</title> <path d="M7.3010863,14.0011479 C8.0734404,15.7578367 9.98813711,17 11.9995889,17 C14.0024928,17 15.913479,15.7546194 16.6925307,14.0055328"/> <line strokeLinecap="round" x1="9" y1="9" x2="9" y2="9"/> <line strokeLinecap="round" x1="15" y1="9" x2="15" y2="9"/> <circle cx="12" cy="12" r="10"/> </svg>
                   <span className='pl-2'>Sign In</span>
                 </Link>
               </div>
