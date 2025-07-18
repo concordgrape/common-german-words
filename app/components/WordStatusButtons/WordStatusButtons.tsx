@@ -26,7 +26,7 @@ export default function WordStatusButtons({
     <div className="flex gap-1 items-center">
       <div className="relative group w-8 h-8 sm:h-6 md:h-6 sm:w-6 md:w-6 lg:h-6 lg:w-6 mr-2">        <button
           className={`w-full h-full ${
-            isPlusEnabled ? 'bg-orange-400' : 'bg-gray-200'
+            isPlusEnabled ? 'bg-orange-400 text-white' : 'bg-gray-200 text-black'
           } rounded-sm hover:bg-orange-400 hover:text-white cursor-pointer`}
           onClick={onPlusClick}
         >
