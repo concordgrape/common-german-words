@@ -5,7 +5,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebaseClient";
 import Error from "next/error";
 import { useUser } from "@/app/context/UserContext";
-import { FaRegUser } from "react-icons/fa";
+import { FaCheck, FaRegBookmark, FaRegUser } from "react-icons/fa";
 import { ImExit } from "react-icons/im";
 import { useRouter } from "next/navigation";
 
@@ -125,10 +125,31 @@ const UserDropdown = ({
       <ul className="py-1 text-sm text-gray-700">
         <li>
           <button
+            className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
+                        hover:text-orange-500 transition-colors duration-800"
+            onClick={() => router.push("/profile")} // Assuming a profile route
+          >
+            <FaRegBookmark className="text-lg" /> {/* Profile Icon */}
+            My Saved Words
+          </button>
+        </li>
+        <li>
+          <button
+            className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
+                      hover:text-green-700 transition-colors duration-800"
+            onClick={() => router.push("/profile")} // Assuming a profile route
+          >
+            <FaCheck className="text-lg" /> {/* Profile Icon */}
+            My Known Words
+          </button>
+        </li>
+        <hr className="h-px my-2 bg-gray-200 border-0" />
+        <li>
+          <button
             className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100"
             onClick={() => router.push("/profile")} // Assuming a profile route
           >
-            <FaRegUser className="text-gray-700 text-lg" /> {/* Profile Icon */}
+            <FaRegUser className="text-lg" /> {/* Profile Icon */}
             My Profile
           </button>
         </li>
