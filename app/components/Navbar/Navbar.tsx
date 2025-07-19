@@ -159,30 +159,63 @@ export const Navbar: React.FC = () => {
           </div>
           <span className="text-gray-700 text-lg font-bold">Common German Words</span>
           <div className="mt-4">
-            <ul>
-              {['Home', 'About Us', 'Services', 'Pricing', 'Contact'].map((item) => (
-                <li className="mb-1" key={item}>
-                  <a
-                    className="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
-                    href="#"
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
+             <ul className="flex flex-col text-sm text-gray-700">
+              <li>
+                <Link onClick={closeMenu} href="/browse" className="block py-3 hover:bg-gray-100 font-bold">
+                  <span className='pr-1'>💬</span> Browse
+                  <br />
+                  <span className='pr-1 text-gray-400 font-bold text-xs'>Browse 6000+ frequent words</span>
+                </Link>
+              </li>
+              <li>
+                <Link onClick={closeMenu} href="/learn" className="block py-3 hover:bg-gray-100 font-bold">
+                  <span className='pr-1'>📖</span> Learn
+                  <br />
+                  <span className='pr-1 text-gray-400 font-bold text-xs'>Generate flashcards & quizzes</span>
+                </Link>
+              </li>
+              <hr className="h-px my-2 bg-gray-200 border-0" />
+              <li>
+                <div className="flex items-center py-3 hover:bg-gray-100">
+                  <input type="checkbox" className="mr-2" />
+                  <span>Dark mode</span>
+                </div>
+              </li>
+              <hr className="h-px my-2 bg-gray-200 border-0" />
             </ul>
           </div>
           <div className="mt-auto">
             <div className="pt-6">
-              <a className="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold bg-gray-200 hover:bg-gray-100 rounded-xl" href="/signin">
-                Sign In
-              </a>
-              <a className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-black font-semibold bg-blue-600 hover:bg-blue-700 rounded-xl" href="#">
+              <Link
+                  href="/signin"
+                  className="flex items-center px-4 py-2 text-sm text-black border border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm w-full justify-center"
+                >
+                  <svg
+                    width="20px"
+                    height="20px"
+                    viewBox="0 0 24 24"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    stroke="#000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    fill="none"
+                  >
+                    <title id="happyFaceIconTitle">Happy Face</title>
+                    <path d="M7.3,14 C8.07,15.76 9.99,17 12,17 C14,17 15.91,15.75 16.69,14" />
+                    <line x1="9" y1="9" x2="9" y2="9" />
+                    <line x1="15" y1="9" x2="15" y2="9" />
+                    <circle cx="12" cy="12" r="10" />
+                  </svg>
+                  <span className="pl-2">Sign In</span>
+                </Link>
+              {/*<a className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-black font-semibold bg-blue-600 hover:bg-blue-700 rounded-xl" href="#">
                 Sign Up
-              </a>
+              </a>*/}
             </div>
             <p className="my-4 text-xs text-center text-gray-400">
-              <span>Copyright © 2025</span>
+              <span>Copyright © Verbuu 2025</span>
             </p>
           </div>
         </nav>
@@ -229,28 +262,29 @@ function HamburgerDropdown() {
             transition={{ duration: 0.2, ease: 'easeOut' }}
             className="absolute right-0 mt-2 w-60 bg-white border border-gray-200 rounded-md shadow-lg z-50 origin-top-right"
           >
-            <ul className="flex flex-col text-sm text-gray-700 divide-y">
+            <ul className="flex flex-col text-sm text-gray-700">
               <li>
-                <Link href="/login" className="block px-4 py-3 hover:bg-gray-100">
-                  Log in
+                <Link href="/browse" className="block px-4 py-3 hover:bg-gray-100 font-bold">
+                  <span className='pr-1'>💬</span> Browse
+                  <br />
+                  <span className='pr-1 text-gray-400 font-bold text-xs'>Browse 6000+ frequent words</span>
                 </Link>
               </li>
               <li>
-                <Link href="/feedback" className="block px-4 py-3 hover:bg-gray-100">
-                  💬 Feedback
+                <Link href="/learn" className="block px-4 py-3 hover:bg-gray-100 font-bold">
+                  <span className='pr-1'>📖</span> Learn
+                  <br />
+                  <span className='pr-1 text-gray-400 font-bold text-xs'>Generate flashcards & quizzes</span>
                 </Link>
               </li>
-              <li>
-                <Link href="/help" className="block px-4 py-3 hover:bg-gray-100">
-                  ❓ Help Center
-                </Link>
-              </li>
+              <hr className="h-px my-2 bg-gray-200 border-0" />
               <li>
                 <div className="flex items-center px-4 py-3 hover:bg-gray-100">
                   <input type="checkbox" className="mr-2" />
                   <span>Dark mode</span>
                 </div>
               </li>
+              <hr className="h-px my-2 bg-gray-200 border-0" />
             </ul>
             <div className="px-4 py-2 text-xs text-gray-500 flex flex-wrap gap-2">
               <Link href="/examples">Examples</Link>
