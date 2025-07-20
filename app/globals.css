@@ -40,3 +40,42 @@ body {
 .transition-max-height {
   transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
 }
+
+/* global.css or styles.css */
+.custom-slider {
+  height: 32px; /* increase overall height */
+  appearance: none;
+  background: transparent;
+}
+
+/* WebKit (Chrome, Safari) */
+.custom-slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 24px;
+  width: 24px;
+  border-radius: 9999px;
+  background: #3b82f6; /* Tailwind blue-500 */
+  cursor: pointer;
+  margin-top: -10px; /* aligns thumb vertically */
+}
+
+.custom-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  background-color: #bfdbfe; /* Tailwind blue-200 */
+  border-radius: 9999px;
+}
+
+/* Firefox */
+.custom-slider::-moz-range-thumb {
+  height: 24px;
+  width: 24px;
+  border-radius: 9999px;
+  background: #3b82f6;
+  cursor: pointer;
+}
+
+.custom-slider::-moz-range-track {
+  height: 6px;
+  background-color: #bfdbfe;
+  border-radius: 9999px;
+}

@@ -5,6 +5,7 @@ import { FaCheck } from 'react-icons/fa';
 import { LuSparkles } from "react-icons/lu";
 import { SlidersHorizontal, Target, Filter, BookOpen } from 'lucide-react';
 import Image from 'next/image';
+import SortButton from '../components/SortButtons/Sort';
 
 type Mode = 'flashcards' | 'quiz' | 'fill';
 
@@ -91,8 +92,8 @@ function ModeSelector() {
         <button
             key={mode.key}
             onClick={() => setSelected(mode.key)}
-            className={`relative rounded-lg p-6 text-left transition h-70 w-full md:h-80 lg:h-70 w-[150px] lg:w-full ${mode.textColor} ${mode.bgColor} ${
-            isSelected ? '' : 'opacity-50'
+            className={`relative rounded-lg p-6 text-left transition h-70 w-full md:h-80 lg:h-70 w-[150px] lg:w-full ${
+            isSelected ? `${mode.textColor} ${mode.bgColor}` : 'bg-gray-200 opacity-50'
             }`}
         >
             {isSelected && (
@@ -112,9 +113,9 @@ function ModeSelector() {
 
 
 function SessionCustomizer() {
-  const [difficulty, setDifficulty] = useState('all');
   const [wordType, setWordType] = useState('all');
   const [wordCount, setWordCount] = useState(20);
+  const [selectedCEFR, setSelectedCEFR] = useState("All")
 
   return (
     <div className="mx-aut p-4">
@@ -123,34 +124,58 @@ function SessionCustomizer() {
           <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-1">
             <Target className="w-4 h-4 text-gray-500" /> <span className='font-bold'>Word Difficulty</span>
           </label>
-          <select
-            value={difficulty}
-            onChange={(e) => setDifficulty(e.target.value)}
-            className="w-full h-10 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="all">All Levels</option>
-            <option value="a1">A1</option>
-            <option value="a2">A2</option>
-            <option value="b1">B1</option>
-            <option value="b2">B2</option>
-          </select>
+          <div className="grid grid-cols-2 gap-0 lg:w-50 border border-1 border-gray-200 rounded-lg">                
+                {[
+                  { id: "All", label: "All" },
+                  { id: "A1", label: "A1" },
+                  { id: "A2", label: "A2" },
+                  { id: "B1", label: "B1" },
+                ].map((option, index) => (
+                  <SortButton
+                    key={option.id}
+                    label={option.label}
+                    isActive={selectedCEFR === option.id}
+                    onClick={() =>
+                      setSelectedCEFR(
+                        option.id as "All" | "A1" | "A2" | "B1"
+                      )
+                    }
+                    index={index}
+                    color={"bg-blue-400"}
+                  />
+                ))}
+              </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-1">
-            <Filter className="w-4 h-4 text-gray-500" /> <span className='font-bold'>Word Type</span>
-          </label>
-          <select
-            value={wordType}
-            onChange={(e) => setWordType(e.target.value)}
-            className="w-full h-10 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="all">All Types</option>
-            <option value="noun">Nouns</option>
-            <option value="verb">Verbs</option>
-            <option value="adj">Adjectives</option>
-            <option value="adv">Adverbs</option>
-          </select>
+            <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                <Filter className="w-4 h-4 text-gray-500" /> <span className="font-bold">Word Type</span>
+            </label>
+
+            <div className="grid grid-cols-2 gap-2 text-sm">
+            {[
+                { label: 'All', value: 'all' },
+                { label: 'Nouns', value: 'noun' },
+                { label: 'Verbs', value: 'verb' },
+                { label: 'Adjectives', value: 'adj' },
+                { label: 'Adverbs', value: 'adv' },
+            ].map((option) => (
+                <label
+                key={option.value}
+                className="inline-flex items-center gap-2"
+                >
+                <input
+                    type="radio"
+                    name="wordType"
+                    value={option.value}
+                    checked={wordType === option.value}
+                    onChange={(e) => setWordType(e.target.value)}
+                    className="text-blue-600 focus:ring-blue-500"
+                />
+                {option.label}
+                </label>
+            ))}
+            </div>
         </div>
       </div>
 
@@ -164,12 +189,12 @@ function SessionCustomizer() {
           <span className="text-gray-500">37</span>
         </div>
         <input
-          type="range"
-          min={5}
-          max={37}
-          value={wordCount}
-          onChange={(e) => setWordCount(Number(e.target.value))}
-          className="w-full mt-2 accent-blue-600"
+            type="range"
+            min={5}
+            max={37}
+            value={wordCount}
+            onChange={(e) => setWordCount(Number(e.target.value))}
+            className="w-full mt-2 accent-blue-600 custom-slider"
         />
       </div>
     </div>
