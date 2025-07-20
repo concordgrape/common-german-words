@@ -604,7 +604,7 @@ export const WordTable: React.FC<WordTableProps> = ({
                 ref={(el) => {
                   wordRefs.current[word.id] = el;
                 }}
-                className={`border-1 ${
+                className={`border-1 font-arial ${
                   expandedRows.includes(word.id)
                     ? "border-blue-300"
                     : "hover:bg-gray-50 border-[#F2F2F2] h-[64px] sm:max-h-[54px] md:max-h-[54px] lg:max-h-[54px]"                
