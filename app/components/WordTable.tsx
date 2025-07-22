@@ -71,7 +71,7 @@ export const WordTable: React.FC<WordTableProps> = ({
 
   // Adjust Virtuoso height
   const isMobile = useIsMobile();
-  const rowHeight = isMobile ? 64 : 54;
+  const rowHeight = 44;
 
   const scoredWords = words
     .map((word) => {
@@ -179,7 +179,7 @@ export const WordTable: React.FC<WordTableProps> = ({
   const height =
     displayedWords.length * rowHeight +
     (isMobile && expandedRows.length > 0 ? 435 : 0) +
-    45;
+    44;
 
   setVirtuosoHeight(`${height}px`);
 }, [displayedWords.length, expandedRows.length, isMobile]);
@@ -604,14 +604,14 @@ export const WordTable: React.FC<WordTableProps> = ({
                 ref={(el) => {
                   wordRefs.current[word.id] = el;
                 }}
-                className={`border-1 font-arial ${
+                className={`border-1 font-arial  ${
                   expandedRows.includes(word.id)
-                    ? "border-blue-300"
-                    : "hover:bg-gray-50 border-[#F2F2F2] h-[64px] sm:max-h-[54px] md:max-h-[54px] lg:max-h-[54px]"                
+                    ? "border-blue-300 lg:max-h-[44px]"
+                    : "hover:bg-gray-50 border-[#F2F2F2] h-[44px] max-h-[44px]"                
                   }`}
               >
                 <div
-                  className={`flex items-center justify-between p-3 pt-4 cursor-pointer transition-colors duration-200 ${
+                  className={`flex items-center justify-between py-[5px] px-2 sm:p-3 md:p-3 lg:p-3 cursor-pointer transition-colors duration-200 ${
                     expandedRows.includes(word.id) ? "" : ""
                   }`}
                   onClick={() => {
