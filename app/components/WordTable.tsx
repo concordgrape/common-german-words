@@ -21,8 +21,6 @@ import { useUser } from "../context/UserContext";
 // WordTable component props interface
 interface WordTableProps {
   onRowClick: (word: Word | null) => void;
-  setIsSaved: (arg0: boolean) => void;
-  setIsKnown: (arg0: boolean) => void;
   selectedWord?: Word | null;
   words: Word[];
 }
@@ -32,8 +30,6 @@ const ITEMS_PER_PAGE = 100;
 // WordTable component
 export const WordTable: React.FC<WordTableProps> = ({
   onRowClick,
-  setIsSaved,
-  setIsKnown,
   selectedWord,
   words,
 }) => {
@@ -198,10 +194,6 @@ export const WordTable: React.FC<WordTableProps> = ({
           fetchWordStatusData(user.uid, "known", 5000),
         ]);
 
-        const isSaved = saved.some(word => word.id.includes(selectedWord?.word ? selectedWord?.word : ""));
-        const isKnown = known.some(word => word.id.includes(selectedWord?.word ? selectedWord?.word : ""));
-        setIsSaved(isSaved);
-        setIsKnown(isKnown);
         setSavedWordIds(new Set(saved.map((doc) => doc.id)));
         setKnownWordIds(new Set(known.map((doc) => doc.id)));
 

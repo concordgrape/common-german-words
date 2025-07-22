@@ -7,8 +7,6 @@ import Link from "next/link";
 
 interface WordInfoProps {
   selectedWord?: Word | null;
-  isSaved: boolean,
-  isKnown: boolean
 }
 
 interface FullWordData {
@@ -22,7 +20,7 @@ interface FullWordData {
   gender: string;
 }
 
-export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord, isSaved, isKnown }) => {
+export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
   const [fullData, setFullData] = useState<FullWordData | null>(null);
   // Add this to your component state
   const [visibleExamples, setVisibleExamples] = useState(4);
@@ -54,8 +52,6 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord, isSaved, isKno
 
     fetchData();
     setVisibleExamples(4); // reset
-    console.log("saved: ", isSaved)
-    console.log("known: ", isKnown)
   }, [selectedWord]);
 
   if (!selectedWord) {
