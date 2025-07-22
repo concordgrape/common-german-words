@@ -40,7 +40,7 @@ export default function WordStatusButtons({
 
       <button
         className={`w-8 h-8 sm:h-6 md:h-6 sm:w-6 md:w-6 lg:h-6 lg:w-6 ${
-          isCheckEnabled ? 'bg-green-500' : 'bg-gray-200'
+          isCheckEnabled ? 'bg-green-500 text-white' : 'bg-gray-200'
         } rounded-sm hover:bg-green-500 hover:text-white cursor-pointer`}
         onClick={onCheckClick}
       >
