@@ -11,8 +11,6 @@ import { useOnlineStatus } from '../hooks/useOnlineStatus';
 
 const MainWordPage: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
-  const [isSaved, setIsSaved] = useState(false);
-  const [isKnown, setIsKnown] = useState(false);
   const [words, setWords] = useState<Word[]>([]);
   const searchParams = useSearchParams();
   const isOnline = useOnlineStatus();
@@ -55,8 +53,6 @@ const MainWordPage: React.FC = () => {
           onRowClick={(word) => { setSelectedWord(word) }}
           selectedWord={selectedWord}
           words={words}
-          setIsKnown={setIsKnown}
-          setIsSaved={setIsSaved}
         />
       </div>
 
@@ -64,8 +60,6 @@ const MainWordPage: React.FC = () => {
       <div className="hidden sm:block md:block sticky top-25 self-start z-20">
         <WordInfo 
           selectedWord={selectedWord} 
-          isKnown={isKnown}
-          isSaved={isSaved}
         />
       </div>
     </div>
