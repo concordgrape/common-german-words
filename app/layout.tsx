@@ -5,6 +5,7 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { ToastProvider } from "./hooks/useToast";
 import Footer from "./components/Footer/Footer";
 import { UserProvider } from "./context/UserContext";
+import { WordFormProvider } from "./context/WordFormContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,11 +44,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <UserProvider>
-          <Navbar />
+          <WordFormProvider>
+            <Navbar />
             <ToastProvider>
               {children}
             </ToastProvider>
           <Footer />
+          </WordFormProvider>
         </UserProvider>
       </body>
     </html>
