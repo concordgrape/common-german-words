@@ -71,7 +71,7 @@ export const WordTable: React.FC<WordTableProps> = ({
 
   // Adjust Virtuoso height
   const isMobile = useIsMobile();
-  const rowHeight = 44;
+  const rowHeight = 45;
 
   const scoredWords = words
     .map((word) => {
