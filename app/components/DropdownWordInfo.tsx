@@ -71,8 +71,11 @@ const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen }
    </div>
  </div>
           <p className="text-center text-gray-200 italic">
-            {fullData.part_of_speech} · {fullData.gender.length ? `${fullData.gender} · ` : ''} [{fullData.phonetic_spelling}]
+            {fullData?.part_of_speech}
+            {fullData?.gender?.length ? ` · ${fullData.gender}` : ''}
+            {fullData?.phonetic_spelling ? ` · [${fullData.phonetic_spelling}]` : ''}
           </p>
+
 
           {/* Definitions */}
           <div>
