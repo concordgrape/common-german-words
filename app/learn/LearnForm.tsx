@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { FaCheck } from 'react-icons/fa';
-import { LuSparkles } from "react-icons/lu";
+//import { FaCheck } from 'react-icons/fa';
+//import { LuSparkles } from "react-icons/lu";
 import { SlidersHorizontal, Target, Filter, BookOpen } from 'lucide-react';
-import Image from 'next/image';
+//import Image from 'next/image';
 import SortButton from '../components/SortButtons/Sort';
 import { useWordForm } from '../context/WordFormContext';
 import { fetchBasicWords, Word } from '../helpers/fetchBasicWordList';
 import { shuffle } from '../helpers/utils';
 
-type Mode = 'flashcards' | 'quiz' | 'fill';
+//type Mode = 'flashcards' | 'quiz' | 'fill';
 
 
 export const LearnForm = () => {
@@ -23,18 +23,18 @@ export const LearnForm = () => {
 
   return (
     <div className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start overflow-hidden mt-5 px-2 lg:px-5`}>
-        <h1 className="text-black text-5xl font-extrabold pl-5 lg:pl-0">Learn</h1>
-        <h2 className="text-gray-700 text-lg font-regular pl-5 lg:pl-0">Choose your preferred way to practice and customize your session to fit your learning goals.</h2>
+        <h1 className="text-black text-5xl font-extrabold">Learn</h1>
+        {/*<h2 className="text-gray-700 text-lg font-regular pl-5 lg:pl-0">Choose your preferred way to practice and customize your session to fit your learning goals.</h2>
         <div className="bg-[#FFFFFF] border-1 border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
             <h1 className="text-black text-2xl font-bold flex"><LuSparkles className='mr-3 mt-1 text-blue-500' />Select a practise mode</h1>
             <ModeSelector />
-        </div>
+        </div>*/}
 
         <SessionCustomizer words={words} />
     </div>
   );
 }
-
+/*
 function ModeSelector() {
   const [selected, setSelected] = useState<Mode>('flashcards');
 
@@ -71,7 +71,7 @@ function ModeSelector() {
         bgColor: 'bg-blue-200',
         textColor: 'text-blue-600',
     },
-   /* {
+    {
         key: 'fill',
         title: 'Fill in the Blank',
         subtitle: 'Type the word in context',
@@ -86,7 +86,7 @@ function ModeSelector() {
         ),        
         bgColor: 'bg-blue-200',
         textColor: 'text-blue-600',
-    },*/
+    },
     ] as const;
 
   return (
@@ -115,7 +115,7 @@ function ModeSelector() {
     </div>
   );
 }
-
+*/
 interface SessionCustomizerProps {
   words: Word[];
 }
