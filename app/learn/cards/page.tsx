@@ -43,37 +43,37 @@ const LearnCardsPage: React.FC = () => {
     <div className="min-h-screen w-full pt-15 flex justify-center">
       <div className="w-full max-w-[800px] p-1 sm:p-4 md:p-4 mt-5 px-2 lg:px-5">
         <div className="bg-white min-h-100 border border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm mx-auto">
-          {/* Controls */}
-          <div className="flex items-center justify-between mb-4">
-            <button
-              onClick={prev}
-              disabled={idx === 0}
-              aria-label="Previous card"
-              className="p-2 rounded disabled:opacity-30 hover:bg-gray-100 transition"
-            >
-              <ChevronLeft size={22} />
-            </button>
+            {/* Card */}
+            <Flashcard
+                key={current.word} // helps reset flip when changing word
+                front={<span>{current.word}</span>}
+                back={<span>{current.translation}</span>}
+            />
 
-            <span className="text-sm text-gray-500">
-              {idx + 1} / {total}
-            </span>
+            {/* Controls */}
+            <div className="flex items-center justify-between mt-15">
+                <button
+                    onClick={prev}
+                    disabled={idx === 0}
+                    aria-label="Previous card"
+                    className="p-2 rounded disabled:opacity-30 bg-gray-100 lg:bg-white hover:bg-gray-100 transition"
+                >
+                <ChevronLeft size={22} />
+                </button>
 
-            <button
-              onClick={next}
-              disabled={idx === total - 1}
-              aria-label="Next card"
-              className="p-2 rounded disabled:opacity-30 hover:bg-gray-100 transition"
-            >
-              <ChevronRight size={22} />
-            </button>
-          </div>
+                <span className="text-sm text-gray-500">
+                {idx + 1} / {total}
+                </span>
 
-          {/* Card */}
-          <Flashcard
-            key={current.word} // helps reset flip when changing word
-            front={<span>{current.word}</span>}
-            back={<span>{current.translation}</span>}
-          />
+                <button
+                    onClick={next}
+                    disabled={idx === total - 1}
+                    aria-label="Next card"
+                    className="p-2 rounded disabled:opacity-30 bg-gray-100 lg:bg-white hover:bg-gray-100 transition"
+                >
+                <ChevronRight size={22} />
+                </button>
+            </div>
         </div>
       </div>
     </div>

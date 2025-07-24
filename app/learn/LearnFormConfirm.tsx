@@ -42,6 +42,11 @@ export const LearnFormConfirm = () => {
 
 
   const handleAddAll = () => {
+    if (!user) {
+      toast({ title: 'Not signed in', subtitle: 'You must sign in to save words', variant: 'error' });
+      return;
+    }
+
     const toAdd = filteredWords.filter(w =>
       savedWords.has(w.word)
     );
@@ -56,6 +61,11 @@ export const LearnFormConfirm = () => {
   };
 
   const handleAdd = (amount: number) => {
+    if (!user) {
+      toast({ title: 'Not signed in', subtitle: 'You must sign in to save words', variant: 'error' });
+      return;
+    }
+
     const toAdd = filteredWords.filter(w =>
       savedWords.has(w.word) &&
     !submittedWords.some(sw => sw.word === w.word)
@@ -85,21 +95,14 @@ export const LearnFormConfirm = () => {
   };
 
   return (
-    <div className="w-100 lg:w-full">
+    <div className="max-w-80 lg:max-w-full lg:w-full">
       <div className="w-full bg-[#027AFB] rounded-sm shadow-lg p-6 flex flex-col max-h-[80vh] overflow-y-auto">
         <p className="mb-2 text-white font-bold">
           {submittedWords.length} words selected
         </p>
 
-        <div className="flex flex-col">
-          <button
-            onClick={handleAddAll}
-            className="text-sm w-50 text-center text-white font-mono mt-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 shadow-sm"
-          >
-            {<span>Add All Saved Words ({savedWords.size})</span>}
-          </button>
-        </div>
         {/* your existing +5 / +10 / +20 quick buttons, unchanged */}
+        <p className='text-xs text-white mt-5'>Bulk Add Saved Words</p>
         <div className="flex mt-4">
           <button onClick={() => handleAdd(5)} className={`cursor-pointer ml-3 py-2 w-10 bg-blue-500 rounded-lg text-white hover:text-gray-300`}>
             <u>+5</u>
@@ -112,6 +115,14 @@ export const LearnFormConfirm = () => {
           </button>
           <button onClick={handleUndo} className={`ml-3 w-10 items-center mx-auto rounded-lg ${lastAdded.length > 0 ? 'text-white hover:text-gray-300 cursor-pointer' : 'text-blue-300'}`}>
             <FaUndo className='text-left' />
+          </button>
+        </div>
+        <div className="flex flex-col">
+          <button
+            onClick={handleAddAll}
+            className="text-sm w-50 text-center text-white font-mono mt-5 py-2 px-2 rounded-lg bg-blue-600 hover:bg-blue-700 shadow-sm"
+          >
+            {<span>Add All Saved Words ({savedWords.size})</span>}
           </button>
         </div>
       </div>
