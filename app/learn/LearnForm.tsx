@@ -147,7 +147,7 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
     <div>
 <div className="bg-[#FFFFFF] border-1 border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
       <h1 className="text-black text-2xl font-bold flex"><SlidersHorizontal className='mr-3 mt-1 text-blue-500' />Add Words</h1>
-                    <p className="text-gray-500 mt-3 font-mono text-xs">{words.length} words loaded</p>
+      <p className="text-gray-500 mt-3 font-mono text-xs">{words.length} words loaded</p>
 
       <hr className="h-px my-4 bg-gray-200 border-0" />
 
@@ -217,6 +217,8 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
     </div>
     <div className="bg-[#FFFFFF] border-1 border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
       <h1 className="text-black text-2xl font-bold flex"><SlidersHorizontal className='mr-3 mt-1 text-blue-500' />Set Word Count</h1>
+      <p className="text-gray-500 mt-3 font-mono text-xs">How many words do you want to practise?</p>
+
 <hr className="h-px my-4 bg-gray-200 border-0" />
         <div className="mx-aut p-4">
                 <div>
