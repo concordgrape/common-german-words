@@ -21,3 +21,13 @@ export function truncateString(str: string, maxLength = 30) {
     ? textAfterColon.slice(0, maxLength - 3) + '...' 
     : textAfterColon;
 }
+
+
+export function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}

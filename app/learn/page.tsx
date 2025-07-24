@@ -5,6 +5,7 @@ import { LearnForm } from './LearnForm';
 import { LearnFormConfirm } from './LearnFormConfirm';
 import { useWordForm } from '../context/WordFormContext';
 import { fetchBasicWords } from '../helpers/fetchBasicWordList';
+import Link from 'next/link';
 
 const LearnWordPage: React.FC = () => {
   const { setFilteredWords } = useWordForm();
@@ -27,9 +28,11 @@ const LearnWordPage: React.FC = () => {
       {/* WordInfo (right column) */}
       <div className="flex mt-5 sm:mt-0 md:mt-0 lg:mt-0 sticky top-25 self-start z-20 flex-col items-center w-full">
         <LearnFormConfirm />
-        <button className="bg-blue-500 text-white font-bold font-mono p-4 rounded-2xl mt-5 cursor-pointer hover:shadow-lg">
-          &gt; Add Words &lt;
-        </button>
+        <Link href="/learn/cards">
+          <button className="bg-blue-500 text-white font-bold font-mono p-4 rounded-2xl mt-5 cursor-pointer hover:shadow-lg">
+            &gt; Add Words &lt;
+          </button>
+        </Link>
       </div>
     </div>
   );

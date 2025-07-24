@@ -6,15 +6,18 @@ import { Word } from '../helpers/fetchBasicWordList';
 interface WordFormContextProps {
   filteredWords: Word[];
   setFilteredWords: (words: Word[]) => void;
+  submittedWords: Word[];
+  setSubmittedWords: (words: Word[]) => void;
 }
 
 const WordFormContext = createContext<WordFormContextProps | undefined>(undefined);
 
 export const WordFormProvider = ({ children }: { children: React.ReactNode }) => {
   const [filteredWords, setFilteredWords] = useState<Word[]>([]);
+  const [submittedWords, setSubmittedWords] = useState<Word[]>([]);
 
   return (
-    <WordFormContext.Provider value={{ filteredWords, setFilteredWords }}>
+    <WordFormContext.Provider value={{ filteredWords, setFilteredWords, submittedWords, setSubmittedWords }}>
       {children}
     </WordFormContext.Provider>
   );

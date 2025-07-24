@@ -1,0 +1,46 @@
+.wrapper {
+  perspective: 1000px;
+  display: block;
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.card {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.front {
+  background: #ffffff;
+  color: #111;
+}
+
+.back {
+  background: #111827; /* tailwind gray-900-ish */
+  color: #fff;
+  transform: rotateY(180deg);
+}

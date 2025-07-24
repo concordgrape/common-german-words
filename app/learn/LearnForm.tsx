@@ -8,12 +8,13 @@ import Image from 'next/image';
 import SortButton from '../components/SortButtons/Sort';
 import { useWordForm } from '../context/WordFormContext';
 import { fetchBasicWords, Word } from '../helpers/fetchBasicWordList';
+import { shuffle } from '../helpers/utils';
 
 type Mode = 'flashcards' | 'quiz' | 'fill';
 
 
 export const LearnForm = () => {
-    const [words, setWords] = useState<Word[]>([]);
+  const [words, setWords] = useState<Word[]>([]);
 
   useEffect(() => {
     fetchBasicWords('german', process.env.NEXT_PUBLIC_API_PASSWORD || '')
@@ -123,23 +124,27 @@ interface SessionCustomizerProps {
 }
 
 function SessionCustomizer({ words }: SessionCustomizerProps) {
-  const [wordType, setWordType] = useState('all');
+  const [wordType, setWordType] = useState('All');
   const [wordCount, setWordCount] = useState(20);
   const [selectedCEFR, setSelectedCEFR] = useState(0);
 
-  const { setFilteredWords } = useWordForm();
+  const { setFilteredWords, setSubmittedWords } = useWordForm();
 
   useEffect(() => {
     const filtered = words.filter((word) => {
       const matchesCEFR = selectedCEFR === 0 || word.rank === selectedCEFR;
-      const matchesType = wordType === "all" || word.part_of_speech === wordType;
+      const matchesType = wordType === "All" || word.part_of_speech === wordType;
       return matchesCEFR && matchesType;
-    }).slice(0, wordCount);
+    });
 
-    setFilteredWords(filtered);
+    const shuffledSample = shuffle(filtered).slice(0, wordCount);
 
-    console.log("filtered words: ", filtered)
-  }, [wordType, selectedCEFR, wordCount, words, setFilteredWords]);
+    setSubmittedWords(shuffledSample);
+
+    console.log("shuffled: ", shuffledSample)
+
+    setFilteredWords(shuffledSample);
+  }, [wordType, selectedCEFR, wordCount, words, setFilteredWords, setSubmittedWords]);
 
   return (
     <div className="mx-aut p-4">
@@ -178,11 +183,11 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
 
             <div className="grid grid-cols-2 gap-2 text-sm">
             {[
-                { label: 'All', value: 'all' },
-                { label: 'Nouns', value: 'noun' },
-                { label: 'Verbs', value: 'verb' },
-                { label: 'Adjectives', value: 'adj' },
-                { label: 'Adverbs', value: 'adv' },
+                { label: 'All', value: 'All' },
+                { label: 'Nouns', value: 'Noun' },
+                { label: 'Verbs', value: 'Verb' },
+                { label: 'Adjectives', value: 'Adjective' },
+                { label: 'Adverbs', value: 'Adverb' },
             ].map((option) => (
                 <label
                 key={option.value}
@@ -210,12 +215,12 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
         <div className="flex items-center justify-between text-sm">
           <span className="text-gray-500">5</span>
           <span className="font-semibold text-blue-600">{wordCount}</span>
-          <span className="text-gray-500">37</span>
+          <span className="text-gray-500">100</span>
         </div>
         <input
             type="range"
             min={5}
-            max={37}
+            max={100}
             value={wordCount}
             onChange={(e) => setWordCount(Number(e.target.value))}
             className="w-full mt-2 accent-blue-600 custom-slider"
