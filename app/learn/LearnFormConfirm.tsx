@@ -40,47 +40,51 @@ export const LearnFormConfirm = () => {
   console.log('📝 LearnFormConfirm sees submittedWords:', submittedWords);
 }, [submittedWords]);
 
-
-  const handleAddAll = () => {
-    if (!user) {
-      toast({ title: 'Not signed in', subtitle: 'You must sign in to save words', variant: 'error' });
-      return;
-    }
-
-    const toAdd = filteredWords.filter(w =>
-      savedWords.has(w.word)
-    );
-
-    if (toAdd.length === 0) {
-      toast({ title: 'No More Saved Words', subtitle: 'You already added all available saved words', variant: 'error' });
-      return;
-    }
-
-    setLastAdded(toAdd);
-    setSubmittedWords([...submittedWords, ...toAdd]);
-  };
-
-  const handleAdd = (amount: number) => {
-    if (!user) {
-      toast({ title: 'Not signed in', subtitle: 'You must sign in to save words', variant: 'error' });
-      return;
-    }
-
-    const toAdd = filteredWords.filter(w =>
-      savedWords.has(w.word) &&
-    !submittedWords.some(sw => sw.word === w.word)
-    );
-
-    if (toAdd.length === 0) {
-      toast({ title: 'No More Saved Words', subtitle: 'You already added all available saved words', variant: 'error' });
-      return;
-    }
-
-    const toAddCut = shuffle(toAdd).slice(0, amount);
-
-    setLastAdded(toAdd);
-    setSubmittedWords([...submittedWords, ...toAddCut]);
+const handleAddAll = () => {
+  if (!user) {
+    toast({ title: 'Not signed in', subtitle: 'You must sign in to save words', variant: 'error' });
+    return;
   }
+
+  // Only saved & not already submitted
+  const toAdd = filteredWords.filter(w =>
+    savedWords.has(w.word) &&
+    !submittedWords.some(sw => sw.word === w.word)
+  );
+
+  if (toAdd.length === 0) {
+    toast({ title: 'No More Saved Words', subtitle: 'You already added all available saved words', variant: 'error' });
+    return;
+  }
+
+  setLastAdded(toAdd);
+  setSubmittedWords([...submittedWords, ...toAdd]);
+};
+
+const handleAdd = (amount: number) => {
+  if (!user) {
+    toast({ title: 'Not signed in', subtitle: 'You must sign in to save words', variant: 'error' });
+    return;
+  }
+
+  // Only saved & not already submitted
+  const pool = filteredWords.filter(w =>
+    savedWords.has(w.word) &&
+    !submittedWords.some(sw => sw.word === w.word)
+  );
+
+  if (pool.length === 0) {
+    toast({ title: 'No More Saved Words', subtitle: 'You already added all available saved words', variant: 'error' });
+    return;
+  }
+
+  // Random up to `amount`
+  const toAdd = shuffle(pool).slice(0, amount);
+
+  setLastAdded(toAdd);
+  setSubmittedWords([...submittedWords, ...toAdd]);
+};
+
 
   const handleUndo = () => {
     if (lastAdded.length === 0) {
@@ -103,6 +107,14 @@ export const LearnFormConfirm = () => {
 
         {/* your existing +5 / +10 / +20 quick buttons, unchanged */}
         <p className='text-xs text-white mt-5'>Bulk Add Saved Words</p>
+                <div className="flex flex-col">
+          <button
+            onClick={lastAdded.length > 0 ? handleUndo : handleAddAll}
+            className="text-sm w-50 text-center text-white font-mono mt-5 py-2 px-2 rounded-lg bg-blue-600 hover:bg-blue-700 shadow-sm"
+          >
+            {lastAdded.length > 0 ? <span>Undo Add All Saved Words ({savedWords.size})</span> : <span>Add All Saved Words ({savedWords.size})</span>}
+          </button>
+        </div>
         <div className="flex mt-4">
           <button onClick={() => handleAdd(5)} className={`cursor-pointer ml-3 py-2 w-10 bg-blue-500 rounded-lg text-white hover:text-gray-300`}>
             <u>+5</u>
@@ -115,14 +127,6 @@ export const LearnFormConfirm = () => {
           </button>
           <button onClick={handleUndo} className={`ml-3 w-10 items-center mx-auto rounded-lg ${lastAdded.length > 0 ? 'text-white hover:text-gray-300 cursor-pointer' : 'text-blue-300'}`}>
             <FaUndo className='text-left' />
-          </button>
-        </div>
-        <div className="flex flex-col">
-          <button
-            onClick={handleAddAll}
-            className="text-sm w-50 text-center text-white font-mono mt-5 py-2 px-2 rounded-lg bg-blue-600 hover:bg-blue-700 shadow-sm"
-          >
-            {<span>Add All Saved Words ({savedWords.size})</span>}
           </button>
         </div>
       </div>

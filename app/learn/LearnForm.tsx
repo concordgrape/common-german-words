@@ -30,10 +30,7 @@ export const LearnForm = () => {
             <ModeSelector />
         </div>
 
-        <div className="bg-[#FFFFFF] border-1 border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
-            <h1 className="text-black text-2xl font-bold flex"><SlidersHorizontal className='mr-3 mt-1 text-blue-500' />Add Words</h1>
-            <SessionCustomizer words={words} />
-        </div>
+        <SessionCustomizer words={words} />
     </div>
   );
 }
@@ -74,7 +71,7 @@ function ModeSelector() {
         bgColor: 'bg-blue-200',
         textColor: 'text-blue-600',
     },
-    {
+   /* {
         key: 'fill',
         title: 'Fill in the Blank',
         subtitle: 'Type the word in context',
@@ -89,7 +86,7 @@ function ModeSelector() {
         ),        
         bgColor: 'bg-blue-200',
         textColor: 'text-blue-600',
-    },
+    },*/
     ] as const;
 
   return (
@@ -147,7 +144,14 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
   }, [wordType, selectedCEFR, wordCount, words, setFilteredWords, setSubmittedWords]);
 
   return (
-    <div className="mx-aut p-4">
+    <div>
+<div className="bg-[#FFFFFF] border-1 border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
+      <h1 className="text-black text-2xl font-bold flex"><SlidersHorizontal className='mr-3 mt-1 text-blue-500' />Add Words</h1>
+                    <p className="text-gray-500 mt-3 font-mono text-xs">{words.length} words loaded</p>
+
+      <hr className="h-px my-4 bg-gray-200 border-0" />
+
+        <div className="mx-aut pt-2">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-1">
@@ -208,8 +212,15 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1 mt-2 flex items-center gap-1">
+
+    </div>
+    </div>
+    <div className="bg-[#FFFFFF] border-1 border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
+      <h1 className="text-black text-2xl font-bold flex"><SlidersHorizontal className='mr-3 mt-1 text-blue-500' />Set Word Count</h1>
+<hr className="h-px my-4 bg-gray-200 border-0" />
+        <div className="mx-aut p-4">
+                <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-1">
           <BookOpen className="w-4 h-4 text-gray-500" /> <span className='font-bold'>Word Count</span>
         </label>
         <div className="flex items-center justify-between text-sm">
@@ -225,6 +236,8 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
             onChange={(e) => setWordCount(Number(e.target.value))}
             className="w-full mt-2 accent-blue-600 custom-slider"
         />
+      </div>
+        </div>
       </div>
     </div>
   );
