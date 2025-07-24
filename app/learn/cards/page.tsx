@@ -28,11 +28,11 @@ const LearnCardsPage: React.FC = () => {
 
   if (!total) {
     return (
-      <div className="min-h-screen w-full pt-15 flex items-center justify-center">
+      <div className="min-h-screen w-full pt-15 pt-50 text-center items-center justify-center">
         <p className="text-gray-500">No words submitted</p>
         <Link href="/learn">
           <button className="bg-blue-500 text-white font-bold font-mono p-4 rounded-2xl mt-5 cursor-pointer hover:shadow-lg">
-            &gt; Add Words &lt;
+            &gt; Let&apos;s Add Words &lt;
           </button>
         </Link>
       </div>

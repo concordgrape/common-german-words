@@ -1,18 +1,120 @@
-"use client";
+'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useUser } from '../context/UserContext';
 import { useWordForm } from '../context/WordFormContext';
+import { fetchWordStatusData } from '../helpers/userWordLibrary';
+import type { Word } from '../helpers/fetchBasicWordList';
+import { shuffle } from '../helpers/utils';
+import { FaUndo } from 'react-icons/fa';
+import { useToast } from '../hooks/useToast';
 
 export const LearnFormConfirm = () => {
-  const { submittedWords } = useWordForm();
+  const { filteredWords, submittedWords, setSubmittedWords } = useWordForm();
+  const { user } = useUser();
+
+  // savedWords is just a set of word IDs (as strings) that the user has saved
+  const [savedWords, setSavedWords] = useState<Set<string>>(new Set());
+
+  // store the actual Word objects we just added last,
+  // so we can undo exactly those
+  const [lastAdded, setLastAdded] = useState<Word[]>([]);
+  const toast = useToast();
+
+  useEffect(() => {
+    const fetchStatusData = async () => {
+      if (!user?.uid) return;
+      try {
+        const [saved] = await Promise.all([
+          fetchWordStatusData(user.uid, 'saved', 5000),
+        ]);
+        setSavedWords(new Set(saved.map((doc) => doc.id)));
+      } catch (err) {
+        console.error('❌ Error preloading word status:', err);
+      }
+    };
+    fetchStatusData();
+  }, [user?.uid]);
+
+  useEffect(() => {
+  console.log('📝 LearnFormConfirm sees submittedWords:', submittedWords);
+}, [submittedWords]);
+
+
+  const handleAddAll = () => {
+    const toAdd = filteredWords.filter(w =>
+      savedWords.has(w.word)
+    );
+
+    if (toAdd.length === 0) {
+      toast({ title: 'No More Saved Words', subtitle: 'You already added all available saved words', variant: 'error' });
+      return;
+    }
+
+    setLastAdded(toAdd);
+    setSubmittedWords([...submittedWords, ...toAdd]);
+  };
+
+  const handleAdd = (amount: number) => {
+    const toAdd = filteredWords.filter(w =>
+      savedWords.has(w.word) &&
+    !submittedWords.some(sw => sw.word === w.word)
+    );
+
+    if (toAdd.length === 0) {
+      toast({ title: 'No More Saved Words', subtitle: 'You already added all available saved words', variant: 'error' });
+      return;
+    }
+
+    const toAddCut = shuffle(toAdd).slice(0, amount);
+
+    setLastAdded(toAdd);
+    setSubmittedWords([...submittedWords, ...toAddCut]);
+  }
+
+  const handleUndo = () => {
+    if (lastAdded.length === 0) {
+      return
+    };
+    // build a new array without the lastAdded items
+    const reverted = submittedWords.filter(
+      (w) => !lastAdded.some((lw) => lw.id === w.id)
+    );
+    setSubmittedWords(reverted);
+    setLastAdded([]);
+  };
 
   return (
-    <div className="w-full">
+    <div className="w-100 lg:w-full">
       <div className="w-full bg-[#027AFB] rounded-sm shadow-lg p-6 flex flex-col max-h-[80vh] overflow-y-auto">
         <p className="mb-2 text-white font-bold">
           {submittedWords.length} words selected
         </p>
-       </div>
+
+        <div className="flex flex-col">
+          <button
+            onClick={handleAddAll}
+            className="text-sm w-50 text-center text-white font-mono mt-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 shadow-sm"
+          >
+            {<span>Add All Saved Words ({savedWords.size})</span>}
+          </button>
+        </div>
+        {/* your existing +5 / +10 / +20 quick buttons, unchanged */}
+        <div className="flex mt-4">
+          <button onClick={() => handleAdd(5)} className={`cursor-pointer ml-3 py-2 w-10 bg-blue-500 rounded-lg text-white hover:text-gray-300`}>
+            <u>+5</u>
+          </button>
+          <button onClick={() => handleAdd(10)} className={`cursor-pointer ml-3 py-2 w-10 bg-blue-500 rounded-lg text-white hover:text-gray-300`}>
+            <u>+10</u>
+          </button>
+          <button onClick={() => handleAdd(20)} className={`cursor-pointer ml-3 py-2 w-10 bg-blue-500 rounded-lg text-white hover:text-gray-300`}>
+            <u>+20</u>
+          </button>
+          <button onClick={handleUndo} className={`ml-3 w-10 items-center mx-auto rounded-lg ${lastAdded.length > 0 ? 'text-white hover:text-gray-300 cursor-pointer' : 'text-blue-300'}`}>
+            <FaUndo className='text-left' />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

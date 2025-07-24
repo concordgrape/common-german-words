@@ -30,7 +30,7 @@ const LearnWordPage: React.FC = () => {
         <LearnFormConfirm />
         <Link href="/learn/cards">
           <button className="bg-blue-500 text-white font-bold font-mono p-4 rounded-2xl mt-5 cursor-pointer hover:shadow-lg">
-            &gt; Add Words &lt;
+            &gt; Start &lt;
           </button>
         </Link>
       </div>
