@@ -116,13 +116,13 @@ const handleAdd = (amount: number) => {
           </button>
         </div>
         <div className="flex mt-4">
-          <button onClick={() => handleAdd(5)} className={`cursor-pointer ml-3 py-2 w-10 bg-blue-500 rounded-lg text-white hover:text-gray-300`}>
+          <button onClick={() => handleAdd(5)} data-tip="Add 5 saved words" className={`tooltip cursor-pointer ml-3 py-2 w-10 bg-blue-500 rounded-lg text-white hover:text-gray-300`}>
             <u>+5</u>
           </button>
-          <button onClick={() => handleAdd(10)} className={`cursor-pointer ml-3 py-2 w-10 bg-blue-500 rounded-lg text-white hover:text-gray-300`}>
+          <button onClick={() => handleAdd(10)} data-tip="Add 10 saved words" className={`tooltip cursor-pointer ml-3 py-2 w-10 bg-blue-500 rounded-lg text-white hover:text-gray-300`}>
             <u>+10</u>
           </button>
-          <button onClick={() => handleAdd(20)} className={`cursor-pointer ml-3 py-2 w-10 bg-blue-500 rounded-lg text-white hover:text-gray-300`}>
+          <button onClick={() => handleAdd(20)} data-tip="Add 20 saved words" className={`tooltip cursor-pointer ml-3 py-2 w-10 bg-blue-500 rounded-lg text-white hover:text-gray-300`}>
             <u>+20</u>
           </button>
           <button onClick={handleUndo} className={`ml-3 w-10 items-center mx-auto rounded-lg ${lastAdded.length > 0 ? 'text-white hover:text-gray-300 cursor-pointer' : 'text-blue-300'}`}>

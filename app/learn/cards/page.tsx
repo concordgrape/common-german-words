@@ -45,7 +45,7 @@ const LearnCardsPage: React.FC = () => {
       <div className="w-full max-w-[800px] p-1 sm:p-4 md:p-4 mt-5 px-2 lg:px-5">
         <div className="bg-white min-h-100 border border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm mx-auto">
           <Link href="/learn">
-            <button className="text-gray-500 bg-gray-100 rounded-full p-2 hover:bg-gray-200 mb-8 lg:mb-0">
+            <button data-tip='Exit' className="tooltip text-gray-500 bg-gray-100 rounded-full p-2 hover:bg-gray-200 mb-8 lg:mb-0">
               <ImExit size={16} />
             </button>
           </Link>

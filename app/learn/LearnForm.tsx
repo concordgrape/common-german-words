@@ -245,13 +245,14 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
           <div className="mt-4 flex justify-center items-center space-x-3">
             {[5, 10, 20].map((inc) => (
               <button
+                data-tip={`Add ${inc} words`}
                 key={inc}
                 onClick={() =>
                   setWordCount((prev) => Math.min(prev + inc, allWordCount > 100 ? 100 : allWordCount))
                 }
                 disabled={wordCount >= allWordCount}
                 className={`
-                  py-2 w-10 rounded-lg
+                  tooltip py-2 w-10 rounded-lg
                   ${wordCount >= allWordCount
                     ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                     : 'bg-gray-100 text-black hover:bg-gray-200'}
