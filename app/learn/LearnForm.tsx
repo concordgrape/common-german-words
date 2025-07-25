@@ -242,18 +242,26 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
             onChange={(e) => setWordCount(Number(e.target.value))}
             className="w-full mt-2 accent-blue-600 custom-slider"
         />
-        <div className="mt-4 flex justify-center items-center space-x-3">
-          <button className="py-2 w-10 bg-gray-100 rounded-lg text-black hover:bg-gray-200" onClick={() => allWordCount + 5 > 100 ? null : setWordCount(count => (count + 5))}>
-            <u>+5</u>
-          </button>
-          <button className="py-2 w-10 bg-gray-100 rounded-lg text-black hover:bg-gray-200" onClick={() => setWordCount(count => (count + 10))}>
-            <u>+10</u>
-          </button>
-          <button className="py-2 w-10 bg-gray-100 rounded-lg text-black hover:bg-gray-200" onClick={() => setWordCount(count => (count + 20))}>
-            <u>+20</u>
-          </button>
-        </div>
-      </div>
+          <div className="mt-4 flex justify-center items-center space-x-3">
+            {[5, 10, 20].map((inc) => (
+              <button
+                key={inc}
+                onClick={() =>
+                  setWordCount((prev) => Math.min(prev + inc, allWordCount > 100 ? 100 : allWordCount))
+                }
+                disabled={wordCount >= allWordCount}
+                className={`
+                  py-2 w-10 rounded-lg
+                  ${wordCount >= allWordCount
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'bg-gray-100 text-black hover:bg-gray-200'}
+                `}
+              >
+                <u>+{inc}</u>
+              </button>
+            ))}
+          </div>
+          </div>
         </div>
       </div>
     </div>
