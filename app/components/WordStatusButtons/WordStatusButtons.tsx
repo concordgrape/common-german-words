@@ -24,7 +24,7 @@ export default function WordStatusButtons({
 
   return (
     <div className="flex gap-1 items-center">
-      <div className="relative group w-8 h-8 sm:h-6 md:h-6 sm:w-6 md:w-6 lg:h-6 lg:w-6 mr-2">        <button
+      <div data-tip="Save Word" className="tooltip relative group w-8 h-8 sm:h-6 md:h-6 sm:w-6 md:w-6 lg:h-6 lg:w-6 mr-2">        <button
           className={`w-full h-full ${
             isPlusEnabled ? 'bg-orange-400 text-white' : 'bg-gray-200 text-black'
           } rounded-sm hover:bg-orange-400 hover:text-white cursor-pointer`}
@@ -38,8 +38,7 @@ export default function WordStatusButtons({
         </button>
       </div>
 
-      <button
-        className={`w-8 h-8 sm:h-6 md:h-6 sm:w-6 md:w-6 lg:h-6 lg:w-6 ${
+      <button data-tip="Known Word" className={`tooltip w-8 h-8 sm:h-6 md:h-6 sm:w-6 md:w-6 lg:h-6 lg:w-6 ${
           isCheckEnabled ? 'bg-green-500 text-white' : 'bg-gray-200'
         } rounded-sm hover:bg-green-500 hover:text-white cursor-pointer`}
         onClick={onCheckClick}

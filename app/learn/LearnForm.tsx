@@ -242,26 +242,17 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
             onChange={(e) => setWordCount(Number(e.target.value))}
             className="w-full mt-2 accent-blue-600 custom-slider"
         />
-       {/* <div className="mt-4 flex justify-center items-center space-x-3">
-          <button className="py-2 w-20 bg-blue-500 rounded-lg text-white hover:text-gray-300">
+        <div className="mt-4 flex justify-center items-center space-x-3">
+          <button className="py-2 w-10 bg-gray-100 rounded-lg text-black hover:bg-gray-200" onClick={() => allWordCount + 5 > 100 ? null : setWordCount(count => (count + 5))}>
             <u>+5</u>
           </button>
-          <button className="py-2 w-20 bg-blue-500 rounded-lg text-white hover:text-gray-300">
+          <button className="py-2 w-10 bg-gray-100 rounded-lg text-black hover:bg-gray-200" onClick={() => setWordCount(count => (count + 10))}>
             <u>+10</u>
           </button>
-          <button className="py-2 w-20 bg-blue-500 rounded-lg text-white hover:text-gray-300">
+          <button className="py-2 w-10 bg-gray-100 rounded-lg text-black hover:bg-gray-200" onClick={() => setWordCount(count => (count + 20))}>
             <u>+20</u>
           </button>
-          <button
-            className={`flex items-center justify-center py-2 w-10 rounded-lg ${
-              0 > 0
-                ? 'bg-blue-500 text-white hover:text-gray-300 cursor-pointer'
-                : 'text-blue-300'
-            }`}
-          >
-            <FaUndo />
-          </button>
-        </div>*/}
+        </div>
       </div>
         </div>
       </div>

@@ -155,12 +155,14 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
                 <h3 className="text-lg font-semibold mb-1">Related Words</h3>
                 <div className="flex flex-wrap gap-2">
                   {fullData.connected_words.map((w, index) => (
-                    <span
-                      key={w + index}
-                      className="bg-white/10 px-3 py-1 rounded-full text-sm"
-                    >
-                      {w}
-                    </span>
+                    <Link key={w + index} href={`/browse?word=${w}`}>
+                      <span
+                        key={w + index}
+                        className="bg-white/10 px-3 py-1 rounded-full text-sm hover:bg-blue-400"
+                      >
+                        {w}
+                      </span>
+                    </Link>
                   ))}
                 </div>
               </div>

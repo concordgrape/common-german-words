@@ -10,7 +10,7 @@ interface WordPopoverProps {
 export default function WordPopover({ word }: WordPopoverProps) {
     const toast = useToast();
   return (
-    <div className="absolute left-0 top-full mt-1 bg-white border border-gray-300 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20 p-2 flex gap-2 pointer-events-none">
+    <div className="absolute left-10 top-[-10px] mt-1 bg-white border border-gray-300 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20 p-2 flex gap-2 pointer-events-none">
         <div className="flex gap-2 pointer-events-auto">
             <GoogleTTSButton text={word} />
             <button className="w-6 h-6 flex items-center justify-center rounded text-blue-500 hover:bg-gray-100" onClick={(e) => {
