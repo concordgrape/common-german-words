@@ -125,6 +125,7 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
   const [wordType, setWordType] = useState('All');
   const [wordCount, setWordCount] = useState(20);
   const [selectedCEFR, setSelectedCEFR] = useState(0);
+  const [allWordCount, setAllWordCount] = useState(0);
 
   const { setFilteredWords, setSubmittedWords } = useWordForm();
 
@@ -134,6 +135,8 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
       const matchesType = wordType === "All" || word.part_of_speech === wordType;
       return matchesCEFR && matchesType;
     });
+
+    setAllWordCount(filtered.length)
 
     const shuffledSample = shuffle(filtered).slice(0, wordCount);
 
@@ -148,7 +151,7 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
     <div>
 <div className="bg-[#FFFFFF] border-1 border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
       <h1 className="text-black text-2xl font-bold flex"><SlidersHorizontal className='mr-3 mt-1 text-blue-500' />Add Words</h1>
-      <p className="text-gray-500 mt-3 font-mono text-xs">{words.length} words loaded</p>
+      <p className="text-gray-500 mt-3 font-mono text-xs">{allWordCount} available words</p>
 
       <hr className="h-px my-4 bg-gray-200 border-0" />
 
@@ -228,13 +231,13 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
         </label>
         <div className="flex items-center justify-between text-sm">
           <span className="text-gray-500">5</span>
-          <span className="font-semibold text-blue-600">{wordCount}</span>
-          <span className="text-gray-500">100</span>
+          <span className="font-semibold text-blue-600">{wordCount > allWordCount ? allWordCount : wordCount}</span>
+          <span className="text-gray-500">{allWordCount > 100 ? 100 : allWordCount}</span>
         </div>
         <input
             type="range"
             min={5}
-            max={100}
+            max={allWordCount > 100 ? 100 : allWordCount}
             value={wordCount}
             onChange={(e) => setWordCount(Number(e.target.value))}
             className="w-full mt-2 accent-blue-600 custom-slider"
