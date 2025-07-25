@@ -264,14 +264,14 @@ function HamburgerDropdown() {
           >
             <ul className="flex flex-col text-sm text-gray-700">
               <li>
-                <Link href="/browse" className="block px-4 py-3 hover:bg-gray-100 font-bold">
+                <Link href="/browse" onClick={() => setIsOpen(false)} className="block px-4 py-3 hover:bg-gray-100 font-bold">
                   <span className='pr-1'>💬</span> Browse
                   <br />
                   <span className='pr-1 text-gray-400 font-bold text-xs'>Browse 6000+ frequent words</span>
                 </Link>
               </li>
               <li>
-                <Link href="/learn" className="block px-4 py-3 hover:bg-gray-100 font-bold">
+                <Link href="/learn" onClick={() => setIsOpen(false)} className="block px-4 py-3 hover:bg-gray-100 font-bold">
                   <span className='pr-1'>📖</span> Learn
                   <br />
                   <span className='pr-1 text-gray-400 font-bold text-xs'>Generate flashcards & quizzes</span>
