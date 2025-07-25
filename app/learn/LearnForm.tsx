@@ -9,6 +9,7 @@ import SortButton from '../components/SortButtons/Sort';
 import { useWordForm } from '../context/WordFormContext';
 import { fetchBasicWords, Word } from '../helpers/fetchBasicWordList';
 import { shuffle } from '../helpers/utils';
+//import { FaUndo } from 'react-icons/fa';
 
 //type Mode = 'flashcards' | 'quiz' | 'fill';
 
@@ -24,7 +25,7 @@ export const LearnForm = () => {
   return (
     <div className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start overflow-hidden mt-5 px-2 lg:px-5`}>
         <h1 className="text-black text-5xl font-extrabold">Learn</h1>
-        <h2 className="text-gray-700 text-lg font-regular pl-5 lg:pl-0">Customize how you&apos;ll practise a set of words, you can also navigate to the <a href="/browse" className='text-blue-700'><u>Browse page</u></a> to add words to the &apos;saved&apos; collection</h2>
+        <h2 className="text-gray-700 text-lg font-regular">Customize how you&apos;ll practise a set of words, you can also navigate to the <a href="/browse" className='text-blue-700'><u>Browse page</u></a> to add words to the &apos;saved&apos; collection</h2>
         {/*<div className="bg-[#FFFFFF] border-1 border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
             <h1 className="text-black text-2xl font-bold flex"><LuSparkles className='mr-3 mt-1 text-blue-500' />Select a practise mode</h1>
             <ModeSelector />
@@ -238,6 +239,26 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
             onChange={(e) => setWordCount(Number(e.target.value))}
             className="w-full mt-2 accent-blue-600 custom-slider"
         />
+       {/* <div className="mt-4 flex justify-center items-center space-x-3">
+          <button className="py-2 w-20 bg-blue-500 rounded-lg text-white hover:text-gray-300">
+            <u>+5</u>
+          </button>
+          <button className="py-2 w-20 bg-blue-500 rounded-lg text-white hover:text-gray-300">
+            <u>+10</u>
+          </button>
+          <button className="py-2 w-20 bg-blue-500 rounded-lg text-white hover:text-gray-300">
+            <u>+20</u>
+          </button>
+          <button
+            className={`flex items-center justify-center py-2 w-10 rounded-lg ${
+              0 > 0
+                ? 'bg-blue-500 text-white hover:text-gray-300 cursor-pointer'
+                : 'text-blue-300'
+            }`}
+          >
+            <FaUndo />
+          </button>
+        </div>*/}
       </div>
         </div>
       </div>
