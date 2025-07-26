@@ -102,7 +102,14 @@ const handleAdd = (amount: number) => {
     <div className="max-w-80 lg:max-w-full lg:w-full">
       <div className="w-full bg-[#027AFB] rounded-sm shadow-lg p-6 flex flex-col max-h-[80vh] overflow-y-auto">
         <p className="mb-2 text-white font-bold">
-          {submittedWords.length} words selected
+          <span className="font-semibold text-white flex">{submittedWords.length == 0 ? 
+            <div className={`flex pt-1 pr-2`}>
+              <div className="animate-spin h-4 w-4 rounded-full border-4 border-white border-t-transparent" />
+            </div>  
+            :
+            submittedWords.length
+            } words selected
+          </span>
         </p>
 
         {/* your existing +5 / +10 / +20 quick buttons, unchanged */}
