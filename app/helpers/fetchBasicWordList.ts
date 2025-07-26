@@ -8,6 +8,8 @@ export interface Word {
     rank: number; 
     translation: string;
     gender: string;
+    phonetic_spelling: string;
+    examples: { sentence: string; translation: string }[];
 }
 
 export async function fetchBasicWords(language: string, password: string): Promise<Word[]> {

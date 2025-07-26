@@ -66,7 +66,7 @@ const LearnCardsPage: React.FC = () => {
                 <ChevronLeft size={22} />
                 </button>
 
-                <span className="text-sm text-gray-500">
+                <span className="text-md font-mono font-bold text-gray-500">
                 {idx + 1} / {total}
                 </span>
 
