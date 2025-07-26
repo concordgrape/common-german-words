@@ -4,7 +4,7 @@ import React, { Suspense, useEffect } from 'react';
 import { LearnForm } from './LearnForm';
 import { LearnFormConfirm } from './LearnFormConfirm';
 import { useWordForm } from '../context/WordFormContext';
-import { fetchBasicWords } from '../helpers/fetchBasicWordList';
+import { fetchAllWords } from '../helpers/fetchBasicWordList';
 import Link from 'next/link';
 
 const LearnWordPage: React.FC = () => {
@@ -12,7 +12,7 @@ const LearnWordPage: React.FC = () => {
 
   useEffect(() => {
     async function loadWords() {
-      const words = await fetchBasicWords("german", process.env.NEXT_PUBLIC_API_PASSWORD || "");
+      const words = await fetchAllWords("german", process.env.NEXT_PUBLIC_API_PASSWORD || "");
       setFilteredWords(words);
     }
     loadWords();

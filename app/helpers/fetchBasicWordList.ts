@@ -24,10 +24,31 @@ export async function fetchBasicWords(language: string, password: string): Promi
     const data = await res.json();
 
     // Make sure we return exactly the `words` array
-    console.log("Fetched basic words:", data.words);
-    return Array.isArray(data.words) ? data.words : [];
+    console.log("Fetched basic words:", data);
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching basic words:", error);
+    return [];
+  }
+}
+
+
+export async function fetchAllWords(language: string, password: string): Promise<Word[]> {
+  try {
+    const res = await fetch(`/api/all-words?language=${language}&password=${password}`);
+
+    if (!res.ok) {
+      console.error("Failed to fetch all words:", res.statusText);
+      return [];
+    }
+
+    const data = await res.json();
+
+    // Make sure we return exactly the `words` array
+    console.log("Fetched all words:", data);
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error("Error fetching all words:", error);
     return [];
   }
 }

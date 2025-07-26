@@ -58,12 +58,10 @@ export async function GET(req: NextRequest) {
         rank: data.rank || 0,
         translation: data.translation || '',
         gender: data.gender || '',
+        phonetic_spelling: data.phonetic_spelling || '',
+        examples: data.examples || '',
       };
     }).sort((a, b) => b.frequency - a.frequency);
-
-    console.log("snapshot: ", snapshot.docs)
-        console.log("words: ", words)
-
 
     // ✅ Cache the result for 1 hour
     await redis.set(cacheKey, JSON.stringify(words), { EX: 86400 });
