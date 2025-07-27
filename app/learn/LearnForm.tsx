@@ -34,6 +34,7 @@ export const LearnForm = () => {
         </a>{" "}
         to add words to the &apos;saved&apos; collection
       </h2>
+      <hr className="h-px my-4 bg-gray-300 border-0" />
       <div className="px-6 py-4 pt-5 mt-3">
         <h1 className="text-black text-2xl font-bold flex"><LuSparkles className='mr-3 mt-1 text-blue-500' />Select a practise mode</h1>
         <ModeSelector />
