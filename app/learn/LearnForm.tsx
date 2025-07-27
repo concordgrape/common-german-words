@@ -131,7 +131,7 @@ interface SessionCustomizerProps {
 
 function SessionCustomizer({ words }: SessionCustomizerProps) {
   const [wordType, setWordType] = useState("All");
-  const [wordCount, setWordCount] = useState(20);
+  const [wordCount, setWordCount] = useState(0);
   const [selectedCEFR, setSelectedCEFR] = useState(0);
   const [allWordCount, setAllWordCount] = useState(0);
 
@@ -171,11 +171,7 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
           Add Words
         </h1>
         <p className="flex text-gray-500 mt-3 font-mono text-xs">
-          {allWordCount == 0 ? 
-            <div className={`flex pt-1 pr-2 h-2 max-h-2`}>
-              <div className="animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
-            </div>
-          : allWordCount} available words
+          {allWordCount} available words
         </p>
 
         <hr className="h-px my-4 bg-gray-200 border-0" />
@@ -261,13 +257,7 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
             </label>
             <div className="flex items-center justify-between text-sm">
               <span className="text-gray-500">5</span>
-              <span className="font-semibold text-blue-600">{allWordCount == 0 ? 
-                <div className={`flex pt-1 pr-2`}>
-                  <div className="animate-spin h-4 w-4 rounded-full border-4 border-blue-500 border-t-transparent" />
-                </div>  
-                :
-                wordCount > allWordCount ? allWordCount : wordCount
-                }
+              <span className="font-semibold text-blue-600">{wordCount}
               </span>
               <span className="font-semibold text-gray-500">{100}
               </span>
