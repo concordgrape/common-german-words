@@ -212,14 +212,17 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
                 <Filter className="w-4 h-4 text-gray-500" />{" "}
                 <span className="font-bold">Word Type</span>
               </label>
-
               <div className="grid grid-cols-2 gap-2 text-sm">
                 {[
                   { label: "All", value: "All" },
-                  { label: "Nouns", value: "Noun" },
                   { label: "Verbs", value: "Verb" },
                   { label: "Adjectives", value: "Adjective" },
+                  { label: "Nouns", value: "Noun" },
+                  { label: "Interjection", value: "Interjections" },
                   { label: "Adverbs", value: "Adverb" },
+                  { label: "Determiners", value: "Determiner" },
+                  { label: "Pronouns", value: "Pronoun" },
+                  { label: "Conjunctions", value: "Conjunction" },
                 ].map((option) => (
                   <label
                     key={option.value}
