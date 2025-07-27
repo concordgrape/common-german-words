@@ -1,14 +1,17 @@
 "use client";
 
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { LearnForm } from './LearnForm';
 import { LearnFormConfirm } from './LearnFormConfirm';
 import { useWordForm } from '../context/WordFormContext';
 import { fetchAllWords } from '../helpers/fetchBasicWordList';
 import Link from 'next/link';
 
+export type Mode = 'flashcards' | 'quiz' | 'fill';
+
 const LearnWordPage: React.FC = () => {
   const { setFilteredWords } = useWordForm();
+  const [mode, setMode] = useState<Mode>('flashcards');
 
   useEffect(() => {
     async function loadWords() {
@@ -22,7 +25,7 @@ const LearnWordPage: React.FC = () => {
       <div className="min-h-screen w-full sm:top-15 md:top-15 pt-15 sm:p-4 md:p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
       {/* WordTable (left column) */}
       <div className="z-10">
-        <LearnForm />
+        <LearnForm setMode={setMode} />
       </div>
 
       {/* WordInfo (right column) */}
@@ -31,6 +34,7 @@ const LearnWordPage: React.FC = () => {
         <Link href="/learn/cards">
           <button className="bg-blue-500 text-white font-bold font-mono p-4 rounded-2xl mt-5 cursor-pointer hover:shadow-lg">
             &gt; Start &lt;
+            <span className='block text-xs mt-1'><i>{mode}</i></span>
           </button>
         </Link>
       </div>

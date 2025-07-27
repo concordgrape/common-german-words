@@ -9,10 +9,13 @@ import SortButton from "../components/SortButtons/Sort";
 import { useWordForm } from "../context/WordFormContext";
 import { fetchBasicWords, Word } from "../helpers/fetchBasicWordList";
 import { shuffle } from "../helpers/utils";
+import { Mode } from "./page";
 
-type Mode = 'flashcards' | 'quiz' | 'fill';
+interface LearnFormProps {
+  setMode: React.Dispatch<React.SetStateAction<Mode>>;
+}
 
-export const LearnForm = () => {
+export const LearnForm = ({ setMode }: LearnFormProps) => {
   const [words, setWords] = useState<Word[]>([]);
 
   useEffect(() => {
@@ -37,14 +40,18 @@ export const LearnForm = () => {
       <hr className="h-px my-4 bg-gray-300 border-0" />
       <div className="px-6 py-4 pt-5 mt-3">
         <h1 className="text-black text-2xl font-bold flex"><LuSparkles className='mr-3 mt-1 text-blue-500' />Select a practise mode</h1>
-        <ModeSelector />
+        <ModeSelector setMode={setMode} />
       </div>
       <SessionCustomizer words={words} />
     </div>
   );
 };
 
-function ModeSelector() {
+interface ModeSelectorProps {
+  setMode: React.Dispatch<React.SetStateAction<Mode>>;
+}
+
+function ModeSelector({ setMode }: ModeSelectorProps) {
   const [selected, setSelected] = useState<Mode>('flashcards');
 
   const modes = [
@@ -105,7 +112,11 @@ function ModeSelector() {
         return (
         <button
             key={mode.key}
-            onClick={() => setSelected(mode.key)}
+            onClick={() => {
+                setSelected(mode.key)
+                setMode(mode.key)
+              }
+            }
             className={`relative rounded-lg p-6 text-left transition h-50 w-full sm:h-60 md:h-50 lg:h-50 ${
             isSelected ? `${mode.textColor} ${mode.bgColor}` : 'bg-gray-200 opacity-50'
             }`}
@@ -131,7 +142,7 @@ interface SessionCustomizerProps {
 
 function SessionCustomizer({ words }: SessionCustomizerProps) {
   const [wordType, setWordType] = useState("All");
-  const [wordCount, setWordCount] = useState(0);
+  const [wordCount, setWordCount] = useState(5);
   const [selectedCEFR, setSelectedCEFR] = useState(0);
   const [allWordCount, setAllWordCount] = useState(0);
 
@@ -170,9 +181,13 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
           <SlidersHorizontal className="mr-3 mt-1 text-blue-500" />
           Add Words
         </h1>
-        <p className="flex text-gray-500 mt-3 font-mono text-xs">
-          {allWordCount} available words
-        </p>
+        <span className="flex text-gray-500 mt-3 font-mono text-xs">
+          {allWordCount == 0 ? 
+            <div className={`flex pt-1 pr-2 h-2 max-h-2`}>
+              <div className="animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+            </div>
+          : allWordCount} available words
+        </span>
 
         <hr className="h-px my-4 bg-gray-200 border-0" />
 
