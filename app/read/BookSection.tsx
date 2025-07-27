@@ -1,4 +1,5 @@
 import React from "react";
+import EpubReader from "./EpubReader";
 
 export const BookSection = () => {
     return (
@@ -13,7 +14,7 @@ export const BookSection = () => {
 const BookContentSection = () => {
     return (
         <div className="bg-[#FFFFFF] border-1 border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
-            <p>Test</p>
+            <EpubReader />
         </div>
     );
 }
