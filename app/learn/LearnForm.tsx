@@ -99,7 +99,7 @@ function ModeSelector() {
     ] as const;
 
   return (
-    <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 max-w-4xl mx-auto pt-4">
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 max-w-4xl mx-auto pt-4">
     {modes.map((mode) => {
         const isSelected = selected === mode.key;
         return (
