@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import JSZip from 'jszip'; // This library is used to unzip the EPUB file
+import JSZip from 'jszip';
+import { PiNotebook } from "react-icons/pi";
+import { Word } from '../helpers/fetchBasicWordList';
 
 interface ChapterPage {
   id: string;
@@ -7,7 +9,11 @@ interface ChapterPage {
   htmlContent: string;
 }
 
-const EPubReader: React.FC = () => {
+interface EPubReaderProps {
+  setSelectedWord: React.Dispatch<React.SetStateAction<Word | null>>;
+}
+
+function EPubReader({ setSelectedWord }: EPubReaderProps) {
   // State to store the parsed HTML content of each chapter as an array of pages
   const [bookPages, setBookPages] = useState<ChapterPage[]>([]);
   // State to manage the currently displayed page index
@@ -96,7 +102,7 @@ const EPubReader: React.FC = () => {
         setCurrentPageIndex(0); // Reset to the first page
 
         // 1. Fetch the EPUB file from the public directory
-        const response = await fetch('/alice.epub');
+        const response = await fetch('/alice-de.epub');
         if (!response.ok) {
           // If the fetch request fails, throw an error
           throw new Error(`HTTP error! Status: ${response.status}. Please ensure 'alice.epub' is in your public folder.`);
@@ -285,6 +291,19 @@ const EPubReader: React.FC = () => {
     const target = event.target as HTMLElement;
     if (target.classList.contains('word-interactive')) {
       const word = target.getAttribute('data-word');
+      const mockWord: Word = {
+        rank: 0,
+        frequency: 0,
+        id: 0,
+        word: word ? word : "",
+        translation: "",         // or some placeholder
+        part_of_speech: "", 
+        gender: '',
+        phonetic_spelling: '',
+        examples: []     // if required
+        // any other required properties
+      };
+      setSelectedWord(mockWord ? mockWord : null);
       if (word) {
         // For click, we can make the tooltip more persistent if needed,
         // but for this example, it just ensures visibility on click.
@@ -324,21 +343,19 @@ const EPubReader: React.FC = () => {
   const currentPage = bookPages[currentPageIndex];
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8 font-inter flex flex-col items-center relative"> {/* Added relative for tooltip positioning */}
-      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">EPUB Reader (Alice&apos;s Adventures in Wonderland)</h1>
-
+    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-inter flex flex-col items-start relative"> {/* Added relative for tooltip positioning */}
       {/* Chapter Navigation Button */}
       <button
         onClick={() => setShowChapterPopup(true)}
-        className="mb-6 px-6 py-3 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition-colors duration-300"
+        className="top-0 px-6 py-3 bg-gray-100 items-start left-10 text-left text-black rounded-lg hover:bg-gray-200 transition-colors duration-300"
       >
-        Table of Contents
+        <PiNotebook />
       </button>
 
       {/* Chapter Navigation Popup (Modal) */}
       {showChapterPopup && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 p-4">
-          <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full max-h-[80vh] overflow-y-auto relative">
+        <div className="fixed inset-0 bg-gray-100 bg-opacity-20 flex items-center justify-center z-50 p-4">
+          <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full max-h-[80vh] overflow-y-auto relative z-50">
             <button
               onClick={() => setShowChapterPopup(false)}
               className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold"
@@ -364,7 +381,7 @@ const EPubReader: React.FC = () => {
       )}
 
       {/* Main Book Content Area */}
-      <div className="flex-1 max-w-3xl mx-auto flex flex-col">
+      <div className="max-w-3xl text-sm mx-auto">
         {/* Page Content */}
         <div
           ref={contentRef} // Attach ref for event delegation
