@@ -10,7 +10,7 @@ import { FaUndo } from 'react-icons/fa';
 import { useToast } from '../hooks/useToast';
 
 export const LearnFormConfirm = () => {
-  const { filteredWords, submittedWords, setSubmittedWords } = useWordForm();
+  const { filteredWords, submittedWords, setSubmittedWords, allWords } = useWordForm();
   const { user } = useUser();
 
   // savedWords is just a set of word IDs (as strings) that the user has saved
@@ -47,7 +47,7 @@ const handleAddAll = () => {
   }
 
   // Only saved & not already submitted
-  const toAdd = filteredWords.filter(w =>
+  const toAdd = allWords.filter(w =>
     savedWords.has(w.word) &&
     !submittedWords.some(sw => sw.word === w.word)
   );
@@ -102,7 +102,7 @@ const handleAdd = (amount: number) => {
     <div className="max-w-80 lg:max-w-full lg:w-full">
       <div className="w-full bg-[#027AFB] rounded-sm shadow-lg p-6 flex flex-col max-h-[80vh] overflow-y-auto">
         <span className="mb-2 text-white font-bold">
-          <span className="font-semibold text-white flex">{submittedWords.length == 0 ? 
+          <span className="font-semibold text-white flex">{allWords.length == 0 ? 
             <div className={`flex pt-1 pr-2`}>
               <div className="animate-spin h-4 w-4 rounded-full border-4 border-white border-t-transparent" />
             </div>  

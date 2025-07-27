@@ -271,7 +271,7 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
               <span className="font-bold">Word Count</span>
             </label>
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-500">5</span>
+              <span className="text-gray-500">0</span>
               <span className="font-semibold text-blue-600">{wordCount}
               </span>
               <span className="font-semibold text-gray-500">{100}
@@ -279,7 +279,7 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
             </div>
             <input
               type="range"
-              min={5}
+              min={0}
               max={allWordCount > 100 ? 100 : allWordCount}
               value={wordCount}
               onChange={(e) => setWordCount(Number(e.target.value))}
