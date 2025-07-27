@@ -17,10 +17,17 @@ const LearnWordPage: React.FC = () => {
 
   useEffect(() => {
     async function loadWords() {
-      const words = await fetchAllWords("german", process.env.NEXT_PUBLIC_API_PASSWORD || "");
-      setFilteredWords(words);
-      setAllWords(words);
+      console.log('Loading words...');
+      try {
+        const words = await fetchAllWords("german", process.env.NEXT_PUBLIC_API_PASSWORD || "");
+        console.log('Fetched words:', words.length);
+        setFilteredWords(words);
+        setAllWords(words);
+      } catch (err) {
+        console.error("Failed to fetch words", err);
+      }
     }
+
     loadWords();
   }, [setFilteredWords, setAllWords]);
 

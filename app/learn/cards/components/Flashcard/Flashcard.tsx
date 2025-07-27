@@ -50,7 +50,7 @@ export default function Flashcard({ word, className }: FlashcardProps) {
           {/* center‑of‑card word */}
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-3xl font-bold">{word.word}</div>
+              <div className="text-3xl font-bold break-all max-w-full">{word.word}</div>
               <div className="mt-1 text-xs text-gray-600 italic">
                 [{word.phonetic_spelling}]
               </div>
