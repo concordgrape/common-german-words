@@ -277,6 +277,13 @@ function HamburgerDropdown() {
                   <span className='pr-1 text-gray-400 font-bold text-xs'>Generate flashcards & quizzes</span>
                 </Link>
               </li>
+              <li>
+                <Link href="/read" onClick={() => setIsOpen(false)} className="block px-4 py-3 hover:bg-gray-100 font-bold">
+                  <span className='pr-1'>📖</span> Read
+                  <br />
+                  <span className='pr-1 text-gray-400 font-bold text-xs'>Read famous German books</span>
+                </Link>
+              </li>
               <hr className="h-px my-2 bg-gray-200 border-0" />
               <li>
                 <div className="flex items-center px-4 py-3 hover:bg-gray-100">
