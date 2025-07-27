@@ -1,17 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-//import { FaCheck } from 'react-icons/fa';
-//import { LuSparkles } from "react-icons/lu";
+import { FaCheck } from 'react-icons/fa';
+import { LuSparkles } from "react-icons/lu";
 import { SlidersHorizontal, Target, Filter, BookOpen } from "lucide-react";
-//import Image from 'next/image';
+import Image from 'next/image';
 import SortButton from "../components/SortButtons/Sort";
 import { useWordForm } from "../context/WordFormContext";
 import { fetchBasicWords, Word } from "../helpers/fetchBasicWordList";
 import { shuffle } from "../helpers/utils";
-//import { FaUndo } from 'react-icons/fa';
 
-//type Mode = 'flashcards' | 'quiz' | 'fill';
+type Mode = 'flashcards' | 'quiz' | 'fill';
 
 export const LearnForm = () => {
   const [words, setWords] = useState<Word[]>([]);
@@ -35,16 +34,15 @@ export const LearnForm = () => {
         </a>{" "}
         to add words to the &apos;saved&apos; collection
       </h2>
-      {/*<div className="bg-[#FFFFFF] border-1 border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
-            <h1 className="text-black text-2xl font-bold flex"><LuSparkles className='mr-3 mt-1 text-blue-500' />Select a practise mode</h1>
-            <ModeSelector />
-        </div>*/}
-
+      <div className="px-6 py-4 pt-5 mt-3">
+        <h1 className="text-black text-2xl font-bold flex"><LuSparkles className='mr-3 mt-1 text-blue-500' />Select a practise mode</h1>
+        <ModeSelector />
+      </div>
       <SessionCustomizer words={words} />
     </div>
   );
 };
-/*
+
 function ModeSelector() {
   const [selected, setSelected] = useState<Mode>('flashcards');
 
@@ -52,7 +50,7 @@ function ModeSelector() {
     {
         key: 'flashcards',
         title: 'Flashcards',
-        subtitle: 'Classic flip cards to build recognition',
+        subtitle: 'Learn with flashcards',
         icon: (
             <Image
                 src="/card.svg"
@@ -68,7 +66,7 @@ function ModeSelector() {
     {
         key: 'quiz',
         title: 'Quiz',
-        subtitle: 'Test your knowledge with multiple choice',
+        subtitle: 'Test with multiple choice',
         icon: (
             <Image
                 src="/quiz.svg"
@@ -81,7 +79,7 @@ function ModeSelector() {
         bgColor: 'bg-blue-200',
         textColor: 'text-blue-600',
     },
-    {
+    /*{
         key: 'fill',
         title: 'Fill in the Blank',
         subtitle: 'Type the word in context',
@@ -96,18 +94,18 @@ function ModeSelector() {
         ),        
         bgColor: 'bg-blue-200',
         textColor: 'text-blue-600',
-    },
+    },*/
     ] as const;
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto pt-4">
+    <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 max-w-4xl mx-auto pt-4">
     {modes.map((mode) => {
         const isSelected = selected === mode.key;
         return (
         <button
             key={mode.key}
             onClick={() => setSelected(mode.key)}
-            className={`relative rounded-lg p-6 text-left transition h-70 w-full md:h-80 lg:h-70 w-[150px] lg:w-full ${
+            className={`relative rounded-lg p-6 text-left transition h-50 w-full sm:h-60 md:h-50 lg:h-50 ${
             isSelected ? `${mode.textColor} ${mode.bgColor}` : 'bg-gray-200 opacity-50'
             }`}
         >
@@ -116,16 +114,16 @@ function ModeSelector() {
                 <FaCheck />
             </div>
             )}
-            <div className="mb-8">{mode.icon}</div>
-            <h3 className="text-lg font-bold">{mode.title}</h3>
-            <p className="text-sm text-gray-600">{mode.subtitle}</p>
+            <div className="mb-2">{mode.icon}</div>
+            <h3 className="text-md font-mono font-bold">{mode.title}</h3>
+            <p className="text-xs font-mono text-gray-600">{mode.subtitle}</p>
         </button>
         );
     })}
     </div>
   );
 }
-*/
+
 interface SessionCustomizerProps {
   words: Word[];
 }
