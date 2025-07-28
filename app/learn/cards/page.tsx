@@ -72,7 +72,7 @@ const LearnCardsPage: React.FC = () => {
         </Link>
         <div className="bg-white min-h-100 border border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm mx-auto">
           <progress
-            className="progress progress-primary w-full"
+            className="progress progress-info w-full"
             value={Math.min(idx + 1, total)}
             max={total}
           ></progress>
@@ -115,26 +115,30 @@ const LearnCardsPage: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="absolute backdrop-blur-xs h-150 w-200 mt-20 rounded-xl m-auto inset-0 z-50 bg-white/50 bg-opacity-20 flex flex-col items-center justify-center text-center px-4"
+            className="absolute inset-0 z-50 flex items-center justify-center bg-white/60 backdrop-blur-xs px-4"
           >
-            <div className="w-100 h-100 mb-6">
-              <Lottie animationData={confettiAnimation} loop={true} />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">You completed this set!</h2>
-            <Link href="/learn">
-              <button className="bg-blue-500 text-white font-mono font-bold py-2 px-6 rounded-lg hover:bg-blue-600 shadow-md">
-                &gt; Learn More &lt;
+            <div className="w-full max-w-md sm:max-w-lg bg-white rounded-xl p-6 shadow-lg flex flex-col items-center text-center">
+              <div className="w-full max-w-[200px] mb-4">
+                <Lottie animationData={confettiAnimation} loop={true} />
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
+                You completed this set!
+              </h2>
+              <Link href="/learn">
+                <button className="bg-blue-500 text-white font-mono font-bold py-2 px-6 rounded-lg hover:bg-blue-600 shadow-md w-full sm:w-auto mb-2">
+                  &gt; Learn More &lt;
+                </button>
+              </Link>
+              <button
+                className="bg-gray-100 text-black text-xs font-mono py-2 px-6 rounded-lg hover:bg-gray-200 max-w-100 lg:w-full sm:w-auto"
+                onClick={() => {
+                  setIsComplete(false);
+                  setIdx(0);
+                }}
+              >
+                Dismiss
               </button>
-            </Link>
-            <button
-              className="bg-gray-100 text-black text-xs font-mono py-2 px-6 rounded-lg hover:bg-gray-200 mt-2"
-              onClick={() => {
-                setIsComplete(false);
-                setIdx(0);
-              }}
-            >
-              Dismiss
-            </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

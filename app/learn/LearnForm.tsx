@@ -283,7 +283,7 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
               max={allWordCount > 100 ? 100 : allWordCount}
               value={wordCount}
               onChange={(e) => setWordCount(Number(e.target.value))}
-              className="w-full mt-2 accent-blue-600 custom-slider"
+              className="w-full mt-2 range range-lg lg:range-md range-info"
               disabled={allWordCount == 0}
             />
             <div className="mt-4 flex justify-center items-center space-x-3">
