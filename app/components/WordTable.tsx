@@ -471,7 +471,7 @@ export const WordTable: React.FC<WordTableProps> = ({
               <span className="mb-2 text-sm text-gray-600 dark:text-gray-300 font-medium">
                 Filter by Level
               </span>
-                <div className="grid grid-cols-2 gap-0 lg:w-50 border border-1 border-gray-200 dark:border-gray-600 rounded-lg">                
+                <div className="grid grid-cols-2 gap-0 text-lg lg:w-50 border border-1 border-gray-200 dark:border-gray-600 rounded-lg">                
                 {[
                   { id: "All", label: "All" },
                   { id: "A1", label: "A1" },

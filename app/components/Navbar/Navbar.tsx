@@ -10,6 +10,7 @@ import { useUser } from '@/app/context/UserContext';
 
 import SearchBar from './SearchBar';
 import AvatarDropdown from './AvatarDropdown';
+import { FaBook, FaQuestionCircle } from 'react-icons/fa';
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // mobile menu
@@ -44,9 +45,9 @@ export const Navbar: React.FC = () => {
   return (
     <div>
       <nav className="fixed w-full z-100 px-4 py-3 lg:py-4 flex items-center bg-white dark:bg-[#181922] border-1 border-gray-200 dark:border-gray-800">
-        <div className="lg:max-w-[800px] md:max-w-[800px] sm:max-w-[800px] w-full flex items-center justify-between mx-auto">
+        <div className="lg:max-w-[1000px] md:max-w-[800px] sm:max-w-[800px] w-full flex items-center justify-between mx-auto">
           {/* Left: Logo */}
-          <div className="flex items-center gap-2 md:mx-auto sm:mx-auto lg:mx-auto">
+          <div className="flex items-center gap-2">
             {/* Left: Logo */}
             <Link href="/" className="flex-shrink-0">
               <Image
@@ -67,7 +68,17 @@ export const Navbar: React.FC = () => {
 
 
           {/* Right side */}
-          <div className="flex items-center gap-2 relative">
+          <div className="flex items-center gap-4 relative">
+            <div className="font-mono text-black dark:text-white text-sm hidden lg:flex space-x-6">
+              <Link href="/browse" className="hover:underline flex items-center">
+                <FaQuestionCircle className="mr-2" />
+                <span>Browse</span>
+              </Link>
+              <Link href="/learn" className="hover:underline flex items-center">
+                <FaBook className="mr-2" />
+                <span>Learn</span>
+              </Link>
+            </div>
             <div className="w-[120px]">
               {(!user && !loading) ? (
                 <Link
@@ -101,7 +112,7 @@ export const Navbar: React.FC = () => {
               )}
             </div>
             {/* Desktop Dropdown (Hamburger Icon) */}
-            <div className='hidden lg:block'>
+            <div className='hidden lg:hidden'>
               <HamburgerDropdown />
             </div>
 
