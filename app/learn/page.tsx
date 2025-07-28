@@ -27,7 +27,6 @@ const LearnWordPage: React.FC = () => {
         console.error("Failed to fetch words", err);
       }
     }
-
     loadWords();
   }, [setFilteredWords, setAllWords]);
 
