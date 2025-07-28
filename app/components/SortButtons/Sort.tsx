@@ -27,8 +27,8 @@ const SortButton: React.FC<SortButtonProps> = ({ label, isActive, onClick, index
     <button
       onClick={onClick}
       className={`
-        flex-1 py-4 ${color == 'bg-orange-400' ? 'px-4 sm:px-4 md:px-6' : ''} sm:px-0 md:px-3 lg:px-4
-        font-medium text-center text-sm
+        flex-1 py-3 ${color == 'bg-orange-400' ? 'px-4 sm:px-4 md:px-6 text-lg' : 'text-sm'} sm:px-0 md:px-2 lg:px-3
+        font-medium text-center
         transition-all duration-200 ease-in-out
         ${
           isActive
