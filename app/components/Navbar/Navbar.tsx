@@ -61,11 +61,18 @@ export const Navbar: React.FC = () => {
             </Link>
 
             {/* Search Input */}
-            <div className="hidden sm:block md:block lg:block">
+            <div className="hidden sm:flex items-center flex-nowrap">
               <SearchBar />
+              {user && (
+                <div
+                  data-tip="Your daily streak"
+                  className="tooltip tooltip-bottom bg-orange-400 px-4 py-1 ml-3 rounded-lg shadow-sm flex-shrink-0"
+                >
+                  <span className="text-2xl font-mono font-regular">{0}</span>
+                </div>
+              )}
             </div>
           </div>
-
 
           {/* Right side */}
           <div className="flex items-center gap-4 relative">
