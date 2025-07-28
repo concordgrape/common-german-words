@@ -26,20 +26,20 @@ export const LearnForm = ({ setMode }: LearnFormProps) => {
 
   return (
     <div
-      className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start overflow-hidden mt-5 px-2 lg:px-5`}
+      className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start overflow-hidden mt-10 sm:mt-5 md:mt-5 lg:mt-5 px-2 lg:px-5`}
     >
-      <h1 className="text-black text-5xl font-extrabold">Learn</h1>
-      <h2 className="text-gray-700 text-base font-regular">
+      <h1 className="text-black dark:text-white text-5xl font-extrabold">Learn</h1>
+      <h2 className="text-gray-700 dark:text-gray-300 text-base font-regular">
         Customize how you&apos;ll practise a set of words, you can also navigate
         to the{" "}
-        <a href="/browse" className="text-blue-700">
+        <a href="/browse" className="text-blue-700 dark:text-blue-500">
           <u>Browse page</u>
         </a>{" "}
         to add words to the &apos;saved&apos; collection
       </h2>
       <hr className="h-px my-4 bg-gray-300 border-0" />
       <div className="py-4 pt-5 mt-3">
-        <h1 className="text-black text-2xl font-bold flex"><LuSparkles className='mr-3 mt-1 text-blue-500' />Select a practise mode</h1>
+        <h1 className="text-black dark:text-white text-2xl font-bold flex"><LuSparkles className='mr-3 mt-1 text-blue-500' />Select a practise mode</h1>
         <ModeSelector setMode={setMode} />
       </div>
       <SessionCustomizer words={words} />
@@ -68,7 +68,7 @@ function ModeSelector({ setMode }: ModeSelectorProps) {
                 className="m-auto text-orange-400"
             />
         ),        
-        bgColor: 'bg-blue-200',
+        bgColor: 'bg-blue-200 dark:bg-blue-300',
         textColor: 'text-blue-600',
     },
     {
@@ -84,7 +84,7 @@ function ModeSelector({ setMode }: ModeSelectorProps) {
                 className="m-auto text-orange-400"
             />
         ),        
-        bgColor: 'bg-blue-200',
+        bgColor: 'bg-blue-200 dark:bg-blue-300',
         textColor: 'text-blue-600',
     },
     /*{
@@ -118,7 +118,7 @@ function ModeSelector({ setMode }: ModeSelectorProps) {
               }
             }
             className={`relative rounded-lg p-6 text-left transition h-50 w-full sm:h-60 md:h-50 lg:h-50 ${
-            isSelected ? `${mode.textColor} ${mode.bgColor}` : 'bg-gray-200 opacity-50'
+            isSelected ? `${mode.textColor} ${mode.bgColor}` : 'bg-gray-200 dark:bg-gray-100 opacity-50'
             }`}
         >
             {isSelected && (
@@ -176,12 +176,12 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
 
   return (
     <div>
-      <div className="bg-[#FFFFFF] border-1 border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
-        <h1 className="text-black text-2xl font-bold flex">
+      <div className="bg-[#FFFFFF] dark:bg-[#181922] border-1 border-gray-200 dark:border-gray-700 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
+        <h1 className="text-black dark:text-white text-2xl font-bold flex">
           <SlidersHorizontal className="mr-3 mt-1 text-blue-500" />
           Add Words
         </h1>
-        <span className="flex text-gray-500 mt-3 font-mono text-xs">
+        <span className="flex text-gray-500 dark:text-gray-300 mt-3 font-mono text-xs">
           {allWordCount == 0 ? 
             <div className={`flex pt-1 pr-2 h-2 max-h-2`}>
               <div className="animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
@@ -193,12 +193,12 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
 
         <div className="mx-aut pt-2">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-1">
-                <Target className="w-4 h-4 text-gray-500" />{" "}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-1">
+                <Target className="w-4 h-4 text-gray-500 dark:text-gray-300" />{" "}
                 <span className="font-bold">Word Difficulty</span>
               </label>
-              <div className="grid grid-cols-2 gap-0 lg:w-50 border border-1 border-gray-200 rounded-lg">
+              <div className="grid grid-cols-2 gap-0 lg:w-50 border border-1 border-gray-200 dark:border-gray-600 rounded-lg">
                 {[
                   { id: 0, label: "All" },
                   { id: 1, label: "A1" },
@@ -211,15 +211,15 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
                     isActive={selectedCEFR === option.id}
                     onClick={() => setSelectedCEFR(option.id)}
                     index={index}
-                    color={"bg-blue-400"}
+                    color={"bg-blue-400 dark:bg-blue-500 dark:text-white"}
                   />
                 ))}
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
-                <Filter className="w-4 h-4 text-gray-500" />{" "}
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-1">
+                <Filter className="w-4 h-4 text-gray-500 dark:text-gray-300" />{" "}
                 <span className="font-bold">Word Type</span>
               </label>
               <div className="grid grid-cols-2 gap-2 text-sm">
@@ -236,7 +236,7 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
                 ].map((option) => (
                   <label
                     key={option.value}
-                    className="inline-flex items-center gap-2"
+                    className="inline-flex items-center gap-2 dark:text-gray-200"
                   >
                     <input
                       type="radio"
@@ -254,27 +254,27 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
           </div>
         </div>
       </div>
-      <div className="bg-[#FFFFFF] border-1 border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
-        <h1 className="text-black text-2xl font-bold flex">
+      <div className="bg-[#FFFFFF] dark:bg-[#181922] border-1 border-gray-200 dark:border-gray-700 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
+        <h1 className="text-black dark:text-white text-2xl font-bold flex">
           <SlidersHorizontal className="mr-3 mt-1 text-blue-500" />
           Set Word Count
         </h1>
-        <p className="text-gray-500 mt-3 font-mono text-xs">
+        <p className="text-gray-500 dark:text-gray-300 mt-3 font-mono text-xs">
           How many words do you want to practise?
         </p>
 
-        <hr className="h-px my-4 bg-gray-200 border-0" />
+        <hr className="h-px my-4 bg-gray-200 dark:bg-gray-600 border-0" />
         <div className="mx-aut p-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-1">
-              <BookOpen className="w-4 h-4 text-gray-500" />{" "}
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-3 flex items-center gap-1">
+              <BookOpen className="w-4 h-4 text-gray-500 dark:text-gray-200" />{" "}
               <span className="font-bold">Word Count</span>
             </label>
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-500">0</span>
-              <span className="font-semibold text-blue-600">{wordCount}
+              <span className="text-gray-500 dark:text-gray-300">{0}</span>
+              <span className="font-semibold text-lg text-blue-600 dark:text-blue-500">{wordCount}
               </span>
-              <span className="font-semibold text-gray-500">{100}
+              <span className="font-semibold text-gray-500 dark:text-gray-300">{100}
               </span>
             </div>
             <input
@@ -304,8 +304,8 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
                   tooltip py-2 w-10 rounded-lg
                   ${
                     wordCount >= allWordCount
-                      ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                      : "bg-gray-100 text-black hover:bg-gray-200"
+                      ? "bg-gray-200 dark:bg-[#313248] text-gray-400 cursor-not-allowed"
+                      : "bg-gray-100 dark:bg-[#3E3F53] text-black dark:text-white hover:bg-gray-200 hover:bg-gray-800"
                   }
                 `}
                 >

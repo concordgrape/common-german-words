@@ -59,7 +59,7 @@ export default function AvatarDropdown({
             window.location.href = "/signin";
           }
         }}
-        className="flex items-center cursor-pointer justify-center w-10 h-10 bg-gray-100 rounded-full overflow-hidden hover:shadow-md text-gray-500 border-1 border-gray-300 transition-colors"
+        className="flex items-center cursor-pointer justify-center w-10 h-10 bg-gray-100 dark:bg-blue-400 rounded-full overflow-hidden hover:shadow-md text-gray-500 dark:text-white border-1 border-gray-300 dark:border-blue-400 transition-colors"
       >
         {!loading ? (
           <svg

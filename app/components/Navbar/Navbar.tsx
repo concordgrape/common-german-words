@@ -43,7 +43,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <div>
-      <nav className="fixed w-full z-100 px-4 py-3 lg:py-4 flex items-center bg-white border-1 border-gray-200">
+      <nav className="fixed w-full z-100 px-4 py-3 lg:py-4 flex items-center bg-white dark:bg-[#181922] border-1 border-gray-200 dark:border-gray-800">
         <div className="lg:max-w-[800px] md:max-w-[800px] sm:max-w-[800px] w-full flex items-center justify-between mx-auto">
           {/* Left: Logo */}
           <div className="flex items-center gap-2 md:mx-auto sm:mx-auto lg:mx-auto">
@@ -108,7 +108,7 @@ export const Navbar: React.FC = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
-              className="lg:hidden flex items-center text-black hover:text-gray-300 cursor-pointer p-3"
+              className="lg:hidden flex items-center text-black dark:text-white hover:text-gray-300 cursor-pointer p-3"
             >
               <svg
                 className="block h-6 w-6 fill-current"
@@ -126,13 +126,13 @@ export const Navbar: React.FC = () => {
       <div
         ref={menuRef}
         className={clsx(
-          'navbar-menu fixed top-0 left-0 bottom-0 z-200 w-5/6 max-w-xs py-6 px-6 bg-white border-r overflow-y-auto transition-transform duration-300 ease-in-out',
+          'navbar-menu fixed top-0 left-0 bottom-0 z-200 w-5/6 max-w-xs py-6 px-6 bg-white dark:bg-[#181922] border-r dark:border-gray-800 overflow-y-auto transition-transform duration-300 ease-in-out',
           isMenuOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         <div
           onClick={closeMenu}
-          className="navbar-backdrop fixed inset-0 bg-white opacity-25"
+          className="navbar-backdrop fixed inset-0 bg-white dark:bg-[#181922] opacity-25"
         />
         <nav className="relative z-10">
           <div className="flex items-center mb-4">
@@ -148,7 +148,7 @@ export const Navbar: React.FC = () => {
             </a>
             <button onClick={closeMenu} className="navbar-close">
               <svg
-                className="h-6 w-6 text-black cursor-pointer hover:text-gray-500"
+                className="h-6 w-6 text-black dark:text-white cursor-pointer hover:text-gray-500 dark:hover:text-gray-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -157,30 +157,30 @@ export const Navbar: React.FC = () => {
               </svg>
             </button>
           </div>
-          <span className="text-gray-700 text-lg font-bold">Common German Words</span>
+          <span className="text-gray-700 dark:text-white text-lg font-bold">Common German Words</span>
           <div className="mt-4">
-             <ul className="flex flex-col text-sm text-gray-700">
+             <ul className="flex flex-col text-sm text-gray-700 dark:text-white">
               <li>
-                <Link onClick={closeMenu} href="/browse" className="block py-3 hover:bg-gray-100 font-bold">
+                <Link onClick={closeMenu} href="/browse" className="block py-3 px-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 font-bold">
                   <span className='pr-1'>💬</span> Browse
                   <br />
                   <span className='pr-1 text-gray-400 font-bold text-xs'>Browse 6000+ frequent words</span>
                 </Link>
               </li>
               <li>
-                <Link onClick={closeMenu} href="/learn" className="block py-3 hover:bg-gray-100 font-bold">
+                <Link onClick={closeMenu} href="/learn" className="block py-3 px-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 font-bold">
                   <span className='pr-1'>📖</span> Learn
                   <br />
                   <span className='pr-1 text-gray-400 font-bold text-xs'>Generate flashcards & quizzes</span>
                 </Link>
               </li>
-              <hr className="h-px my-2 bg-gray-200 border-0" />
+              {/*<hr className="h-px my-2 bg-gray-200 border-0" />
               <li>
-                <div className="flex items-center py-3 hover:bg-gray-100">
+                <div className="flex items-center py-3 hover:bg-gray-100 dark:hover:bg-gray-800 px-3 rounded-sm">
                   <input type="checkbox" className="mr-2" />
                   <span>Dark mode</span>
                 </div>
-              </li>
+              </li>*/}
               <hr className="h-px my-2 bg-gray-200 border-0" />
             </ul>
           </div>
@@ -188,7 +188,7 @@ export const Navbar: React.FC = () => {
             <div className="pt-6">
               <Link
                   href="/signin"
-                  className="flex items-center px-4 py-2 text-sm text-black border border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm w-full justify-center"
+                  className="flex items-center px-4 py-2 text-sm text-black dark:text-white border border-gray-200 dark:border-blue-400 bg-gray-100 dark:bg-blue-500 hover:border-gray-300 dark:hover:border-blue-700 hover:shadow-sm rounded-sm w-full justify-center"
                 >
                   <svg
                     width="20px"
@@ -196,11 +196,11 @@ export const Navbar: React.FC = () => {
                     viewBox="0 0 24 24"
                     role="img"
                     xmlns="http://www.w3.org/2000/svg"
-                    stroke="#000"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     fill="none"
+                    className="stroke-black dark:stroke-white"
                   >
                     <title id="happyFaceIconTitle">Happy Face</title>
                     <path d="M7.3,14 C8.07,15.76 9.99,17 12,17 C14,17 15.91,15.75 16.69,14" />
@@ -247,7 +247,7 @@ function HamburgerDropdown() {
     <div className="relative">
       <button
         onClick={toggleDropdown}
-        className="p-2 rounded hover:bg-gray-200 transition"
+        className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
       >
         <FiMenu size={22} />
       </button>

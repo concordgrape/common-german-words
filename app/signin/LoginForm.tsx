@@ -7,30 +7,30 @@ import GoogleSignInButton from './SignInWithGoogle';
 
 const LoginForm: React.FC = () => {
   return (
-      <div className="w-full m-auto max-h-[600px] max-w-md bg-white p-8 rounded-xl shadow">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Sign in</h2>
+      <div className="w-full m-auto max-h-[600px] max-w-md bg-white dark:bg-[#1E1E1E] p-8 rounded-xl shadow">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Sign in</h2>
 
         <form className="space-y-5">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Email address
             </label>
             <input
               id="email"
               type="email"
-              className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full border border-gray-300 dark:border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               placeholder="you@example.com"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Password
             </label>
             <input
               id="password"
               type="password"
-              className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full border border-gray-300 dark:border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               placeholder="••••••••"
             />
           </div>
@@ -40,7 +40,7 @@ const LoginForm: React.FC = () => {
               <input type="checkbox" className="form-checkbox" />
               Remember me
             </label>
-            <a href="#" className="text-indigo-600 hover:underline font-medium">
+            <a href="#" className="text-indigo-600 dark:text-indigo-500 hover:underline font-medium">
               Forgot password?
             </a>
           </div>
@@ -53,7 +53,7 @@ const LoginForm: React.FC = () => {
           </button>
         </form>
 
-        <div className="my-6 flex items-center justify-center text-gray-400 text-sm">
+        <div className="my-6 flex items-center justify-center text-gray-400 dark:text-gray-300 text-sm">
           <div className="w-full border-t border-gray-200" />
           <span className="px-2 text-center">Or continue with</span>
           <div className="w-full border-t border-gray-200" />

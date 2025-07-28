@@ -19,7 +19,7 @@ export default function SearchBar() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         onKeyDown={handleKeyDown}
-        className="pl-9 w-full pr-4 py-2 rounded-sm bg-[#F2F2F2] text-black placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-200 border border-gray-200 border-1"
+        className="pl-9 w-full pr-4 py-2 rounded-sm bg-[#F2F2F2] dark:bg-[#3E3F53] text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-600 border border-gray-200 dark:border-gray-700 border-1"
       />
        <span className="absolute left-3 top-[10px] text-gray-400">
           <svg
