@@ -6,21 +6,33 @@ import Flashcard from "./components/Flashcard/Flashcard";
 import { useWordForm } from "@/app/context/WordFormContext";
 import Link from "next/link";
 import { ImExit } from "react-icons/im";
+import Lottie from "lottie-react";
+import confettiAnimation from "../../external/Lottie/confetti3.json";
+import { motion, AnimatePresence } from "framer-motion";
 
 const LearnCardsPage: React.FC = () => {
   const { submittedWords } = useWordForm();
   const [idx, setIdx] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
 
   const total = submittedWords.length;
-  const current = submittedWords[idx];
+  const current = submittedWords[Math.min(idx, total - 1)]; // fallback
 
-  const prev = useCallback(() => setIdx((i) => Math.max(i - 1, 0)), []);
-  const next = useCallback(
-    () => setIdx((i) => Math.min(i + 1, total - 1)),
-    [total]
-  );
+  const prev = useCallback(() => {
+    setIdx((i) => Math.max(i - 1, 0));
+    setIsComplete(false);
+  }, []);
 
-  // Optional: keyboard left/right to navigate
+  const next = useCallback(() => {
+    setIdx((i) => {
+      if (i + 1 >= total) {
+        setIsComplete(true);
+      }
+      return i + 1;
+    });
+  }, [total]);
+
+  // keyboard nav
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.code === "ArrowLeft") prev();
@@ -29,6 +41,10 @@ const LearnCardsPage: React.FC = () => {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [prev, next]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (!total) {
     return (
@@ -44,37 +60,34 @@ const LearnCardsPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen w-full pt-15 flex justify-center">
-      <div className="w-full max-w-[800px] p-1 sm:p-4 md:p-4 mt-5 px-2 lg:px-5">
+    <div className="min-h-screen w-full pt-15 flex justify-center relative overflow-hidden">
+      <div className="w-full max-w-[800px] p-1 sm:p-4 md:p-4 mt-5 px-2 lg:px-5 z-10">
         <Link href="/learn">
           <button
-            data-tip="Exit"
-            className="tooltip tooltip-bottom text-gray-500 rounded-full p-2 hover:bg-gray-200 mb-8 lg:mb-0"
+            data-tip="Go Back"
+            className="flex tooltip tooltip-bottom text-gray-500 bg-white rounded-full p-2 px-4 hover:bg-white/50 lg:mb-0"
           >
-            <ImExit size={16} />
+            <ImExit size={16} className="mt-1 mr-1" /> Exit
           </button>
         </Link>
         <div className="bg-white min-h-100 border border-gray-200 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm mx-auto">
           <progress
             className="progress progress-primary w-full"
-            value={idx + 1}
-            max={submittedWords.length}
+            value={Math.min(idx + 1, total)}
+            max={total}
           ></progress>
           <div className="flex justify-center mt-2">
             <span className="text-md font-mono font-bold text-gray-500">
-              {idx + 1} / {total}
+              {Math.min(idx + 1, total)} / {total}
             </span>
           </div>
 
-          <div className="mt-10">
-            {/* Card */}
-            <Flashcard
-              key={current.word} // helps reset flip when changing word
-              word={current}
-            />
-          </div>
+          {idx < total && (
+            <div className="mt-10">
+              <Flashcard key={current.word} word={current} />
+            </div>
+          )}
 
-          {/* Controls */}
           <div className="flex items-center justify-between mt-15">
             <button
               onClick={prev}
@@ -87,15 +100,46 @@ const LearnCardsPage: React.FC = () => {
 
             <button
               onClick={next}
-              disabled={idx === total - 1}
               aria-label="Next card"
-              className="p-2 rounded disabled:opacity-30 bg-gray-100 lg:bg-white hover:bg-gray-100 transition"
+              className="p-2 rounded bg-gray-100 lg:bg-white hover:bg-gray-100 transition"
             >
               <ChevronRight size={22} />
             </button>
           </div>
         </div>
       </div>
+
+<AnimatePresence>
+  {isComplete && (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.3 }}
+      className="absolute backdrop-blur-xs h-150 w-200 mt-20 rounded-lg m-auto inset-0 z-50 bg-white/50 bg-opacity-20 flex flex-col items-center justify-center text-center px-4"
+    >
+      <div className="w-100 h-100 mb-6">
+        <Lottie animationData={confettiAnimation} loop={true} />
+      </div>
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">You completed this set!</h2>
+      <Link href="/learn">
+        <button className="bg-blue-500 text-white font-mono font-bold py-2 px-6 rounded-lg hover:bg-blue-600 shadow-md">
+          &gt; Learn More &lt;
+        </button>
+      </Link>
+      <button
+        className="bg-gray-100 text-black text-xs font-mono py-2 px-6 rounded-lg hover:bg-gray-200 mt-2"
+        onClick={() => {
+          setIsComplete(false);
+          setIdx(0);
+        }}
+      >
+        Dismiss
+      </button>
+    </motion.div>
+  )}
+</AnimatePresence>
+
     </div>
   );
 };
