@@ -431,10 +431,10 @@ export const WordTable: React.FC<WordTableProps> = ({
         <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
         {/* Search Input */}
-        <div className="hidden relative flex items-center w-full mb-4">
+        <div className="block sm:hidden relative flex items-center w-full mb-4">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search words..."
             className="pl-9 w-full pr-4 py-2 rounded-sm bg-[#F2F2F2] dark:bg-[#3E3F53] text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-600 border border-gray-200 dark:border-gray-700 border-1"
             onChange={(e) => handleSearchChange(e.target.value)}
             value={searchTerm}
