@@ -100,7 +100,7 @@ const handleAdd = (amount: number) => {
 
   return (
     <div className="max-w-80 lg:max-w-full lg:w-full">
-      <div className="w-full bg-[#027AFB] rounded-sm shadow-lg p-6 flex flex-col max-h-[80vh] overflow-y-auto">
+      <div className={`${allWords.length == 0 ? 'skeleton opacity-20 fill-[#027AFB]' : ''} w-full bg-[#027AFB] rounded-sm shadow-lg p-6 flex flex-col max-h-[80vh] overflow-y-auto`}>
         <span className="mb-2 text-white font-bold">
           <span className="font-semibold text-white flex">{allWords.length == 0 ? 
             <div className={`flex pt-1 pr-2`}>

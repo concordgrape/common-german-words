@@ -11,6 +11,7 @@ import { useUser } from '@/app/context/UserContext';
 import SearchBar from './SearchBar';
 import AvatarDropdown from './AvatarDropdown';
 import { FaBook, FaQuestionCircle } from 'react-icons/fa';
+import { FaChartLine } from 'react-icons/fa6';
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // mobile menu
@@ -84,6 +85,12 @@ export const Navbar: React.FC = () => {
           {/* Right side */}
           <div className="flex items-center gap-2 lg:gap-6 relative">
             <div className="font-mono text-black dark:text-white text-sm hidden lg:flex space-x-6">
+              {user ? 
+              <Link href="/learn" className="hover:underline flex items-center">
+                <FaChartLine className="mr-2" />
+                <span>My Progress</span>
+              </Link>
+              : <></>}
               <Link href="/browse" className="hover:underline flex items-center">
                 <FaQuestionCircle className="mr-2" />
                 <span>Browse</span>
