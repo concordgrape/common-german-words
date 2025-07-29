@@ -68,8 +68,8 @@ function ModeSelector({ setMode }: ModeSelectorProps) {
                 className="m-auto text-orange-400"
             />
         ),        
-        bgColor: 'bg-blue-200 dark:bg-blue-300',
-        textColor: 'text-blue-600',
+        bgColor: 'bg-blue-200 dark:bg-blue-400',
+        textColor: 'text-blue-600 dark:text-blue-700',
     },
     {
         key: 'quiz',
@@ -84,8 +84,8 @@ function ModeSelector({ setMode }: ModeSelectorProps) {
                 className="m-auto text-orange-400"
             />
         ),        
-        bgColor: 'bg-blue-200 dark:bg-blue-300',
-        textColor: 'text-blue-600',
+        bgColor: 'bg-blue-200 dark:bg-blue-400',
+        textColor: 'text-blue-600 dark:text-blue-700',
     },
     /*{
         key: 'fill',
@@ -176,7 +176,7 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
 
   return (
     <div>
-      <div className="bg-[#FFFFFF] dark:bg-[#181922] border-1 border-gray-200 dark:border-gray-700 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
+      <div className="bg-[#FFFFFF] dark:bg-[#0D1B2A] border-1 border-gray-200 dark:border-gray-900 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
         <h1 className="text-black dark:text-white text-2xl font-bold flex">
           <SlidersHorizontal className="mr-3 mt-1 text-blue-500" />
           Add Words
@@ -254,7 +254,7 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
           </div>
         </div>
       </div>
-      <div className="bg-[#FFFFFF] dark:bg-[#181922] border-1 border-gray-200 dark:border-gray-700 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
+      <div className="bg-[#FFFFFF] dark:bg-[#0D1B2A] border-1 border-gray-200 dark:border-gray-900 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
         <h1 className="text-black dark:text-white text-2xl font-bold flex">
           <SlidersHorizontal className="mr-3 mt-1 text-blue-500" />
           Set Word Count
@@ -304,8 +304,8 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
                   tooltip py-2 w-10 rounded-lg
                   ${
                     wordCount >= allWordCount
-                      ? "bg-gray-200 dark:bg-[#313248] text-gray-400 cursor-not-allowed"
-                      : "bg-gray-100 dark:bg-[#3E3F53] text-black dark:text-white hover:bg-gray-200 hover:bg-gray-800"
+                      ? "bg-gray-200 dark:bg-gray-900 text-gray-400 dark:text-gray-700 cursor-not-allowed"
+                      : "bg-gray-100 dark:bg-[#1B263B] text-black dark:text-white hover:bg-gray-200 hover:bg-gray-800"
                   }
                 `}
                 >

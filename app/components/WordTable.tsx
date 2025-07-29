@@ -378,7 +378,7 @@ export const WordTable: React.FC<WordTableProps> = ({
 
   return (
     <div
-      className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] dark:bg-[#181922] border-1 border-gray-200 dark:border-gray-700 overflow-hidden mt-5`}
+      className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] dark:bg-[#0D1B2A] border-0 sm:border-1 border-gray-200 dark:border-gray-700 overflow-hidden mt-0 sm:mt-5`}
     >
       {/* Header with Search and Sort border border-1 border-[#B1B1B1]*/}
       <div className="p-4">
@@ -428,9 +428,10 @@ export const WordTable: React.FC<WordTableProps> = ({
             </svg>
           </button>
         </div>
+        <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
         {/* Search Input */}
-        <div className="relative flex items-center w-full mb-4">
+        <div className="hidden relative flex items-center w-full mb-4">
           <input
             type="text"
             placeholder="Search..."
@@ -472,7 +473,7 @@ export const WordTable: React.FC<WordTableProps> = ({
               <span className="mb-2 text-sm text-gray-600 dark:text-gray-300 font-medium">
                 Filter by Level
               </span>
-                <div className="grid grid-cols-2 gap-0 text-lg lg:w-50 border border-1 border-gray-200 dark:border-gray-600 rounded-lg">                
+                <div className="grid grid-cols-2 gap-0 text-lg lg:w-50 border border-1 border-gray-200 dark:border-gray-800 rounded-lg">                
                 {[
                   { id: "All", label: "All" },
                   { id: "A1", label: "A1" },
@@ -501,7 +502,7 @@ export const WordTable: React.FC<WordTableProps> = ({
                 <select
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
-                  className="px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-700 cursor-pointer text-sm col-span-2 w-full border border-1 border-gray-200 dark:border-gray-600 rounded-lg text-black dark:text-white"
+                  className="px-3 py-2 h-8 sm:h-auto rounded-md bg-gray-100 dark:bg-[#262839] cursor-pointer text-sm col-span-2 w-full border border-1 border-gray-200 dark:border-gray-600 rounded-lg text-black dark:text-white"
                   id="partOfSpeechSelect"
                 >
                   {wordTypes.map((type) => (
@@ -518,7 +519,7 @@ export const WordTable: React.FC<WordTableProps> = ({
               <span className="mb-2 text-sm text-gray-600 dark:text-gray-300 font-medium">
                 Sort & Type
               </span>
-              <div className="grid grid-cols-2 gap-0 w-full lg:w-80 max-w-[300px] lg:max-w-[400px] lg:max-w-[350px] border border-1 border-gray-200 dark:border-gray-600 rounded-lg">
+              <div className="grid grid-cols-2 gap-0 w-full lg:w-80 max-w-[300px] lg:max-w-[400px] lg:max-w-[350px] border border-1 border-gray-200 dark:border-gray-800 rounded-lg">
                 {sortOptions.map((option, index) => (
                   <SortButton
                     key={option.id}
@@ -605,10 +606,10 @@ export const WordTable: React.FC<WordTableProps> = ({
                 ref={(el) => {
                   wordRefs.current[word.id] = el;
                 }}
-                className={`border-1 font-arial  ${
+                className={`border-1 font-arial dark:bg-[#1B263B]  ${
                   expandedRows.includes(word.id)
                     ? "border-blue-300 lg:max-h-[44px] sm:max-h-[44px] md:max-h-[44px]"
-                    : "hover:bg-gray-50 dark:hover:bg-gray-800 border-[#F2F2F2] dark:border-gray-600 h-[44px] max-h-[44px]"                
+                    : "hover:bg-gray-50 dark:hover:bg-gray-900 border-[#F2F2F2] dark:border-gray-600 h-[44px] max-h-[44px]"                
                   }`}
               >
                 <div

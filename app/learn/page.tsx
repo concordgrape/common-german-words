@@ -43,13 +43,13 @@ const LearnWordPage: React.FC = () => {
         {(allWords.length == 0 || submittedWords.length == 0) ?
           <button onClick={() => {
             toast({ title: 'No Words Selected', subtitle: `You cannot start with zero words selected`, variant: 'error' });
-          }} className="bg-blue-500 text-white font-bold font-mono p-4 rounded-2xl mt-5 cursor-pointer hover:shadow-lg">
+          }} className={`${allWords.length == 0 ? 'skeleton opacity-20 fill-[#027AFB]' : ''} bg-blue-500 text-white font-bold font-mono p-4 rounded-2xl mt-5 cursor-pointer hover:shadow-lg`}>
             &gt; Start &lt;
             <span className='block text-xs mt-1'><i>{mode}</i></span>
           </button>
         :
         <Link href="/learn/cards">
-          <button className="bg-blue-500 text-white font-bold font-mono p-4 rounded-2xl mt-5 cursor-pointer hover:shadow-lg">
+          <button className={`${allWords.length == 0 ? 'skeleton opacity-20 fill-[#027AFB]' : ''} bg-blue-500 text-white font-bold font-mono p-4 rounded-2xl mt-5 cursor-pointer hover:shadow-lg`}>
             &gt; Start &lt;
             <span className='block text-xs mt-1'><i>{mode}</i></span>
           </button>
