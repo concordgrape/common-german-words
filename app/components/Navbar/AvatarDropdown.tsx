@@ -47,7 +47,7 @@ export default function AvatarDropdown({
 
   return (
     <div
-      className={`relative ${loading ? "max-w-sm animate-pulse" : ""}`}
+      className={`relative mt-1 sm:mt-0 ${loading ? "max-w-sm animate-pulse" : ""}`}
       ref={dropdownRef}
     >
       <button

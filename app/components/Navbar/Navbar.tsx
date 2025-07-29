@@ -12,6 +12,8 @@ import SearchBar from './SearchBar';
 import AvatarDropdown from './AvatarDropdown';
 import { FaBook, FaQuestionCircle } from 'react-icons/fa';
 import { FaChartLine } from 'react-icons/fa6';
+import Lottie from 'lottie-react';
+import fireAnimation from '../../external/Lottie/fire.json'
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // mobile menu
@@ -73,9 +75,12 @@ export const Navbar: React.FC = () => {
                     exit={{ opacity: 0, scale: 0.9, x: 10 }}
                     transition={{ duration: 0.3 }}
                     data-tip="Your daily streak"
-                    className="tooltip tooltip-bottom bg-orange-400 px-4 py-1 ml-2 rounded-lg shadow-sm flex-shrink-0"
+                    className="tooltip tooltip-bottom bg-clear px-4 py-1 ml-2 flex-shrink-0"
                   >
-                    <span className="text-2xl text-white font-mono font-regular">{0}</span>
+                    <span className="text-3xl flex text-orange-400 font-mono font-bold">
+                      <span className='pt-1'>{1}</span>               
+                      <Lottie className="h-10 w-10" animationData={fireAnimation} loop={true} />
+                    </span>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -128,6 +133,26 @@ export const Navbar: React.FC = () => {
                 </Link>
               ) : (
                 <div className={`w-full flex justify-end`}>
+                    <div className='block sm:hidden'>
+                      <AnimatePresence>
+                        {user && (
+                          <motion.div
+                            key="streak-badge"
+                            initial={{ opacity: 0, scale: 0.9, x: 10 }}
+                            animate={{ opacity: 1, scale: 1, x: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, x: 10 }}
+                            transition={{ duration: 0.3 }}
+                            data-tip="Your daily streak"
+                            className="tooltip tooltip-bottom bg-clear px-1 py-1 ml-2 flex-shrink-0"
+                          >
+                            <span className="text-3xl flex text-orange-400 font-mono font-bold">
+                              <span className='pt-1'>{1}</span>               
+                              <Lottie className="h-10 w-10" animationData={fireAnimation} loop={true} />
+                            </span>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
                   <AvatarDropdown />
                 </div>
               )}
@@ -140,7 +165,7 @@ export const Navbar: React.FC = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
-              className="lg:hidden flex items-center text-black dark:text-white hover:text-gray-300 cursor-pointer p-3"
+              className="lg:hidden flex items-center text-black dark:text-white hover:text-gray-300 cursor-pointer p-1 sm:p-3"
             >
               <svg
                 className="block h-6 w-6 fill-current"

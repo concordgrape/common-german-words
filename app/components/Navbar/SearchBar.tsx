@@ -12,7 +12,7 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="relative w-[300px] sm:w-[300px] md:w-[350px] lg:w-[400px] flex-shrink-0 z-10 ml-5">
+    <div className="relative hidden sm:flex w-[300px] sm:w-[300px] md:w-[350px] lg:w-[400px] flex-shrink-0 z-10 ml-5">
       <input
         type="text"
         placeholder="Search words..."

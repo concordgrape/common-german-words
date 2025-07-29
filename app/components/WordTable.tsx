@@ -573,14 +573,14 @@ export const WordTable: React.FC<WordTableProps> = ({
       </div>
       {displayedWords.length === 0 && searchTerm && (
         <div>
-          <h1 className="mt-5 mb-2">{`'${searchTerm}' not found, example words:`}</h1>
-          <button className="text-blue-500 bg-blue-200 py-2 px-4 rounded-sm">
+          <h1 className="mt-5 mb-4 text-black dark:text-white">{`'${searchTerm}' not found, example words:`}</h1>
+          <button className="cursor-pointer text-blue-500 hover:bg-blue-300 bg-blue-200 py-1 px-3 rounded-sm" onClick={() => window.location.href = '/browse?search=haus'}>
             haus
           </button>
-          <button className="text-blue-500 bg-blue-200 py-2 px-4 rounded-sm ml-2">
+          <button className="cursor-pointer text-blue-500 hover:bg-blue-300 bg-blue-200 py-1 px-3 rounded-sm ml-2" onClick={() => window.location.href = '/browse?search=gehen'}>
             gehen
           </button>
-          <button className="text-blue-500 bg-blue-200 py-2 px-4 rounded-sm ml-2">
+          <button className="cursor-pointer text-blue-500 hover:bg-blue-300 bg-blue-200 py-1 px-3 rounded-sm ml-2" onClick={() => window.location.href = '/browse?search=das'}>
             das
           </button>
         </div>
