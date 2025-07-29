@@ -63,19 +63,26 @@ export const Navbar: React.FC = () => {
             {/* Search Input */}
             <div className="hidden sm:flex items-center flex-nowrap">
               <SearchBar />
-              {user && (
-                <div
-                  data-tip="Your daily streak"
-                  className="tooltip tooltip-bottom bg-orange-400 px-4 py-1 ml-3 rounded-lg shadow-sm flex-shrink-0"
-                >
-                  <span className="text-2xl font-mono font-regular">{0}</span>
-                </div>
-              )}
+              <AnimatePresence>
+                {user && (
+                  <motion.div
+                    key="streak-badge"
+                    initial={{ opacity: 0, scale: 0.9, x: 10 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, x: 10 }}
+                    transition={{ duration: 0.3 }}
+                    data-tip="Your daily streak"
+                    className="tooltip tooltip-bottom bg-orange-400 px-4 py-1 ml-2 rounded-lg shadow-sm flex-shrink-0"
+                  >
+                    <span className="text-2xl text-white font-mono font-regular">{0}</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 
           {/* Right side */}
-          <div className="flex items-center gap-4 relative">
+          <div className="flex items-center gap-2 lg:gap-6 relative">
             <div className="font-mono text-black dark:text-white text-sm hidden lg:flex space-x-6">
               <Link href="/browse" className="hover:underline flex items-center">
                 <FaQuestionCircle className="mr-2" />
@@ -86,11 +93,11 @@ export const Navbar: React.FC = () => {
                 <span>Learn</span>
               </Link>
             </div>
-            <div className="w-[120px]">
-              {(!user && !loading) ? (
+            <div>
+              {!user ? (
                 <Link
                   href="/signin"
-                  className="flex items-center px-4 py-2 text-sm text-black border border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm w-full justify-center"
+                  className={`${loading ? 'skeleton opacity-50 disabled' : ''} flex items-center px-4 py-2 text-sm text-black border border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm w-full justify-center`}
                 >
                   <svg
                     width="20px"
@@ -113,8 +120,8 @@ export const Navbar: React.FC = () => {
                   <span className="pl-2">Sign In</span>
                 </Link>
               ) : (
-                <div className="w-full flex justify-end">
-                  <AvatarDropdown loading={loading} />
+                <div className={`w-full flex justify-end`}>
+                  <AvatarDropdown />
                 </div>
               )}
             </div>
