@@ -7,7 +7,7 @@ import { Word } from "../helpers/fetchBasicWordList";
 import { useSearchParams, useRouter } from "next/navigation";
 import { truncateString, useIsMobile } from "../helpers/utils";
 import { FaQuestionCircle } from "react-icons/fa";
-import { FaArrowDownShortWide } from "react-icons/fa6";
+import { FaArrowDownShortWide, FaX } from "react-icons/fa6";
 import { DropdownWordInfo } from "./DropdownWordInfo";
 import { useToast } from "../hooks/useToast";
 import WordPopover from "./Popover/Popover";
@@ -436,14 +436,15 @@ export const WordTable: React.FC<WordTableProps> = ({
             placeholder="Search..."
             className="pl-9 w-full pr-4 py-2 rounded-sm bg-[#F2F2F2] dark:bg-[#3E3F53] text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-600 border border-gray-200 dark:border-gray-700 border-1"
             onChange={(e) => handleSearchChange(e.target.value)}
+            value={searchTerm}
           />
           {searchTerm && (
             <button
-              onClick={() => handleSearchChange("")}
-              className="absolute right-3 text-gray-400 hover:text-gray-600 w-10 h-10"
+              onClick={() => {handleSearchChange("")}}
+              className="absolute right-1 text-sm text-gray-400 hover:text-gray-600 w-10 h-10"
               aria-label="Clear"
             >
-              &times;
+              <FaX />
             </button>
           )}
 
