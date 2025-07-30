@@ -37,7 +37,7 @@ export default function SearchBar() {
         className="pl-9 w-full pr-8 py-2 rounded-sm bg-[#F2F2F2] dark:bg-[#3E3F53] text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-600 border border-gray-200 dark:border-gray-700"
       />
       <span className="absolute left-3 top-[10px] text-gray-400">
-        <FaMagnifyingGlass className="h-4 w-4" />
+        <FaMagnifyingGlass className="h-4 w-4 mt-[3px]" />
       </span>
       {search && (
         <button
