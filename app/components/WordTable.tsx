@@ -127,26 +127,31 @@ export const WordTable: React.FC<WordTableProps> = ({
     return 0;
   });
 
-  const filteredWords = useMemo(() => {
-    let result = sortedWords;
+const filteredWords = useMemo(() => {
+  let result = [...sortedWords];
 
-    if (selectedType !== "All") {
-      result = result.filter(
-        (word) =>
-          word.part_of_speech?.toLowerCase() === selectedType.toLowerCase()
-      );
-    }
+  if (selectedType !== "All") {
+    result = result.filter(
+      (word) =>
+        word.part_of_speech?.toLowerCase() === selectedType.toLowerCase()
+    );
+  }
 
-    if (selectedCEFR === "A1") {
-      result = result.filter((word) => word.rank === 1);
-    } else if (selectedCEFR === "A2") {
-      result = result.filter((word) => word.rank === 2);
-    } else if (selectedCEFR === "B1") {
-      result = result.filter((word) => word.rank === 3);
-    }
+  if (selectedCEFR === "A1") {
+    result = result.filter((word) => word.rank === 1);
+  } else if (selectedCEFR === "A2") {
+    result = result.filter((word) => word.rank === 2);
+  } else if (selectedCEFR === "B1") {
+    result = result.filter((word) => word.rank === 3);
+  }
 
-    return result;
-  }, [selectedType, selectedCEFR, sortedWords]);
+  if (isReversed) {
+    result = [...result].reverse();
+  }
+
+  return result;
+}, [selectedType, selectedCEFR, sortedWords, isReversed]);
+
 
   // Only show paginated results if not filtering
   const displayedWords = filteredWords.slice(
@@ -378,7 +383,7 @@ export const WordTable: React.FC<WordTableProps> = ({
 
   return (
     <div
-      className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] dark:bg-[#0D1B2A] border-0 sm:border-1 border-gray-200 dark:border-gray-700 overflow-hidden mt-0 sm:mt-5`}
+      className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] dark:bg-[#0D1B2A] border-0 sm:border-1 border-gray-200 dark:border-gray-700 overflow-hidden mt-0 pt-8 sm:pt-0 sm:mt-5`}
     >
       {/* Header with Search and Sort border border-1 border-[#B1B1B1]*/}
       <div className="p-4">
@@ -428,7 +433,7 @@ export const WordTable: React.FC<WordTableProps> = ({
             </svg>
           </button>
         </div>
-        <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+        <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
 
         {/* Search Input */}
         <div className="block sm:hidden relative flex items-center w-full mb-4">
