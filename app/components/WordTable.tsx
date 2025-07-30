@@ -246,6 +246,11 @@ const filteredWords = useMemo(() => {
     }
   }, [selectedWord]);
 
+  useEffect(() => {
+    const newSearch = searchParams.get("search") || "";
+    setSearchTerm(newSearch);
+  }, [searchParams]);
+
   // Effect to handle clicks outside the dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
