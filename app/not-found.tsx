@@ -1,6 +1,7 @@
-import Link from 'next/link'
+import Link from 'next/link';
+import { Suspense } from 'react';
  
-export default function NotFound() {
+function NotFound() {
   return (
     <div className="w-full pt-25 mx-auto">
         <div className="flex flex-col items-center justify-center h-[70vh]">
@@ -11,5 +12,13 @@ export default function NotFound() {
             </Link>
         </div>
     </div>
+  )
+}
+
+export default function NotFoundPage() {
+  return (
+    <Suspense>
+      <NotFound />
+    </Suspense>
   )
 }
