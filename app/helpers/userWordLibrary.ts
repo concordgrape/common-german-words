@@ -2,6 +2,7 @@ import { doc, setDoc, serverTimestamp, getDoc, DocumentData, collection, query, 
 import { db } from '@/lib/firebaseClient';
 import { useUser } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
+import { Word } from './fetchBasicWordList';
 
 type WordStatusType = 'saved' | 'known';
 
@@ -94,7 +95,7 @@ export async function fetchWordData(word: string) {
  * @param max - Maximum number of words to fetch
  * @returns Array of word data with metadata including timestamp, sorted by most recent
  */
-export async function fetchWordStatusData(
+export async function fetchWordStatusMetaData(
   uid: string,
   type: WordStatusType,
   max: number
@@ -123,6 +124,8 @@ export async function fetchWordStatusData(
     wordEntries.map(entry => getDoc(entry.ref))
   );
 
+  console.log("wordSnaps: ", wordSnaps);
+
   const results: WordDataWithMeta[] = wordSnaps
     .map((snap, i) => {
       if (!snap.exists()) return null;
@@ -140,3 +143,40 @@ export async function fetchWordStatusData(
   return results;
 }
 
+export async function fetchWordStatusData(
+  uid: string,
+  type: WordStatusType,
+  max: number
+): Promise<Word[]> {
+  if (!uid || (type !== 'saved' && type !== 'known')) {
+    throw new Error('Invalid arguments');
+  }
+
+  const cardsColRef = collection(db, `users/${uid}/de/cards/${type}`);
+  const q = query(cardsColRef, limit(max));
+  const snap = await getDocs(q);
+
+  const wordRefs: DocumentReference<DocumentData>[] = [];
+
+  for (const docSnap of snap.docs) {
+    const data = docSnap.data();
+    if (data.wordRef) {
+      wordRefs.push(data.wordRef as DocumentReference<DocumentData>);
+    }
+  }
+
+  const wordSnaps = await Promise.all(wordRefs.map(ref => getDoc(ref)));
+
+  const results: Word[] = wordSnaps
+    .map(snap => {
+      if (!snap.exists()) return null;
+      const data = snap.data() as Omit<Word, 'word'>;
+      return {
+        word: snap.id, 
+        ...data,
+      };
+    })
+    .filter((data): data is Word => data !== null);
+
+  return results;
+}

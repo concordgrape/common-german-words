@@ -59,7 +59,7 @@ export default function Flashcard({ word, className }: FlashcardProps) {
 
           {/* bottom of card example */}
           <div className="px-4 py-2 text-sm text-gray-700 text-center">
-            {word.examples[1] ? word.examples[1].sentence.replace(".", "") : ""}
+            {word.examples?.[1]?.sentence?.replace(".", "") || ""}
           </div>
         </div>
 

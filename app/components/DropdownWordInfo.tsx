@@ -3,21 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { Word } from "../helpers/fetchBasicWordList";
 import GoogleTTSButton from "./GoogleTTSButton/GoogleTTSButton";
+import { FullWordData } from "./WordInfo";
 
 interface DropdownWordInfoProps {
   word: Word;
   isOpen: boolean;
-}
-
-interface FullWordData {
-  connected_words: string[];
-  definitions: string[];
-  examples: { sentence: string; translation: string }[];
-  language: string;
-  part_of_speech: string;
-  phonetic_spelling: string;
-  same_words: string[];
-  gender: string;
 }
 
 const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen }) => {

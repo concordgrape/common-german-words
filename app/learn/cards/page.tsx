@@ -149,7 +149,7 @@ const LearnCardsPage: React.FC = () => {
                 </button>
               </Link>
               <button
-                className="bg-gray-100 dark:bg-gray-900 text-black dark:text-white text-xs font-mono py-2 px-6 rounded-lg hover:bg-gray-200 dark:hover:bg-black max-w-100 lg:w-full sm:w-auto"
+                className="bg-gray-100 dark:bg-gray-900 text-black dark:text-white text-xs font-mono py-2 px-6 rounded-lg hover:bg-gray-200 dark:hover:bg-black max-w-100 max-w-100 sm:w-auto"
                 onClick={() => {
                   setIsComplete(false);
                   setIdx(0);

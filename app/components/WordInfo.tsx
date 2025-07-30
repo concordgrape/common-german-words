@@ -9,7 +9,7 @@ interface WordInfoProps {
   selectedWord?: Word | null;
 }
 
-interface FullWordData {
+export interface FullWordData {
   connected_words: string[];
   definitions: string[];
   examples: { sentence: string; translation: string }[];

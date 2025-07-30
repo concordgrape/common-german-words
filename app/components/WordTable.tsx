@@ -13,7 +13,7 @@ import { useToast } from "../hooks/useToast";
 import WordPopover from "./Popover/Popover";
 import WordStatusButtons from "./WordStatusButtons/WordStatusButtons";
 import {
-  fetchWordStatusData,
+  fetchWordStatusMetaData,
   useToggleWordStatus,
 } from "../helpers/userWordLibrary";
 import { useUser } from "../context/UserContext";
@@ -195,8 +195,8 @@ const filteredWords = useMemo(() => {
 
       try {
         const [saved, known] = await Promise.all([
-          fetchWordStatusData(user.uid, "saved", 5000),
-          fetchWordStatusData(user.uid, "known", 5000),
+          fetchWordStatusMetaData(user.uid, "saved", 5000),
+          fetchWordStatusMetaData(user.uid, "known", 5000),
         ]);
 
         setSavedWordIds(new Set(saved.map((doc) => doc.id)));
