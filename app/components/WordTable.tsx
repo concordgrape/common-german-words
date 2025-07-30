@@ -290,7 +290,6 @@ const filteredWords = useMemo(() => {
   const [virtuosoHeight, setVirtuosoHeight] = useState<string>(`${initialHeight}px`);
 
 
-
   // Toggle expanded row by ID and pass clicked word to parent
   const toggleRow = (word: Word) => {
     const params = new URLSearchParams(window.location.search);
@@ -380,6 +379,26 @@ const filteredWords = useMemo(() => {
     <div ref={ref} {...props} />
   ));
   CustomScroller.displayName = "CustomScroller";
+
+  const resetFilters = () => {
+    // Reset filter states
+    setSearchTerm('');
+    setSelectedType('All');
+    setSelectedCEFR('All');
+    setIsReversed(false);
+    setActiveSort('frequency');
+
+    // Clear the expanded rows and selected word
+    setExpandedRows([]);
+    onRowClick(null);
+
+    // Clear URL search params
+    const params = new URLSearchParams(window.location.search);
+    params.delete('search');
+    params.delete('page');
+    params.delete('word');
+    window.history.replaceState({}, '', `${window.location.pathname}`);
+  };
 
   return (
     <div
@@ -540,16 +559,26 @@ const filteredWords = useMemo(() => {
           </div>
         </div>
 
-        <div className="text-left font-mono">
-          <span className="font-extrabold text-xl text-blue-500">{filteredWords.length}</span>
-          <br />
-          <span className="text-sm text-black dark:text-gray-200">
-            {filteredWords.length != 1
-            ? selectedType != "All"
-              ? `${selectedType.toLowerCase()}s`
-              : "words"
-            : "word"}{" "}
-            loaded
+        <div className="font-mono flex items-end justify-between w-full">
+          {/* Left side */}
+          <div className="text-left">
+            <span className="font-extrabold text-xl text-blue-500">
+              {filteredWords.length}
+            </span>
+            <br />
+            <span className="text-sm text-black dark:text-gray-200">
+              {filteredWords.length !== 1
+                ? selectedType !== "All"
+                  ? `${selectedType.toLowerCase()}s`
+                  : "words"
+                : "word"}{" "}
+              loaded
+            </span>
+          </div>
+
+          {/* Right side */}
+          <span onClick={resetFilters} className="cursor-pointer text-sm text-right text-black dark:text-gray-200 hover:underline">
+            Reset filters
           </span>
         </div>
       </div>
