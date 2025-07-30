@@ -43,24 +43,29 @@ export default function Flashcard({ word, className }: FlashcardProps) {
           <span className="absolute top-2 left-2 text-xs text-gray-600">
             {word.rank}
           </span>
-          <span className="absolute top-2 right-2 text-sm text-gray-600">
-            <GoogleTTSButton text={word.word} />
-          </span>
+          
 
           {/* center‑of‑card word */}
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-3xl font-bold break-all max-w-full">{word.word}</div>
+              <div className="text-3xl font-bold break-all max-w-full">
+                {word.word}
+              </div>
               <div className="mt-1 text-xs text-gray-600 italic">
                 [{word.phonetic_spelling}]
               </div>
+              <div className="mt-2 flex justify-center text-sm">
+                <GoogleTTSButton text={word.word} />
+              </div>
             </div>
           </div>
-
           {/* bottom of card example */}
           <div className="px-4 py-2 text-sm text-gray-700 text-center">
             {word.examples?.[1]?.sentence?.replace(".", "") || ""}
           </div>
+          <span className="absolute bottom-2 right-2 text-sm text-gray-600">
+            <GoogleTTSButton text={word.examples?.[1]?.sentence?.replace(".", "") || ""} />
+          </span>
         </div>
 
         {/* back face */}
