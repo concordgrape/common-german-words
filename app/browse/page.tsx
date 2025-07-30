@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import { WordTable } from '@/app/components/WordTable';
@@ -9,14 +9,13 @@ import { fetchBasicWords, Word } from '../helpers/fetchBasicWordList';
 import { useToast } from '../hooks/useToast';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 
-const MainWordPage: React.FC = () => {
+export default function BrowsePage() {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [words, setWords] = useState<Word[]>([]);
   const searchParams = useSearchParams();
   const isOnline = useOnlineStatus();
   const toast = useToast();
 
-  // Fetch words
   useEffect(() => {
     fetchBasicWords("german", process.env.NEXT_PUBLIC_API_PASSWORD || "").then(setWords);
   }, []);
@@ -27,7 +26,6 @@ const MainWordPage: React.FC = () => {
     }
   }, [isOnline]);
 
-  // Select word from ?word= if present
   useEffect(() => {
     if (words.length === 0) return;
 
@@ -47,7 +45,6 @@ const MainWordPage: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full sm:top-15 md:top-15 pt-15 sm:p-4 md:p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
-      {/* WordTable (left column) */}
       <div className="z-10">
         <WordTable
           onRowClick={(word) => { setSelectedWord(word) }}
@@ -56,20 +53,9 @@ const MainWordPage: React.FC = () => {
         />
       </div>
 
-      {/* WordInfo (right column) */}
       <div className="hidden sm:block md:block sticky top-25 self-start z-20">
-        <WordInfo 
-          selectedWord={selectedWord} 
-        />
+        <WordInfo selectedWord={selectedWord} />
       </div>
     </div>
-  );
-};
-
-export default function BrowsePage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <MainWordPage />
-    </Suspense>
   );
 }
