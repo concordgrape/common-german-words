@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FaCheck } from 'react-icons/fa';
 import { LuSparkles } from "react-icons/lu";
 import { SlidersHorizontal, Target, Filter, BookOpen } from "lucide-react";
+import { GiFallingStar } from "react-icons/gi";
 import Image from 'next/image';
 import SortButton from "../components/SortButtons/Sort";
 import { useWordForm } from "../context/WordFormContext";
@@ -148,17 +149,26 @@ function SessionCustomizer({ words, mode }: SessionCustomizerProps) {
   const [wordCount, setWordCount] = useState(5);
   const [selectedCEFR, setSelectedCEFR] = useState(0);
   const [allWordCount, setAllWordCount] = useState(0);
+  const [priority, setPriority] = useState<'common-words' | 'random'>('common-words');
 
   const { setFilteredWords, setSubmittedWords } = useWordForm();
 
 useEffect(() => {
-  const filtered = words.filter((word) => {
+  let filtered = words.filter((word) => {
     const matchesCEFR = selectedCEFR === 0 || word.rank === selectedCEFR;
     const matchesType = wordType === "All" || word.part_of_speech === wordType;
     return matchesCEFR && matchesType;
   });
 
   setAllWordCount(filtered.length);
+
+  // Prioritize top 400 by frequency if selected
+  if (priority === 'common-words') {
+    filtered = filtered
+      .filter((w) => typeof w.frequency === 'number')
+      .sort((a, b) => b.frequency - a.frequency)
+      .slice(0, 500);
+  }
 
   const shuffledSample = shuffle(filtered).slice(0, wordCount);
 
@@ -175,7 +185,8 @@ useEffect(() => {
   selectedCEFR,
   wordCount,
   words,
-  mode, // 👈 trigger change on mode switch
+  mode,
+  priority,
   setFilteredWords,
   setSubmittedWords,
 ]);
@@ -257,6 +268,34 @@ useEffect(() => {
               </div>
             </div>
           </div>
+                      <div className="w-full">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-1">
+                <GiFallingStar className="w-4 h-4 text-gray-500 dark:text-gray-300" />{" "}
+                <span className="font-bold">Priority</span>
+              </label>
+              <div className="grid grid-cols-2 gap-0 text-sm">
+{[
+  { label: "Common Words (Frequency)", value: "common-words" },
+  { label: "Random", value: "random" },
+].map((option) => (
+  <label
+    key={option.value}
+    className="inline-flex items-center gap-2 dark:text-gray-200"
+  >
+    <input
+      type="radio"
+      name="priority"
+      value={option.value}
+      checked={priority === option.value}
+      onChange={(e) => setPriority(e.target.value as 'common-words' | 'random')}
+      className="text-blue-600 focus:ring-blue-500"
+    />
+    {option.label}
+  </label>
+))}
+
+              </div>
+              </div>
         </div>
       </div>
       <div className="bg-[#FFFFFF] dark:bg-[#0D1B2A] border-1 border-gray-200 dark:border-gray-900 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">

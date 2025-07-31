@@ -65,10 +65,11 @@ console.log('Made TTS request');
       input: { text },
       voice: {
         languageCode: 'de-DE',
-        ssmlGender: 'SSML_VOICE_GENDER_UNSPECIFIED',
+        name: 'de-DE-Chirp-HD-F',
       },
       audioConfig: {
         audioEncoding: 'MP3',
+        speakingRate: 1,
       },
     };
 

@@ -15,6 +15,7 @@ type WordDataWithMeta = {
 
 export type FillInTheBlankQuestion = {
   sentence: string;
+  sentence_translated: string;
   answer: string;
   hint?: string;
 };
@@ -197,11 +198,13 @@ export function formatFillInTheBlankQuestions(words: Word[]): FillInTheBlankQues
 
     const shuffledExamples = shuffle([...word.examples]);
     let chosen: string | null = null;
+    let chosen_translated: string | null = null;
 
     for (const ex of shuffledExamples) {
       const regex = new RegExp(`\\b${word.word}\\b`, 'i'); // whole word match
       if (regex.test(ex.sentence)) {
         chosen = ex.sentence.replace(regex, '_____');
+        chosen_translated = ex.translation;
         break;
       }
     }
@@ -211,7 +214,8 @@ export function formatFillInTheBlankQuestions(words: Word[]): FillInTheBlankQues
     questions.push({
       sentence: chosen,
       answer: word.word,
-      hint: word.translation, // optional hint
+      hint: word.translation,
+      sentence_translated: chosen_translated ? chosen_translated : ""
     });
   }
 

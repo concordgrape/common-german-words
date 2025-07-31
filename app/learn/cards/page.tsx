@@ -88,7 +88,7 @@ const LearnCardsPage: React.FC = () => {
               {isWord(current) ?
                 <Flashcard key={current.word} word={current} />
                 :
-                <QuizFlashcard key={idx} question={current.sentence} answer={current.answer} />
+                <QuizFlashcard key={idx} question={current.sentence} answer={current.answer} question_translated={current.sentence_translated} hint={current.hint ? current.hint : ""} />
               }
             </div>
           )}

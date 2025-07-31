@@ -5,11 +5,13 @@ import { motion } from "framer-motion";
 import clsx from "clsx";
 
 type FillInTheBlankProps = {
-  question: string; // sentence with a blank like "Ich ___ ein Buch."
-  answer: string;   // expected answer like "lese"
+  question: string;
+  question_translated: string;
+  answer: string;
+  hint: string;
 };
 
-export default function FillInTheBlankQuiz({ question, answer }: FillInTheBlankProps) {
+export default function FillInTheBlankQuiz({ question, answer, question_translated, hint }: FillInTheBlankProps) {
   const [input, setInput] = useState("");
   const [status, setStatus] = useState<"idle" | "correct" | "incorrect">("idle");
   const [shake, setShake] = useState(false);
@@ -58,6 +60,17 @@ export default function FillInTheBlankQuiz({ question, answer }: FillInTheBlankP
             </React.Fragment>
           ))}
         </div>
+        <p className="mt-5 text-sm text-gray-300">{question_translated.includes(hint)
+            ? <>
+                {question_translated.split(hint).map((part, i, arr) => (
+                    <React.Fragment key={i}>
+                    {part}
+                    {i < arr.length - 1 && <strong>{hint}</strong>}
+                    </React.Fragment>
+                ))}
+                </>
+            : question_translated}
+        </p>
         {status !== "correct" && (
         <button
             type="submit"

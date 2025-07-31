@@ -25,7 +25,7 @@ export default function GoogleTTSButton({ text, color }: { text: string; color?:
         const res = await fetch('/api/speak', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text }),
+            body: JSON.stringify({ text, voice: 'de-DE-Chirp-HD-F' }),
         });
 
         if (!res.ok) {
