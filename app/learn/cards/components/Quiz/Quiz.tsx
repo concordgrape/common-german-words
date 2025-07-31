@@ -76,7 +76,7 @@ export default function FillInTheBlankQuiz({ question, answer, question_translat
         {status !== "correct" && (
         <button
             type="submit"
-            className={`mt-4 px-4 py-2 text-white rounded border ${
+            className={`mt-8 px-4 py-2 text-white rounded border ${
             status === "incorrect"
                 ? "bg-red-400 border-red-500"
                 : "bg-blue-500 hover:bg-blue-600 border-blue-500"
