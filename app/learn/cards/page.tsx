@@ -18,6 +18,7 @@ const LearnCardsPage: React.FC = () => {
   const router = useRouter();
   const [idx, setIdx] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [showHint, setShowHint] = useState(false);
 
   const total = submittedWords.length;
   const current = submittedWords[Math.min(idx, total - 1)]; // fallback
@@ -92,19 +93,32 @@ const LearnCardsPage: React.FC = () => {
               {Math.min(idx + 1, total)} / {total}
             </span>
 
-            {/* Right-aligned hint icon */}
-            <FaLightbulb
-              size={18}
-              className="absolute right-0 text-orange-400 cursor-pointer hover:scale-110 transition-transform"
-              title="Hint"
-            />
+            {isWord(current) ?
+              <></>
+              :
+              <FaLightbulb
+                size={18}
+                onClick={() => setShowHint(true)}
+                className="absolute right-0 text-orange-400 cursor-pointer hover:scale-110 transition-transform"
+                title="Hint"
+              />
+            }
           </div>
           {idx < total && (
             <div className="mt-10">
               {isWord(current) ?
                 <Flashcard key={current.word} word={current} />
                 :
-                <QuizFlashcard key={idx} question={current.sentence} answer={current.answer} question_translated={current.sentence_translated} hint={current.hint ? current.hint : ""} />
+                <QuizFlashcard
+                  key={idx}
+                  question={current.sentence}
+                  answer={current.answer}
+                  question_translated={current.sentence_translated}
+                  hint={current.hint || ""}
+                  showHint={showHint}
+                  onHintUsed={() => setShowHint(false)}
+                  onNext={next}
+                />
               }
             </div>
           )}
