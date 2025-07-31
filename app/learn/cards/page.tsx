@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import QuizFlashcard from "./components/Quiz/Quiz";
 import { useRouter } from "next/navigation";
+import { FaLightbulb } from "react-icons/fa6";
 
 const LearnCardsPage: React.FC = () => {
   const { submittedWords } = useWordForm();
@@ -75,7 +76,7 @@ const LearnCardsPage: React.FC = () => {
         <button
           onClick={handleExit}
           data-tip="Go Back"
-          className="flex tooltip tooltip-bottom text-gray-500 dark:text-white bg-white dark:bg-[#3E3F53] rounded-full p-2 px-4 hover:bg-white/50 dark:hover:bg-[#3E3F53] dark:hover:text-gray-300 lg:mb-0"
+          className="flex tooltip tooltip-bottom text-gray-500 dark:text-white bg-white dark:bg-transparent rounded-full p-2 px-4 hover:bg-white/50 dark:hover:bg-[#3E3F53] dark:hover:text-gray-300 lg:mb-0"
         >
           <ImExit size={16} className="mt-1 mr-1" /> Exit
         </button>
@@ -85,12 +86,19 @@ const LearnCardsPage: React.FC = () => {
             value={Math.min(idx + 1, total)}
             max={total}
           ></progress>
-          <div className="flex justify-center mt-2">
-            <span className="text-md font-mono font-bold text-gray-500 dark:text-gray-300">
+          <div className="relative mt-2 h-5">
+            {/* Centered count */}
+            <span className="absolute left-1/2 -translate-x-1/2 text-md font-mono font-bold text-gray-500 dark:text-gray-300">
               {Math.min(idx + 1, total)} / {total}
             </span>
-          </div>
 
+            {/* Right-aligned hint icon */}
+            <FaLightbulb
+              size={18}
+              className="absolute right-0 text-orange-400 cursor-pointer hover:scale-110 transition-transform"
+              title="Hint"
+            />
+          </div>
           {idx < total && (
             <div className="mt-10">
               {isWord(current) ?
