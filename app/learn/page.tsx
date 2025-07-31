@@ -30,6 +30,10 @@ const LearnWordPage: React.FC = () => {
     loadWords();
   }, [setFilteredWords, setAllWords]);
 
+  useEffect(() => {
+    console.log("mode ", mode)
+  }, [mode])
+
   return (
       <div className="min-h-screen w-full sm:top-15 md:top-15 pt-15 sm:p-4 md:p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
       {/* WordTable (left column) */}
@@ -39,7 +43,7 @@ const LearnWordPage: React.FC = () => {
 
       {/* WordInfo (right column) */}
       <div className="flex mt-5 sm:mt-0 md:mt-0 lg:mt-0 sticky top-25 self-start z-20 flex-col items-center w-full">
-        <LearnFormConfirm />
+        <LearnFormConfirm mode={mode} />
         {(allWords.length == 0 || submittedWords.length == 0) ?
           <button onClick={() => {
             toast({ title: 'No Words Selected', subtitle: `You cannot start with zero words selected`, variant: 'error' });

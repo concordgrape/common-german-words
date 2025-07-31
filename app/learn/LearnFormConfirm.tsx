@@ -9,8 +9,14 @@ import { FaUndo } from "react-icons/fa";
 import { useToast } from "../hooks/useToast";
 import { Word } from "../helpers/fetchBasicWordList";
 import { isWord } from "../context/WordFormContext";
+import { Mode } from "./page";
+import { formatFillInTheBlankQuestions } from "../helpers/userWordLibrary";
 
-export const LearnFormConfirm = () => {
+interface LearnFormConfirmProps {
+  mode: Mode
+}
+
+export const LearnFormConfirm = ({ mode }: LearnFormConfirmProps) => {
   const { submittedWords, setSubmittedWords, allWords } = useWordForm();
   const { user } = useUser();
 
@@ -67,9 +73,13 @@ export const LearnFormConfirm = () => {
       });
       return;
     }
+    
+    const formatted = mode === 'quiz'
+      ? formatFillInTheBlankQuestions(available)
+      : available;
 
-    setLastAdded(available);
-    setSubmittedWords([...submittedWords, ...available]);
+    setLastAdded(formatted);
+    setSubmittedWords([...submittedWords, ...formatted]);
   };
 
   const handleAdd = (amount: number) => {
@@ -110,22 +120,30 @@ export const LearnFormConfirm = () => {
 
     const toAdd = shuffle(available).slice(0, amount);
 
-    setLastAdded(toAdd);
-    setSubmittedWords([...submittedWords, ...toAdd]);
+    const formatted = mode === 'quiz'
+        ? formatFillInTheBlankQuestions(toAdd)
+        : toAdd;
+
+      setLastAdded(formatted);
+      setSubmittedWords([...submittedWords, ...formatted]);
   };
 
-  const handleUndo = () => {
-    if (lastAdded.length === 0) {
-      return;
-    }
-    // build a new array without the lastAdded items
+const handleUndo = () => {
+    if (lastAdded.length === 0) return;
+
     const reverted = submittedWords.filter(
       (w) =>
-        !(isWord(w) && lastAdded.some((lw) => isWord(lw) && lw.id === w.id))
+        !lastAdded.some((lw) => {
+          const lwKey = isWord(lw) ? lw.word : lw.answer;
+          const wKey = isWord(w) ? w.word : w.answer;
+          return lwKey === wKey;
+        })
     );
+
     setSubmittedWords(reverted);
     setLastAdded([]);
   };
+
 
   return (
     <div className="max-w-80 lg:max-w-full lg:w-full">

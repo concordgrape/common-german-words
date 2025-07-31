@@ -7,7 +7,7 @@ import { FillInTheBlankQuestion } from '../helpers/userWordLibrary';
 export type SubmittedWord = Word | FillInTheBlankQuestion;
 
 export function isWord(entry: SubmittedWord): entry is Word {
-  return typeof (entry as Word).id === 'number' && typeof (entry as Word).word === 'string';
+  return typeof (entry as FillInTheBlankQuestion).answer != 'string' && typeof (entry as FillInTheBlankQuestion).hint != 'string';
 }
 
 interface WordFormContextProps {

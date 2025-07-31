@@ -172,6 +172,7 @@ useEffect(() => {
 
   const shuffledSample = shuffle(filtered).slice(0, wordCount);
 
+  // Convert to quiz questions if in quiz mode
   if (mode === 'quiz') {
     const quizQuestions: FillInTheBlankQuestion[] = formatFillInTheBlankQuestions(shuffledSample);
     setSubmittedWords(quizQuestions);
@@ -190,7 +191,6 @@ useEffect(() => {
   setFilteredWords,
   setSubmittedWords,
 ]);
-
 
   return (
     <div>
