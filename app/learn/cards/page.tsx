@@ -10,9 +10,11 @@ import confettiAnimation from "../../external/Lottie/confetti3.json";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import QuizFlashcard from "./components/Quiz/Quiz";
+import { useRouter } from "next/navigation";
 
 const LearnCardsPage: React.FC = () => {
   const { submittedWords } = useWordForm();
+  const router = useRouter();
   const [idx, setIdx] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
 
@@ -32,6 +34,13 @@ const LearnCardsPage: React.FC = () => {
       return i + 1;
     });
   }, [total]);
+
+  const handleExit = () => {
+    const confirmed = window.confirm("Are you sure? Your progress will be lost");
+    if (confirmed) {
+      router.push("/learn");
+    }
+  };
 
   // keyboard nav
   useEffect(() => {
@@ -63,14 +72,13 @@ const LearnCardsPage: React.FC = () => {
   return (
     <div className="min-h-screen w-full pt-15 flex justify-center relative overflow-hidden">
       <div className="w-full max-w-[800px] p-1 sm:p-4 md:p-4 mt-5 px-2 lg:px-5 z-10">
-        <Link href="/learn">
-          <button
-            data-tip="Go Back"
-            className="flex tooltip tooltip-bottom text-gray-500 dark:text-white bg-white dark:bg-[#3E3F53] rounded-full p-2 px-4 hover:bg-white/50 dark:hover:bg-[#3E3F53] dark:hover:text-gray-300 lg:mb-0"
-          >
-            <ImExit size={16} className="mt-1 mr-1" /> Exit
-          </button>
-        </Link>
+        <button
+          onClick={handleExit}
+          data-tip="Go Back"
+          className="flex tooltip tooltip-bottom text-gray-500 dark:text-white bg-white dark:bg-[#3E3F53] rounded-full p-2 px-4 hover:bg-white/50 dark:hover:bg-[#3E3F53] dark:hover:text-gray-300 lg:mb-0"
+        >
+          <ImExit size={16} className="mt-1 mr-1" /> Exit
+        </button>
         <div className="bg-white dark:bg-[#313248] min-h-100 border border-gray-200 dark:border-gray-700 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm mx-auto">
           <progress
             className="progress progress-info w-full"

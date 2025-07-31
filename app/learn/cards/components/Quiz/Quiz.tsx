@@ -41,18 +41,20 @@ export default function FillInTheBlankQuiz({ question, answer, question_translat
     >
       <form onSubmit={handleSubmit}>
         <div className="text-black dark:text-white text-xl">
-          {question.split("___").map((chunk, i) => (
+          {question.split("_____").map((chunk, i) => (
             <React.Fragment key={i}>
               {chunk}
               {i === 0 && (
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  className={clsx("inline-block w-32 px-2 py-1 mx-2 text-center border-b-2 border-blue-500 bg-transparent text-black dark:text-white placeholder-gray-500 outline-none",
-                                        {
-                            "bg-green-400 border-green-500": status === "correct",
-                            "bg-red-400 border-red-500": status === "incorrect",
-                            })}
+                  className={clsx(
+                    "inline-block w-32 px-2 py-1 mx-2 text-center border-b-2 border-blue-500 bg-transparent text-black dark:text-white placeholder-gray-500 outline-none",
+                    {
+                      "bg-green-400 border-green-500": status === "correct",
+                      "bg-red-400 border-red-500": status === "incorrect",
+                    }
+                  )}
                   placeholder="?"
                   disabled={status === "correct"}
                 />
@@ -87,3 +89,4 @@ export default function FillInTheBlankQuiz({ question, answer, question_translat
     </motion.div>
   );
 }
+ 
