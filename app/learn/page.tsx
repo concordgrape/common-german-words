@@ -34,7 +34,7 @@ const LearnWordPage: React.FC = () => {
       <div className="min-h-screen w-full sm:top-15 md:top-15 pt-15 sm:p-4 md:p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
       {/* WordTable (left column) */}
       <div className="z-10">
-        <LearnForm setMode={setMode} />
+        <LearnForm setMode={setMode} mode={mode} />
       </div>
 
       {/* WordInfo (right column) */}

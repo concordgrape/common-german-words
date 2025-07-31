@@ -3,6 +3,7 @@ import { db } from '@/lib/firebaseClient';
 import { useUser } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
 import { Word } from './fetchBasicWordList';
+import { shuffle } from './utils';
 
 type WordStatusType = 'saved' | 'known';
 
@@ -10,6 +11,12 @@ type WordDataWithMeta = {
   id: string;
   data: DocumentData;
   timestamp: Timestamp;
+};
+
+export type FillInTheBlankQuestion = {
+  sentence: string;
+  answer: string;
+  hint?: string;
 };
 
 export function useToggleWordStatus() {
@@ -179,4 +186,34 @@ export async function fetchWordStatusData(
     .filter((data): data is Word => data !== null);
 
   return results;
+}
+
+
+export function formatFillInTheBlankQuestions(words: Word[]): FillInTheBlankQuestion[] {
+  const questions: FillInTheBlankQuestion[] = [];
+
+  for (const word of words) {
+    if (!word.examples || word.examples.length === 0) continue;
+
+    const shuffledExamples = shuffle([...word.examples]);
+    let chosen: string | null = null;
+
+    for (const ex of shuffledExamples) {
+      const regex = new RegExp(`\\b${word.word}\\b`, 'i'); // whole word match
+      if (regex.test(ex.sentence)) {
+        chosen = ex.sentence.replace(regex, '_____');
+        break;
+      }
+    }
+
+    if (!chosen) continue; // skip if no valid example
+
+    questions.push({
+      sentence: chosen,
+      answer: word.word,
+      hint: word.translation, // optional hint
+    });
+  }
+
+  return questions;
 }

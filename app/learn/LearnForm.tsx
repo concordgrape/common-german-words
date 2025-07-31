@@ -10,12 +10,14 @@ import { useWordForm } from "../context/WordFormContext";
 import { fetchBasicWords, Word } from "../helpers/fetchBasicWordList";
 import { shuffle } from "../helpers/utils";
 import { Mode } from "./page";
+import { formatFillInTheBlankQuestions, FillInTheBlankQuestion } from "../helpers/userWordLibrary";
 
 interface LearnFormProps {
   setMode: React.Dispatch<React.SetStateAction<Mode>>;
+  mode: Mode
 }
 
-export const LearnForm = ({ setMode }: LearnFormProps) => {
+export const LearnForm = ({ setMode, mode }: LearnFormProps) => {
   const [words, setWords] = useState<Word[]>([]);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export const LearnForm = ({ setMode }: LearnFormProps) => {
         <h1 className="text-black dark:text-white text-2xl font-bold flex"><LuSparkles className='mr-3 mt-1 text-blue-500' />Select a practise mode</h1>
         <ModeSelector setMode={setMode} />
       </div>
-      <SessionCustomizer words={words} />
+      <SessionCustomizer words={words} mode={mode} />
     </div>
   );
 };
@@ -68,7 +70,7 @@ function ModeSelector({ setMode }: ModeSelectorProps) {
                 className="m-auto text-orange-400"
             />
         ),        
-        bgColor: 'bg-blue-200 dark:bg-blue-400',
+        bgColor: 'bg-blue-200 dark:bg-blue-300',
         textColor: 'text-blue-600 dark:text-blue-700',
     },
     {
@@ -84,7 +86,7 @@ function ModeSelector({ setMode }: ModeSelectorProps) {
                 className="m-auto text-orange-400"
             />
         ),        
-        bgColor: 'bg-blue-200 dark:bg-blue-400',
+        bgColor: 'bg-blue-200 dark:bg-blue-300',
         textColor: 'text-blue-600 dark:text-blue-700',
     },
     /*{
@@ -138,9 +140,10 @@ function ModeSelector({ setMode }: ModeSelectorProps) {
 
 interface SessionCustomizerProps {
   words: Word[];
+  mode: Mode
 }
 
-function SessionCustomizer({ words }: SessionCustomizerProps) {
+function SessionCustomizer({ words, mode }: SessionCustomizerProps) {
   const [wordType, setWordType] = useState("All");
   const [wordCount, setWordCount] = useState(5);
   const [selectedCEFR, setSelectedCEFR] = useState(0);
@@ -148,31 +151,35 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
 
   const { setFilteredWords, setSubmittedWords } = useWordForm();
 
-  useEffect(() => {
-    const filtered = words.filter((word) => {
-      const matchesCEFR = selectedCEFR === 0 || word.rank === selectedCEFR;
-      const matchesType =
-        wordType === "All" || word.part_of_speech === wordType;
-      return matchesCEFR && matchesType;
-    });
+useEffect(() => {
+  const filtered = words.filter((word) => {
+    const matchesCEFR = selectedCEFR === 0 || word.rank === selectedCEFR;
+    const matchesType = wordType === "All" || word.part_of_speech === wordType;
+    return matchesCEFR && matchesType;
+  });
 
-    setAllWordCount(filtered.length);
+  setAllWordCount(filtered.length);
 
-    const shuffledSample = shuffle(filtered).slice(0, wordCount);
+  const shuffledSample = shuffle(filtered).slice(0, wordCount);
 
+  if (mode === 'quiz') {
+    const quizQuestions: FillInTheBlankQuestion[] = formatFillInTheBlankQuestions(shuffledSample);
+    setSubmittedWords(quizQuestions);
+  } else {
     setSubmittedWords(shuffledSample);
+  }
 
-    console.log("shuffled: ", shuffledSample);
+  setFilteredWords(shuffledSample);
+}, [
+  wordType,
+  selectedCEFR,
+  wordCount,
+  words,
+  mode, // 👈 trigger change on mode switch
+  setFilteredWords,
+  setSubmittedWords,
+]);
 
-    setFilteredWords(shuffledSample);
-  }, [
-    wordType,
-    selectedCEFR,
-    wordCount,
-    words,
-    setFilteredWords,
-    setSubmittedWords,
-  ]);
 
   return (
     <div>
@@ -188,9 +195,7 @@ function SessionCustomizer({ words }: SessionCustomizerProps) {
             </div>
           : allWordCount} available words
         </span>
-
         <hr className="h-px my-4 bg-gray-200 border-0" />
-
         <div className="mx-aut pt-2">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             <div className="mb-6">

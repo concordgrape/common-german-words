@@ -2,12 +2,19 @@
 
 import React, { createContext, useContext, useState } from 'react';
 import { Word } from '../helpers/fetchBasicWordList';
+import { FillInTheBlankQuestion } from '../helpers/userWordLibrary';
+
+export type SubmittedWord = Word | FillInTheBlankQuestion;
+
+export function isWord(entry: SubmittedWord): entry is Word {
+  return typeof (entry as Word).id === 'number' && typeof (entry as Word).word === 'string';
+}
 
 interface WordFormContextProps {
   filteredWords: Word[];
   setFilteredWords: (words: Word[]) => void;
-  submittedWords: Word[];
-  setSubmittedWords: (words: Word[]) => void;
+  submittedWords: SubmittedWord[];
+  setSubmittedWords: (words: SubmittedWord[]) => void;
   allWords: Word[];
   setAllWords: (words: Word[]) => void;
 }
@@ -16,7 +23,7 @@ const WordFormContext = createContext<WordFormContextProps | undefined>(undefine
 
 export const WordFormProvider = ({ children }: { children: React.ReactNode }) => {
   const [filteredWords, setFilteredWords] = useState<Word[]>([]);
-  const [submittedWords, setSubmittedWords] = useState<Word[]>([]);
+  const [submittedWords, setSubmittedWords] = useState<SubmittedWord[]>([]);
   const [allWords, setAllWords] = useState<Word[]>([]);
 
   return (

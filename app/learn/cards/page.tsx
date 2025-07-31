@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Flashcard from "./components/Flashcard/Flashcard";
-import { useWordForm } from "@/app/context/WordFormContext";
+import { isWord, useWordForm } from "@/app/context/WordFormContext";
 import Link from "next/link";
 import { ImExit } from "react-icons/im";
 import Lottie from "lottie-react";
 import confettiAnimation from "../../external/Lottie/confetti3.json";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import QuizFlashcard from "./components/Quiz/Quiz";
 
 const LearnCardsPage: React.FC = () => {
   const { submittedWords } = useWordForm();
@@ -84,7 +85,11 @@ const LearnCardsPage: React.FC = () => {
 
           {idx < total && (
             <div className="mt-10">
-              <Flashcard key={current.word} word={current} />
+              {isWord(current) ?
+                <Flashcard key={current.word} word={current} />
+                :
+                <QuizFlashcard key={idx} question={current.sentence} answer={current.answer} />
+              }
             </div>
           )}
 

@@ -2,12 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
-import { useWordForm } from "../context/WordFormContext";
+import { SubmittedWord, useWordForm } from "../context/WordFormContext";
 import { fetchWordStatusData } from "../helpers/userWordLibrary";
 import { shuffle } from "../helpers/utils";
 import { FaUndo } from "react-icons/fa";
 import { useToast } from "../hooks/useToast";
 import { Word } from "../helpers/fetchBasicWordList";
+import { isWord } from "../context/WordFormContext";
 
 export const LearnFormConfirm = () => {
   const { submittedWords, setSubmittedWords, allWords } = useWordForm();
@@ -18,7 +19,7 @@ export const LearnFormConfirm = () => {
 
   // store the actual Word objects we just added last,
   // so we can undo exactly those
-  const [lastAdded, setLastAdded] = useState<Word[]>([]);
+  const [lastAdded, setLastAdded] = useState<SubmittedWord[]>([]);
   const toast = useToast();
 
   useEffect(() => {
@@ -52,7 +53,10 @@ export const LearnFormConfirm = () => {
 
     // Filter savedWords to only those not already submitted
     const available = savedWords.filter(
-      (word) => !submittedWords.some((sw) => sw.word === word.word)
+      (word) =>
+        !submittedWords.some(
+          (sw) => isWord(sw) && sw.word === word.word
+        )
     );
 
     if (available.length === 0) {
@@ -89,7 +93,10 @@ export const LearnFormConfirm = () => {
 
     // Filter out saved words that have already been submitted
     const available = savedWords.filter(
-      (word) => !submittedWords.some((sw) => sw.word === word.word)
+      (word) =>
+        !submittedWords.some(
+          (sw) => isWord(sw) && sw.word === word.word
+        )
     );
 
     if (available.length === 0) {
@@ -113,7 +120,8 @@ export const LearnFormConfirm = () => {
     }
     // build a new array without the lastAdded items
     const reverted = submittedWords.filter(
-      (w) => !lastAdded.some((lw) => lw.id === w.id)
+      (w) =>
+        !(isWord(w) && lastAdded.some((lw) => isWord(lw) && lw.id === w.id))
     );
     setSubmittedWords(reverted);
     setLastAdded([]);

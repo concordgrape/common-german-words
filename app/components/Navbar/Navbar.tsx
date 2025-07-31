@@ -93,7 +93,7 @@ export const Navbar: React.FC = () => {
               {user ? 
               <Link href="/learn" className="hover:underline flex items-center">
                 <FaChartLine className="mr-2" />
-                <span>My Progress</span>
+                <span>Progress</span>
               </Link>
               : <></>}
               <Link href="/browse" className="hover:underline flex items-center">
