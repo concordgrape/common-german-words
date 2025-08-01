@@ -172,7 +172,7 @@ const handleUndo = () => {
             onClick={lastAdded.length > 0 ? handleUndo : handleAddAll}
             className="text-sm w-50 text-center text-white font-mono mt-5 py-2 px-2 rounded-lg bg-blue-600 hover:bg-blue-700 shadow-sm"
           >
-            {lastAdded.length >= savedWords.length ? (
+            {(lastAdded.length === savedWords.length) && savedWords.length != 0 ? (
               <span>Undo Add All Saved Words ({savedWords.length})</span>
             ) : (
               <span>Add All Saved Words ({savedWords.length})</span>
