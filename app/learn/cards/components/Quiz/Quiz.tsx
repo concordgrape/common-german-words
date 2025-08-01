@@ -106,6 +106,8 @@ useEffect(() => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     spellCheck={false}
+                    autoFocus
+                    autoComplete={"off"}
                     className={clsx(
                       "inline-block w-32 px-2 py-1 mx-2 text-center border-b-2 border-blue-500 bg-transparent text-black dark:text-white placeholder-gray-500 outline-none",
                       {
