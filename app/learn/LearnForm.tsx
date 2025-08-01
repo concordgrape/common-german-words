@@ -207,7 +207,7 @@ useEffect(() => {
           : allWordCount} available words
         </span>
         <hr className="h-px my-4 bg-gray-200 border-0" />
-        <div className="mx-aut pt-2">
+        <div className="mx-aut pt-2 py-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-1">
