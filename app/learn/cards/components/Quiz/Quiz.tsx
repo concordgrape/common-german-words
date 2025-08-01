@@ -138,7 +138,7 @@ useEffect(() => {
         </div>
          <div className="bottom-0 mt-8">
           <div className="flex justify-center">
-            {['ä', 'ö', 'ü', 'Ä', 'Ö', 'Ü', 'ß'].map((part, i) => (
+            {['ä', 'ö', 'ü', 'ß'].map((part, i) => (
               <React.Fragment key={'hint-'+i}>
                 <span onClick={() => setInput(input => input + part)} className="cursor-pointer mx-[1px] lg:mx-1 p-1 px-3 lg:p-3 lg:px-4 rounded-sm bg-gray-200 hover:bg-gray-100 hover:shadow-sm dark:bg-gray-500 dark:hover:bg-gray-600">
                   {part}
