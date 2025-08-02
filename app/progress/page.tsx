@@ -60,7 +60,7 @@ function mergeSavedAndKnownData(
 }
 
 function ProgressPage() {
-  const { user, streak } = useUser();
+  const { user, streak, loading } = useUser();
   const [savedData, setSavedData] = useState<{ date: string; count: number }[]>(
     []
   );
@@ -131,7 +131,7 @@ function ProgressPage() {
   const totalSavedCount = savedData.reduce((sum, item) => sum + item.count, 0);
   const totalKnownCount = knownData.reduce((sum, item) => sum + item.count, 0);
 
-  if (!user) {
+  if (!user && !loading) {
     return (
       <div className="min-h-screen w-full pt-15 pt-50 text-center items-center justify-center">
         <p className="text-gray-500">You&apos;re not signed in</p>
@@ -152,7 +152,7 @@ function ProgressPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
           <div
             data-tip="Total saved words"
-            className="tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200"
+            className={`${totalSavedCount == 0 ? 'skeleton opacity-50' : ''} tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
           >
             <span className="text-6xl font-mono font-bold text-blue-400">
               {totalSavedCount}
@@ -160,7 +160,7 @@ function ProgressPage() {
           </div>
           <div
             data-tip="Total known words"
-            className="tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200"
+            className={`${totalKnownCount == 0 ? 'skeleton opacity-50' : ''} tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
           >
             <span className="text-6xl font-mono font-bold text-green-500">
               {totalKnownCount}
@@ -168,7 +168,7 @@ function ProgressPage() {
           </div>
           <div
             data-tip="All available words"
-            className="tooltip py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200"
+            className={`${words.length == 0 ? 'skeleton opacity-50' : ''} tooltip py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
           >
             <span className="text-6xl font-mono font-bold text-gray-500 dark:text-gray-300">
               {words.length}
@@ -176,7 +176,7 @@ function ProgressPage() {
           </div>
           <div
             data-tip="Your daily streak"
-            className="tooltip px-4 py-6 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs hover:scale-105 transition-transform duration-200"
+            className={`${loading ? 'skeleton opacity-50' : ''} tooltip px-4 py-6 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs hover:scale-105 transition-transform duration-200`}
           >
             <div className="flex flex-row items-center justify-center h-full w-full">
               <span className="text-5xl font-mono font-bold text-orange-400">
