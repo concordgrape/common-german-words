@@ -8,7 +8,7 @@ import { ImExit } from "react-icons/im";
 import Lottie from "lottie-react";
 import confettiAnimation from "../../external/Lottie/confetti3.json";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaRedo } from "react-icons/fa";
 import QuizFlashcard from "./components/Quiz/Quiz";
 import { useRouter } from "next/navigation";
 import { FaLightbulb } from "react-icons/fa6";
@@ -128,15 +128,15 @@ const LearnCardsPage: React.FC = () => {
               onClick={prev}
               disabled={idx === 0}
               aria-label="Previous card"
-              className="p-2 rounded disabled:cursor-not-allowed disabled:opacity-30 bg-gray-100 lg:bg-white dark:bg-[#0093F5] hover:bg-gray-100 dark:hover:bg-[#0093F5]/50 transition"
+              className="p-2 rounded disabled:cursor-not-allowed disabled:opacity-30 bg-gray-200 lg:bg-white dark:bg-[#0093F5] hover:bg-gray-100 dark:hover:bg-[#0093F5]/50 transition"
             >
-              <FaChevronLeft size={22} className="text-white" />
+              <FaChevronLeft size={22} />
             </button>
 
             <button
               onClick={next}
               aria-label="Next card"
-              className="p-2 rounded disabled:cursor-not-allowed disabled:opacity-30 bg-gray-100 lg:bg-white dark:bg-[#0093F5] hover:bg-gray-100 dark:hover:bg-[#0093F5]/50 transition"
+              className="p-2 rounded disabled:cursor-not-allowed disabled:opacity-30 bg-gray-200 lg:bg-white dark:bg-[#0093F5] hover:bg-gray-100 dark:hover:bg-[#0093F5]/50 transition"
             >
               <FaChevronRight size={22} />
             </button>
@@ -184,13 +184,13 @@ const LearnCardsPage: React.FC = () => {
                 </button>
               </Link>
               <button
-                className="bg-gray-100 dark:bg-gray-900 text-black dark:text-white text-xs font-mono py-2 px-6 rounded-lg hover:bg-gray-200 dark:hover:bg-black max-w-100 max-w-100 sm:w-auto"
+                className="flex bg-gray-100 dark:bg-gray-900 text-black dark:text-white text-xs font-mono py-2 px-6 rounded-lg hover:bg-gray-200 dark:hover:bg-black max-w-100 max-w-100 sm:w-auto"
                 onClick={() => {
                   setIsComplete(false);
                   setIdx(0);
                 }}
               >
-                Dismiss
+                <FaRedo className="mr-1 mt-[1px]" /><span className="font-bold">Redo</span>
               </button>
             </div>
           </motion.div>
