@@ -16,6 +16,8 @@ interface UserContextType {
   user: SimpleUser | null;
   loading: boolean;
   streak: number;
+  isDarkMode: boolean;
+  setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -24,7 +26,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<SimpleUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [streak, setStreak] = useState(1);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // 🔄 Auth + streak
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: User | null) => {
       if (firebaseUser) {
@@ -49,8 +53,28 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     return () => unsubscribe();
   }, []);
 
+  // 🌙 Detect and apply dark mode preference on load
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (storedTheme === "dark") {
+      setIsDarkMode(true);
+    } else if (storedTheme === "light") {
+      setIsDarkMode(false);
+    } else {
+      setIsDarkMode(prefersDark);
+    }
+  }, []);
+
+  // 🌗 Apply dark mode to <html>
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("dark", isDarkMode);
+  }, [isDarkMode]);
+
   return (
-    <UserContext.Provider value={{ user, loading, streak }}>
+    <UserContext.Provider value={{ user, loading, streak, isDarkMode, setIsDarkMode }}>
       {children}
     </UserContext.Provider>
   );
