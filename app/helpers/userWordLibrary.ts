@@ -287,7 +287,7 @@ export async function fetchKnownWordMetadata(
     .slice(0, max);
 }
 
-export async function updateStreak(userId: string) {
+export async function updateStreak(userId: string): Promise<number> {
   const userRef = doc(db, "user", userId);
   const userSnap = await getDoc(userRef);
 
@@ -300,14 +300,14 @@ export async function updateStreak(userId: string) {
   if (userSnap.exists()) {
     const data = userSnap.data();
     const lastActive = data.lastActive?.toDate?.();
-    streak = data.streak || 1;
-    longestStreak = data.longestStreak || 1;
+    streak = Math.max(data.streak || 1, 1);
+    longestStreak = Math.max(data.longestStreak || 1, 1);
 
     if (lastActive) {
       const lastDay = dayjs(lastActive).startOf("day");
 
       if (lastDay.isSame(today)) {
-        return; // Already updated today
+        return streak; 
       } else if (lastDay.isSame(yesterday)) {
         streak += 1;
         if (streak > longestStreak) longestStreak = streak;
@@ -322,4 +322,6 @@ export async function updateStreak(userId: string) {
     streak,
     longestStreak,
   });
+
+  return streak;
 }
