@@ -61,12 +61,10 @@ function mergeSavedAndKnownData(
 
 function ProgressPage() {
   const { user, streak, loading } = useUser();
-  const [savedData, setSavedData] = useState<{ date: string; count: number }[]>(
-    []
-  );
-  const [knownData, setKnownData] = useState<{ date: string; count: number }[]>(
-    []
-  );
+  const [savedData, setSavedData] = useState<{ date: string; count: number }[]>([]);
+  const [knownData, setKnownData] = useState<{ date: string; count: number }[]>([]);
+  const [totalSavedWords, setTotalSavedWords] = useState<number>(0);
+  const [totalKnownWords, setTotalKnownWords] = useState<number>(0);
   const [rangeKey, setRangeKey] = useState<"7d" | "30d" | "6m">("7d");
   const [words, setWords] = useState<Word[]>([]);
 
@@ -81,7 +79,7 @@ function ProgressPage() {
 
     const loadSavedData = async () => {
       const savedWords = await fetchSavedWordMetadata(user.uid, 100);
-
+      setTotalSavedWords(savedWords.length);
       const countsByDate: Record<string, number> = {};
 
       for (const word of savedWords as WordWithTimestamp[]) {
@@ -103,7 +101,7 @@ function ProgressPage() {
 
     const loadKnownData = async () => {
       const knownWords = await fetchKnownWordMetadata(user.uid, 100);
-
+      setTotalKnownWords(knownWords.length);
       const countsByDate: Record<string, number> = {};
 
       for (const word of knownWords as WordWithTimestamp[]) {
@@ -152,18 +150,18 @@ function ProgressPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
           <div
             data-tip="Total saved words"
-            className={`${totalSavedCount == 0 ? 'skeleton opacity-50' : ''} tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
+            className={`${totalSavedWords == 0 ? 'skeleton opacity-50' : ''} tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
           >
             <span className="text-6xl font-mono font-bold text-blue-400">
-              {totalSavedCount}
+              {totalSavedWords}
             </span>
           </div>
           <div
             data-tip="Total known words"
-            className={`${totalKnownCount == 0 ? 'skeleton opacity-50' : ''} tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
+            className={`${totalKnownWords == 0 ? 'skeleton opacity-50' : ''} tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
           >
             <span className="text-6xl font-mono font-bold text-green-500">
-              {totalKnownCount}
+              {totalKnownWords}
             </span>
           </div>
           <div
@@ -196,11 +194,11 @@ function ProgressPage() {
         History of reviewed words
       </h1>
 
-      <div className="flex flex-col items-start mt-5 w-60">
+      <div className="flex flex-col items-start mt-5 w-full">
         <select
           value={rangeKey}
           onChange={(e) => setRangeKey(e.target.value as "7d" | "30d" | "6m")}
-          className="px-3 py-2 h-10 sm:h-auto rounded-md bg-gray-100 dark:bg-[#262839] cursor-pointer text-sm col-span-2 w-full border border-1 border-gray-200 dark:border-gray-600 rounded-lg text-black dark:text-white"
+          className="w-60 max-w-60 px-3 py-2 h-10 sm:h-auto rounded-md bg-gray-100 dark:bg-[#262839] cursor-pointer text-sm col-span-2 w-full border border-1 border-gray-200 dark:border-gray-600 rounded-lg text-black dark:text-white"
           id="partOfSpeechSelect"
         >
           {Object.entries(ranges).map(([key]) => (
@@ -209,6 +207,10 @@ function ProgressPage() {
             </option>
           ))}
         </select>
+        <div className="mt-2 text-xs w-full">
+          <p><span className="font-mono font-bold text-blue-400">{totalSavedCount}</span> words saved &</p>
+          <p><span className="font-mono font-bold text-green-500">{totalKnownCount}</span> completed or &apos;known&apos; words in the last {rangeKey === "7d" ? "7 days" : rangeKey === "30d" ? "30 days" : "6 months"}</p>
+        </div>
       </div>
 
       <div className="outline-none focus:outline-none focus:ring-0">
