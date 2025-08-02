@@ -17,7 +17,6 @@ export default function AvatarDropdown({
   loading = false,
 }: AvatarDropdownProps) {
   const [open, setOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -33,26 +32,6 @@ export default function AvatarDropdown({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-
-    if (storedTheme === "dark") {
-      setIsDarkMode(true);
-    } else if (storedTheme === "light") {
-      setIsDarkMode(false);
-    } else {
-      setIsDarkMode(prefersDark); // fallback to system
-    }
-  }, []);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    root.classList.toggle("dark", isDarkMode);
-  }, [isDarkMode]);
 
   const handleLogout = () => {
     signOut(auth)
@@ -114,8 +93,6 @@ export default function AvatarDropdown({
           userName={user?.displayName ?? "User"}
           userEmail={user?.email ?? "noemail@email.com"}
           handleLogout={handleLogout}
-          isDarkMode={isDarkMode}
-          setIsDarkMode={setIsDarkMode}
         />
       </div>
     </div>
@@ -126,16 +103,12 @@ interface UserDropdownProps {
   userName: string;
   userEmail: string;
   handleLogout: () => void;
-  isDarkMode: boolean;
-  setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserDropdown = ({
   userName,
   userEmail,
   handleLogout,
-  isDarkMode,
-  setIsDarkMode,
 }: UserDropdownProps) => {
   const router = useRouter();
 
@@ -182,23 +155,6 @@ const UserDropdown = ({
             My Profile
           </button>
         </li>
-        <hr className="h-px my-2 bg-gray-200 border-0" />
-        <li className="flex items-center justify-between px-4 py-2 hover:bg-gray-100">
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={isDarkMode}
-              onChange={(e) => {
-                const newVal = e.target.checked;
-                setIsDarkMode(newVal);
-                localStorage.setItem("theme", newVal ? "dark" : "light");
-              }}
-              className="form-checkbox h-4 w-4 text-blue-600"
-            />
-            <span>Dark Mode</span>
-          </div>
-        </li>
-
         <hr className="h-px my-2 bg-gray-200 border-0" />
         <li>
           <button
