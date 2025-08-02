@@ -13,6 +13,11 @@ type WordDataWithMeta = {
   timestamp: Timestamp;
 };
 
+export interface SavedWordMetadata {
+  word: string;
+  timestamp: Timestamp;
+}
+
 export type FillInTheBlankQuestion = {
   sentence: string;
   sentence_translated: string;
@@ -168,6 +173,7 @@ export async function fetchWordStatusData(
 
   for (const docSnap of snap.docs) {
     const data = docSnap.data();
+    console.log("data: ", data)
     if (data.wordRef) {
       wordRefs.push(data.wordRef as DocumentReference<DocumentData>);
     }
@@ -220,4 +226,33 @@ export function formatFillInTheBlankQuestions(words: Word[]): FillInTheBlankQues
   }
 
   return questions;
+}
+
+
+export async function fetchSavedWordMetadata(
+  uid: string,
+  max: number
+): Promise<SavedWordMetadata[]> {
+  if (!uid) {
+    throw new Error('Invalid UID');
+  }
+
+  const cardsColRef = collection(db, `users/${uid}/de/cards/saved`);
+  const snap = await getDocs(cardsColRef);
+
+  const metadata: SavedWordMetadata[] = [];
+
+  for (const docSnap of snap.docs) {
+    const data = docSnap.data();
+    if (data.timestamp) {
+      metadata.push({
+        word: docSnap.id,
+        timestamp: data.timestamp,
+      });
+    }
+  }
+
+  return metadata
+    .sort((a, b) => b.timestamp.toMillis() - a.timestamp.toMillis())
+    .slice(0, max);
 }

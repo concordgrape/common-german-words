@@ -8,6 +8,8 @@
 :root {
   --background: #F2F2F2;
   --foreground: #262839;
+  --chart-text-color: #000000;
+  --chart-tooltip-bg: #ffffff;
 }
 
 @theme inline {
@@ -21,6 +23,8 @@
   :root {
     --background: #1B263B;
     --foreground: white;
+    --chart-text-color: #ffffff;
+    --chart-tooltip-bg: #1f2937;
   }
 }
 

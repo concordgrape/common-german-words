@@ -91,7 +91,7 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center gap-2 lg:gap-6 relative">
             <div className="font-mono text-black dark:text-white text-sm hidden lg:flex space-x-6">
               {user ? 
-              <Link href="/learn" className="hover:underline flex items-center">
+              <Link href="/progress" className="hover:underline flex items-center">
                 <FaChartLine className="mr-2" />
                 <span>Progress</span>
               </Link>
@@ -231,6 +231,13 @@ export const Navbar: React.FC = () => {
                   <span className='pr-1 text-gray-400 font-bold text-xs'>Generate flashcards & quizzes</span>
                 </Link>
               </li>
+              {user ?
+                <Link onClick={closeMenu} href="/progress" className="block py-3 px-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 font-bold">
+                  <span className='pr-1'>📈</span> Progress
+                  <br />
+                  <span className='pr-1 text-gray-400 font-bold text-xs'>View your current progress</span>
+                </Link>
+              : <></>}
               {/*<hr className="h-px my-2 bg-gray-200 border-0" />
               <li>
                 <div className="flex items-center py-3 hover:bg-gray-100 dark:hover:bg-gray-800 px-3 rounded-sm">
