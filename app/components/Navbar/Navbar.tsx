@@ -22,7 +22,7 @@ export const Navbar: React.FC = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
-  const { user, loading } = useUser();
+  const { user, loading, streak } = useUser();
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -78,7 +78,7 @@ export const Navbar: React.FC = () => {
                     className="tooltip tooltip-bottom bg-clear px-4 py-1 ml-2 flex-shrink-0"
                   >
                     <span className="text-3xl flex text-orange-400 font-mono font-bold">
-                      <span className='pt-1'>{1}</span>               
+                      <span className='pt-1'>{streak}</span>               
                       <Lottie className="h-10 w-10" animationData={fireAnimation} loop={true} />
                     </span>
                   </motion.div>

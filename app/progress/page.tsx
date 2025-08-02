@@ -21,6 +21,7 @@ import { Timestamp } from "firebase/firestore";
 import Lottie from "lottie-react";
 import fireAnimation from "../external/Lottie/fire.json";
 import { fetchBasicWords, Word } from "../helpers/fetchBasicWordList";
+import Link from "next/link";
 
 interface WordWithTimestamp {
   word: string;
@@ -59,7 +60,7 @@ function mergeSavedAndKnownData(
 }
 
 function ProgressPage() {
-  const { user } = useUser();
+  const { user, streak } = useUser();
   const [savedData, setSavedData] = useState<{ date: string; count: number }[]>(
     []
   );
@@ -130,6 +131,19 @@ function ProgressPage() {
   const totalSavedCount = savedData.reduce((sum, item) => sum + item.count, 0);
   const totalKnownCount = knownData.reduce((sum, item) => sum + item.count, 0);
 
+  if (!user) {
+    return (
+      <div className="min-h-screen w-full pt-15 pt-50 text-center items-center justify-center">
+        <p className="text-gray-500">You&apos;re not signed in</p>
+        <Link href="/signin">
+          <button className="bg-blue-500 text-white font-bold font-mono p-4 rounded-2xl mt-5 cursor-pointer hover:shadow-lg">
+            &gt; Sign in &lt;
+          </button>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 max-w-4xl mx-auto pt-30">
       <div className="flex justify-center items-center mb-10">
@@ -166,7 +180,7 @@ function ProgressPage() {
           >
             <div className="flex flex-row items-center justify-center h-full w-full">
               <span className="text-5xl font-mono font-bold text-orange-400">
-                {1}
+                {streak}
               </span>
               <Lottie
                 className="w-20 h-20"

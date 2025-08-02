@@ -1,9 +1,10 @@
-import { doc, setDoc, serverTimestamp, getDoc, DocumentData, collection, query, getDocs, limit, DocumentReference, deleteDoc, Timestamp } from 'firebase/firestore';
+import { doc, setDoc, serverTimestamp, getDoc, updateDoc, DocumentData, collection, query, getDocs, limit, DocumentReference, deleteDoc, Timestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
 import { useUser } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
 import { Word } from './fetchBasicWordList';
 import { shuffle } from './utils';
+import dayjs from "dayjs";
 
 type WordStatusType = 'saved' | 'known';
 
@@ -284,4 +285,41 @@ export async function fetchKnownWordMetadata(
   return metadata
     .sort((a, b) => b.timestamp.toMillis() - a.timestamp.toMillis())
     .slice(0, max);
+}
+
+export async function updateStreak(userId: string) {
+  const userRef = doc(db, "user", userId);
+  const userSnap = await getDoc(userRef);
+
+  const today = dayjs().startOf("day");
+  const yesterday = today.subtract(1, "day");
+
+  let streak = 1;
+  let longestStreak = 1;
+
+  if (userSnap.exists()) {
+    const data = userSnap.data();
+    const lastActive = data.lastActive?.toDate?.();
+    streak = data.streak || 1;
+    longestStreak = data.longestStreak || 1;
+
+    if (lastActive) {
+      const lastDay = dayjs(lastActive).startOf("day");
+
+      if (lastDay.isSame(today)) {
+        return; // Already updated today
+      } else if (lastDay.isSame(yesterday)) {
+        streak += 1;
+        if (streak > longestStreak) longestStreak = streak;
+      } else {
+        streak = 1;
+      }
+    }
+  }
+
+  await updateDoc(userRef, {
+    lastActive: new Date(),
+    streak,
+    longestStreak,
+  });
 }

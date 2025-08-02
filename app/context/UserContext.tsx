@@ -2,7 +2,8 @@
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "@/lib/firebaseClient"; // adjust path if needed
+import { auth } from "@/lib/firebaseClient";
+import { updateStreak } from "../helpers/userWordLibrary";
 
 interface SimpleUser {
   uid: string;
@@ -14,6 +15,7 @@ interface SimpleUser {
 interface UserContextType {
   user: SimpleUser | null;
   loading: boolean;
+  streak: number;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -21,14 +23,25 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<SimpleUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [streak, setStreak] = useState(1);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser: User | null) => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: User | null) => {
       if (firebaseUser) {
         const { uid, email, displayName, photoURL } = firebaseUser;
-        setUser({ uid, email, displayName, photoURL });
+        const simpleUser = { uid, email, displayName, photoURL };
+        setUser(simpleUser);
+
+        try {
+          const currentStreak = await updateStreak(uid);
+          setStreak(Math.max(currentStreak, 1));
+        } catch (err) {
+          console.error("Failed to update streak:", err);
+          setStreak(1); // fallback
+        }
       } else {
         setUser(null);
+        setStreak(1);
       }
       setLoading(false);
     });
@@ -37,7 +50,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, loading }}>
+    <UserContext.Provider value={{ user, loading, streak }}>
       {children}
     </UserContext.Provider>
   );
