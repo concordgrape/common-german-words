@@ -238,13 +238,6 @@ export const Navbar: React.FC = () => {
                   <span className='pr-1 text-gray-400 font-bold text-xs'>View your current progress</span>
                 </Link>
               : <></>}
-              {/*<hr className="h-px my-2 bg-gray-200 border-0" />
-              <li>
-                <div className="flex items-center py-3 hover:bg-gray-100 dark:hover:bg-gray-800 px-3 rounded-sm">
-                  <input type="checkbox" className="mr-2" />
-                  <span>Dark mode</span>
-                </div>
-              </li>*/}
               <hr className="h-px my-2 bg-gray-200 border-0" />
             </ul>
           </div>

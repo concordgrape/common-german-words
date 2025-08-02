@@ -256,3 +256,32 @@ export async function fetchSavedWordMetadata(
     .sort((a, b) => b.timestamp.toMillis() - a.timestamp.toMillis())
     .slice(0, max);
 }
+
+
+export async function fetchKnownWordMetadata(
+  uid: string,
+  max: number
+): Promise<SavedWordMetadata[]> {
+  if (!uid) {
+    throw new Error('Invalid UID');
+  }
+
+  const cardsColRef = collection(db, `users/${uid}/de/cards/known`);
+  const snap = await getDocs(cardsColRef);
+
+  const metadata: SavedWordMetadata[] = [];
+
+  for (const docSnap of snap.docs) {
+    const data = docSnap.data();
+    if (data.timestamp) {
+      metadata.push({
+        word: docSnap.id,
+        timestamp: data.timestamp,
+      });
+    }
+  }
+
+  return metadata
+    .sort((a, b) => b.timestamp.toMillis() - a.timestamp.toMillis())
+    .slice(0, max);
+}
