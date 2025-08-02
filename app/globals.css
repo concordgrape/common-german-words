@@ -12,20 +12,20 @@
   --chart-tooltip-bg: #ffffff;
 }
 
+.dark {
+  --background: #1B263B;
+  --foreground: #F2F2F2;
+  --chart-text-color: #ffffff;
+  --chart-tooltip-bg: #1f2937;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1B263B;
-    --foreground: white;
-    --chart-text-color: #ffffff;
-    --chart-tooltip-bg: #1f2937;
-  }
 }
 
 body {

@@ -145,7 +145,7 @@ function ProgressPage() {
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto pt-30">
+    <div className="p-6 max-w-4xl mx-auto h-screen pt-30">
       <div className="flex justify-center items-center mb-10">
         {" "}
         {/* Parent container */}
