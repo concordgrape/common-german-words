@@ -129,7 +129,7 @@ const UserDropdown = ({
           <button
             className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                         hover:text-orange-500 transition-colors duration-800"
-            onClick={() => router.push("/profile")} // Assuming a profile route
+            onClick={() => router.push("/word-lists/my-saved-words")}
           >
             <FaRegBookmark className="text-lg" /> {/* Profile Icon */}
             My Saved Words
@@ -139,7 +139,7 @@ const UserDropdown = ({
           <button
             className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                       hover:text-green-700 transition-colors duration-800"
-            onClick={() => router.push("/profile")} // Assuming a profile route
+            onClick={() => router.push("/word-lists/my-known-words")}
           >
             <FaCheck className="text-lg" /> {/* Profile Icon */}
             My Known Words

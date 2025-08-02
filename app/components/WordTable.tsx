@@ -23,6 +23,8 @@ interface WordTableProps {
   onRowClick: (word: Word | null) => void;
   selectedWord?: Word | null;
   words: Word[];
+  showOnlySaved?: boolean;
+  showOnlyKnown?: boolean;
 }
 
 const ITEMS_PER_PAGE = 100;
@@ -32,6 +34,8 @@ export const WordTable: React.FC<WordTableProps> = ({
   onRowClick,
   selectedWord,
   words,
+  showOnlySaved = false,
+  showOnlyKnown = false,
 }) => {
   // State to manage expanded rows, explicitly typed to an array of numbers
   const [expandedRows, setExpandedRows] = useState<number[]>([]);
@@ -46,13 +50,17 @@ export const WordTable: React.FC<WordTableProps> = ({
   const [isReversed, setIsReversed] = useState(false);
   const [savedWordIds, setSavedWordIds] = useState<Set<string>>(new Set());
   const [knownWordIds, setKnownWordIds] = useState<Set<string>>(new Set());
-  const [savedTimestamps, setSavedTimestamps] = useState<Map<string, number>>(new Map());
-  const [knownTimestamps, setKnownTimestamps] = useState<Map<string, number>>(new Map());
+  const [savedTimestamps, setSavedTimestamps] = useState<Map<string, number>>(
+    new Map()
+  );
+  const [knownTimestamps, setKnownTimestamps] = useState<Map<string, number>>(
+    new Map()
+  );
 
   const [activeSort, setActiveSort] = useState<SortOption["id"]>("frequency"); // 'alphabetically' is active by default as per screenshot
-  const [selectedCEFR, setSelectedCEFR] = useState<
-    "All" | "A1" | "A2" | "B1"
-  >("All");
+  const [selectedCEFR, setSelectedCEFR] = useState<"All" | "A1" | "A2" | "B1">(
+    "All"
+  );
 
   // Create a ref for the dropdown container
   const sortDropdownRef = useRef<HTMLDivElement>(null);
@@ -72,33 +80,36 @@ export const WordTable: React.FC<WordTableProps> = ({
   // Adjust Virtuoso height
   const isMobile = useIsMobile();
   const rowHeight = 45;
+  const filteredBase = showOnlySaved
+    ? words.filter((word) => savedWordIds.has(word.word))
+    : showOnlyKnown
+    ? words.filter((word) => knownWordIds.has(word.word))
+    : words;
 
-  const scoredWords = words
+  const scoredWords = filteredBase
     .map((word) => {
       const lowerSearch = searchTerm.toLowerCase();
       const wordText = word.word.toLowerCase();
       const translationText = word.translation?.toLowerCase() || "";
       let score = 0;
 
-      // Check both word and translation
       const matchesWord = wordText.includes(lowerSearch);
       const matchesTranslation = translationText.includes(lowerSearch);
 
       if (wordText === lowerSearch || translationText === lowerSearch) {
-        score = 3; // exact match
+        score = 3;
       } else if (
         wordText.startsWith(lowerSearch) ||
         translationText.startsWith(lowerSearch)
       ) {
-        score = 2; // prefix match
+        score = 2;
       } else if (matchesWord || matchesTranslation) {
-        score = 1; // partial match
+        score = 1;
       }
 
       return { ...word, _score: score };
     })
     .filter((word) => word._score > 0);
-
 
   // Then sort by relevance score first, then by word
   let sortedWords = scoredWords.sort((a, b) => {
@@ -112,46 +123,43 @@ export const WordTable: React.FC<WordTableProps> = ({
 
     if (activeSort === "my-saved") {
       return (
-        (savedTimestamps.get(b.word) ?? 0) -
-        (savedTimestamps.get(a.word) ?? 0)
+        (savedTimestamps.get(b.word) ?? 0) - (savedTimestamps.get(a.word) ?? 0)
       );
     }
 
     if (activeSort === "my-known") {
       return (
-        (knownTimestamps.get(b.word) ?? 0) -
-        (knownTimestamps.get(a.word) ?? 0)
+        (knownTimestamps.get(b.word) ?? 0) - (knownTimestamps.get(a.word) ?? 0)
       );
     }
 
     return 0;
   });
 
-const filteredWords = useMemo(() => {
-  let result = [...sortedWords];
+  const filteredWords = useMemo(() => {
+    let result = [...sortedWords];
 
-  if (selectedType !== "All") {
-    result = result.filter(
-      (word) =>
-        word.part_of_speech?.toLowerCase() === selectedType.toLowerCase()
-    );
-  }
+    if (selectedType !== "All") {
+      result = result.filter(
+        (word) =>
+          word.part_of_speech?.toLowerCase() === selectedType.toLowerCase()
+      );
+    }
 
-  if (selectedCEFR === "A1") {
-    result = result.filter((word) => word.rank === 1);
-  } else if (selectedCEFR === "A2") {
-    result = result.filter((word) => word.rank === 2);
-  } else if (selectedCEFR === "B1") {
-    result = result.filter((word) => word.rank === 3);
-  }
+    if (selectedCEFR === "A1") {
+      result = result.filter((word) => word.rank === 1);
+    } else if (selectedCEFR === "A2") {
+      result = result.filter((word) => word.rank === 2);
+    } else if (selectedCEFR === "B1") {
+      result = result.filter((word) => word.rank === 3);
+    }
 
-  if (isReversed) {
-    result = [...result].reverse();
-  }
+    if (isReversed) {
+      result = [...result].reverse();
+    }
 
-  return result;
-}, [selectedType, selectedCEFR, sortedWords, isReversed]);
-
+    return result;
+  }, [selectedType, selectedCEFR, sortedWords, isReversed]);
 
   // Only show paginated results if not filtering
   const displayedWords = filteredWords.slice(
@@ -181,13 +189,13 @@ const filteredWords = useMemo(() => {
   };
 
   useEffect(() => {
-  const height =
-    displayedWords.length * rowHeight +
-    (isMobile && expandedRows.length > 0 ? 435 : 0) +
-    44;
+    const height =
+      displayedWords.length * rowHeight +
+      (isMobile && expandedRows.length > 0 ? 435 : 0) +
+      44;
 
-  setVirtuosoHeight(`${height}px`);
-}, [displayedWords.length, expandedRows.length, isMobile]);
+    setVirtuosoHeight(`${height}px`);
+  }, [displayedWords.length, expandedRows.length, isMobile]);
 
   useEffect(() => {
     const fetchStatusData = async () => {
@@ -287,8 +295,9 @@ const filteredWords = useMemo(() => {
     (isMobile && expandedRows.length > 0 ? 435 : 0) +
     45;
 
-  const [virtuosoHeight, setVirtuosoHeight] = useState<string>(`${initialHeight}px`);
-
+  const [virtuosoHeight, setVirtuosoHeight] = useState<string>(
+    `${initialHeight}px`
+  );
 
   // Toggle expanded row by ID and pass clicked word to parent
   const toggleRow = (word: Word) => {
@@ -382,11 +391,11 @@ const filteredWords = useMemo(() => {
 
   const resetFilters = () => {
     // Reset filter states
-    setSearchTerm('');
-    setSelectedType('All');
-    setSelectedCEFR('All');
+    setSearchTerm("");
+    setSelectedType("All");
+    setSelectedCEFR("All");
     setIsReversed(false);
-    setActiveSort('frequency');
+    setActiveSort("frequency");
 
     // Clear the expanded rows and selected word
     setExpandedRows([]);
@@ -394,10 +403,10 @@ const filteredWords = useMemo(() => {
 
     // Clear URL search params
     const params = new URLSearchParams(window.location.search);
-    params.delete('search');
-    params.delete('page');
-    params.delete('word');
-    window.history.replaceState({}, '', `${window.location.pathname}`);
+    params.delete("search");
+    params.delete("page");
+    params.delete("word");
+    window.history.replaceState({}, "", `${window.location.pathname}`);
   };
 
   return (
@@ -434,8 +443,8 @@ const filteredWords = useMemo(() => {
           <button
             onClick={() => changePage(currentPage + 1)}
             disabled={currentPage >= totalPages}
-            className="px-3 py-2 rounded bg-gray-200 text-black dark:text-white dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-800 disabled:opacity-50 flex items-center gap-2 border border-1 border-gray-300 dark:border-gray-600"            
-            >
+            className="px-3 py-2 rounded bg-gray-200 text-black dark:text-white dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-800 disabled:opacity-50 flex items-center gap-2 border border-1 border-gray-300 dark:border-gray-600"
+          >
             Next
             <svg
               width={20}
@@ -465,7 +474,9 @@ const filteredWords = useMemo(() => {
           />
           {searchTerm && (
             <button
-              onClick={() => {handleSearchChange("")}}
+              onClick={() => {
+                handleSearchChange("");
+              }}
               className="absolute right-1 text-sm text-gray-400 hover:text-gray-600 w-10 h-10"
               aria-label="Clear"
             >
@@ -490,14 +501,18 @@ const filteredWords = useMemo(() => {
         </div>
 
         {/* Sort Buttons Row */}
-        <div className="flex justify-center mb-5">
+        <div
+          className={`${
+            showOnlySaved || showOnlyKnown ? "hidden" : ""
+          } flex justify-center mb-5`}
+        >
           <div className="flex lg:flex-wrap justify-center gap-2 lg:gap-10 items-start w-full">
             {/* CEFR Level Buttons */}
             <div className="flex flex-col items-start">
               <span className="mb-2 text-sm text-gray-600 dark:text-gray-300 font-medium">
                 Filter by Level
               </span>
-                <div className="grid grid-cols-2 gap-0 text-lg lg:w-50 border border-1 border-gray-200 dark:border-gray-800 rounded-lg">                
+              <div className="grid grid-cols-2 gap-0 text-lg lg:w-50 border border-1 border-gray-200 dark:border-gray-800 rounded-lg">
                 {[
                   { id: "All", label: "All" },
                   { id: "A1", label: "A1" },
@@ -509,16 +524,18 @@ const filteredWords = useMemo(() => {
                     label={option.label}
                     isActive={selectedCEFR === option.id}
                     onClick={() =>
-                      setSelectedCEFR(
-                        option.id as "All" | "A1" | "A2" | "B1"
-                      )
+                      setSelectedCEFR(option.id as "All" | "A1" | "A2" | "B1")
                     }
                     index={index}
                     color={"bg-orange-400"}
                   />
                 ))}
               </div>
-              <div className="flex flex-col items-start mt-5 w-full">
+              <div
+                className={`flex flex-col items-start mt-5 w-full ${
+                  showOnlySaved || showOnlyKnown ? "hidden" : ""
+                }`}
+              >
                 <span className="mb-2 text-sm text-gray-600 dark:text-gray-300 font-medium">
                   Part of Speech
                 </span>
@@ -539,8 +556,14 @@ const filteredWords = useMemo(() => {
             </div>
 
             {/* Sort + Part of Speech Filter */}
-            <div className="flex flex-col items-start">
-              <span className="mb-2 text-sm text-gray-600 dark:text-gray-300 font-medium">
+            <div
+              className={`${
+                showOnlySaved || showOnlyKnown ? "hidden" : ""
+              } flex flex-col items-start`}
+            >
+              <span
+                className={`mb-2 text-sm text-gray-600 dark:text-gray-300 font-medium`}
+              >
                 Sort & Type
               </span>
               <div className="grid grid-cols-2 gap-0 w-full lg:w-80 max-w-[300px] lg:max-w-[400px] lg:max-w-[350px] border border-1 border-gray-200 dark:border-gray-800 rounded-lg">
@@ -577,12 +600,17 @@ const filteredWords = useMemo(() => {
           </div>
 
           {/* Right side */}
-          <span onClick={resetFilters} className="cursor-pointer text-sm text-right text-black dark:text-gray-200 hover:underline">
+          <span
+            onClick={resetFilters}
+            className={`${
+              showOnlySaved || showOnlyKnown ? "hidden" : ""
+            } cursor-pointer text-sm text-right text-black dark:text-gray-200 hover:underline`}
+          >
             Reset filters
           </span>
         </div>
       </div>
-        <div className="flex px-4 py-2 bg-[#F9F9F9] dark:bg-gray-700 text-gray-600 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-600 text-sm z-1">
+      <div className="flex px-4 py-2 bg-[#F9F9F9] dark:bg-gray-700 text-gray-600 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-600 text-sm z-1">
         {/*<div className="w-2 mr-2"></div>*/}
         {/*<div className="w-5">#</div>*/}
         <div className="ml-0">Word</div>
@@ -610,13 +638,22 @@ const filteredWords = useMemo(() => {
       {displayedWords.length === 0 && searchTerm && (
         <div>
           <h1 className="mt-5 mb-4 text-black dark:text-white">{`'${searchTerm}' not found, example words:`}</h1>
-          <button className="cursor-pointer text-blue-500 hover:bg-blue-300 bg-blue-200 py-1 px-3 rounded-sm" onClick={() => window.location.href = '/browse?search=haus'}>
+          <button
+            className="cursor-pointer text-blue-500 hover:bg-blue-300 bg-blue-200 py-1 px-3 rounded-sm"
+            onClick={() => (window.location.href = "/browse?search=haus")}
+          >
             haus
           </button>
-          <button className="cursor-pointer text-blue-500 hover:bg-blue-300 bg-blue-200 py-1 px-3 rounded-sm ml-2" onClick={() => window.location.href = '/browse?search=gehen'}>
+          <button
+            className="cursor-pointer text-blue-500 hover:bg-blue-300 bg-blue-200 py-1 px-3 rounded-sm ml-2"
+            onClick={() => (window.location.href = "/browse?search=gehen")}
+          >
             gehen
           </button>
-          <button className="cursor-pointer text-blue-500 hover:bg-blue-300 bg-blue-200 py-1 px-3 rounded-sm ml-2" onClick={() => window.location.href = '/browse?search=das'}>
+          <button
+            className="cursor-pointer text-blue-500 hover:bg-blue-300 bg-blue-200 py-1 px-3 rounded-sm ml-2"
+            onClick={() => (window.location.href = "/browse?search=das")}
+          >
             das
           </button>
         </div>
@@ -643,8 +680,8 @@ const filteredWords = useMemo(() => {
                 className={`border-1 font-arial dark:bg-[#1B263B]  ${
                   expandedRows.includes(word.id)
                     ? "border-blue-300 lg:max-h-[44px] sm:max-h-[44px] md:max-h-[44px]"
-                    : "hover:bg-gray-50 dark:hover:bg-gray-900 border-[#F2F2F2] dark:border-gray-600 h-[44px] max-h-[44px]"                
-                  }`}
+                    : "hover:bg-gray-50 dark:hover:bg-gray-900 border-[#F2F2F2] dark:border-gray-600 h-[44px] max-h-[44px]"
+                }`}
               >
                 <div
                   className={`flex items-center justify-between py-[5px] px-2 sm:p-3 md:p-3 lg:p-3 cursor-pointer transition-colors duration-200 ${
@@ -704,96 +741,79 @@ const filteredWords = useMemo(() => {
                   <div className="w-[10px] sm:w-[40px] md:w-[40px] text-center text-gray-400 text-sm mr-9">
                     {word.rank}
                   </div>
+                  <div
+                    className={`${
+                      showOnlySaved || showOnlyKnown ? "invisible" : "visible"
+                    }`}
+                  >
+                    <WordStatusButtons
+                      //word={word}
+                      isPlusEnabled={
+                        pendingSaved.has(word.word)
+                          ? !savedWordIds.has(word.word) // optimistically flipped
+                          : savedWordIds.has(word.word)
+                      }
+                      isCheckEnabled={
+                        pendingKnown.has(word.word)
+                          ? !knownWordIds.has(word.word)
+                          : knownWordIds.has(word.word)
+                      }
+                      onPlusClick={(e) => {
+                        e.stopPropagation();
 
-                  {/* Word Type */}
-                  {/*<div className="w-[60px] sm:w-[80px] md:w-[80px] text-right text-gray-400 text-sm mr-4">
-  {word.part_of_speech}
-</div>*/}
+                        setPendingSaved((prev) => new Set(prev).add(word.word));
 
-                  {/* Expand/Collapse Icon */}
-                  {/*<button
-          className="p-1 rounded-full hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
-          aria-label={expandedRows.includes(word.id) ? "Collapse" : "Expand"}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className={`h-5 w-5 text-gray-400 transform transition-transform duration-200 ${
-              expandedRows.includes(word.id) ? "-rotate-90" : ""
-            }`}
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>*/}
-
-                  <WordStatusButtons
-                    //word={word}
-                    isPlusEnabled={
-                      pendingSaved.has(word.word)
-                        ? !savedWordIds.has(word.word) // optimistically flipped
-                        : savedWordIds.has(word.word)
-                    }
-                    isCheckEnabled={
-                      pendingKnown.has(word.word)
-                        ? !knownWordIds.has(word.word)
-                        : knownWordIds.has(word.word)
-                    }
-                    onPlusClick={(e) => {
-                      e.stopPropagation();
-
-                      setPendingSaved((prev) => new Set(prev).add(word.word));
-
-                      handlePlusClick(word.word).finally(() => {
-                        setPendingSaved((prev) => {
-                          const newSet = new Set(prev);
-                          newSet.delete(word.word);
-                          return newSet;
+                        handlePlusClick(word.word).finally(() => {
+                          setPendingSaved((prev) => {
+                            const newSet = new Set(prev);
+                            newSet.delete(word.word);
+                            return newSet;
+                          });
+                          if (!user) {
+                            return;
+                          }
+                          toast({
+                            title: savedWordIds.has(word.word)
+                              ? "Removed from Saved"
+                              : "Added to Saved",
+                            subtitle: `'${word.word}' ${
+                              savedWordIds.has(word.word)
+                                ? "removed from"
+                                : "added to"
+                            } saved words`,
+                            variant: "known",
+                          });
                         });
-                        if (!user) { return; }
-                        toast({
-                          title: savedWordIds.has(word.word)
-                            ? "Removed from Saved"
-                            : "Added to Saved",
-                          subtitle: `'${word.word}' ${
-                            savedWordIds.has(word.word)
-                              ? "removed from"
-                              : "added to"
-                          } saved words`,
-                          variant: "known",
-                        });
-                      });
-                    }}
-                    onCheckClick={(e) => {
-                      e.stopPropagation();
+                      }}
+                      onCheckClick={(e) => {
+                        e.stopPropagation();
 
-                      setPendingKnown((prev) => new Set(prev).add(word.word));
+                        setPendingKnown((prev) => new Set(prev).add(word.word));
 
-                      handleCheckClick(word.word).finally(() => {
-                        setPendingKnown((prev) => {
-                          const newSet = new Set(prev);
-                          newSet.delete(word.word);
-                          return newSet;
+                        handleCheckClick(word.word).finally(() => {
+                          setPendingKnown((prev) => {
+                            const newSet = new Set(prev);
+                            newSet.delete(word.word);
+                            return newSet;
+                          });
+                          if (!user) {
+                            return;
+                          }
+                          toast({
+                            title: knownWordIds.has(word.word)
+                              ? "Removed from Known"
+                              : "Added to Known",
+                            subtitle: `'${word.word}' ${
+                              knownWordIds.has(word.word)
+                                ? "removed from"
+                                : "added to"
+                            } known words`,
+                            variant: "success",
+                          });
                         });
-                        if (!user) { return; }
-                        toast({
-                          title: knownWordIds.has(word.word)
-                            ? "Removed from Known"
-                            : "Added to Known",
-                          subtitle: `'${word.word}' ${
-                            knownWordIds.has(word.word)
-                              ? "removed from"
-                              : "added to"
-                          } known words`,
-                          variant: "success",
-                        });
-                      });
-                    }}
-                  />
+                      }}
+                    />
+                  </div>
                 </div>
 
                 <div
