@@ -16,8 +16,8 @@ interface UserContextType {
   user: SimpleUser | null;
   loading: boolean;
   streak: number;
-  isDarkMode: boolean;
-  setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  theme: "light" | "dark" | "system";
+  setTheme: (mode: "light" | "dark" | "system") => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -26,7 +26,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<SimpleUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [streak, setStreak] = useState(1);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: User | null) => {
@@ -53,26 +53,28 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+useEffect(() => {
+  const storedTheme = localStorage.getItem("theme") as "light" | "dark" | "system" | null;
+  if (storedTheme) {
+    setTheme(storedTheme);
+  } else {
+    setTheme("system");
+  }
+}, []);
 
-    if (storedTheme === "dark") {
-      setIsDarkMode(true);
-    } else if (storedTheme === "light") {
-      setIsDarkMode(false);
-    } else {
-      setIsDarkMode(prefersDark);
-    }
-  }, []);
+useEffect(() => {
+  localStorage.setItem("theme", theme);
+  const root = document.documentElement;
 
-  useEffect(() => {
-    const root = document.documentElement;
-    root.classList.toggle("dark", isDarkMode);
-  }, [isDarkMode]);
+  if (theme === "dark" || (theme === "system" && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    root.classList.add("dark");
+  } else {
+    root.classList.remove("dark");
+  }
+}, [theme]);
 
   return (
-    <UserContext.Provider value={{ user, loading, streak, isDarkMode, setIsDarkMode }}>
+<UserContext.Provider value={{ user, loading, streak, theme, setTheme }}>
       {children}
     </UserContext.Provider>
   );

@@ -6,6 +6,7 @@ import { ToastProvider } from "./hooks/useToast";
 import Footer from "./components/Footer/Footer";
 import { UserProvider } from "./context/UserContext";
 import { WordFormProvider } from "./context/WordFormContext";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,10 +40,25 @@ export default function RootLayout({
     <html lang="en" className={poppins.variable}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`
+            (function () {
+              try {
+                const theme = localStorage.getItem("theme");
+                if (theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+                  document.documentElement.classList.add("dark");
+                } else {
+                  document.documentElement.classList.remove("dark");
+                }
+              } catch (_) {}
+            })();
+          `}
+        </Script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:[#1B263B]`}
       >
+        
         <UserProvider>
           <WordFormProvider>
             <Navbar />

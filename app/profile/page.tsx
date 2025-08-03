@@ -5,7 +5,7 @@ import { useUser } from '../context/UserContext';
 
 const ProfileContentPage: React.FC = () => {
 
-    const { user, isDarkMode, setIsDarkMode } = useUser();
+    const { user, theme, setTheme } = useUser();
 
   return (
 <div className="min-h-screen pt-30 w-full flex justify-center p-4 text-black">
@@ -35,18 +35,18 @@ const ProfileContentPage: React.FC = () => {
               <hr className="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
 
       <div className='p-4'>
-      <h2 className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Appearance</h2>
+<h2 className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Appearance</h2>
+<select
+  value={theme}
+  onChange={(e) => setTheme(e.target.value as "light" | "dark" | "system")}
+  className="w-60 px-3 py-2 h-10 rounded-md bg-gray-100 dark:bg-[#262839] text-sm border border-gray-200 dark:border-gray-600 text-black dark:text-white"
+>
+  <option value="system">System</option>
+  <option value="light">Light</option>
+  <option value="dark">Dark</option>
+</select>
+</div>
 
-    <div className="flex items-center gap-2 text-black dark:text-white mt-2">
-            <input
-              type="checkbox"
-              checked={isDarkMode}
-              onChange={() => {setIsDarkMode(!isDarkMode)}}
-              className="form-checkbox h-4 w-4"
-            />
-            <span>Dark Mode</span>
-          </div>
-      </div>
 
 
     </div>
