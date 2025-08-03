@@ -1,4 +1,4 @@
-import { doc, setDoc, serverTimestamp, getDoc, updateDoc, DocumentData, collection, query, getDocs, limit, DocumentReference, deleteDoc, Timestamp } from 'firebase/firestore';
+import { doc, setDoc, serverTimestamp, getDoc, DocumentData, collection, query, getDocs, limit, DocumentReference, deleteDoc, Timestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
 import { useUser } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
@@ -288,7 +288,7 @@ export async function fetchKnownWordMetadata(
 }
 
 export async function updateStreak(userId: string): Promise<number> {
-  const userRef = doc(db, "user", userId);
+  const userRef = doc(db, "users", userId);
   const userSnap = await getDoc(userRef);
 
   const today = dayjs().startOf("day");
@@ -317,11 +317,15 @@ export async function updateStreak(userId: string): Promise<number> {
     }
   }
 
-  await updateDoc(userRef, {
-    lastActive: new Date(),
-    streak,
-    longestStreak,
-  });
+  await setDoc(
+    userRef,
+    {
+      lastActive: new Date(),
+      streak,
+      longestStreak,
+    },
+    { merge: true }
+  );
 
   return streak;
 }

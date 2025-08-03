@@ -28,7 +28,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [streak, setStreak] = useState(1);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // 🔄 Auth + streak
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: User | null) => {
       if (firebaseUser) {
@@ -39,6 +38,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         try {
           const currentStreak = await updateStreak(uid);
           setStreak(Math.max(currentStreak, 1));
+          console.log("updating streak")
         } catch (err) {
           console.error("Failed to update streak:", err);
           setStreak(1); // fallback
@@ -53,7 +53,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     return () => unsubscribe();
   }, []);
 
-  // 🌙 Detect and apply dark mode preference on load
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -67,7 +66,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  // 🌗 Apply dark mode to <html>
   useEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("dark", isDarkMode);
