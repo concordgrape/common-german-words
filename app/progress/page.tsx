@@ -407,13 +407,13 @@ function ProgressPage() {
             <Legend />
             <Bar
               type="monotone"
-              activeBar={{ fill: "#2563EB" }}
+              activeBar={{ fill: "#3164e4" }}
               dataKey="total"
-              fill="#df4126"
+              fill="#3164e4"
               name="Total Words"
             />
             <Bar
-              activeBar={{ fill: "#2563EB" }}
+              activeBar={{ fill: "#00c951" }}
               dataKey="completed"
               fill="#00c951"
               name="Completed Words"
