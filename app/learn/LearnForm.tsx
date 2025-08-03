@@ -8,7 +8,7 @@ import { GiFallingStar } from "react-icons/gi";
 import Image from 'next/image';
 import SortButton from "../components/SortButtons/Sort";
 import { useWordForm } from "../context/WordFormContext";
-import { fetchBasicWords, Word } from "../helpers/fetchBasicWordList";
+import { fetchAllWords, Word } from "../helpers/fetchBasicWordList";
 import { shuffle } from "../helpers/utils";
 import { Mode } from "./page";
 import { formatFillInTheBlankQuestions, FillInTheBlankQuestion } from "../helpers/userWordLibrary";
@@ -22,7 +22,7 @@ export const LearnForm = ({ setMode, mode }: LearnFormProps) => {
   const [words, setWords] = useState<Word[]>([]);
 
   useEffect(() => {
-    fetchBasicWords("german", process.env.NEXT_PUBLIC_API_PASSWORD || "").then(
+    fetchAllWords("german", process.env.NEXT_PUBLIC_API_PASSWORD || "").then(
       setWords
     );
   }, []);
@@ -171,6 +171,8 @@ useEffect(() => {
   }
 
   const shuffledSample = shuffle(filtered).slice(0, wordCount);
+
+  console.log("shuffledSample: ", shuffledSample)
 
   // Convert to quiz questions if in quiz mode
   if (mode === 'quiz') {

@@ -200,6 +200,8 @@ export async function fetchWordStatusData(
 export function formatFillInTheBlankQuestions(words: Word[]): FillInTheBlankQuestion[] {
   const questions: FillInTheBlankQuestion[] = [];
 
+  console.log("formatFillInTheBlankQuestions words: ", words)
+
   for (const word of words) {
     if (!word.examples || word.examples.length === 0) continue;
 
@@ -215,6 +217,12 @@ export function formatFillInTheBlankQuestions(words: Word[]): FillInTheBlankQues
         break;
       }
     }
+  console.log("formatFillInTheBlankQuestions questions.push: ", {
+      sentence: chosen,
+      answer: word.word,
+      hint: word.translation,
+      sentence_translated: chosen_translated ? chosen_translated : ""
+    })
 
     if (!chosen) continue; // skip if no valid example
 

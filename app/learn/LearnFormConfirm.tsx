@@ -65,6 +65,8 @@ export const LearnFormConfirm = ({ mode }: LearnFormConfirmProps) => {
         )
     );
 
+    console.log("available: ", available)
+
     if (available.length === 0) {
       toast({
         title: "No More Saved Words",
