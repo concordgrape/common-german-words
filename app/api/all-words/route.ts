@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Missing language parameter' }, { status: 400 });
   }
 
-  const cacheKey = `basic_words:${language}`;
+  const cacheKey = `all_words:${language}`;
 
   try {
     const redis = await getRedisClient();
