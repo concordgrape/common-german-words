@@ -59,7 +59,7 @@ const SavedWordList: React.FC = () => {
       {/* WordTable (left column) */}
       <div className="z-10">
         <div className="mx-3 my-6">
-          <h1 className="text-black dark:text-white font-bold text-2xl pt-5">
+          <h1 className="text-black dark:text-white font-bold text-2xl flex">
             My saved words
           </h1>
           <p className="text-black dark:text-white text-sm">
