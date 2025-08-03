@@ -132,9 +132,9 @@ const UserDropdown = ({
             <button
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                           hover:text-orange-500 transition-colors duration-800"
-              onClick={() => router.push("/word-lists/my-saved-words")}
+              onClick={() => router.push("/browse")}
             >
-              <FaQuestionCircle className="text-lg" /> {/* Profile Icon */}
+              <FaQuestionCircle className="text-lg" /
               Browse
             </button>
           </li>
@@ -142,9 +142,9 @@ const UserDropdown = ({
             <button
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                         hover:text-green-700 transition-colors duration-800"
-              onClick={() => router.push("/word-lists/my-known-words")}
+              onClick={() => router.push("/learn")}
             >
-              <FaBook className="text-lg" /> {/* Profile Icon */}
+              <FaBook className="text-lg" />
               Learn
             </button>
           </li>
