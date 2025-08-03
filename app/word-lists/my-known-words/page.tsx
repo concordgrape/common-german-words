@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-
 import { WordTable } from "@/app/components/WordTable";
 import { WordInfo } from "@/app/components/WordInfo";
 import { fetchBasicWords, Word } from "@/app/helpers/fetchBasicWordList";
@@ -59,7 +58,7 @@ const KnownWordList: React.FC = () => {
       {/* WordTable (left column) */}
       <div className="z-10">
         <div className="mx-3 my-6">
-          <h1 className="text-black dark:text-white font-bold text-2xl">
+          <h1 className="text-black dark:text-white font-bold text-2xl flex">
             My known words
           </h1>
           <p className="text-black dark:text-white text-sm">

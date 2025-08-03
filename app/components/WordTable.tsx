@@ -618,11 +618,8 @@ export const WordTable: React.FC<WordTableProps> = ({
         <div className="relative group w-fit flex items-center gap-1 mr-1 lg:mr-0">
           <span>Rank</span>
           <FaQuestionCircle className="text-gray-400  hidden sm:block md:block" />
-          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 text-xs text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
-            Frequency rank (1 is most common)
-          </div>
         </div>
-        <div className="w-[70px] sm:w-[80px] md:w-[80px]"></div>
+        <div className={`${showOnlyKnown || showOnlySaved ? 'w-[10px] sm:w-[20px] md:w-[20px]' : 'w-[70px] sm:w-[80px] md:w-[80px]'}`}></div>
         <button
           className="cursor-pointer hover:text-gray-400 w-5"
           onClick={() => setIsReversed((prev) => !prev)}
@@ -661,7 +658,7 @@ export const WordTable: React.FC<WordTableProps> = ({
       {/* Table Rows */}
       {displayedWords.length === 0 && words.length === 0 ? (
         <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent" />
+          <div className={`animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent`} />
         </div>
       ) : (
         <Virtuoso
@@ -679,7 +676,7 @@ export const WordTable: React.FC<WordTableProps> = ({
                 }}
                 className={`border-1 font-arial dark:bg-[#1B263B]  ${
                   expandedRows.includes(word.id)
-                    ? "border-blue-300 lg:max-h-[44px] sm:max-h-[44px] md:max-h-[44px]"
+                    ? `${showOnlyKnown ? 'border-green-300' : 'border-blue-300'} ${showOnlySaved ? 'border-orange-300' : 'border-blue-300'} lg:max-h-[44px] sm:max-h-[44px] md:max-h-[44px]`
                     : "hover:bg-gray-50 dark:hover:bg-gray-900 border-[#F2F2F2] dark:border-gray-600 h-[44px] max-h-[44px]"
                 }`}
               >
@@ -743,7 +740,7 @@ export const WordTable: React.FC<WordTableProps> = ({
                   </div>
                   <div
                     className={`${
-                      showOnlySaved || showOnlyKnown ? "invisible" : "visible"
+                      showOnlySaved || showOnlyKnown ? "hidden" : "block"
                     }`}
                   >
                     <WordStatusButtons
