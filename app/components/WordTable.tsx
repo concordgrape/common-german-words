@@ -411,7 +411,7 @@ export const WordTable: React.FC<WordTableProps> = ({
 
   return (
     <div
-      className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] dark:bg-[#0D1B2A] border-0 sm:border-1 border-gray-200 dark:border-gray-700 overflow-hidden mt-0 pt-8 sm:pt-0 sm:mt-5`}
+      className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] dark:bg-[#0D1B2A] border-0 sm:border-1 border-gray-200 dark:border-gray-700 overflow-hidden mt-0 ${showOnlyKnown || showOnlySaved ? '' : 'pt-8 sm:pt-0'} sm:mt-5`}
     >
       {/* Header with Search and Sort border border-1 border-[#B1B1B1]*/}
       <div className="p-4">

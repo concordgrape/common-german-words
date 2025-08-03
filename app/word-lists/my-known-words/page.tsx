@@ -58,8 +58,8 @@ const KnownWordList: React.FC = () => {
     <div className="min-h-screen w-full sm:top-15 md:top-15 pt-20 sm:p-4 md:p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0 dark:[#1B263B">
       {/* WordTable (left column) */}
       <div className="z-10">
-        <div>
-          <h1 className="text-black dark:text-white font-bold text-2xl pt-5">
+        <div className="mx-3 my-6">
+          <h1 className="text-black dark:text-white font-bold text-2xl">
             My known words
           </h1>
           <p className="text-black dark:text-white text-sm">
