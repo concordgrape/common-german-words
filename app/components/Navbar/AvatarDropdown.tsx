@@ -134,7 +134,7 @@ const UserDropdown = ({
                           hover:text-orange-500 transition-colors duration-800"
               onClick={() => router.push("/browse")}
             >
-              <FaQuestionCircle className="text-lg" /
+              <FaQuestionCircle className="text-lg" />
               Browse
             </button>
           </li>
