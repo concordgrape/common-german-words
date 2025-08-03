@@ -158,14 +158,14 @@ export const Navbar: React.FC = () => {
               )}
             </div>
             {/* Desktop Dropdown (Hamburger Icon) */}
-            <div className='hidden lg:hidden'>
+            <div className='hidden'>
               <HamburgerDropdown />
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
-              className="lg:hidden flex items-center text-black dark:text-white hover:text-gray-300 cursor-pointer p-1 sm:p-3"
+              className="hidden flex items-center text-black dark:text-white hover:text-gray-300 cursor-pointer p-1 sm:p-3"
             >
               <svg
                 className="block h-6 w-6 fill-current"

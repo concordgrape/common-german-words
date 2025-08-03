@@ -8,6 +8,8 @@ import { useUser } from "@/app/context/UserContext";
 import { FaCheck, FaRegBookmark, FaRegUser } from "react-icons/fa";
 import { ImExit } from "react-icons/im";
 import { useRouter } from "next/navigation";
+import { FaBook, FaQuestionCircle } from 'react-icons/fa';
+import { FaChartLine } from 'react-icons/fa6';
 
 interface AvatarDropdownProps {
   loading?: boolean;
@@ -124,6 +126,41 @@ const UserDropdown = ({
         </p>
         <p className="text-sm text-gray-600 truncate">{userEmail}</p>
       </div>
+      <div className="block lg:hidden">
+        <ul className="py-1 text-sm text-gray-700">
+          <li>
+            <button
+              className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
+                          hover:text-orange-500 transition-colors duration-800"
+              onClick={() => router.push("/word-lists/my-saved-words")}
+            >
+              <FaQuestionCircle className="text-lg" /> {/* Profile Icon */}
+              Browse
+            </button>
+          </li>
+          <li>
+            <button
+              className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
+                        hover:text-green-700 transition-colors duration-800"
+              onClick={() => router.push("/word-lists/my-known-words")}
+            >
+              <FaBook className="text-lg" /> {/* Profile Icon */}
+              Learn
+            </button>
+          </li>
+          <li>
+            <button
+              className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
+                          hover:text-orange-500 transition-colors duration-800"
+              onClick={() => router.push("/word-lists/my-saved-words")}
+            >
+              <FaChartLine className="text-lg" /> {/* Profile Icon */}
+              Progress
+            </button>
+          </li>
+        </ul>     
+        <hr className="h-px my-2 bg-gray-200 border-0" />
+      </div>
       <ul className="py-1 text-sm text-gray-700">
         <li>
           <button
@@ -158,7 +195,7 @@ const UserDropdown = ({
         <hr className="h-px my-2 bg-gray-200 border-0" />
         <li>
           <button
-            className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100 
+            className="w-full text-red-800 flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100 
                       hover:text-red-700 transition-colors duration-800"
             onClick={handleLogout}
           >
