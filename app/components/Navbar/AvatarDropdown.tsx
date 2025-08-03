@@ -152,9 +152,9 @@ const UserDropdown = ({
             <button
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                           hover:text-orange-500 transition-colors duration-800"
-              onClick={() => router.push("/word-lists/my-saved-words")}
+              onClick={() => router.push("/progress")}
             >
-              <FaChartLine className="text-lg" /> {/* Profile Icon */}
+              <FaChartLine className="text-lg" /> 
               Progress
             </button>
           </li>
