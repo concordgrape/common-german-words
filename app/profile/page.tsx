@@ -8,7 +8,7 @@ const ProfileContentPage: React.FC = () => {
     const { user, isDarkMode, setIsDarkMode } = useUser();
 
   return (
-<div className="pt-30 w-full flex items-center justify-center p-4 text-black">
+<div className="min-h-screen pt-30 w-full flex justify-center p-4 text-black">
   <div className="flex flex-col w-full max-w-[800px]">
     <div className="flex w-full items-center">
     <div>
