@@ -95,6 +95,7 @@ export default function AvatarDropdown({
           userName={user?.displayName ?? "User"}
           userEmail={user?.email ?? "noemail@email.com"}
           handleLogout={handleLogout}
+          setOpen={setOpen}
         />
       </div>
     </div>
@@ -105,12 +106,14 @@ interface UserDropdownProps {
   userName: string;
   userEmail: string;
   handleLogout: () => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserDropdown = ({
   userName,
   userEmail,
   handleLogout,
+  setOpen,
 }: UserDropdownProps) => {
   const router = useRouter();
 
@@ -132,9 +135,13 @@ const UserDropdown = ({
             <button
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                           hover:text-orange-500 transition-colors duration-800"
-              onClick={() => router.push("/word-lists/my-saved-words")}
+              onClick={() => {
+                  router.push("/browse");
+                  setOpen(false);
+                }
+              }
             >
-              <FaQuestionCircle className="text-lg" /> {/* Profile Icon */}
+              <FaQuestionCircle className="text-lg" />
               Browse
             </button>
           </li>
@@ -142,9 +149,13 @@ const UserDropdown = ({
             <button
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                         hover:text-green-700 transition-colors duration-800"
-              onClick={() => router.push("/word-lists/my-known-words")}
+              onClick={() => {
+                  router.push("/learn");
+                  setOpen(false);
+                }
+              }
             >
-              <FaBook className="text-lg" /> {/* Profile Icon */}
+              <FaBook className="text-lg" />
               Learn
             </button>
           </li>
@@ -152,9 +163,13 @@ const UserDropdown = ({
             <button
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                           hover:text-orange-500 transition-colors duration-800"
-              onClick={() => router.push("/word-lists/my-saved-words")}
+              onClick={() => {
+                  router.push("/progress");
+                  setOpen(false);
+                }
+              }
             >
-              <FaChartLine className="text-lg" /> {/* Profile Icon */}
+              <FaChartLine className="text-lg" /> 
               Progress
             </button>
           </li>
@@ -166,7 +181,11 @@ const UserDropdown = ({
           <button
             className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                         hover:text-orange-500 transition-colors duration-800"
-            onClick={() => router.push("/word-lists/my-saved-words")}
+            onClick={() => {
+                  router.push("/word-lists/my-saved-words");
+                  setOpen(false);
+                }
+              }
           >
             <FaRegBookmark className="text-lg" /> {/* Profile Icon */}
             My Saved Words
@@ -176,7 +195,11 @@ const UserDropdown = ({
           <button
             className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                       hover:text-green-700 transition-colors duration-800"
-            onClick={() => router.push("/word-lists/my-known-words")}
+            onClick={() => {
+                  router.push("/word-lists/my-known-words");
+                  setOpen(false);
+                }
+              }
           >
             <FaCheck className="text-lg" /> {/* Profile Icon */}
             My Known Words
@@ -186,7 +209,11 @@ const UserDropdown = ({
         <li>
           <button
             className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100"
-            onClick={() => router.push("/profile")} // Assuming a profile route
+            onClick={() => {
+                  router.push("/profile");
+                  setOpen(false);
+                }
+              }
           >
             <FaRegUser className="text-lg" /> {/* Profile Icon */}
             My Profile
