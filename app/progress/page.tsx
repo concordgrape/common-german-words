@@ -248,9 +248,14 @@ function ProgressPage() {
               totalSavedWords == 0 ? "skeleton opacity-50" : ""
             } tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
           >
-            <span className="text-6xl font-mono font-bold text-blue-400">
-              {totalSavedWords}
-            </span>
+            <div>
+              <span className="text-6xl font-mono font-bold text-blue-400">
+                {totalSavedWords}
+              </span>
+              <span className="block text-xs font-mon font-regular text-black">
+                  total saved words
+              </span>
+            </div>
           </div>
           <div
             data-tip="Total known words"
@@ -258,9 +263,14 @@ function ProgressPage() {
               totalKnownWords == 0 ? "skeleton opacity-50" : ""
             } tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
           >
-            <span className="text-6xl font-mono font-bold text-green-500">
-              {totalKnownWords}
-            </span>
+            <div>
+              <span className="text-6xl font-mono font-bold text-green-500">
+                {totalKnownWords}
+              </span>
+              <span className="block text-xs font-mon font-regular text-black">
+                    total known words
+              </span>
+            </div>
           </div>
           <div
             data-tip="All available words"
@@ -268,9 +278,14 @@ function ProgressPage() {
               words.length == 0 ? "skeleton opacity-50" : ""
             } tooltip py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
           >
-            <span className="text-6xl font-mono font-bold text-gray-500 dark:text-gray-300">
-              {words.length}
-            </span>
+            <div>
+              <span className="text-6xl font-mono font-bold text-gray-500 dark:text-gray-300">
+                {words.length}
+              </span>
+              <span className="block text-xs font-mon font-regular text-black">
+                total words
+              </span>
+            </div>
           </div>
           <div
             data-tip="Your daily streak"

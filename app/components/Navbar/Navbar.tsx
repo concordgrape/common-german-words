@@ -22,7 +22,7 @@ export const Navbar: React.FC = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
-  const { user, loading, streak } = useUser();
+  const { user, streak, loading } = useUser();
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -89,9 +89,9 @@ export const Navbar: React.FC = () => {
 
           {/* Right side */}
           <div className="flex items-center gap-2 lg:gap-6 relative">
-            <div className="font-mono text-black dark:text-white text-sm hidden lg:flex space-x-6">
+            <div className="font-mono text-black dark:text-white text-sm hidden sm:flex space-x-6">
               {user ? 
-              <Link href="/progress" className="hover:underline flex items-center">
+              <Link href="/progress" className="hidden lg:flex hover:underline flex items-center">
                 <FaChartLine className="mr-2" />
                 <span>Progress</span>
               </Link>
@@ -105,8 +105,31 @@ export const Navbar: React.FC = () => {
                 <span>Learn</span>
               </Link>
             </div>
-            <div>
-              {!user ? (
+            <div className={`w-full flex justify-end`}>
+                <div className='block sm:hidden'>
+                  <AnimatePresence>
+                    {user && (
+                      <motion.div
+                        key="streak-badge"
+                        initial={{ opacity: 0, scale: 0.9, x: 10 }}
+                        animate={{ opacity: 1, scale: 1, x: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, x: 10 }}
+                        transition={{ duration: 0.3 }}
+                        data-tip="Your daily streak"
+                        className="tooltip tooltip-bottom bg-clear px-1 py-1 ml-2 flex-shrink-0"
+                      >
+                        <span className="text-3xl flex text-orange-400 font-mono font-bold">
+                          <span className='pt-1'>{streak}</span>               
+                          <Lottie className="h-10 w-10" animationData={fireAnimation} loop={true} />
+                        </span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              <div className={`${user ? 'block' : 'sm:hidden'}`}>
+                <AvatarDropdown />
+              </div>
+              <div className={`${user ? 'hidden' : 'block sm:hidden'}`}>
                 <Link
                   href="/signin"
                   className={`${loading ? 'skeleton opacity-50 disabled' : ''} flex items-center px-4 py-2 text-sm text-black border border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm w-full justify-center`}
@@ -131,31 +154,7 @@ export const Navbar: React.FC = () => {
                   </svg>
                   <span className="pl-2">Sign In</span>
                 </Link>
-              ) : (
-                <div className={`w-full flex justify-end`}>
-                    <div className='block sm:hidden'>
-                      <AnimatePresence>
-                        {user && (
-                          <motion.div
-                            key="streak-badge"
-                            initial={{ opacity: 0, scale: 0.9, x: 10 }}
-                            animate={{ opacity: 1, scale: 1, x: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, x: 10 }}
-                            transition={{ duration: 0.3 }}
-                            data-tip="Your daily streak"
-                            className="tooltip tooltip-bottom bg-clear px-1 py-1 ml-2 flex-shrink-0"
-                          >
-                            <span className="text-3xl flex text-orange-400 font-mono font-bold">
-                              <span className='pt-1'>{streak}</span>               
-                              <Lottie className="h-10 w-10" animationData={fireAnimation} loop={true} />
-                            </span>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  <AvatarDropdown />
-                </div>
-              )}
+              </div>
             </div>
             {/* Desktop Dropdown (Hamburger Icon) */}
             <div className='hidden'>
