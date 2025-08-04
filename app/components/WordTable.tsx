@@ -619,7 +619,7 @@ export const WordTable: React.FC<WordTableProps> = ({
           <span>Rank</span>
           <FaQuestionCircle className="text-gray-400  hidden sm:block md:block" />
         </div>
-        <div className={`${showOnlyKnown || showOnlySaved ? 'w-[10px] sm:w-[20px] md:w-[20px]' : 'w-[70px] sm:w-[80px] md:w-[80px]'}`}></div>
+        <div className={`w-[70px] sm:w-[80px] md:w-[80px]`}></div>
         <button
           className="cursor-pointer hover:text-gray-400 w-5"
           onClick={() => setIsReversed((prev) => !prev)}
@@ -738,11 +738,7 @@ export const WordTable: React.FC<WordTableProps> = ({
                   <div className="w-[10px] sm:w-[40px] md:w-[40px] text-center text-gray-400 text-sm mr-9">
                     {word.rank}
                   </div>
-                  <div
-                    className={`${
-                      showOnlySaved || showOnlyKnown ? "hidden" : "block"
-                    }`}
-                  >
+                  <div>
                     <WordStatusButtons
                       //word={word}
                       isPlusEnabled={
