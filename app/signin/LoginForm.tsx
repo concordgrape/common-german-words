@@ -5,6 +5,7 @@ import { sendSignInLinkToEmail } from 'firebase/auth';
 import { auth } from '@/lib/firebaseClient';
 import { FaApple } from "react-icons/fa";
 import GoogleSignInButton from './SignInWithGoogle';
+import SignInWithApple from './SignInWithApple';
 
 const actionCodeSettings = {
   url: 'https://common-german-words.vercel.app/sign-in-complete',
@@ -72,10 +73,7 @@ const LoginForm: React.FC = () => {
 
       <div className="flex flex-col items-center justify-center">
         <GoogleSignInButton />
-        <button className="w-[200px] mt-2 flex items-center justify-center gap-4 border border-gray-300 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100">
-          <FaApple />
-          Sign in with Apple
-        </button>
+        {/*<SignInWithApple />*/} {/* We must wait until we have an app to enable/configure through it */}
       </div>
     </div>
   );
