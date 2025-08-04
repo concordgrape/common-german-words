@@ -129,7 +129,7 @@ export const Navbar: React.FC = () => {
               <div className={`${user ? 'block' : 'sm:hidden'}`}>
                 <AvatarDropdown />
               </div>
-              <div className={`${user ? 'hidden' : 'block sm:hidden'}`}>
+              <div className={`${user ? 'hidden' : 'hidden sm:flex'}`}>
                 <Link
                   href="/signin"
                   className={`${loading ? 'skeleton opacity-50 disabled' : ''} flex items-center px-4 py-2 text-sm text-black border border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm w-full justify-center`}
