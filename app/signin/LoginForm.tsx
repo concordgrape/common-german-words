@@ -2,12 +2,11 @@
 
 import React, { useState } from 'react';
 import { sendSignInLinkToEmail } from 'firebase/auth';
-import { auth } from '@/lib/firebaseClient'; // make sure this exports your initialized auth
+import { auth } from '@/lib/firebaseClient';
 import { FaApple } from "react-icons/fa";
 import GoogleSignInButton from './SignInWithGoogle';
 
 const actionCodeSettings = {
-  // Replace this with your deployed URL
   url: 'https://common-german-words.vercel.app/sign-in-complete',
   handleCodeInApp: true,
 };
