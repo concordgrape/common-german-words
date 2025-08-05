@@ -337,3 +337,38 @@ export async function updateStreak(userId: string): Promise<number> {
 
   return streak;
 }
+
+
+/**
+ * Deletes a Firestore document after confirming with the user.
+ * @param collectionPath - The collection name (e.g., "users")
+ * @param docId - The ID of the document to delete
+ */
+type LanguageCode = 'de';
+type WordDocCode = 'saved' | 'known';
+
+interface DeleteWordDocParams {
+  uid: string;
+  languageCode: LanguageCode;
+  docId: WordDocCode;
+}
+
+export async function deleteFirestoreDoc({
+  uid,
+  languageCode,
+  docId,
+}: DeleteWordDocParams): Promise<void> {
+  const confirmed = confirm(`Are you sure you want to delete all ${docId} words? This action cannot be undone.`);
+  if (!confirmed) return;
+
+  try {
+    const docRef = doc(db, uid, languageCode, 'cards', docId);
+    await deleteDoc(docRef);
+    console.log(`Deleted document ${docId} from ${languageCode}`);
+    alert("Document deleted.");
+  } catch (error) {
+    console.error("Error deleting document:", error);
+    alert("Failed to delete the document.");
+  }
+}
+

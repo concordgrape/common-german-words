@@ -5,20 +5,28 @@ import { useUser } from "../context/UserContext";
 import { useToast } from "../hooks/useToast";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebaseClient";
-import { updateEmail, sendEmailVerification } from "firebase/auth";
+import {
+  deleteUser,
+  GoogleAuthProvider,
+  reauthenticateWithPopup,
+  updateEmail,
+  sendEmailVerification
+} from "firebase/auth";
 import { FirebaseError } from "firebase/app";
+import { FaTrash } from "react-icons/fa6";
+import { deleteFirestoreDoc } from "../helpers/userWordLibrary";
 
 const ProfileContentPage: React.FC = () => {
-  const { user, theme, setTheme } = useUser();
+  const { user, theme, setTheme, loading } = useUser();
   const [email, setEmail] = useState("");
   const toast = useToast();
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !loading) {
       router.push("/signin");
     }
-  }, [user, router]);
+  }, [user, router, loading]);
 
   const handleSaveChanges = () => {
     const currentUser = auth.currentUser;
@@ -135,6 +143,26 @@ const ProfileContentPage: React.FC = () => {
               />
             </div>
           </div>
+          <div className="flex items-center p-4">
+            <div className="w-50">
+                <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                    Your saved words
+                </label>
+                <button onClick={() => deleteFirestoreDoc({
+                    uid: user?.uid ?? '',
+                    languageCode: 'de',
+                    docId: 'saved',
+                    })} className="cursor-pointer bg-gray-50 hover:bg-gray-100 border font-mono border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:hover:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 flex"><FaTrash className="mt-[2px] mr-2" />Delete <span className="text-orange-500 font-bold px-2">SAVED</span> Words</button>
+                <button onClick={() => deleteFirestoreDoc({
+                    uid: user?.uid ?? '',
+                    languageCode: 'de',
+                    docId: 'known',
+                    })} className="mt-2 cursor-pointer bg-gray-50 hover:bg-gray-100 border font-mono border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:hover:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 flex"><FaTrash className="mt-[2px] mr-2" />Delete <span className="text-green-600 font-bold px-2">KNOWN</span> Words</button>
+            </div>
+          </div>
           <hr className="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700" />
 
           <div className="p-4">
@@ -154,10 +182,83 @@ const ProfileContentPage: React.FC = () => {
             </select>
           </div>
         </div>
+        <DeleteAccountPrompt />
       </div>
     </div>
   );
 };
+
+const DeleteAccountPrompt: React.FC = () => {
+    const toast = useToast();
+    const router = useRouter();
+
+const handleDeleteAccount = async () => {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  if (!confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+    return;
+  }
+
+  try {
+    // Detect the sign-in method
+    const providerId = user.providerData[0]?.providerId;
+
+    if (providerId === "google.com") {
+      // Google
+      const provider = new GoogleAuthProvider();
+      await reauthenticateWithPopup(user, provider);
+    } else {
+        toast({
+            title: "Error deleting account",
+            subtitle: 'Please contact support to continue with your account deletion',
+            variant: "error",
+        });
+    }
+
+    await deleteUser(user);
+
+    toast({
+      title: "Account deleted",
+      subtitle: "Account successfully deleted. You will be logged out",
+      variant: "success",
+    });
+
+    router.push("/signin");
+  } catch (error) {
+    console.error("Error deleting account:", error);
+    toast({
+      title: "Error deleting account",
+      subtitle: "Please try again later or contact support",
+      variant: "error",
+    });
+  }
+};
+
+  return (
+    <div className="w-full m-auto bg-red-100 mt-5 px-8 py-6 rounded-lg grid grid-cols-[auto_1fr_auto] items-center gap-4">
+        {/* Trash Icon (left-aligned) */}
+        <div className="flex items-start">
+            <FaTrash className="text-red-500 text-2xl" />
+        </div>
+
+        {/* Text content (left-aligned) */}
+        <div className="text-left">
+            <h1 className="font-mono font-bold">Delete your account?</h1>
+            <p className="text-xs font-mono">
+            Once your account is deleted, we cannot get it back. All data will be removed from our database
+            </p>
+        </div>
+
+        {/* Delete Button (right-aligned) */}
+        <div className="flex justify-end">
+            <button onClick={handleDeleteAccount} className="cursor-pointer px-6 py-4 bg-red-400 rounded-lg text-red-800 font-mono font-bold hover:bg-red-500 hover:text-red-900">
+            Delete
+            </button>
+        </div>
+    </div>
+  );
+}
 
 export default function ProfilePage() {
   return (
