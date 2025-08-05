@@ -212,7 +212,10 @@ const UserDropdown = ({
               My Profile
             </button>
            :
-             <Link
+            <button onClick={() => 
+              setOpen(false);
+              }>
+              <Link
                 href="/signin"
                 className={`flex items-center px-4 py-2 text-sm text-black w-full justify-center`}
               >
@@ -236,6 +239,7 @@ const UserDropdown = ({
                 </svg>
                 <span className="pl-2">Sign In</span>
               </Link>
+            </button>
           } 
         </li>
         <hr className={`${userName && userEmail ? 'block' : 'hidden'} h-px my-2 bg-gray-200 border-0`} />
