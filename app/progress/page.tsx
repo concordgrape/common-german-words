@@ -69,8 +69,8 @@ function ProgressPage() {
   const [knownData, setKnownData] = useState<{ date: string; count: number }[]>(
     []
   );
-  const [totalSavedWords, setTotalSavedWords] = useState<number>(0);
-  const [totalKnownWords, setTotalKnownWords] = useState<number>(0);
+  const [totalSavedWords, setTotalSavedWords] = useState<number>(-1);
+  const [totalKnownWords, setTotalKnownWords] = useState<number>(-1);
   const [rangeKey, setRangeKey] = useState<"7d" | "30d" | "6m">("7d");
   const [rankedSavedWords, setRankedSavedWords] = useState<Word[]>([]);
   const [rawSavedWords, setRawSavedWords] = useState<WordWithTimestamp[]>([]);
@@ -241,7 +241,7 @@ function ProgressPage() {
           <div
             data-tip="Total saved words"
             className={`${
-              totalSavedWords == 0 ? "skeleton opacity-50" : ""
+              totalSavedWords == -1 ? "skeleton opacity-50" : ""
             } tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
           >
             <div>
@@ -256,7 +256,7 @@ function ProgressPage() {
           <div
             data-tip="Total known words"
             className={`${
-              totalKnownWords == 0 ? "skeleton opacity-50" : ""
+              totalKnownWords == -1 ? "skeleton opacity-50" : ""
             } tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
           >
             <div>
