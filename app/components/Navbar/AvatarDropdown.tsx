@@ -218,7 +218,7 @@ const UserDropdown = ({
               }>
               <Link
                 href="/signin"
-                className={`flex items-center px-4 py-2 text-sm text-black w-full justify-center`}
+                className={`flex items-center px-4 py-2 pb-4 text-sm text-black w-full justify-center`}
               >
                 <svg
                   width="20px"
