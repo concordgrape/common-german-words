@@ -246,7 +246,7 @@ function ProgressPage() {
           >
             <div>
               <span className="text-6xl font-mono font-bold text-blue-400">
-                {totalSavedWords}
+                {totalSavedWords == -1 ? 0 : totalSavedWords}
               </span>
               <span className="block text-xs font-mon font-regular text-black">
                   total saved words
@@ -261,7 +261,7 @@ function ProgressPage() {
           >
             <div>
               <span className="text-6xl font-mono font-bold text-green-500">
-                {totalKnownWords}
+                {totalKnownWords == -1 ? 0 : totalKnownWords}
               </span>
               <span className="block text-xs font-mon font-regular text-black">
                     total known words
