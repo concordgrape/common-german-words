@@ -212,8 +212,9 @@ const UserDropdown = ({
               My Profile
             </button>
            :
-            <button onClick={() => 
-              setOpen(false);
+            <button onClick={() => {
+                  setOpen(false);
+                }
               }>
               <Link
                 href="/signin"
