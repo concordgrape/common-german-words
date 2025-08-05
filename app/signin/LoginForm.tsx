@@ -3,9 +3,9 @@
 import React, { useState } from 'react';
 import { sendSignInLinkToEmail } from 'firebase/auth';
 import { auth } from '@/lib/firebaseClient';
-import { FaApple } from "react-icons/fa";
+//import { FaApple } from "react-icons/fa";
 import GoogleSignInButton from './SignInWithGoogle';
-import SignInWithApple from './SignInWithApple';
+//import SignInWithApple from './SignInWithApple';
 
 const actionCodeSettings = {
   url: 'https://common-german-words.vercel.app/sign-in-complete',
