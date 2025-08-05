@@ -86,7 +86,6 @@ function ProgressPage() {
     fetchBasicWords("german", process.env.NEXT_PUBLIC_API_PASSWORD || "").then(
       (e) => {
         setWords(e);
-        console.log("word metadata: ", e);
       }
     );
   }, []);
@@ -99,8 +98,6 @@ function ProgressPage() {
       setTotalSavedWords(savedWords.length);
       setRawSavedWords(savedWords);
       const countsByDate: Record<string, number> = {};
-
-      console.log("saved word metadata: ", savedWords);
 
       for (const word of savedWords as WordWithTimestamp[]) {
         const date = dayjs(word.timestamp.toDate()).format("YYYY-MM-DD");
@@ -156,7 +153,6 @@ function ProgressPage() {
 
     const sorted = matched.sort((a, b) => a.rank - b.rank);
 
-    console.log("✅ Ranked Saved Words:", sorted);
     setRankedSavedWords(sorted);
   };
 
