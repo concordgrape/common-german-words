@@ -13,7 +13,7 @@ type ToastContextType = {
   showToast: (toast: Omit<ToastData, 'id'>) => void;
 };
 
-type ToastVariant = 'success' | 'error' | 'warning' | 'known';
+type ToastVariant = 'success' | 'error' | 'warning' | 'known' | 'info';
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
@@ -65,6 +65,17 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="m17 21-5-4-5 4V3.889a.92.92 0 0 1 .244-.629.808.808 0 0 1 .59-.26h8.333a.81.81 0 0 1 .589.26.92.92 0 0 1 .244.63V21Z"/>
               </svg>
             );
+            case 'info':
+              return (
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12 17.75C12.4142 17.75 12.75 17.4142 12.75 17V11C12.75 10.5858 12.4142 10.25 12 10.25C11.5858 10.25 11.25 10.5858 11.25 11V17C11.25 17.4142 11.5858 17.75 12 17.75ZM12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8C11 7.44772 11.4477 7 12 7Z"
+                    fill="#1C274C"
+                  />
+                </svg>
+              );
             case 'success':
             default:
             return (
@@ -78,28 +89,32 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const getBgColor = (variant: ToastVariant) => {
         switch (variant) {
             case 'error':
-            return 'bg-red-100';
+              return 'bg-red-100';
             case 'warning':
-            return 'bg-yellow-100';
+              return 'bg-yellow-100';
             case 'known':
-            return 'bg-orange-100';
+              return 'bg-orange-100';
+            case 'info':
+              return 'bg-blue-100';
             case 'success':
             default:
-            return 'bg-green-100';
+              return 'bg-green-100';
         }
     };
 
     const getTextColor = (variant: ToastVariant) => {
         switch (variant) {
             case 'error':
-            return 'text-red-600';
+              return 'text-red-600';
             case 'warning':
-            return 'text-yellow-600';
+              return 'text-yellow-600';
             case 'known':
-            return 'text-orange-500';
+              return 'text-orange-500';
+            case 'info':
+              return 'text-blue-600';
             case 'success':
             default:
-            return 'text-green-500';
+              return 'text-green-500';
         }
     };
 

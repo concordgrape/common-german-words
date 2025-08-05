@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { sendSignInLinkToEmail } from 'firebase/auth';
 import { auth } from '@/lib/firebaseClient';
-import { FaApple } from "react-icons/fa";
 import GoogleSignInButton from './SignInWithGoogle';
-import SignInWithApple from './SignInWithApple';
+import { useUser } from '../context/UserContext';
+//import SignInWithApple from './SignInWithApple';
+import { useRouter } from 'next/navigation';
 
 const actionCodeSettings = {
   url: 'https://common-german-words.vercel.app/sign-in-complete',
@@ -15,6 +16,8 @@ const actionCodeSettings = {
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const { user, loading } = useUser();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +33,12 @@ const LoginForm: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (user) {
+      router.push("/profile")
+    }
+  }, [user]);
+
   return (
     <div className="w-full m-auto max-h-[600px] max-w-md bg-white dark:bg-[#1E1E1E] p-8 rounded-xl shadow">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-2">Sign in</h2>
@@ -40,7 +49,7 @@ const LoginForm: React.FC = () => {
         </i>
       </h4>
 
-      <form className="space-y-5" onSubmit={handleSubmit}>
+      <form className={`${loading ? 'skeleton opacity/50' : ''} space-y-5`} onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Email address
@@ -51,6 +60,7 @@ const LoginForm: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled={loading}
             className="w-full border border-gray-300 dark:border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             placeholder="you@example.com"
           />
