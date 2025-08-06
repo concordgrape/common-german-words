@@ -358,17 +358,28 @@ export async function deleteFirestoreDoc({
   languageCode,
   docId,
 }: DeleteWordDocParams): Promise<void> {
-  const confirmed = confirm(`Are you sure you want to delete all ${docId} words? This action cannot be undone.`);
+  const confirmed = confirm(
+    `Are you sure you want to delete all ${docId} words? This action cannot be undone.`
+  );
   if (!confirmed) return;
 
   try {
-    const docRef = doc(db, uid, languageCode, 'cards', docId);
-    await deleteDoc(docRef);
-    console.log(`Deleted document ${docId} from ${languageCode}`);
-    alert("Document deleted.");
+    const collectionRef = collection(db, 'users', uid, languageCode, 'cards', docId);
+    const snapshot = await getDocs(collectionRef);
+
+    if (snapshot.empty) {
+      alert("No documents found to delete.");
+      return;
+    }
+
+    const deletePromises = snapshot.docs.map((docSnap) => deleteDoc(docSnap.ref));
+    await Promise.all(deletePromises);
+
+    console.log(`Deleted all documents from /${uid}/${languageCode}/cards/${docId}`);
+    alert("All documents deleted.");
   } catch (error) {
-    console.error("Error deleting document:", error);
-    alert("Failed to delete the document.");
+    console.error("Error deleting documents:", error);
+    alert("Failed to delete documents.");
   }
 }
 
