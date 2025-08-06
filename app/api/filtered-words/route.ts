@@ -1,66 +1,82 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/firebaseAdmin';
+import { createClient } from 'redis';
 
-type Word = {
-  id: string;
-  part_of_speech?: string;
-  gender?: string;
-};
+let redisClient: ReturnType<typeof createClient> | null = null;
 
-type BasicWordInfo = {
-  id: string;
-  part_of_speech?: string;
-};
+async function getRedisClient() {
+  if (!redisClient) {
+    redisClient = createClient({
+      url: process.env.REDIS_URL,
+    });
+    redisClient.on('error', (err) => console.error('Redis error:', err));
+    await redisClient.connect();
+  }
+  return redisClient;
+}
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
 
   const language = searchParams.get('language');
+  const partOfSpeechRaw = searchParams.get('part_of_speech');
+  const count = parseInt(searchParams.get('count') || '100', 10);
   const password = searchParams.get('password');
+  const forceRefresh = searchParams.get('refresh') === 'true';
 
-  if (password !== process.env.API_PASSWORD) {
+  if (password !== process.env.NEXT_PUBLIC_API_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  if (!language) {
-    return NextResponse.json({ error: 'Missing language parameter' }, { status: 400 });
+  if (!language || !partOfSpeechRaw) {
+    return NextResponse.json({ error: 'Missing parameters' }, { status: 400 });
   }
 
-  const filters = {
-    part_of_speech: searchParams.get('part_of_speech'),
-    gender: searchParams.get('gender'),
-    minLength: searchParams.get('minLength') ? parseInt(searchParams.get('minLength')!, 10) : null,
-    maxLength: searchParams.get('maxLength') ? parseInt(searchParams.get('maxLength')!, 10) : null,
-  };
+  // Normalize part_of_speech to match Firestore values (e.g., "Noun")
+  const partOfSpeech = partOfSpeechRaw.charAt(0).toUpperCase() + partOfSpeechRaw.slice(1).toLowerCase();
+  const cacheKey = `filtered_words:${language}:${partOfSpeech}:${count}`;
 
   try {
-    const wordsRef = db.collection('languages').doc(language).collection('words');
-    const snapshot = await wordsRef.get();
+    const redis = await getRedisClient();
 
-    const filteredWords: BasicWordInfo[] = snapshot.docs
-      .map((doc) => {
+    if (forceRefresh) {
+      await redis.del(cacheKey);
+    }
+
+    const cached = await redis.get(cacheKey);
+    if (cached) {
+      console.log(`Returning cached result for ${cacheKey}`);
+      return NextResponse.json(JSON.parse(cached), { status: 200 });
+    }
+
+    const collectionRef = db.collection('languages').doc(language).collection('words');
+    const snapshot = await collectionRef
+      .where('part_of_speech', '==', partOfSpeech)
+      .get();
+
+    console.log(`Found ${snapshot.size} documents matching part_of_speech = ${partOfSpeech}`);
+
+    const words = snapshot.docs
+      .map((doc, index) => {
         const data = doc.data();
         return {
-          id: doc.id,
-          part_of_speech: data.part_of_speech,
-          gender: data.gender,
-        } as Word;
+          id: index,
+          word: doc.id,
+          part_of_speech: data.part_of_speech || null,
+          frequency: data.frequency || 0,
+          rank: data.rank || 0,
+          translation: data.translation || '',
+          gender: data.gender || '',
+        };
       })
-      .filter((word) => {
-        if (filters.part_of_speech && word.part_of_speech !== filters.part_of_speech) return false;
-        if (filters.gender && word.gender !== filters.gender) return false;
-        if (filters.minLength && word.id.length < filters.minLength) return false;
-        if (filters.maxLength && word.id.length > filters.maxLength) return false;
-        return true;
-      })
-      .map((word) => ({
-        id: word.id,
-        part_of_speech: word.part_of_speech,
-      }));
+      .sort((a, b) => b.frequency - a.frequency)
+      .slice(0, count);
 
-    return NextResponse.json({ words: filteredWords }, { status: 200 });
+    await redis.set(cacheKey, JSON.stringify({ words }), { EX: 86400 }); // 24 hours
+
+    return NextResponse.json({ words }, { status: 200 });
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching filtered words:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
