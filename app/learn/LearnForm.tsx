@@ -35,8 +35,8 @@ export const LearnForm = ({ setMode, mode }: LearnFormProps) => {
       <h2 className="text-gray-700 dark:text-gray-300 text-base font-regular">
         Customize how you&apos;ll practise a set of words, you can also navigate
         to the{" "}
-        <a href="/browse" className="text-blue-700 dark:text-blue-500">
-          <u>Browse page</u>
+        <a href="/browse" className="text-blue-700 dark:text-blue-500 hover:underline">
+          Browse page
         </a>{" "}
         to add words to the &apos;saved&apos; collection
       </h2>
