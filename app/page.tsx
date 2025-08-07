@@ -34,8 +34,8 @@ const App: React.FC = () => {
           by memorizing common words and phrases first
         </p>
 
-        <div className="mt-8 space-y-2 gap-4">
-          <div className="w-full lg:w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 items-center justify-center text-center rounded-md">
+        <div className="mt-8 space-y-2 gap-4 items-center">
+          <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <Link href="/browse" className="hover:underline">
               <h1 className="text-md font-bold flex items-center justify-center">
                 Browse Words
@@ -45,7 +45,7 @@ const App: React.FC = () => {
             </Link>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 justify-start">
               <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/browse?word=die">die</Link></div>
               <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/browse?word=hund">hund</Link></div>
               <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/browse?word=aber">aber</Link></div>
@@ -54,7 +54,7 @@ const App: React.FC = () => {
 
           <ModeLinks />
 
-          <div className="w-full lg:w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 items-center justify-center text-center rounded-md">
+          <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <Link href="/top-500-words/nouns" className="hover:underline">
             <h1 className="text-md font-bold flex items-center justify-center">
               Top 500 <span className="text-orange-500 px-1">Nouns</span>
@@ -64,13 +64,13 @@ const App: React.FC = () => {
             </Link>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 justify-start">
               <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/browse?word=gott">gott</Link></div>
               <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/browse?word=frau">frau</Link></div>
               <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/browse?word=arzt">arzt</Link></div>
             </div>
           </div>
-          <div className="w-full lg:w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 items-center justify-center text-center rounded-md">
+          <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <Link href="/top-500-words/verbs" className="hover:underline">
             <h1 className="text-md font-bold flex items-center justify-center">
               Top 500 <span className="text-green-500 px-1">Verbs</span>
@@ -80,13 +80,13 @@ const App: React.FC = () => {
             </Link>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 justify-start">
               <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/browse?word=haben">haben</Link></div>
               <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/browse?word=wollte">wollte</Link></div>
               <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/browse?word=musst">musst</Link></div>
             </div>
           </div>
-          <div className="w-full lg:w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 items-center justify-center text-center rounded-md">
+          <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <Link href="/top-500-words/adjectives" className="hover:underline">
             <h1 className="text-md font-bold flex items-center justify-center">
               Top 500 <span className="text-blue-500 px-1">Adjectives</span>
@@ -96,13 +96,13 @@ const App: React.FC = () => {
             </Link>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 justify-start">
               <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/browse?word=gut">gut</Link></div>
               <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/browse?word=spät">spät</Link></div>
               <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/browse?word=alt">alt</Link></div>
             </div>
           </div>
-          <div className="w-full lg:w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 items-center justify-center text-center rounded-md">
+          <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <Link href="/top-500-words/adverbs" className="hover:underline">
             <h1 className="text-md font-bold flex items-center justify-center">
               Top 500 <span className="text-orange-500 px-1">Adverbs</span>
@@ -112,7 +112,7 @@ const App: React.FC = () => {
             </Link>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 justify-start">
               <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/browse?word=dann">dann</Link></div>
               <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/browse?word=immer">immer</Link></div>
               <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/browse?word=vielleicht">vielleicht</Link></div>
