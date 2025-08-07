@@ -10,10 +10,12 @@ import {
   GoogleAuthProvider,
   reauthenticateWithPopup,
   updateEmail,
-  sendEmailVerification
+  sendEmailVerification,
+  signOut
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { FaTrash } from "react-icons/fa6";
+import { ImExit } from "react-icons/im";
 import { deleteFirestoreDoc, fetchKnownWordMetadata, fetchSavedWordMetadata } from "../helpers/userWordLibrary";
 
 const ProfileContentPage: React.FC = () => {
@@ -115,6 +117,16 @@ const ProfileContentPage: React.FC = () => {
       });
   };
 
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((error: Error) => {
+        console.log("Logout error:", error);
+      });
+  };
+
   return (
     <div className="min-h-screen pt-30 w-full flex justify-center p-4 text-black">
       <div className="flex flex-col w-full max-w-[800px]">
@@ -200,6 +212,19 @@ const ProfileContentPage: React.FC = () => {
               <option value="light">Light</option>
               <option value="dark">Dark</option>
             </select>
+          </div>
+
+          <div className="p-4">
+            <h2 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Account
+            </h2>
+            <button
+              onClick={handleLogout}
+              className="w-30 cursor-pointer bg-gray-50 hover:bg-gray-100 border font-mono border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:hover:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 flex items-center justify-center gap-2"
+            >
+              <ImExit className="text-base" />
+              Logout
+            </button>
           </div>
         </div>
         <DeleteAccountPrompt />
