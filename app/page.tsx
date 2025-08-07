@@ -138,8 +138,8 @@ const modes = [
   },
   {
     key: 'quiz',
-    title: 'Quiz',
-    subtitle: 'Test with fill in the blank',
+    title: 'Quizzes',
+    subtitle: 'Fill in the blank questions',
     icon: (
       <Image
         src="/quiz.svg"
