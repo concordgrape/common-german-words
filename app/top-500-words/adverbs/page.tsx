@@ -8,6 +8,7 @@ import { WordInfo } from '@/app/components/WordInfo';
 import { fetchTopWords, Word } from '../../helpers/fetchBasicWordList';
 import { useOnlineStatus } from '@/app/hooks/useOnlineStatus';
 import { useToast } from '../../hooks/useToast';
+import Article from '../components/Article';
 
 const TopAdverbs: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
@@ -48,22 +49,23 @@ const TopAdverbs: React.FC = () => {
   }, [words, searchParams]);
 
   return (
-    <div className="min-h-screen w-full sm:top-15 md:top-15 pt-15 sm:p-4 md:p-4 pb-0 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0 dark:[#1B263B">
-      {/* WordTable (left column) */}
-      <div className="z-10">
-        <WordTable
-          onRowClick={(word) => { setSelectedWord(word) }}
-          selectedWord={selectedWord}
-          words={words}
-          showUpTo500Rows={true}
-        />
-      </div>
+    <div className="sm:top-15 md:top-15 pt-15 text-left justify-left">
+      <div className="min-h-screen w-full sm:p-4 md:p-4 pb-0 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0 dark:[#1B263B]">
+        {/* Left column (Article + WordTable) */}
+        <div className="z-10 flex flex-col">
+          <Article type="Adverbs" />
+          <WordTable
+            onRowClick={(word) => setSelectedWord(word)}
+            selectedWord={selectedWord}
+            words={words}
+            showUpTo500Rows={true}
+          />
+        </div>
 
-      {/* WordInfo (right column) */}
-      <div className="hidden sm:block md:block sticky top-25 self-start z-20">
-        <WordInfo 
-          selectedWord={selectedWord} 
-        />
+        {/* Right column (WordInfo) */}
+        <div className="hidden sm:block md:block sticky top-25 self-start z-20">
+          <WordInfo selectedWord={selectedWord} />
+        </div>
       </div>
     </div>
   );
