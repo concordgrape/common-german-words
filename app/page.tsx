@@ -3,7 +3,7 @@
 import Lottie from "lottie-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import fireAnimation from './/external/Lottie/fire.json';
 import { FaArrowAltCircleRight } from "react-icons/fa";
 
@@ -16,16 +16,6 @@ import Germany6 from '../public/germany6.webp';
 import Germany7 from '../public/germany7.webp';
 
 const App: React.FC = () => {
-  const images = [
-    Germany1,
-    Germany2,
-    Germany3,
-    Germany4,
-    Germany5,
-    Germany6,
-    Germany7
-  ];
-
   return (
     <div className="pt-12 lg:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
       {/* Left: Text content */}
@@ -128,24 +118,7 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/2 p-4 columns-2 md:columns-2 gap-4 space-y-4">
-        {images.map((src, index) => (
-          <div
-            key={index}
-            className="break-inside-avoid rounded-lg overflow-hidden shadow-md hover:scale-102 transition-transform duration-300"
-          >
-            <Image
-              src={src}
-              alt={`Germany ${index + 1}`}
-              width={600} // You can adjust width and height based on your actual image sizes
-              height={900}
-              className="w-full h-auto rounded-lg object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority={index === 0}
-            />
-          </div>
-        ))}
-      </div>
+      <ResponsiveImageGrid />
     </div>
   );
 };
@@ -211,3 +184,82 @@ function ModeLinks() {
   );
 }
 
+
+const ResponsiveImageGrid = () => {
+  const images = [
+    Germany1,
+    Germany2,
+    Germany3,
+    Germany4,
+    Germany5,
+    Germany6,
+    Germany7
+  ];
+  const [isMobile, setIsMobile] = useState(false);
+  const [visibleIndices, setVisibleIndices] = useState<number[]>([]);
+  const refs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) {
+      // Load all immediately on desktop
+      setVisibleIndices(images.map((_, index) => index));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = Number(entry.target.getAttribute("data-index"));
+          if (entry.isIntersecting && !visibleIndices.includes(index)) {
+            setVisibleIndices((prev) => [...prev, index]);
+          }
+        });
+      },
+      {
+        rootMargin: "100px", // preload slightly before entering
+        threshold: 0.1,
+      }
+    );
+
+    refs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [isMobile, visibleIndices]);
+
+  return (
+    <div className="w-full md:w-1/2 p-4 columns-2 md:columns-2 gap-4 space-y-4">
+      {images.map((src, index) => (
+        <div
+          key={index}
+          data-index={index}
+          ref={isMobile ? (el: HTMLDivElement | null) => { refs.current[index] = el } : undefined}
+          className="break-inside-avoid rounded-lg overflow-hidden shadow-md hover:scale-102 transition-transform duration-300 min-h-[200px]"
+        >
+          {visibleIndices.includes(index) && (
+            <Image
+              src={src}
+              alt={`Germany ${index + 1}`}
+              width={600}
+              height={900}
+              className="w-full h-auto rounded-lg object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              loading="lazy"
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
