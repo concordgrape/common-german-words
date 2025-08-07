@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import { UserProvider } from "./context/UserContext";
 import { WordFormProvider } from "./context/WordFormContext";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,7 +59,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:[#1B263B]`}
       >
-        
+        <Analytics />
         <UserProvider>
           <WordFormProvider>
             <Navbar />
