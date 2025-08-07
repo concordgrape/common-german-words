@@ -7,10 +7,10 @@ import React from "react";
 import fireAnimation from './/external/Lottie/fire.json';
 
 const images = [
-  "/germany1.jpg",
-  "/germany2.jpg",
-  "/germany3.jpg",
-  "/germany4.jpg",
+  "/germany1.webp",
+  "/germany2.webp",
+  "/germany3.webp",
+  "/germany4.webp",
 ];
 
 const App: React.FC = () => {
@@ -25,7 +25,7 @@ const App: React.FC = () => {
             <Lottie className="h-10 w-10" animationData={fireAnimation} loop={true} />
           </span>
         </h1>
-        
+
         <p className="mt-4 text-lg md:text-xl text-gray-700 dark:text-gray-300">
           by memorizing common words and phrases first
         </p>
