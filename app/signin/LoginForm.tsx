@@ -7,6 +7,8 @@ import GoogleSignInButton from './SignInWithGoogle';
 import { useUser } from '../context/UserContext';
 //import SignInWithApple from './SignInWithApple';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import globeImage from "../../public/010-planet.svg"
 
 const actionCodeSettings = {
   url: 'https://common-german-words.vercel.app/sign-in-complete',
@@ -40,16 +42,24 @@ const LoginForm: React.FC = () => {
   }, [user]);
 
   return (
-    <div className="w-full m-auto max-h-[600px] max-w-md bg-white dark:bg-[#1E1E1E] p-8 rounded-xl shadow">
+    <div className="w-[90%] sm:w-full m-auto max-h-[800px] max-w-md bg-white dark:bg-[#1E1E1E] p-6 sm:p-8 rounded-xl shadow">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-2">Sign in</h2>
-      <h4 className="text-sm text-gray-900 dark:text-white mb-6 text-left">
-        <i>
-          We use a <b>password free</b> sign in method. You will receive a verification email.<br />
-          First time on Common German Words? An account will automatically be created.
-        </i>
-      </h4>
-
-      <form className={`${loading ? 'skeleton opacity/50' : ''} space-y-5`} onSubmit={handleSubmit}>
+      <div className="flex items-center gap-4 mb-8">
+        <div className="text-left">
+          <h3 className="text-sm text-gray-900 dark:text-white">
+            Get complete access to <span className="font-mono font-bold text-blue-500">6000+</span> German words, for free!
+          </h3>
+        </div>
+        <Image
+          src={globeImage}
+          alt="Sign in illustration"
+          width={100}
+          height={100}
+          className="mb-0"
+        />
+      </div>
+      <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+      <form className={`space-y-5`} onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Email address
@@ -65,7 +75,12 @@ const LoginForm: React.FC = () => {
             placeholder="you@example.com"
           />
         </div>
-
+        <h4 className="text-sm text-gray-900 dark:text-white mb-6 text-left">
+          <i>
+            We use a <b>password free</b> sign in method. You will receive a verification email.<br />
+            First time on Common German Words? An account will automatically be created.
+          </i>
+        </h4>
         <button
           type="submit"
           disabled={status === 'sending'}
