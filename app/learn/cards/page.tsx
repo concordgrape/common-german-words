@@ -81,7 +81,7 @@ const LearnCardsPage: React.FC = () => {
         >
           <ImExit size={16} className="mt-1 mr-1" /> Exit
         </button>
-        <div className="bg-white dark:bg-[#313248] min-h-100 border border-gray-200 dark:border-gray-700 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm mx-auto">
+        <div className="bg-white dark:bg-[#0D1B2A] min-h-100 border border-gray-200 dark:border-gray-700 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm mx-auto">
           <progress
             className="progress progress-info w-full"
             value={Math.min(idx + 1, total)}
