@@ -27,7 +27,7 @@ export default function Article({ type }: ArticleProps) {
     }
   return (
     <div
-      className={`w-full text-black dark:text-white max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] dark:bg-[#0D1B2A] border-0 sm:border-1 border-gray-200 dark:border-gray-700 overflow-hidden mt-0 sm:mt-5`}
+      className={`w-full px-6 text-black dark:text-white max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] dark:bg-[#0D1B2A] border-0 sm:border-1 border-gray-200 dark:border-gray-700 overflow-hidden mt-0 pt-10 sm:pt-0 sm:mt-5`}
     >
       <h1 className="text-3xl font-bold mb-6">Explore the Top 500 German <span className={textColor}>{type}</span></h1>
 
