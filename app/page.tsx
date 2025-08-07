@@ -30,7 +30,7 @@ const App: React.FC = () => {
   const router = useRouter();
 
   return (
-    <div className="pt-12 p-4 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
+    <div className="pt-10 sm:pt-15 sm:pt-20 sm:p-4 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
       {/* Left: Text content */}
       <div className="w-full md:w-1/2 px-6 mt-4 pb-6 bg-white border-1 border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
         <h1 className="mt-10 text-4xl md:text-5xl font-bold text-black dark:text-white flex items-center flex-wrap">
