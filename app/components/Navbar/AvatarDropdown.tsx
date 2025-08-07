@@ -56,7 +56,22 @@ export default function AvatarDropdown() {
         }}
         className="flex items-center cursor-pointer justify-center w-10 h-10 bg-gray-100 dark:bg-blue-400 rounded-full overflow-hidden hover:shadow-md text-gray-500 dark:text-white border-1 border-gray-300 dark:border-blue-400 transition-colors"
       >
-        {!loading && !user ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          className="cursor-pointer"
+        >
+          <rect x="3" y="6" width="18" height="2" rx="1" />
+          <rect x="3" y="11" width="18" height="2" rx="1" />
+          <rect x="3" y="16" width="18" height="2" rx="1" />
+        </svg>
+
+        {/* Below will display the hamburger icon on mobile if the user isn't logged on & display the 'person' icon if the user is logged in icon}
+        {/*!loading && !user ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -83,7 +98,7 @@ export default function AvatarDropdown() {
               clipRule="evenodd"
             />
           </svg>
-        )}
+        )*/}
       </button>
       <div
         className={`absolute top-full right-0 w-64 z-50 transition-all duration-200 ease-out transform 
