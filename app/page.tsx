@@ -139,7 +139,7 @@ const App: React.FC = () => {
           >
             <Image
               src={src}
-              alt={`Germany ${index + 1}`}
+              alt={`Landscape in Germany - ${index + 1}`}
               width={600} // You can adjust width and height based on your actual image sizes
               height={900}
               className="w-full h-auto rounded-lg object-cover"
