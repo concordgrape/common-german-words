@@ -65,7 +65,7 @@ export default function Article({ type }: ArticleProps) {
           onClick={() => setIsHowToOpen(!isHowToOpen)}
           className="flex items-center text-xl font-semibold mb-3 focus:outline-none group"
         >
-          <span>How to Use This Page</span>
+          <span>How to Use This Word Library</span>
           <FaChevronDown
             className={`ml-2 text-blue-500 transition-transform cursor-pointer ${
               isHowToOpen ? "rotate-180" : ""
