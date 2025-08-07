@@ -55,7 +55,7 @@ export async function fetchAllWords(language: string, password: string): Promise
 
 export async function fetchTopWords(language: string, partOfSpeech: string, count: number, password: string): Promise<Word[]> {
   try {
-    const res = await fetch(`/api/filtered-words?language=${language}&part_of_speech=${partOfSpeech}&count=${count > 100 ? 100 : count}&password=${password}`);
+    const res = await fetch(`/api/filtered-words?language=${language}&part_of_speech=${partOfSpeech}&count=${count > 500 ? 500 : count}&password=${password}`);
 
     if (!res.ok) {
       console.error("Failed to fetch basic words:", res.statusText);

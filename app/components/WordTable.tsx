@@ -25,9 +25,11 @@ interface WordTableProps {
   words: Word[];
   showOnlySaved?: boolean;
   showOnlyKnown?: boolean;
+  showUpTo500Rows?: boolean;
 }
 
-const ITEMS_PER_PAGE = 100;
+const SHORT_ITEMS_PER_PAGE = 100;
+const LONG_ITEMS_PER_PAGE = 500;
 
 // WordTable component
 export const WordTable: React.FC<WordTableProps> = ({
@@ -36,6 +38,7 @@ export const WordTable: React.FC<WordTableProps> = ({
   words,
   showOnlySaved = false,
   showOnlyKnown = false,
+  showUpTo500Rows = false,
 }) => {
   // State to manage expanded rows, explicitly typed to an array of numbers
   const [expandedRows, setExpandedRows] = useState<number[]>([]);
@@ -78,6 +81,7 @@ export const WordTable: React.FC<WordTableProps> = ({
   const currentPage = Math.max(1, isNaN(pageParam) ? 1 : pageParam);
 
   // Adjust Virtuoso height
+  const ITEMS_PER_PAGE = showUpTo500Rows ? LONG_ITEMS_PER_PAGE : SHORT_ITEMS_PER_PAGE;
   const isMobile = useIsMobile();
   const rowHeight = 45;
   const filteredBase = showOnlySaved
@@ -415,7 +419,7 @@ export const WordTable: React.FC<WordTableProps> = ({
     >
       {/* Header with Search and Sort border border-1 border-[#B1B1B1]*/}
       <div className="p-4">
-        <div className="flex justify-between items-center mb-4">
+        <div className={`${showUpTo500Rows ? 'hidden' : 'block'} flex justify-between items-center mb-4`}>
           <button
             onClick={() => changePage(currentPage - 1)}
             disabled={currentPage <= 1}
@@ -461,7 +465,7 @@ export const WordTable: React.FC<WordTableProps> = ({
             </svg>
           </button>
         </div>
-        <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+        <hr className={`${showUpTo500Rows ? 'hidden' : 'block'} h-px my-4 bg-gray-200 border-0 dark:bg-gray-700`} />
 
         {/* Search Input */}
         <div className="block sm:hidden relative flex items-center w-full mb-4">
@@ -533,8 +537,8 @@ export const WordTable: React.FC<WordTableProps> = ({
               </div>
               <div
                 className={`flex flex-col items-start mt-5 w-full ${
-                  showOnlySaved || showOnlyKnown ? "hidden" : ""
-                }`}
+                  showOnlySaved || showOnlyKnown ? "hidden" : ""}
+                  ${showUpTo500Rows ? 'hidden' : 'block'}`}
               >
                 <span className="mb-2 text-sm text-gray-600 dark:text-gray-300 font-medium">
                   Part of Speech

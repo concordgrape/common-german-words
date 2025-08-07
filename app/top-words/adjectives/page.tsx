@@ -9,7 +9,7 @@ import { fetchTopWords, Word } from '../../helpers/fetchBasicWordList';
 import { useOnlineStatus } from '@/app/hooks/useOnlineStatus';
 import { useToast } from '../../hooks/useToast';
 
-const TopNouns: React.FC = () => {
+const TopAdjectives: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [words, setWords] = useState<Word[]>([]);
   const searchParams = useSearchParams();
@@ -18,7 +18,7 @@ const TopNouns: React.FC = () => {
 
   // Fetch words
   useEffect(() => {
-    fetchTopWords("german", "Noun", 500, process.env.NEXT_PUBLIC_API_PASSWORD || "").then(setWords);
+    fetchTopWords("german", "Adjective", 500, process.env.NEXT_PUBLIC_API_PASSWORD || "").then(setWords);
   }, []);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const TopNouns: React.FC = () => {
 export default function TopNounsPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <TopNouns />
+      <TopAdjectives />
     </Suspense>
   );
 }
