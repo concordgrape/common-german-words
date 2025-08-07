@@ -52,3 +52,25 @@ export async function fetchAllWords(language: string, password: string): Promise
     return [];
   }
 }
+
+export async function fetchTopWords(language: string, partOfSpeech: string, count: number, password: string): Promise<Word[]> {
+  try {
+    const res = await fetch(`/api/filtered-words?language=${language}&part_of_speech=${partOfSpeech}&count=${count > 100 ? 100 : count}&password=${password}`);
+
+    if (!res.ok) {
+      console.error("Failed to fetch basic words:", res.statusText);
+      return [];
+    }
+
+    const data = await res.json();
+
+    // Make sure we return exactly the `words` array
+    console.log("Fetched basic words:", data);
+    return Array.isArray(data.words)
+      ? data.words.sort((a: Word, b: Word) => b.frequency - a.frequency)
+      : [];
+  } catch (error) {
+    console.error("Error fetching basic words:", error);
+    return [];
+  }
+}
