@@ -30,7 +30,7 @@ const App: React.FC = () => {
   const router = useRouter();
 
   return (
-    <div className="pt-12 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
+    <div className="pt-12 p-4 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
       {/* Left: Text content */}
       <div className="w-full md:w-1/2 px-6 mt-4 pb-6 bg-white border-1 border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
         <h1 className="mt-10 text-4xl md:text-5xl font-bold text-black dark:text-white flex items-center flex-wrap">
@@ -131,7 +131,7 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="hidden md:block w-full md:w-1/2 p-4 columns-2 md:columns-2 gap-4 space-y-4">
+      <div className="hidden md:block w-full md:w-1/2 pt-4 pl-2 lg:pl-4 columns-2 md:columns-2 gap-4 space-y-4">
         {images.map((src, index) => (
           <div
             key={index}
