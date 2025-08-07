@@ -131,7 +131,7 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/2 p-4 columns-2 md:columns-2 gap-4 space-y-4">
+      <div className="hidden sm:block w-full md:w-1/2 p-4 columns-2 md:columns-2 gap-4 space-y-4">
         {images.map((src, index) => (
           <div
             key={index}
