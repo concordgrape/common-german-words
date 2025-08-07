@@ -41,7 +41,7 @@ const App: React.FC = () => {
                 Browse Words
                 <FaArrowAltCircleRight className="ml-1 mb-1" />
               </h1>
-              <h3 className="text-xs">Explore 6000+ words from our library</h3>
+              <h3 className="text-xs">Explore <b>6000+</b> words from our library</h3>
             </Link>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
