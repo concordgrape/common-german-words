@@ -43,10 +43,10 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className="w-[90%] sm:w-full m-auto max-h-[800px] max-w-md bg-white dark:bg-[#1E1E1E] p-6 sm:p-8 rounded-xl shadow">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-2">Sign in</h2>
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-2">Sign in</h2>
       <div className="flex items-center gap-4 mb-8">
         <div className="text-left">
-          <h3 className="text-sm text-gray-900 dark:text-white">
+          <h3 className="text-md text-gray-900 dark:text-white">
             Get complete access to <span className="font-mono font-bold text-blue-500">6000+</span> German words, for free!
           </h3>
         </div>
