@@ -194,7 +194,7 @@ function ModeLinks() {
   return (
     <div className="max-w-5xl w-full mx-auto lg:px-4 mt-8 mb-8">
       <h2 className="mb-6 text-xl font-semibold text-center">
-        Practise your word knowledge with...
+        Practise your vocab knowledge with...
       </h2>
 
       <div className="flex flex-row justify-center gap-4">
