@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import fireAnimation from './/external/Lottie/fire.json';
+import { FaArrowAltCircleRight } from "react-icons/fa";
 
 const images = [
   "/germany1.webp",
@@ -36,8 +37,11 @@ const App: React.FC = () => {
         <div className="mt-8 space-y-2 gap-4">
           <div className="w-full lg:w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 items-center justify-center text-center rounded-md">
             <Link href="/browse" className="hover:underline">
-            <h1 className="text-md font-bold">Browse Words</h1>
-            <h3 className="text-xs">Explore 6000+ words from our library</h3>
+              <h1 className="text-md font-bold flex items-center justify-center">
+                Browse Words
+                <FaArrowAltCircleRight className="ml-1 mb-1" />
+              </h1>
+              <h3 className="text-xs">Explore 6000+ words from our library</h3>
             </Link>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -52,7 +56,10 @@ const App: React.FC = () => {
 
           <div className="w-full lg:w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 items-center justify-center text-center rounded-md">
             <Link href="/top-500-words/nouns" className="hover:underline">
-            <h1 className="text-md font-bold">Top 500 <span className="text-orange-500">Nouns</span></h1>
+            <h1 className="text-md font-bold flex items-center justify-center">
+              Top 500 <span className="text-orange-500 px-1">Nouns</span>
+              <FaArrowAltCircleRight className="mb-1" />
+            </h1>
             <h3 className="text-xs">Start learning our top nouns</h3>
             </Link>
 
@@ -65,7 +72,10 @@ const App: React.FC = () => {
           </div>
           <div className="w-full lg:w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 items-center justify-center text-center rounded-md">
             <Link href="/top-500-words/verbs" className="hover:underline">
-            <h1 className="text-md font-bold">Top 500 <span className="text-green-500">Verbs</span></h1>
+            <h1 className="text-md font-bold flex items-center justify-center">
+              Top 500 <span className="text-green-500 px-1">Verbs</span>
+              <FaArrowAltCircleRight className="mb-1" />
+            </h1>
             <h3 className="text-xs">Start learning our top verbs</h3>
             </Link>
 
@@ -78,7 +88,10 @@ const App: React.FC = () => {
           </div>
           <div className="w-full lg:w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 items-center justify-center text-center rounded-md">
             <Link href="/top-500-words/adjectives" className="hover:underline">
-            <h1 className="text-md font-bold">Top 500 <span className="text-blue-500">Adjectives</span></h1>
+            <h1 className="text-md font-bold flex items-center justify-center">
+              Top 500 <span className="text-blue-500 px-1">Adjectives</span>
+              <FaArrowAltCircleRight className="mb-1" />
+            </h1>
             <h3 className="text-xs">Start learning our top adjectives</h3>
             </Link>
 
@@ -91,7 +104,10 @@ const App: React.FC = () => {
           </div>
           <div className="w-full lg:w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 items-center justify-center text-center rounded-md">
             <Link href="/top-500-words/adverbs" className="hover:underline">
-            <h1 className="text-md font-bold">Top 500 <span className="text-orange-500">Adverbs</span></h1>
+            <h1 className="text-md font-bold flex items-center justify-center">
+              Top 500 <span className="text-orange-500 px-1">Adverbs</span>
+              <FaArrowAltCircleRight className="mb-1" />
+            </h1>
             <h3 className="text-xs">Start learning our top adverbs</h3>
             </Link>
 
