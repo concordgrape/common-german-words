@@ -8,10 +8,9 @@ import { useUser } from "@/app/context/UserContext";
 import { FaCheck, FaRegBookmark, FaRegUser } from "react-icons/fa";
 import { ImExit } from "react-icons/im";
 import { useRouter } from "next/navigation";
-import { FaBook, FaQuestionCircle } from 'react-icons/fa';
-import { FaChartLine } from 'react-icons/fa6';
+import { FaBook, FaQuestionCircle } from "react-icons/fa";
+import { FaChartLine } from "react-icons/fa6";
 import Link from "next/link";
-
 
 export default function AvatarDropdown() {
   const [open, setOpen] = useState(false);
@@ -57,7 +56,21 @@ export default function AvatarDropdown() {
         }}
         className="flex items-center cursor-pointer justify-center w-10 h-10 bg-gray-100 dark:bg-blue-400 rounded-full overflow-hidden hover:shadow-md text-gray-500 dark:text-white border-1 border-gray-300 dark:border-blue-400 transition-colors"
       >
-        {!loading ? (
+        {!loading && !user ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            className="cursor-pointer"
+          >
+            <rect x="3" y="6" width="18" height="2" rx="1" />
+            <rect x="3" y="11" width="18" height="2" rx="1" />
+            <rect x="3" y="16" width="18" height="2" rx="1" />
+          </svg>
+        ) : (
           <svg
             className="w-6 h-6"
             fill="currentColor"
@@ -70,8 +83,6 @@ export default function AvatarDropdown() {
               clipRule="evenodd"
             />
           </svg>
-        ) : (
-          <></>
         )}
       </button>
       <div
@@ -115,7 +126,11 @@ const UserDropdown = ({
                   transition-all duration-800 ease-out transform
                   opacity-100 scale-100 translate-y-0"
     >
-      <div className={`${userName && userEmail ? 'block' : 'hidden'} px-4 py-3 border-b border-gray-200`}>
+      <div
+        className={`${
+          userName && userEmail ? "block" : "hidden"
+        } px-4 py-3 border-b border-gray-200`}
+      >
         <p className="text-base font-semibold text-gray-900 leading-tight">
           {userName}
         </p>
@@ -128,10 +143,9 @@ const UserDropdown = ({
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                           hover:text-orange-500 transition-colors duration-800"
               onClick={() => {
-                  router.push("/browse");
-                  setOpen(false);
-                }
-              }
+                router.push("/browse");
+                setOpen(false);
+              }}
             >
               <FaQuestionCircle className="text-lg" />
               Browse
@@ -142,10 +156,9 @@ const UserDropdown = ({
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                         hover:text-green-700 transition-colors duration-800"
               onClick={() => {
-                  router.push("/learn");
-                  setOpen(false);
-                }
-              }
+                router.push("/learn");
+                setOpen(false);
+              }}
             >
               <FaBook className="text-lg" />
               Learn
@@ -156,28 +169,28 @@ const UserDropdown = ({
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                           hover:text-orange-500 transition-colors duration-800"
               onClick={() => {
-                  router.push("/progress");
-                  setOpen(false);
-                }
-              }
+                router.push("/progress");
+                setOpen(false);
+              }}
             >
-              <FaChartLine className="text-lg" /> 
+              <FaChartLine className="text-lg" />
               Progress
             </button>
           </li>
-        </ul>     
+        </ul>
         <hr className="h-px my-2 bg-gray-200 border-0" />
       </div>
       <ul className={`py-1 text-sm text-gray-700`}>
         <li>
           <button
-            className={`${userName && userEmail ? 'block' : 'hidden'} w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
+            className={`${
+              userName && userEmail ? "block" : "hidden"
+            } w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                         hover:text-orange-500 transition-colors duration-800`}
             onClick={() => {
-                  router.push("/word-lists/my-saved-words");
-                  setOpen(false);
-                }
-              }
+              router.push("/word-lists/my-saved-words");
+              setOpen(false);
+            }}
           >
             <FaRegBookmark className="text-lg" /> {/* Profile Icon */}
             My Saved Words
@@ -185,37 +198,42 @@ const UserDropdown = ({
         </li>
         <li>
           <button
-            className={`${userName && userEmail ? 'block' : 'hidden'} w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
+            className={`${
+              userName && userEmail ? "block" : "hidden"
+            } w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                       hover:text-green-700 transition-colors duration-800`}
             onClick={() => {
-                  router.push("/word-lists/my-known-words");
-                  setOpen(false);
-                }
-              }
+              router.push("/word-lists/my-known-words");
+              setOpen(false);
+            }}
           >
             <FaCheck className="text-lg" /> {/* Profile Icon */}
             My Known Words
           </button>
         </li>
-        <hr className={`${userName && userEmail ? 'block' : 'hidden'} h-px my-2 bg-gray-200 border-0`} />
+        <hr
+          className={`${
+            userName && userEmail ? "block" : "hidden"
+          } h-px my-2 bg-gray-200 border-0`}
+        />
         <li>
-          {userName && userEmail ? 
+          {userName && userEmail ? (
             <button
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100"
               onClick={() => {
-                    router.push("/profile");
-                    setOpen(false);
-                  }
-                }
+                router.push("/profile");
+                setOpen(false);
+              }}
             >
               <FaRegUser className="text-lg" /> {/* Profile Icon */}
               My Profile
             </button>
-           :
-            <button onClick={() => {
-                  setOpen(false);
-                }
-              }>
+          ) : (
+            <button
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
               <Link
                 href="/signin"
                 className={`flex items-center px-4 py-2 pb-4 text-sm text-black w-full justify-center`}
@@ -241,10 +259,14 @@ const UserDropdown = ({
                 <span className="pl-2">Sign In</span>
               </Link>
             </button>
-          } 
+          )}
         </li>
-        <hr className={`${userName && userEmail ? 'block' : 'hidden'} h-px my-2 bg-gray-200 border-0`} />
-        <li className={`${userName && userEmail ? 'block' : 'hidden'}`}>
+        <hr
+          className={`${
+            userName && userEmail ? "block" : "hidden"
+          } h-px my-2 bg-gray-200 border-0`}
+        />
+        <li className={`${userName && userEmail ? "block" : "hidden"}`}>
           <button
             className="w-full text-red-800 flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100 
                       hover:text-red-700 transition-colors duration-800"
