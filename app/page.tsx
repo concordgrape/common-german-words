@@ -11,22 +11,22 @@ const App: React.FC = () => {
           Browse Words
         </div>
       </Link>
-      <Link href="/top-words/nouns">
+      <Link href="/top-500-words/nouns">
         <div className="text-black dark:text-white">
           Top Nouns
         </div>
       </Link>
-      <Link href="/top-words/adverbs">
+      <Link href="/top-500-words/adverbs">
         <div className="text-black dark:text-white">
           Top Adverbs
         </div>
       </Link>
-      <Link href="/top-words/adjectives">
+      <Link href="/top-500-words/adjectives">
         <div className="text-black dark:text-white">
           Top Adjectives
         </div>
       </Link>
-      <Link href="/top-words/verbs">
+      <Link href="/top-500-words/verbs">
         <div className="text-black dark:text-white">
           Top Verbs
         </div>
