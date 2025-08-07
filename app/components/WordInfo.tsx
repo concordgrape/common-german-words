@@ -64,23 +64,21 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
         {fullData ? (
           <div className="text-white space-y-4">
             <div className="relative w-full">
-              <div className="grid grid-cols-3 items-center w-full">
+              <div className="relative flex items-center justify-center w-full h-10">
+                {/* Centered Word */}
+                <div className="absolute left-1/2 -translate-x-1/2">
+                  <h2 className="text-2xl font-bold text-center">{selectedWord.word}</h2>
+                </div>
+
                 {/* Left: Rank */}
-                <div className="text-left">
+                <div className="absolute left-0">
                   <h2 className="text-lg font-bold">
                     <i>{selectedWord.rank}</i>
                   </h2>
                 </div>
 
-                {/* Center: Word */}
-                <div className="text-center">
-                  {/*isSaved && <p>Saved</p>*/}
-
-                  <h2 className="text-2xl font-bold">{selectedWord.word}</h2>
-                </div>
-
                 {/* Right: TTS Button */}
-                <div className="text-right">
+                <div className="absolute right-0">
                   <GoogleTTSButton
                     text={selectedWord.word}
                     color={"text-white hover:bg-blue-400"}
