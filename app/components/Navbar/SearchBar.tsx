@@ -37,7 +37,13 @@ export default function SearchBar() {
 
   const clearSearch = () => {
     setSearch('');
-    window.location.href = `/browse`;
+    
+    const isOnBrowsePage = window.location.pathname === '/browse';
+    const hasQuery = window.location.search.length > 0;
+
+    if (isOnBrowsePage && hasQuery) {
+      window.location.href = '/browse';
+    }
   };
 
   return (
