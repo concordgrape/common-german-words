@@ -161,7 +161,7 @@ function ModeLinks() {
         Practise your word knowledge with...
       </h2>
 
-      <div className="flex flex-row justify-center gap-4 overflow-x-auto flex-nowrap">
+      <div className="flex flex-row justify-center gap-4">
         {modes.map((mode) => (
           <Link
             key={mode.key}
