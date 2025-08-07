@@ -7,17 +7,25 @@ import React from "react";
 import fireAnimation from './/external/Lottie/fire.json';
 import { FaArrowAltCircleRight } from "react-icons/fa";
 
-const images = [
-  "/germany1.webp",
-  "/germany6.webp",
-  "/germany2.webp",
-  "/germany7.webp",
-  "/germany3.webp",
-  "/germany4.webp",
-  "/germany5.webp",
-];
+import Germany1 from '../public/germany1.webp';
+import Germany2 from '../public/germany2.webp';
+import Germany3 from '../public/germany3.webp';
+import Germany4 from '../public/germany4.webp';
+import Germany5 from '../public/germany5.webp';
+import Germany6 from '../public/germany6.webp';
+import Germany7 from '../public/germany7.webp';
 
 const App: React.FC = () => {
+  const images = [
+    Germany1,
+    Germany2,
+    Germany3,
+    Germany4,
+    Germany5,
+    Germany6,
+    Germany7
+  ];
+
   return (
     <div className="pt-12 lg:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
       {/* Left: Text content */}
