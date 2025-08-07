@@ -30,7 +30,7 @@ const App: React.FC = () => {
           </span>
         </h1>
 
-        <p className="mt-4 text-lg md:text-xl text-gray-700 dark:text-gray-300">
+        <p className="mt-4 text-lg md:text-xl text-gray-700 dark:text-gray-300 font-semibold">
           by memorizing common words and phrases first
         </p>
 
