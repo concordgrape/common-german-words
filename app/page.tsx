@@ -169,7 +169,7 @@ const modes = [
         className="m-auto"
       />
     ),
-    bgColor: 'bg-blue-200 dark:bg-blue-300',
+    bgColor: 'bg-blue-300 dark:bg-blue-300',
     textColor: 'text-blue-600 dark:text-blue-700',
   },
   {
@@ -185,7 +185,7 @@ const modes = [
         className="m-auto"
       />
     ),
-    bgColor: 'bg-blue-200 dark:bg-blue-300',
+    bgColor: 'bg-blue-300 dark:bg-blue-300',
     textColor: 'text-blue-600 dark:text-blue-700',
   },
 ] as const;
@@ -202,7 +202,7 @@ function ModeLinks() {
           <Link
             key={mode.key}
             href="/learn"
-            className={`flex-shrink-0 flex flex-col items-center justify-center rounded-lg p-6 w-40 h-48 transition shadow-md hover:scale-105 ${mode.bgColor} ${mode.textColor}`}
+            className={`flex-shrink-0 flex flex-col items-center justify-center rounded-lg p-6 w-40 h-48 transition hover:scale-105 ${mode.bgColor} ${mode.textColor}`}
           >
             <div className="mb-2">{mode.icon}</div>
             <h3 className="text-md font-mono font-bold">{mode.title}</h3>
