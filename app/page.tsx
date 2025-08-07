@@ -11,6 +11,9 @@ const images = [
   "/germany2.webp",
   "/germany3.webp",
   "/germany4.webp",
+  "/germany5.webp",
+  "/germany6.webp",
+  "/germany7.webp",
 ];
 
 const App: React.FC = () => {
