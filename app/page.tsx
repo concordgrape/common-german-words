@@ -8,12 +8,12 @@ import fireAnimation from './/external/Lottie/fire.json';
 
 const images = [
   "/germany1.webp",
+  "/germany6.webp",
   "/germany2.webp",
+  "/germany7.webp",
   "/germany3.webp",
   "/germany4.webp",
   "/germany5.webp",
-  "/germany6.webp",
-  "/germany7.webp",
 ];
 
 const App: React.FC = () => {
@@ -24,8 +24,8 @@ const App: React.FC = () => {
         <h1 className="mt-10 text-4xl md:text-5xl font-bold text-black dark:text-white flex items-center flex-wrap">
           Start Learning{" "}
           <span className="flex items-center">
-            German
-            <Lottie className="h-10 w-10" animationData={fireAnimation} loop={true} />
+            <span className="px-2 bg-red-500 text-white">German</span>
+            <Lottie className="h-10 w-10 lg:h-15 lg:w-15" animationData={fireAnimation} loop={true} />
           </span>
         </h1>
 
@@ -104,16 +104,22 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Right: Masonry grid */}
       <div className="w-full md:w-1/2 p-4 columns-2 md:columns-2 gap-4 space-y-4">
         {images.map((src, index) => (
-          <img
+          <div
             key={index}
-            src={src}
-            alt={`Germany ${index + 1}`}
-            className="w-full rounded-lg object-cover break-inside-avoid shadow-md hover:scale-102 transition-transform duration-300"
-          />
+            className="break-inside-avoid rounded-lg overflow-hidden shadow-md hover:scale-102 transition-transform duration-300"
+          >
+            <Image
+              src={src}
+              alt={`Germany ${index + 1}`}
+              width={600} // You can adjust width and height based on your actual image sizes
+              height={900}
+              className="w-full h-auto rounded-lg object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority={index === 0}
+            />
+          </div>
         ))}
       </div>
     </div>
