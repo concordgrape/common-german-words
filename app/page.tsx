@@ -3,9 +3,10 @@
 import Lottie from "lottie-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import fireAnimation from './/external/Lottie/fire.json';
 import { FaArrowAltCircleRight } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 import Germany1 from '../public/germany1.webp';
 import Germany2 from '../public/germany2.webp';
@@ -16,6 +17,18 @@ import Germany6 from '../public/germany6.webp';
 import Germany7 from '../public/germany7.webp';
 
 const App: React.FC = () => {
+  const images = [
+    Germany1,
+    Germany2,
+    Germany3,
+    Germany4,
+    Germany5,
+    Germany6,
+    Germany7
+  ];
+
+  const router = useRouter();
+
   return (
     <div className="pt-12 lg:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
       {/* Left: Text content */}
@@ -34,13 +47,13 @@ const App: React.FC = () => {
 
         <div className="mt-8 space-y-2 gap-4 items-center">
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <Link href="/browse" className="hover:underline">
+            <button onClick={() => router.push('/browse')} className="cursor-pointer hover:underline">
               <h1 className="text-md font-bold flex items-center justify-center">
                 Browse Words
                 <FaArrowAltCircleRight className="ml-1 mb-1" />
               </h1>
               <h3 className="text-xs">Explore <b>6000+</b> words from our library</h3>
-            </Link>
+            </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
             <div className="flex gap-2 justify-start">
@@ -53,13 +66,13 @@ const App: React.FC = () => {
           <ModeLinks />
 
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <Link href="/top-500-words/nouns" className="hover:underline">
-            <h1 className="text-md font-bold flex items-center justify-center">
-              Top 500 <span className="text-orange-500 px-1">Nouns</span>
-              <FaArrowAltCircleRight className="mb-1" />
-            </h1>
-            <h3 className="text-xs">Start learning our top nouns</h3>
-            </Link>
+            <button onClick={() => router.push('/top-500-words/nouns')} className="cursor-pointer hover:underline">
+              <h1 className="text-md font-bold flex items-center justify-center">
+                Top 500 <span className="text-orange-500 px-1">Nouns</span>
+                <FaArrowAltCircleRight className="mb-1" />
+              </h1>
+              <h3 className="text-xs">Start learning our top nouns</h3>
+            </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
             <div className="flex gap-2 justify-start">
@@ -69,13 +82,13 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <Link href="/top-500-words/verbs" className="hover:underline">
-            <h1 className="text-md font-bold flex items-center justify-center">
-              Top 500 <span className="text-green-500 px-1">Verbs</span>
-              <FaArrowAltCircleRight className="mb-1" />
-            </h1>
-            <h3 className="text-xs">Start learning our top verbs</h3>
-            </Link>
+            <button onClick={() => router.push('/top-500-words/verbs')} className="cursor-pointer hover:underline">
+              <h1 className="text-md font-bold flex items-center justify-center">
+                Top 500 <span className="text-green-500 px-1">Verbs</span>
+                <FaArrowAltCircleRight className="mb-1" />
+              </h1>
+              <h3 className="text-xs">Start learning our top verbs</h3>
+            </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
             <div className="flex gap-2 justify-start">
@@ -85,13 +98,13 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <Link href="/top-500-words/adjectives" className="hover:underline">
-            <h1 className="text-md font-bold flex items-center justify-center">
-              Top 500 <span className="text-blue-500 px-1">Adjectives</span>
-              <FaArrowAltCircleRight className="mb-1" />
-            </h1>
-            <h3 className="text-xs">Start learning our top adjectives</h3>
-            </Link>
+            <button onClick={() => router.push('/top-500-words/adjectives')} className="cursor-pointer hover:underline">
+              <h1 className="text-md font-bold flex items-center justify-center">
+                Top 500 <span className="text-blue-500 px-1">Adjectives</span>
+                <FaArrowAltCircleRight className="mb-1" />
+              </h1>
+              <h3 className="text-xs">Start learning our top adjectives</h3>
+            </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
             <div className="flex gap-2 justify-start">
@@ -101,13 +114,13 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <Link href="/top-500-words/adverbs" className="hover:underline">
-            <h1 className="text-md font-bold flex items-center justify-center">
-              Top 500 <span className="text-orange-500 px-1">Adverbs</span>
-              <FaArrowAltCircleRight className="mb-1" />
-            </h1>
-            <h3 className="text-xs">Start learning our top adverbs</h3>
-            </Link>
+            <button onClick={() => router.push('/top-500-words/adverbs')} className="cursor-pointer hover:underline">
+              <h1 className="text-md font-bold flex items-center justify-center">
+                Top 500 <span className="text-orange-500 px-1">Adverbs</span>
+                <FaArrowAltCircleRight className="mb-1" />
+              </h1>
+              <h3 className="text-xs">Start learning our top adverbs</h3>
+            </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
             <div className="flex gap-2 justify-start">
@@ -118,7 +131,24 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
-      <ResponsiveImageGrid />
+      <div className="w-full md:w-1/2 p-4 columns-2 md:columns-2 gap-4 space-y-4">
+        {images.map((src, index) => (
+          <div
+            key={index}
+            className="break-inside-avoid rounded-lg overflow-hidden shadow-md hover:scale-102 transition-transform duration-300"
+          >
+            <Image
+              src={src}
+              alt={`Germany ${index + 1}`}
+              width={600} // You can adjust width and height based on your actual image sizes
+              height={900}
+              className="w-full h-auto rounded-lg object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority={index === 0}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -183,83 +213,3 @@ function ModeLinks() {
     </div>
   );
 }
-
-
-const ResponsiveImageGrid = () => {
-  const images = [
-    Germany1,
-    Germany2,
-    Germany3,
-    Germany4,
-    Germany5,
-    Germany6,
-    Germany7
-  ];
-  const [isMobile, setIsMobile] = useState(false);
-  const [visibleIndices, setVisibleIndices] = useState<number[]>([]);
-  const refs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  useEffect(() => {
-    if (!isMobile) {
-      // Load all immediately on desktop
-      setVisibleIndices(images.map((_, index) => index));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = Number(entry.target.getAttribute("data-index"));
-          if (entry.isIntersecting && !visibleIndices.includes(index)) {
-            setVisibleIndices((prev) => [...prev, index]);
-          }
-        });
-      },
-      {
-        rootMargin: "100px", // preload slightly before entering
-        threshold: 0.1,
-      }
-    );
-
-    refs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
-  }, [isMobile, visibleIndices]);
-
-  return (
-    <div className="w-full md:w-1/2 p-4 columns-2 md:columns-2 gap-4 space-y-4">
-      {images.map((src, index) => (
-        <div
-          key={index}
-          data-index={index}
-          ref={isMobile ? (el: HTMLDivElement | null) => { refs.current[index] = el } : undefined}
-          className="break-inside-avoid rounded-lg overflow-hidden shadow-md hover:scale-102 transition-transform duration-300 min-h-[200px]"
-        >
-          {visibleIndices.includes(index) && (
-            <Image
-              src={src}
-              alt={`Germany ${index + 1}`}
-              width={600}
-              height={900}
-              className="w-full h-auto rounded-lg object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              loading="lazy"
-            />
-          )}
-        </div>
-      ))}
-    </div>
-  );
-};
