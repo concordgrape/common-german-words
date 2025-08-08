@@ -12,6 +12,7 @@ import { fetchAllWords, Word } from "../helpers/fetchBasicWordList";
 import { shuffle } from "../helpers/utils";
 import { Mode } from "./page";
 import { formatFillInTheBlankQuestions, FillInTheBlankQuestion } from "../helpers/userWordLibrary";
+import { InfoToast } from "../hooks/useInfoToast";
 
 interface LearnFormProps {
   setMode: React.Dispatch<React.SetStateAction<Mode>>;
@@ -150,7 +151,6 @@ function SessionCustomizer({ words, mode }: SessionCustomizerProps) {
   const [selectedCEFR, setSelectedCEFR] = useState(0);
   const [allWordCount, setAllWordCount] = useState(0);
   const [priority, setPriority] = useState<'common-words' | 'random'>('common-words');
-
   const { setFilteredWords, setSubmittedWords } = useWordForm();
 
 useEffect(() => {
@@ -174,6 +174,9 @@ useEffect(() => {
 
   console.log("shuffledSample: ", shuffledSample)
 
+  //      toast({ title: 'You are offline', subtitle: 'Check your internet connection.', variant: 'error' });
+
+
   // Convert to quiz questions if in quiz mode
   if (mode === 'quiz') {
     const quizQuestions: FillInTheBlankQuestion[] = formatFillInTheBlankQuestions(shuffledSample);
@@ -194,9 +197,11 @@ useEffect(() => {
   setSubmittedWords,
 ]);
 
+
   return (
     <div>
       <div className="bg-[#FFFFFF] dark:bg-[#0D1B2A] border-1 border-gray-200 dark:border-gray-900 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
+        <InfoToast loading={allWordCount == 0 } title="Downloading our word library" subtitle="This should only take a couple seconds" />
         <h1 className="text-black dark:text-white text-2xl font-bold flex">
           <SlidersHorizontal className="mr-3 mt-1 text-blue-500" />
           Add Words
