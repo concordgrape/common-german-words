@@ -195,10 +195,10 @@ function Policy() {
       <p>
         Questions or concerns? Email us at{" "}
         <a
-          href="mailto:support@commonwords.app"
+          href="mailto:hi@skyroth.com"
           className="text-blue-500 hover:underline"
         >
-          support@commonwords.app
+          hi@skyroth.com
         </a>
         .
       </p>

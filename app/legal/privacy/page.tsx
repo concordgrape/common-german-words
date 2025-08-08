@@ -39,10 +39,10 @@ function PrivacyPolicy() {
         The Services are operated by an individual based in Ontario, Canada
         (“we,” “us,” or “our”). Contact us at{" "}
         <a
-          href="mailto:support@commonwords.app"
+          href="mailto:hi@skyroth.com"
           className="text-blue-500 hover:underline"
         >
-          support@commonwords.app
+          hi@skyroth.com
         </a>
         .
       </p>
@@ -151,10 +151,10 @@ function PrivacyPolicy() {
       <p>
         For questions or concerns about this Privacy Policy, email us at{" "}
         <a
-          href="mailto:support@commonwords.app"
+          href="mailto:hi@skyroth.com"
           className="text-blue-500 hover:underline"
         >
-          support@commonwords.app
+          hi@skyroth.com
         </a>
         .
       </p>

@@ -130,10 +130,10 @@ function CookiePolicy() {
       <p>
         If you have any questions about this Cookie Policy, contact us at{" "}
         <a
-          href="mailto:support@commonwords.app"
+          href="mailto:hi@skyroth.com"
           className="text-blue-500 hover:underline"
         >
-          support@commonwords.app
+          hi@skyroth.com
         </a>
         .
       </p>

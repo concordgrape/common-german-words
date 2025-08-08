@@ -27,7 +27,7 @@ const Footer = () => {
         <nav>
             <h6 className="footer-title">Company</h6>
             <a className="link link-hover" href="/about">About us</a>
-            <a className="link link-hover" href="mailto:support@commonwords.app">Email us</a>
+            <a className="link link-hover" href="mailto:hi@skyroth.com">Email us</a>
             <a className="link link-hover" href="https://forms.gle/5Y2QAkXmtiQtgmjT8" target="_blank">Complete our Survey</a>
         </nav>
         <nav>
