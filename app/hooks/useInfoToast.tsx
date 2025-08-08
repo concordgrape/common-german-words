@@ -1,7 +1,7 @@
 // components/Toast/InfoToast.tsx
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 type InfoToastProps = {
   loading: boolean;
@@ -10,15 +10,37 @@ type InfoToastProps = {
 };
 
 export const InfoToast: React.FC<InfoToastProps> = ({ loading, title, subtitle }) => {
-  if (!loading) return null;
+  const [visible, setVisible] = useState(false);
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (loading) {
+      // Show the toast
+      setVisible(true);
+
+      // Clear any existing timer if we're re-entering loading
+      if (timer) clearTimeout(timer);
+    } else if (visible) {
+      // Set a timeout to hide after 2 seconds minimum
+      const t = setTimeout(() => setVisible(false), 2000);
+      setTimer(t);
+    }
+
+    // Cleanup on unmount
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [loading]);
+
+  if (!visible) return null;
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
       <div
-        className={`flex items-center w-full max-w-xs p-4 text-gray-300 dark:text-gray-500 bg-gray-700 dark:bg-white rounded-lg shadow-sm`}
+        className="flex items-center w-full max-w-xs p-4 text-gray-300 dark:text-gray-500 bg-gray-700 dark:bg-white rounded-lg shadow-sm"
         role="alert"
       >
-        <div className={`inline-flex items-center justify-center shrink-0 w-8 h-8 rounded-lg bg-blue-100 text-blue-600`}>
+        <div className="inline-flex items-center justify-center shrink-0 w-8 h-8 rounded-lg bg-blue-100 text-blue-600">
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               fillRule="evenodd"
