@@ -40,7 +40,7 @@ export default function AvatarDropdown() {
       });
   };
 
-  const { user, loading } = useUser();
+  const { loading } = useUser();
 
   return (
     <div
@@ -127,8 +127,6 @@ export default function AvatarDropdown() {
         `}
       >
         <UserDropdown
-          userName={user?.displayName ?? ""}
-          userEmail={user?.email ?? ""}
           handleLogout={handleLogout}
           setOpen={setOpen}
         />
@@ -138,15 +136,11 @@ export default function AvatarDropdown() {
 }
 
 interface UserDropdownProps {
-  userName: string;
-  userEmail: string;
   handleLogout: () => void;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserDropdown = ({
-  userName,
-  userEmail,
   handleLogout,
   setOpen,
 }: UserDropdownProps) => {
@@ -161,13 +155,13 @@ const UserDropdown = ({
     >
       <div
         className={`${
-          userName && userEmail ? "block" : "hidden"
+          user ? "block" : "hidden"
         } px-4 py-3 border-b border-gray-200`}
       >
         <p className="text-base font-semibold text-gray-900 leading-tight">
-          {userName}
+          {user?.displayName || "User"}
         </p>
-        <p className="text-sm text-gray-600 truncate">{userEmail}</p>
+        <p className="text-sm text-gray-600 truncate">{user?.email || 'null@email.com'}</p>
       </div>
       <div className="block lg:hidden">
         <ul className="py-1 text-sm text-gray-700">
@@ -217,7 +211,7 @@ const UserDropdown = ({
         <li>
           <button
             className={`${
-              userName && userEmail ? "block" : "hidden"
+              user ? "block" : "hidden"
             } w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                         hover:text-orange-500 transition-colors duration-800`}
             onClick={() => {
@@ -232,7 +226,7 @@ const UserDropdown = ({
         <li>
           <button
             className={`${
-              userName && userEmail ? "block" : "hidden"
+              user ? "block" : "hidden"
             } w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                       hover:text-green-700 transition-colors duration-800`}
             onClick={() => {
@@ -246,7 +240,7 @@ const UserDropdown = ({
         </li>
         <hr
           className={`${
-            userName && userEmail ? "block" : "hidden"
+            user ? "block" : "hidden"
           } h-px my-2 bg-gray-200 border-0`}
         />
         <li>
@@ -296,10 +290,10 @@ const UserDropdown = ({
         </li>
         <hr
           className={`${
-            userName && userEmail ? "block" : "hidden"
+            user ? "block" : "hidden"
           } h-px my-2 bg-gray-200 border-0`}
         />
-        <li className={`${userName && userEmail ? "block" : "hidden"}`}>
+        <li className={`${user ? "block" : "hidden"}`}>
           <button
             className="w-full text-red-800 flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100 
                       hover:text-red-700 transition-colors duration-800"
