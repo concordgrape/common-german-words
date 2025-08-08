@@ -26,13 +26,15 @@ const Footer = () => {
         </nav>
         <nav>
             <h6 className="footer-title">Company</h6>
-            <a className="link link-hover">About us</a>
-            <a className="link link-hover">Contact</a>
+            <a className="link link-hover" href="/about">About us</a>
+            <a className="link link-hover" href="https://forms.gle/5Y2QAkXmtiQtgmjT8" target="_blank">Complete our Survey</a>
         </nav>
         <nav>
             <h6 className="footer-title">Legal</h6>
-            <a className="link link-hover">Privacy policy</a>
-            <a className="link link-hover">Cookie policy</a>
+            <a className="link link-hover" href="/legal/terms">Terms and Conditions</a>
+            <a className="link link-hover" href="/legal/privacy">Privacy policy</a>
+            <a className="link link-hover" href="/legal/cookies">Cookie policy</a>
+            <a className="link link-hover" href="/legal/gdpr">GDPR</a>
         </nav>
     </footer>
   );
