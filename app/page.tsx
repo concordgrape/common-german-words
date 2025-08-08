@@ -52,7 +52,7 @@ const App: React.FC = () => {
                 Browse Words
                 <FaArrowAltCircleRight className="ml-1 mb-1" />
               </h3>
-              <h4 className="text-xs">Explore <b>6000+</b> words from our library</h3>
+              <h4 className="text-xs">Explore <b>6000+</b> words from our library</h4>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -71,8 +71,8 @@ const App: React.FC = () => {
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 500 <span className="text-orange-500 px-1">Nouns</span>
                 <FaArrowAltCircleRight className="mb-1" />
-              </h1>
-              <h4 className="text-xs">Start learning our top nouns</h3>
+              </h3>
+              <h4 className="text-xs">Start learning our top nouns</h4>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -87,8 +87,8 @@ const App: React.FC = () => {
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 500 <span className="text-green-500 px-1">Verbs</span>
                 <FaArrowAltCircleRight className="mb-1" />
-              </h1>
-              <h4 className="text-xs">Start learning our top verbs</h3>
+              </h3>
+              <h4 className="text-xs">Start learning our top verbs</h4>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -103,8 +103,8 @@ const App: React.FC = () => {
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 500 <span className="text-blue-500 px-1">Adjectives</span>
                 <FaArrowAltCircleRight className="mb-1" />
-              </h1>
-              <h4 className="text-xs">Start learning our top adjectives</h3>
+              </h3>
+              <h4 className="text-xs">Start learning our top adjectives</h4>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -119,8 +119,8 @@ const App: React.FC = () => {
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 500 <span className="text-orange-500 px-1">Adverbs</span>
                 <FaArrowAltCircleRight className="mb-1" />
-              </h1>
-              <h4 className="text-xs">Start learning our top adverbs</h3>
+              </h3>
+              <h4 className="text-xs">Start learning our top adverbs</h4>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -139,8 +139,8 @@ const App: React.FC = () => {
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 100 <span className="text-orange-500 px-1">Nouns</span>
                 <FaArrowAltCircleRight className="mb-1" />
-              </h1>
-              <h4 className="text-xs">Start learning our top nouns</h3>
+              </h3>
+              <h4 className="text-xs">Start learning our top nouns</h4>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -155,8 +155,8 @@ const App: React.FC = () => {
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 100 <span className="text-green-500 px-1">Verbs</span>
                 <FaArrowAltCircleRight className="mb-1" />
-              </h1>
-              <h4 className="text-xs">Start learning our top verbs</h3>
+              </h3>
+              <h4 className="text-xs">Start learning our top verbs</h4>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -171,8 +171,8 @@ const App: React.FC = () => {
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 100 <span className="text-blue-500 px-1">Adjectives</span>
                 <FaArrowAltCircleRight className="mb-1" />
-              </h1>
-              <h4 className="text-xs">Start learning our top adjectives</h3>
+              </h3>
+              <h4 className="text-xs">Start learning our top adjectives</h4>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -187,8 +187,8 @@ const App: React.FC = () => {
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 100 <span className="text-orange-500 px-1">Adverbs</span>
                 <FaArrowAltCircleRight className="mb-1" />
-              </h1>
-              <h4 className="text-xs">Start learning our top adverbs</h3>
+              </h3>
+              <h4 className="text-xs">Start learning our top adverbs</h4>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
