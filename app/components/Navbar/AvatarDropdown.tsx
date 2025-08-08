@@ -151,6 +151,7 @@ const UserDropdown = ({
   setOpen,
 }: UserDropdownProps) => {
   const router = useRouter();
+  const { user } = useUser();
 
   return (
     <div
@@ -249,7 +250,7 @@ const UserDropdown = ({
           } h-px my-2 bg-gray-200 border-0`}
         />
         <li>
-          {userName && userEmail ? (
+          {user ? (
             <button
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100"
               onClick={() => {
