@@ -237,7 +237,7 @@ export default function FillInTheBlankQuiz({
             </h3>
             {[...answer].map((part, i) => (
               <React.Fragment key={i}>
-                <span className="mx-1 p-1 px-2 border-b-3 border-black dark:border-white text-black dark:text-white">
+                <span className="mx-1 h-6 p-1 px-2 border-b-3 border-black dark:border-white text-black dark:text-white">
                   {revealedIndexes.has(i) ? part : "_"}
                 </span>
               </React.Fragment>
