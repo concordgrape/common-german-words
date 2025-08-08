@@ -615,7 +615,7 @@ export const WordTable: React.FC<WordTableProps> = ({
         </div>
         <div className={`${showUpTo500Rows ? 'block' : 'hidden'}`}>
           <hr className={`h-px my-4 bg-gray-200 border-0 dark:bg-gray-500`} />
-          <button className="cursor-pointer text-center text-xs text-black dark:text-white hover:underline font-semibold bg-gray-100 dark:bg-gray-800 rounded-md px-2 py-3">
+          <button onClick={() => router.push("/browse")} className="cursor-pointer text-center text-xs text-black dark:text-white hover:underline font-semibold bg-gray-100 dark:bg-gray-800 rounded-md px-2 py-3">
             <span className="block">
               Click here to see the full library
             </span>
