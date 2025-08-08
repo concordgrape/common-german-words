@@ -53,7 +53,7 @@ const TopAdverbs: React.FC = () => {
       <div className="min-h-screen w-full sm:p-4 md:p-4 pb-0 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0 dark:[#1B263B]">
         {/* Left column (Article + WordTable) */}
         <div className="z-10 flex flex-col">
-          <Article type="Adverbs" count={500} />
+          <Article type="Adverbs" count={100} />
           <WordTable
             onRowClick={(word) => setSelectedWord(word)}
             selectedWord={selectedWord}

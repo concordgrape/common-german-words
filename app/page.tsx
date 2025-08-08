@@ -65,6 +65,7 @@ const App: React.FC = () => {
 
           <ModeLinks />
 
+          {/* TOP 500 WORDS SECTION */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button onClick={() => router.push('/top-500-words/nouns')} className="cursor-pointer hover:underline">
               <h1 className="text-md font-bold flex items-center justify-center">
@@ -76,9 +77,9 @@ const App: React.FC = () => {
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
             <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/browse?word=gott">gott</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/browse?word=frau">frau</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/browse?word=arzt">arzt</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-500-words/nouns?word=gott">gott</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-500-words/nouns?word=frau">frau</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-500-words/nouns?word=arzt">arzt</Link></div>
             </div>
           </div>
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
@@ -92,9 +93,9 @@ const App: React.FC = () => {
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
             <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/browse?word=haben">haben</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/browse?word=wollte">wollte</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/browse?word=musst">musst</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/top-500-words/verbs?word=haben">haben</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/top-500-words/verbs?word=wollte">wollte</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/top-500-words/verbs?word=musst">musst</Link></div>
             </div>
           </div>
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
@@ -108,9 +109,9 @@ const App: React.FC = () => {
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
             <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/browse?word=gut">gut</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/browse?word=spät">spät</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/browse?word=alt">alt</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/top-500-words/adjectives?word=gut">gut</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/top-500-words/adjectives?word=spät">spät</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/top-500-words/adjectives?word=alt">alt</Link></div>
             </div>
           </div>
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
@@ -124,9 +125,77 @@ const App: React.FC = () => {
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
             <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/browse?word=dann">dann</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/browse?word=immer">immer</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/browse?word=vielleicht">vielleicht</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-500-words/adverbs?word=dann">dann</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-500-words/adverbs?word=immer">immer</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-500-words/adverbs?word=vielleicht">vielleicht</Link></div>
+            </div>
+          </div>
+
+          <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+
+          {/* TOP 100 WORDS SECTION */}
+          <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
+            <button onClick={() => router.push('/top-100-words/nouns')} className="cursor-pointer hover:underline">
+              <h1 className="text-md font-bold flex items-center justify-center">
+                Top 100 <span className="text-orange-500 px-1">Nouns</span>
+                <FaArrowAltCircleRight className="mb-1" />
+              </h1>
+              <h3 className="text-xs">Start learning our top nouns</h3>
+            </button>
+
+            <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
+            <div className="flex gap-2 justify-start">
+              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-100-words/nouns?word=glaube">glaube</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-100-words/nouns?word=vater">vater</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-100-words/nouns?word=tag">tag</Link></div>
+            </div>
+          </div>
+          <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
+            <button onClick={() => router.push('/top-100-words/verbs')} className="cursor-pointer hover:underline">
+              <h1 className="text-md font-bold flex items-center justify-center">
+                Top 100 <span className="text-green-500 px-1">Verbs</span>
+                <FaArrowAltCircleRight className="mb-1" />
+              </h1>
+              <h3 className="text-xs">Start learning our top verbs</h3>
+            </button>
+
+            <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
+            <div className="flex gap-2 justify-start">
+              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/top-100-words/verbs?word=ist">ist</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/top-100-words/verbs?word=hast">hast</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/top-100-words/verbs?word=will">will</Link></div>
+            </div>
+          </div>
+          <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
+            <button onClick={() => router.push('/top-100-words/adjectives')} className="cursor-pointer hover:underline">
+              <h1 className="text-md font-bold flex items-center justify-center">
+                Top 100 <span className="text-blue-500 px-1">Adjectives</span>
+                <FaArrowAltCircleRight className="mb-1" />
+              </h1>
+              <h3 className="text-xs">Start learning our top adjectives</h3>
+            </button>
+
+            <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
+            <div className="flex gap-2 justify-start">
+              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/top-100-words/adjectives?word=toll">toll</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/top-100-words/adjectives?word=richtig">richtig</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/top-100-words/adjectives?word=lange">lange</Link></div>
+            </div>
+          </div>
+          <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
+            <button onClick={() => router.push('/top-100-words/adverbs')} className="cursor-pointer hover:underline">
+              <h1 className="text-md font-bold flex items-center justify-center">
+                Top 100 <span className="text-orange-500 px-1">Adverbs</span>
+                <FaArrowAltCircleRight className="mb-1" />
+              </h1>
+              <h3 className="text-xs">Start learning our top adverbs</h3>
+            </button>
+
+            <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
+            <div className="flex gap-2 justify-start">
+              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-100-words/adverbs?word=wo">wo</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-100-words/adverbs?word=nie">nie</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-100-words/adverbs?word=heute">heute</Link></div>
             </div>
           </div>
         </div>

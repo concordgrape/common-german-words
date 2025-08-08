@@ -10,7 +10,7 @@ import { useOnlineStatus } from '@/app/hooks/useOnlineStatus';
 import { useToast } from '../../hooks/useToast';
 import Article from '@/app/components/Article/Article';
 
-const TopAdverbs: React.FC = () => {
+const TopAdjectives: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [words, setWords] = useState<Word[]>([]);
   const searchParams = useSearchParams();
@@ -19,7 +19,7 @@ const TopAdverbs: React.FC = () => {
 
   // Fetch words
   useEffect(() => {
-    fetchTopWords("german", "Adverb", 500, process.env.NEXT_PUBLIC_API_PASSWORD || "").then(setWords);
+    fetchTopWords("german", "Adjective", 100, process.env.NEXT_PUBLIC_API_PASSWORD || "").then(setWords);
   }, []);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const TopAdverbs: React.FC = () => {
       <div className="min-h-screen w-full sm:p-4 md:p-4 pb-0 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0 dark:[#1B263B]">
         {/* Left column (Article + WordTable) */}
         <div className="z-10 flex flex-col">
-          <Article type="Adverbs" count={500} />
+          <Article type="Adjectives" count={100} />
           <WordTable
             onRowClick={(word) => setSelectedWord(word)}
             selectedWord={selectedWord}
@@ -74,7 +74,7 @@ const TopAdverbs: React.FC = () => {
 export default function TopNounsPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <TopAdverbs />
+      <TopAdjectives />
     </Suspense>
   );
 }

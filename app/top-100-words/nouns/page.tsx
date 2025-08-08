@@ -10,7 +10,7 @@ import { useOnlineStatus } from '@/app/hooks/useOnlineStatus';
 import { useToast } from '../../hooks/useToast';
 import Article from '@/app/components/Article/Article';
 
-const TopAdverbs: React.FC = () => {
+const TopNouns: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [words, setWords] = useState<Word[]>([]);
   const searchParams = useSearchParams();
@@ -19,7 +19,7 @@ const TopAdverbs: React.FC = () => {
 
   // Fetch words
   useEffect(() => {
-    fetchTopWords("german", "Adverb", 500, process.env.NEXT_PUBLIC_API_PASSWORD || "").then(setWords);
+    fetchTopWords("german", "Noun", 500, process.env.NEXT_PUBLIC_API_PASSWORD || "").then(setWords);
   }, []);
 
   useEffect(() => {
@@ -48,33 +48,34 @@ const TopAdverbs: React.FC = () => {
     }
   }, [words, searchParams]);
 
-  return (
-    <div className="sm:top-15 md:top-15 pt-15 text-left justify-left">
-      <div className="min-h-screen w-full sm:p-4 md:p-4 pb-0 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0 dark:[#1B263B]">
-        {/* Left column (Article + WordTable) */}
-        <div className="z-10 flex flex-col">
-          <Article type="Adverbs" count={500} />
-          <WordTable
-            onRowClick={(word) => setSelectedWord(word)}
-            selectedWord={selectedWord}
-            words={words}
-            showUpTo500Rows={true}
-          />
-        </div>
+return (
+  <div className="sm:top-15 md:top-15 pt-15 text-left justify-left">
+    <div className="min-h-screen w-full sm:p-4 md:p-4 pb-0 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0 dark:[#1B263B]">
+      {/* Left column (Article + WordTable) */}
+      <div className="z-10 flex flex-col">
+        <Article type="Nouns" count={100} />
+        <WordTable
+          onRowClick={(word) => setSelectedWord(word)}
+          selectedWord={selectedWord}
+          words={words}
+          showUpTo500Rows={true}
+        />
+      </div>
 
-        {/* Right column (WordInfo) */}
-        <div className="hidden sm:block md:block sticky top-25 self-start z-20">
-          <WordInfo selectedWord={selectedWord} />
-        </div>
+      {/* Right column (WordInfo) */}
+      <div className="hidden sm:block md:block sticky top-25 self-start z-20">
+        <WordInfo selectedWord={selectedWord} />
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default function TopNounsPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <TopAdverbs />
+      <TopNouns />
     </Suspense>
   );
 }

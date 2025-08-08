@@ -10,9 +10,10 @@ import {
 
 interface ArticleProps {
   type: "Nouns" | "Verbs" | "Adjectives" | "Adverbs";
+  count: 500 | 100;
 }
 
-export default function Article({ type }: ArticleProps) {
+export default function Article({ type, count }: ArticleProps) {
   const [isHowToOpen, setIsHowToOpen] = useState(false);
   let textColor = "text-black dark:text-white";
   switch (type) {
@@ -36,13 +37,13 @@ export default function Article({ type }: ArticleProps) {
       className={`w-full px-6 text-black dark:text-white max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] dark:bg-[#0D1B2A] border-0 sm:border-1 border-gray-200 dark:border-gray-700 overflow-hidden mt-0 pt-10 sm:pt-0 sm:mt-5`}
     >
       <h1 className="text-4xl font-bold mb-6">
-        Explore the Top 500 German <span className={textColor}>{type}</span>
+        Explore the Top {count} German <span className={textColor}>{type}</span>
       </h1>
 
       <p className="mb-4">
         Welcome to <strong>Common German Words</strong>! On this page, you’ll
         find the
-        <strong> 500 most common German {type.toLowerCase()}</strong> — a great
+        <strong> {count} most common German {type.toLowerCase()}</strong> — a great
         place to start if you want to build a strong vocabulary quickly.
       </p>
 
