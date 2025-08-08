@@ -41,18 +41,18 @@ const App: React.FC = () => {
           </span>
         </h1>
 
-        <p className="mt-1 text-lg md:text-xl text-gray-700 dark:text-gray-300 font-semibold">
+        <h2 className="mt-1 text-lg md:text-xl text-gray-700 dark:text-gray-300 font-semibold">
           by memorizing common words and phrases first
-        </p>
+        </h2>
 
         <div className="mt-8 space-y-2 gap-4 items-center">
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button onClick={() => router.push('/browse')} className="cursor-pointer hover:underline">
-              <h1 className="text-md font-bold flex items-center justify-center">
+              <h3 className="text-md font-bold flex items-center justify-center">
                 Browse Words
                 <FaArrowAltCircleRight className="ml-1 mb-1" />
-              </h1>
-              <h3 className="text-xs">Explore <b>6000+</b> words from our library</h3>
+              </h3>
+              <h4 className="text-xs">Explore <b>6000+</b> words from our library</h3>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -68,11 +68,11 @@ const App: React.FC = () => {
           {/* TOP 500 WORDS SECTION */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button onClick={() => router.push('/top-500-words/nouns')} className="cursor-pointer hover:underline">
-              <h1 className="text-md font-bold flex items-center justify-center">
+              <h3 className="text-md font-bold flex items-center justify-center">
                 Top 500 <span className="text-orange-500 px-1">Nouns</span>
                 <FaArrowAltCircleRight className="mb-1" />
               </h1>
-              <h3 className="text-xs">Start learning our top nouns</h3>
+              <h4 className="text-xs">Start learning our top nouns</h3>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -84,11 +84,11 @@ const App: React.FC = () => {
           </div>
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button onClick={() => router.push('/top-500-words/verbs')} className="cursor-pointer hover:underline">
-              <h1 className="text-md font-bold flex items-center justify-center">
+              <h3 className="text-md font-bold flex items-center justify-center">
                 Top 500 <span className="text-green-500 px-1">Verbs</span>
                 <FaArrowAltCircleRight className="mb-1" />
               </h1>
-              <h3 className="text-xs">Start learning our top verbs</h3>
+              <h4 className="text-xs">Start learning our top verbs</h3>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -100,11 +100,11 @@ const App: React.FC = () => {
           </div>
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button onClick={() => router.push('/top-500-words/adjectives')} className="cursor-pointer hover:underline">
-              <h1 className="text-md font-bold flex items-center justify-center">
+              <h3 className="text-md font-bold flex items-center justify-center">
                 Top 500 <span className="text-blue-500 px-1">Adjectives</span>
                 <FaArrowAltCircleRight className="mb-1" />
               </h1>
-              <h3 className="text-xs">Start learning our top adjectives</h3>
+              <h4 className="text-xs">Start learning our top adjectives</h3>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -116,11 +116,11 @@ const App: React.FC = () => {
           </div>
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button onClick={() => router.push('/top-500-words/adverbs')} className="cursor-pointer hover:underline">
-              <h1 className="text-md font-bold flex items-center justify-center">
+              <h3 className="text-md font-bold flex items-center justify-center">
                 Top 500 <span className="text-orange-500 px-1">Adverbs</span>
                 <FaArrowAltCircleRight className="mb-1" />
               </h1>
-              <h3 className="text-xs">Start learning our top adverbs</h3>
+              <h4 className="text-xs">Start learning our top adverbs</h3>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -136,11 +136,11 @@ const App: React.FC = () => {
           {/* TOP 100 WORDS SECTION */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button onClick={() => router.push('/top-100-words/nouns')} className="cursor-pointer hover:underline">
-              <h1 className="text-md font-bold flex items-center justify-center">
+              <h3 className="text-md font-bold flex items-center justify-center">
                 Top 100 <span className="text-orange-500 px-1">Nouns</span>
                 <FaArrowAltCircleRight className="mb-1" />
               </h1>
-              <h3 className="text-xs">Start learning our top nouns</h3>
+              <h4 className="text-xs">Start learning our top nouns</h3>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -152,11 +152,11 @@ const App: React.FC = () => {
           </div>
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button onClick={() => router.push('/top-100-words/verbs')} className="cursor-pointer hover:underline">
-              <h1 className="text-md font-bold flex items-center justify-center">
+              <h3 className="text-md font-bold flex items-center justify-center">
                 Top 100 <span className="text-green-500 px-1">Verbs</span>
                 <FaArrowAltCircleRight className="mb-1" />
               </h1>
-              <h3 className="text-xs">Start learning our top verbs</h3>
+              <h4 className="text-xs">Start learning our top verbs</h3>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -168,11 +168,11 @@ const App: React.FC = () => {
           </div>
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button onClick={() => router.push('/top-100-words/adjectives')} className="cursor-pointer hover:underline">
-              <h1 className="text-md font-bold flex items-center justify-center">
+              <h3 className="text-md font-bold flex items-center justify-center">
                 Top 100 <span className="text-blue-500 px-1">Adjectives</span>
                 <FaArrowAltCircleRight className="mb-1" />
               </h1>
-              <h3 className="text-xs">Start learning our top adjectives</h3>
+              <h4 className="text-xs">Start learning our top adjectives</h3>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
@@ -184,11 +184,11 @@ const App: React.FC = () => {
           </div>
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button onClick={() => router.push('/top-100-words/adverbs')} className="cursor-pointer hover:underline">
-              <h1 className="text-md font-bold flex items-center justify-center">
+              <h3 className="text-md font-bold flex items-center justify-center">
                 Top 100 <span className="text-orange-500 px-1">Adverbs</span>
                 <FaArrowAltCircleRight className="mb-1" />
               </h1>
-              <h3 className="text-xs">Start learning our top adverbs</h3>
+              <h4 className="text-xs">Start learning our top adverbs</h3>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
