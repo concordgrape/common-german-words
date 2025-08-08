@@ -11,7 +11,7 @@ import Image from 'next/image';
 import globeImage from "../../public/010-planet.svg"
 
 const actionCodeSettings = {
-  url: 'https://common-german-words.vercel.app/sign-in-complete',
+  url: 'https://commongermanwords.com/sign-in-complete',
   handleCodeInApp: true,
 };
 
@@ -37,7 +37,7 @@ const LoginForm: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      router.push("/profile")
+      router.push("/browse")
     }
   }, [user]);
 
