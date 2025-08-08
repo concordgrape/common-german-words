@@ -1,24 +1,39 @@
+import Image from "next/image";
+
 const Footer = () => {
   return (
-    <footer className="bg-white dark:bg-[#181922] rounded-lg mt-20">
-        <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span className="text-sm text-gray-500 dark:text-gray-300 sm:text-center">© 2025 <a target="_blank" href="https://verbuu.com/" className="hover:underline">Verbuu</a>. All Rights Reserved.
-        </span>
-        <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-300 sm:mt-0">
-            <li>
-                <a href="#" className="hover:underline me-4 md:me-6">About</a>
-            </li>
-            <li>
-                <a href="#" className="hover:underline me-4 md:me-6">Privacy Policy</a>
-            </li>
-            <li>
-                <a href="#" className="hover:underline me-4 md:me-6">Licensing</a>
-            </li>
-            <li>
-                <a href="#" className="hover:underline">Contact</a>
-            </li>
-        </ul>
-        </div>
+    <footer className="footer text-black dark:text-white mt-10 sm:footer-horizontal bg-base-200 text-base-content p-10 bg-white dark:bg-[#181922]">
+        <aside>
+            <Image
+                src="/verbuu-logo.webp"
+                alt="Logo"
+                width={50}
+                height={50}
+            />
+            <p className="text-gray-600 dark:text-gray-400">
+            <span className="text-black dark:text-white"><i><b>Common German Words</b></i></span> is a&nbsp;
+                <a href="https://verbuu.com/" className="text-blue-400 hover:underline">Verbuu</a> project
+                <br />
+                Copyright © 2025 - All right reserved
+
+            </p>
+        </aside>
+        <nav>
+            <h6 className="footer-title">Pages</h6>
+            <a className="link link-hover" href="/browse">Browse Word Library</a>
+            <a className="link link-hover" href="/learn">Learn</a>
+            <a className="link link-hover" href="/signin">Sign in</a>
+        </nav>
+        <nav>
+            <h6 className="footer-title">Company</h6>
+            <a className="link link-hover">About us</a>
+            <a className="link link-hover">Contact</a>
+        </nav>
+        <nav>
+            <h6 className="footer-title">Legal</h6>
+            <a className="link link-hover">Privacy policy</a>
+            <a className="link link-hover">Cookie policy</a>
+        </nav>
     </footer>
   );
 };
