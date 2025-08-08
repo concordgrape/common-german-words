@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./components/Navbar/Navbar";
@@ -20,32 +20,71 @@ const geistMono = Geist_Mono({
 });
 
 const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-poppins',
-  display: 'swap',
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+  display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0D1B2A" },
+  ],
+};
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.verbuu.com"),
-  title: "Verbuu | Master Languages with Flashcards & Quizzes",
+  metadataBase: new URL("https://www.commongermanwords.com"),
+  applicationName: "Common German Words",
+  title: "Common German Words | Learn German Vocabulary Fast",
   description:
-    "Learn German, Spanish, French and more with Verbuu's AI-powered flashcards, quizzes, and vocabulary tools. Start your language journey today.",
-  keywords:
-    "language learning, flashcards, language quiz, German vocabulary, Spanish practice, French grammar, CEFR words, language app",
+    "Master the most common German words with interactive flashcards, quizzes, and CEFR-level vocabulary lists. Perfect for beginners and advanced learners.",
+  keywords: [
+    "German vocabulary",
+    "common German words",
+    "learn German",
+    "German flashcards",
+    "German quizzes",
+    "German verbs",
+    "German nouns",
+    "German adjectives",
+    "German adverbs",
+    "language learning",
+  ],
+  category: "Education",
+  authors: [{ name: "Common German Words" }],
+  creator: "Common German Words",
+  publisher: "Common German Words",
+  generator: "Next.js",
+  alternates: {
+    canonical: "https://www.commongermanwords.com",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "Verbuu | Master Languages with Flashcards & Quizzes",
+    title: "Common German Words | Learn German Vocabulary Fast",
     description:
-      "Learn German, Spanish, French and more with Verbuu's AI-powered flashcards and quizzes. Built for fast, fun, and effective language learning.",
-    url: "https://www.verbuu.com",
-    siteName: "Verbuu",
+      "Learn the most frequently used German words with definitions, example sentences, and pronunciation. Includes flashcards, quizzes, and CEFR-level lists.",
+    url: "https://www.commongermanwords.com",
+    siteName: "Common German Words",
     images: [
       {
-        url: "https://www.verbuu.com/og-image.jpg", // replace with your real OG image URL
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Verbuu - AI Language Learning",
+        alt: "Common German Words - Learn Vocabulary Fast",
       },
     ],
     locale: "en_US",
@@ -53,18 +92,29 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Verbuu | Master Languages with Flashcards & Quizzes",
+    title: "Common German Words | Learn German Vocabulary Fast",
     description:
-      "Boost your vocabulary and fluency in German, Spanish, French and more with Verbuu. Smart flashcards, fun quizzes, and CEFR support.",
-    images: ["https://www.verbuu.com/og-image.jpg"], // same OG image
+      "Master German vocabulary with flashcards, quizzes, and CEFR-level word lists. Perfect for beginners and advanced learners.",
+    images: ["/og-image.jpg"],
   },
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
-  },
-  alternates: {
-    canonical: "https://www.verbuu.com",
+    other: [
+      {
+        rel: "icon",
+        url: "/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+      {
+        rel: "icon",
+        url: "/favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
+    ],
   },
 };
 
@@ -95,16 +145,14 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:[#1B263B]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#1B263B]`}
       >
         <Analytics />
         <UserProvider>
           <WordFormProvider>
             <Navbar />
-            <ToastProvider>
-              {children}
-            </ToastProvider>
-          <Footer />
+            <ToastProvider>{children}</ToastProvider>
+            <Footer />
           </WordFormProvider>
         </UserProvider>
       </body>

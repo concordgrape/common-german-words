@@ -1,0 +1,48 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.commongermanwords.com"),
+  title: "Profile – Common German Words",
+  description:
+    "Manage your saved and known words, study preferences, theme, and account settings",
+  alternates: {
+    canonical: "https://www.commongermanwords.com/profile",
+  },
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+      "max-image-preview": "none",
+      "max-snippet": 0,
+      "max-video-preview": 0,
+      "noimageindex": true,
+    },
+  },
+  openGraph: {
+    title: "Profile – Common German Words",
+    description:
+      "View and manage your saved words, study settings, and account preferences",
+    url: "https://www.commongermanwords.com/profile",
+    siteName: "Common German Words",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Common German Words" }],
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Profile – Common German Words",
+    description:
+      "Manage your vocabulary, preferences, and account settings",
+    images: ["/og-image.jpg"],
+  },
+};
+
+export default function ProfileLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <>{children}</>;
+}
