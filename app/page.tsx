@@ -65,6 +65,44 @@ const App: React.FC = () => {
 
           <ModeLinks />
 
+          <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+
+          <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
+            <button onClick={() => router.push('/browse')} className="cursor-pointer hover:underline">
+              <h1 className="text-md font-bold flex items-center justify-center">
+                <span className="text-red-400">Top 100</span>&nbsp;German Words
+                <FaArrowAltCircleRight className="ml-1 mb-1" />
+              </h1>
+              <h3 className="text-xs">Start exploring our top 100 words</h3>
+            </button>
+
+            <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
+            <div className="flex gap-2 justify-start">
+              <div className="cursor-pointer px-4 py-2 bg-red-300 hover:scale-102 transition-transform duration-300 text-red-700 rounded-full text-xs font-bold"><Link href="/top-100-words?word=ich">ich</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-red-300 hover:scale-102 transition-transform duration-300 text-red-700 rounded-full text-xs font-bold"><Link href="/top-100-words?word=du">du</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-red-300 hover:scale-102 transition-transform duration-300 text-red-700 rounded-full text-xs font-bold"><Link href="/top-100-words?word=das">das</Link></div>
+            </div>
+          </div>
+
+          <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
+            <button onClick={() => router.push('/browse')} className="cursor-pointer hover:underline">
+              <h1 className="text-md font-bold flex items-center justify-center">
+                <span className="text-red-400">Top 500</span>&nbsp;German Words
+                <FaArrowAltCircleRight className="ml-1 mb-1" />
+              </h1>
+              <h3 className="text-xs">Start exploring our top 500 words</h3>
+            </button>
+
+            <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
+            <div className="flex gap-2 justify-start">
+              <div className="cursor-pointer px-4 py-2 bg-red-300 hover:scale-102 transition-transform duration-300 text-red-700 rounded-full text-xs font-bold"><Link href="/top-500-words?word=einfach">einfach</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-red-300 hover:scale-102 transition-transform duration-300 text-red-700 rounded-full text-xs font-bold"><Link href="/top-500-words?word=werden">werden</Link></div>
+              <div className="cursor-pointer px-4 py-2 bg-red-300 hover:scale-102 transition-transform duration-300 text-red-700 rounded-full text-xs font-bold"><Link href="/top-500-words?word=immer">immer</Link></div>
+            </div>
+          </div>
+
+          <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+
           {/* TOP 500 WORDS SECTION */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button onClick={() => router.push('/top-500-words/nouns')} className="cursor-pointer hover:underline">

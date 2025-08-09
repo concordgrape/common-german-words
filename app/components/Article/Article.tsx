@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 
 interface ArticleProps {
-  type: "Nouns" | "Verbs" | "Adjectives" | "Adverbs";
+  type: "Nouns" | "Verbs" | "Adjectives" | "Adverbs" | "Words";
   count: 500 | 100;
 }
 

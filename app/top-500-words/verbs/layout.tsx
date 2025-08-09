@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     title: "Top 500 German Verbs – Common German Words",
     description:
       "Learn 500 essential German verbs with conjugation examples, pronunciation, and interactive practice to boost fluency",
-    url: "https://yourdomain.com/german/verbs-500",
+    url: "https://commongermanwords.com/top-500-words/verbs",
     type: "website",
-    siteName: "YourSiteName",
+    siteName: "Common German Words",
   },
   twitter: {
     card: "summary_large_image",

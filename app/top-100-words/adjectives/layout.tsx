@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     title: "Top 100 German Adjectives – Common German Words",
     description:
       "Boost your German skills by learning the 100 most frequently used adjectives. Includes definitions, examples, pronunciation, and interactive study tools",
-    url: "https://yourdomain.com/german/adjectives",
+    url: "https://commongermanwords.com/top-100-words/adjectives",
     type: "website",
-    siteName: "YourSiteName",
+    siteName: "Common German Words",
   },
   twitter: {
     card: "summary_large_image",

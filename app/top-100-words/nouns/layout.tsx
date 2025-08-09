@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     title: "Top 100 German Nouns – Common German Words",
     description:
       "Boost your German skills by learning the 100 most frequently used nouns. Includes definitions, examples, pronunciation, and interactive study tools",
-    url: "https://yourdomain.com/german/nouns",
+    url: "https://commongermanwords.com/top-100-words/nouns",
     type: "website",
-    siteName: "YourSiteName",
+    siteName: "Common German Words",
   },
   twitter: {
     card: "summary_large_image",

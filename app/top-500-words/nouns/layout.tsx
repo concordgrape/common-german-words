@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     title: "Top 500 German Nouns – Common German Words",
     description:
       "Build your vocabulary with the 500 most common German nouns, complete with gender, examples, and interactive practice",
-    url: "https://yourdomain.com/german/nouns-500",
+    url: "https://commongermanwords.com/top-500-words/adverbs",
     type: "website",
-    siteName: "YourSiteName",
+    siteName: "Common German Words",
   },
   twitter: {
     card: "summary_large_image",
