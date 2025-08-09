@@ -68,7 +68,7 @@ const App: React.FC = () => {
           <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/browse')} className="cursor-pointer hover:underline">
+            <button onClick={() => router.push('/top-100-words')} className="cursor-pointer hover:underline">
               <h1 className="text-md font-bold flex items-center justify-center">
                 <span className="text-red-400">Top 100</span>&nbsp;German Words
                 <FaArrowAltCircleRight className="ml-1 mb-1" />
@@ -85,7 +85,7 @@ const App: React.FC = () => {
           </div>
 
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/browse')} className="cursor-pointer hover:underline">
+            <button onClick={() => router.push('/top-500-words')} className="cursor-pointer hover:underline">
               <h1 className="text-md font-bold flex items-center justify-center">
                 <span className="text-red-400">Top 500</span>&nbsp;German Words
                 <FaArrowAltCircleRight className="ml-1 mb-1" />
