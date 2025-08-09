@@ -26,7 +26,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<SimpleUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [streak, setStreak] = useState(1);
-  const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
+const [theme, setTheme] = useState<"light" | "dark" | "system">(() => {
+  if (typeof window === "undefined") return "system";
+  return (localStorage.getItem("theme") as "light" | "dark" | "system" | null) ?? "system";
+});
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: User | null) => {
@@ -54,13 +57,22 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
 useEffect(() => {
-  const storedTheme = localStorage.getItem("theme") as "light" | "dark" | "system" | null;
-  if (storedTheme) {
-    setTheme(storedTheme);
-  } else {
-    setTheme("system");
+  const root = document.documentElement;
+  const mql = window.matchMedia("(prefers-color-scheme: dark)");
+
+  if (theme === "system") {
+    localStorage.setItem("theme", "system");
+    const apply = (dark: boolean) => root.classList.toggle("dark", dark);
+    apply(mql.matches);
+    const onChange = (e: MediaQueryListEvent) => apply(e.matches);
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
   }
-}, []);
+
+  // Explicit user choice overrides system
+  localStorage.setItem("theme", theme);
+  root.classList.toggle("dark", theme === "dark");
+}, [theme]);
 
 useEffect(() => {
   localStorage.setItem("theme", theme);
