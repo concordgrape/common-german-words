@@ -55,10 +55,6 @@ function About() {
           Offer tools to save words, mark them as “known,” and review at your
           own pace.
         </li>
-        <li>
-          Keep the interface fast, clean, and distraction-free with both light
-          and dark mode support.
-        </li>
       </ul>
 
       <h2 className="mt-4 text-2xl font-semibold">How It Works</h2>
