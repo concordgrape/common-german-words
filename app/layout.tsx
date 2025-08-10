@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import { UserProvider } from "./context/UserContext";
 import { WordFormProvider } from "./context/WordFormContext";
 import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -147,6 +148,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#1B263B]`}
       >
         <Analytics />
+        <GoogleAnalytics gaId="G-QD4M0YK0M8" />
         <UserProvider>
           <WordFormProvider>
             <Navbar />
