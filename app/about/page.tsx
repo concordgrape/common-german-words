@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="p-6 max-w-4xl mx-auto min-h-screen pt-30 bg-white sm:border sm:border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
-      <div className="mb-10">
+    <div className="pt-10 sm:pt-15 sm:pt-20 sm:p-4 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
+      <div className="w-full px-6 py-6 mt-4 pb-6 bg-white sm:border-1 sm:border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
         <About />
       </div>
     </div>
@@ -22,7 +22,7 @@ export default function AboutPage() {
 function About() {
   return (
     <main className="px-4 prose prose-gray dark:prose-invert max-w-none text-black dark:text-white">
-      <h1 className="text-3xl font-bold">About Us</h1>
+      <h1 className="text-4xl font-bold">About Us</h1>
 
       <p>
         <strong>Common German Words</strong> helps you learn the most

@@ -11,8 +11,8 @@ const EFFECTIVE_DATE = "August 8, 2025";
 
 export default function TermsAndConditionsPage() {
   return (
-    <div className="p-6 max-w-4xl mx-auto min-h-screen pt-30 bg-white sm:border-1 sm:border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
-      <div className="mb-10">
+    <div className="pt-10 sm:pt-15 sm:pt-20 sm:p-4 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
+      <div className="w-full px-6 py-6 mt-4 pb-6 bg-white sm:border-1 sm:border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
         <Policy />
       </div>
     </div>

@@ -47,7 +47,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <div>
-      <nav className="fixed w-full z-100 px-4 py-3 lg:py-4 flex items-center bg-white dark:bg-[#0D1B2A] border-b border-gray-200 dark:border-gray-900">
+      <nav className="fixed w-full z-100 px-4 py-3 mb-20 lg:py-4 flex items-center bg-white dark:bg-[#0D1B2A] border-b border-gray-200 dark:border-gray-900">
         <div className="lg:max-w-[1000px] md:max-w-[800px] sm:max-w-[800px] w-full flex items-center justify-between mx-auto">
           {/* Left: Logo */}
           <div className="flex items-center gap-2">
