@@ -59,16 +59,7 @@ function About() {
 
       <h2 className="mt-4 text-2xl font-semibold">How It Works</h2>
       <p>
-        We grab millions of sentences from your favourite TV shows in the native
-        language you&apos;re trying to learn. Then we curate a list of the most
-        frequently spoken words from those shows. From there, we generate
-        definitions and example sentences—using both real-world examples from
-        the source material and additional examples we create—so you can learn
-        vocabulary in authentic, engaging contexts.
-        <br />
-        <br />
-        Based on the words you save, we automatically create custom flashcards
-        and quizzes to help you review and reinforce your learning over time.
+       We take millions of sentences from your favorite TV shows in the language you want to learn. Then we choose the words you hear the most. For each word, we give you an easy-to-understand definition and example sentences. Some are taken from the shows, and others are written to sound like real, everyday speech, so learning new words feels simple and natural.
       </p>
 
       <h2 className="mt-4 text-2xl font-semibold">Feature Requests</h2>
