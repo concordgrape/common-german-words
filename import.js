@@ -15,13 +15,13 @@ admin.initializeApp({
 const db = admin.firestore();
 
 // Load your JSON file
-const wordsData = JSON.parse(fs.readFileSync('german_words_temp.json', 'utf8'));
+const wordsData = JSON.parse(fs.readFileSync('spanish_words_enriched_ranked.json', 'utf8'));
 
 // Upload each word into `languages/german/words/{word}`
 async function importGermanWords() {
   const baseCollectionRef = db
     .collection('languages')
-    .doc('german')
+    .doc('spanish')
     .collection('words');
 
   for (const [word, entries] of Object.entries(wordsData)) {
