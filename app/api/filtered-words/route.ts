@@ -32,21 +32,15 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Missing parameters" }, { status: 400 });
   }
 
-  // Normalize part_of_speech to match Firestore values (e.g., "Noun")
   const partOfSpeech = partOfSpeechRaw
-    ? partOfSpeechRaw.charAt(0).toUpperCase() +
-      partOfSpeechRaw.slice(1).toLowerCase()
+    ? partOfSpeechRaw.charAt(0).toUpperCase() + partOfSpeechRaw.slice(1).toLowerCase()
     : null;
-  const cacheKey = `filtered_words:${language}:${
-    partOfSpeech ?? "all"
-  }:${count}`;
+
+  const cacheKey = `filtered_words:${language}:${partOfSpeech ?? "all"}:${count}`;
 
   try {
     const redis = await getRedisClient();
-
-    if (forceRefresh) {
-      await redis.del(cacheKey);
-    }
+    if (forceRefresh) await redis.del(cacheKey);
 
     const cached = await redis.get(cacheKey);
     if (cached) {
@@ -54,26 +48,51 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(JSON.parse(cached), { status: 200 });
     }
 
-    const collectionRef = db
-      .collection("languages")
-      .doc(language)
-      .collection("words");
-    let q = collectionRef.orderBy("frequency", "desc").limit(count);
-    if (partOfSpeech) {
-      q = collectionRef
-        .where("part_of_speech", "==", partOfSpeech)
-        .orderBy("frequency", "desc")
-        .limit(count);
+    const collectionRef = db.collection("languages").doc(language).collection("words");
+
+    let docs: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>[] = [];
+
+    if (!partOfSpeech) {
+      // Simple: no composite index needed
+      const snapshot = await collectionRef.orderBy("frequency", "desc").limit(count).get();
+      docs = snapshot.docs;
+    } else {
+      try {
+        // Preferred (requires composite index)
+        const snapshot = await collectionRef
+          .where("part_of_speech", "==", partOfSpeech)
+          .orderBy("frequency", "desc")
+          .limit(count)
+          .get();
+        docs = snapshot.docs;
+      } catch (e: any) {
+        // Fallback when composite index is missing: fetch, then sort in memory.
+        if (e?.code === 9 || /requires an index/i.test(String(e))) {
+          console.warn("Composite index missing, using in-memory sort fallback.");
+          // Cap how many we pull to avoid huge reads; adjust as needed.
+          const snapshot = await collectionRef
+            .where("part_of_speech", "==", partOfSpeech)
+            .limit(Math.max(count * 5, 500)) // pull extra to get good top-N after sort
+            .get();
+          docs = snapshot.docs
+            .map((d) => ({ id: d.id, data: d.data() }))
+            .sort((a, b) => (b.data.frequency ?? 0) - (a.data.frequency ?? 0))
+            .slice(0, count)
+            // map back to a doc-like shape
+            .map((x, i) => snapshot.docs[i]); // structure alignment for later mapping
+        } else {
+          throw e;
+        }
+      }
     }
-    const snapshot = await q.get();
 
     console.log(
-      `Found ${snapshot.size} documents matching part_of_speech = ${partOfSpeech}`
+      `Found ${docs.length} documents matching part_of_speech = ${partOfSpeech ?? "all"}`
     );
 
-    const words = snapshot.docs
+    const words = docs
       .map((doc, index) => {
-        const data = doc.data();
+        const data = doc.data() as any;
         return {
           id: index,
           word: doc.id,
@@ -87,14 +106,10 @@ export async function GET(req: NextRequest) {
       .sort((a, b) => b.frequency - a.frequency)
       .slice(0, count);
 
-    await redis.set(cacheKey, JSON.stringify({ words }), { EX: 86400 }); // 24 hours
-
+    await redis.set(cacheKey, JSON.stringify({ words }), { EX: 86400 });
     return NextResponse.json({ words }, { status: 200 });
   } catch (error) {
     console.error("Error fetching filtered words:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

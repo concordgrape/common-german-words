@@ -4,8 +4,10 @@ import { db } from '@/lib/firebaseAdmin';
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const language = searchParams.get('language');
-  const amount = parseInt(searchParams.get('amount') || '10', 10);
+  const amount = Math.min(parseInt(searchParams.get('amount') || '10', 10), 1000);
   const password = searchParams.get('password');
+  const partOfSpeech = searchParams.get('part_of_speech');
+  const rank = searchParams.get('rank') ? parseInt(searchParams.get('rank')!, 10) : null;
 
   if (password !== process.env.API_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -16,31 +18,35 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    // Step 1: Get pre-generated list of IDs
-    const idDoc = await db.collection('languages').doc(language).collection('meta').doc('word_ids').get();
+    const wordsCollection = db.collection('languages').doc(language).collection('words');
 
-    if (!idDoc.exists) {
-      return NextResponse.json({ error: 'ID list not found' }, { status: 404 });
+    // Build base query with optional filters
+    let baseQuery: FirebaseFirestore.Query = wordsCollection;
+    if (partOfSpeech) {
+      baseQuery = baseQuery.where('part_of_speech', '==', partOfSpeech);
+    }
+    if (rank) {
+      baseQuery = baseQuery.where('rank', '==', rank);
     }
 
-    const allIds: string[] = idDoc.data()?.ids || [];
-    if (allIds.length === 0) {
-      return NextResponse.json({ error: 'No IDs found' }, { status: 404 });
+    // Random selection logic using pre-stored random field
+    const randomSeed = Math.random();
+
+    // First try: random >= seed
+    let query1 = baseQuery.where('random', '>=', randomSeed).limit(amount);
+    let snapshot1 = await query1.get();
+
+    let docs = snapshot1.docs;
+
+    // If not enough results, get the rest from random < seed
+    if (docs.length < amount) {
+      const remaining = amount - docs.length;
+      let query2 = baseQuery.where('random', '<', randomSeed).limit(remaining);
+      let snapshot2 = await query2.get();
+      docs = [...docs, ...snapshot2.docs];
     }
 
-    // Step 2: Randomly sample IDs
-    const shuffled = allIds.sort(() => 0.5 - Math.random());
-    const selectedIds = shuffled.slice(0, amount);
-
-    // Step 3: Batch fetch the docs
-    const wordRefs = selectedIds.map(id =>
-      db.collection('languages').doc(language).collection('words').doc(id)
-    );
-    const snapshots = await db.getAll(...wordRefs);
-
-    const words = snapshots
-      .filter(doc => doc.exists)
-      .map(doc => ({ id: doc.id, ...doc.data() }));
+    const words = docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
     return NextResponse.json({ words }, { status: 200 });
   } catch (error) {
