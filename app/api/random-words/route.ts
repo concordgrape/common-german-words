@@ -4,7 +4,8 @@ import { db } from '@/lib/firebaseAdmin';
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const language = searchParams.get('language');
-  const amount = Math.min(parseInt(searchParams.get('amount') || '10', 10), 1000);
+  const rawAmount = searchParams.get('amount') || searchParams.get('count') || '10';
+  const amount = Math.min(parseInt(rawAmount, 10), 1000);
   const password = searchParams.get('password');
   const partOfSpeech = searchParams.get('part_of_speech');
   const rank = searchParams.get('rank') ? parseInt(searchParams.get('rank')!, 10) : null;
@@ -20,37 +21,37 @@ export async function GET(req: NextRequest) {
   try {
     const wordsCollection = db.collection('languages').doc(language).collection('words');
 
-    // Build base query with optional filters
-    let baseQuery: FirebaseFirestore.Query = wordsCollection;
-    if (partOfSpeech) {
-      baseQuery = baseQuery.where('part_of_speech', '==', partOfSpeech);
-    }
-    if (rank) {
-      baseQuery = baseQuery.where('rank', '==', rank);
-    }
+    // Always use fallback logic (no composite index queries)
+    const normalizedPOS = (partOfSpeech ?? '').trim().toLowerCase();
+    const shouldFilterPOS = normalizedPOS && !['unknown', 'any', 'all'].includes(normalizedPOS);
 
-    // Random selection logic using pre-stored random field
-    const randomSeed = Math.random();
-
-    // First try: random >= seed
-    const query1 = baseQuery.where('random', '>=', randomSeed).limit(amount);
-    const snapshot1 = await query1.get();
-
-    let docs = snapshot1.docs;
-
-    // If not enough results, get the rest from random < seed
-    if (docs.length < amount) {
-      const remaining = amount - docs.length;
-      const query2 = baseQuery.where('random', '<', randomSeed).limit(remaining);
-      const snapshot2 = await query2.get();
-      docs = [...docs, ...snapshot2.docs];
+    let query: FirebaseFirestore.Query = wordsCollection;
+    if (shouldFilterPOS) {
+      query = query.where('part_of_speech', '==', partOfSpeech);
     }
 
-    const words = docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const fetchLimit = Math.max(amount * 5, 500);
+    const snapshot = await query.limit(fetchLimit).get();
 
+    let docs = snapshot.docs;
+
+    // Optional: filter by rank in memory
+    if (rank !== null && !isNaN(rank)) {
+      docs = docs.filter(doc => doc.get('rank') === rank);
+    }
+
+    // Shuffle the docs randomly
+    const shuffled = docs
+      .map(doc => ({ doc, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(entry => entry.doc)
+      .slice(0, amount);
+
+    const words = shuffled.map(doc => ({ id: doc.id, ...doc.data() }));
     return NextResponse.json({ words }, { status: 200 });
+
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching fallback words:', error);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }
