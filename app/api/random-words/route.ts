@@ -33,8 +33,8 @@ export async function GET(req: NextRequest) {
     const randomSeed = Math.random();
 
     // First try: random >= seed
-    let query1 = baseQuery.where('random', '>=', randomSeed).limit(amount);
-    let snapshot1 = await query1.get();
+    const query1 = baseQuery.where('random', '>=', randomSeed).limit(amount);
+    const snapshot1 = await query1.get();
 
     let docs = snapshot1.docs;
 

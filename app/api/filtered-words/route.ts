@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/firebaseAdmin";
 import { createClient } from "redis";
+import { Word } from "@/app/helpers/fetchBasicWordList";
 
 let redisClient: ReturnType<typeof createClient> | null = null;
 
@@ -9,7 +10,7 @@ async function getRedisClient() {
     redisClient = createClient({
       url: process.env.REDIS_URL,
     });
-    redisClient.on("error", (err) => console.error("Redis error:", err));
+    redisClient.on("error", (err: unknown) => console.error("Redis error:", err));
     await redisClient.connect();
   }
   return redisClient;
@@ -92,7 +93,7 @@ export async function GET(req: NextRequest) {
 
     const words = docs
       .map((doc, index) => {
-        const data = doc.data() as any;
+        const data = doc.data() as Word;
         return {
           id: index,
           word: doc.id,
@@ -108,7 +109,7 @@ export async function GET(req: NextRequest) {
 
     await redis.set(cacheKey, JSON.stringify({ words }), { EX: 86400 });
     return NextResponse.json({ words }, { status: 200 });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error fetching filtered words:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }

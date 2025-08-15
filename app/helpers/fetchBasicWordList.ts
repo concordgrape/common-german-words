@@ -87,3 +87,47 @@ export async function fetchTopWords(
     return [];
   }
 }
+
+
+export async function fetchRandomWords(
+  language: string,
+  partOfSpeech: string | null, // optional
+  count: number,
+  password: string,
+  rank: number | null = null,  // NEW optional param added at the end for backward-compat
+  refresh: boolean = false     // optional: force cache refresh if your API supports ?refresh=true
+): Promise<Word[]> {
+  try {
+    const params = new URLSearchParams({
+      language,
+      count: String(Math.min(Math.max(1, count || 0), 1000)), // 1..1000
+      password,
+    });
+
+    if (partOfSpeech && partOfSpeech.trim() !== "") {
+      params.set("part_of_speech", partOfSpeech);
+    }
+    if (rank !== null && !Number.isNaN(rank)) {
+      params.set("rank", String(rank));
+    }
+    if (refresh) {
+      params.set("refresh", "true");
+    }
+
+    const url = `/api/random-words?${params.toString()}`;
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      console.error("Failed to fetch words:", res.status, res.statusText);
+      return [];
+    }
+
+    const data = await res.json();
+
+    // Do NOT sort here—preserve randomness from the API
+    return Array.isArray(data.words) ? (data.words as Word[]) : [];
+  } catch (error) {
+    console.error("Error fetching words:", error);
+    return [];
+  }
+}
