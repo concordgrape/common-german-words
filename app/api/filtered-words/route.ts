@@ -66,21 +66,27 @@ export async function GET(req: NextRequest) {
           .limit(count)
           .get();
         docs = snapshot.docs;
-      } catch (e: any) {
-        // Fallback when composite index is missing: fetch, then sort in memory.
-        if (e?.code === 9 || /requires an index/i.test(String(e))) {
-          console.warn("Composite index missing, using in-memory sort fallback.");
-          // Cap how many we pull to avoid huge reads; adjust as needed.
-          const snapshot = await collectionRef
-            .where("part_of_speech", "==", partOfSpeech)
-            .limit(Math.max(count * 5, 500)) // pull extra to get good top-N after sort
-            .get();
+      } catch (e: unknown) {
+        if (
+          (typeof e === 'object' && e !== null && 'code' in e && e.code === 9) ||
+          /requires an index/i.test(String(e))
+        ) {
+          console.warn("Composite index missing — using in-memory fallback.");
+
+          const normalizedPOS = (partOfSpeech ?? '').trim().toLowerCase();
+          const shouldFilterPOS = normalizedPOS && !['unknown', 'any', 'all'].includes(normalizedPOS);
+
+          let query: FirebaseFirestore.Query = collectionRef;
+          if (shouldFilterPOS) {
+            query = query.where('part_of_speech', '==', partOfSpeech);
+          }
+
+          const fetchLimit = Math.max(count * 5, 500);
+          const snapshot = await query.limit(fetchLimit).get();
+
           docs = snapshot.docs
-            .map((d) => ({ id: d.id, data: d.data() }))
-            .sort((a, b) => (b.data.frequency ?? 0) - (a.data.frequency ?? 0))
-            .slice(0, count)
-            // map back to a doc-like shape
-            .map((x, i) => snapshot.docs[i]); // structure alignment for later mapping
+            .sort((a, b) => (b.get('frequency') ?? 0) - (a.get('frequency') ?? 0))
+            .slice(0, count);
         } else {
           throw e;
         }

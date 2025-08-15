@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   const partOfSpeech = searchParams.get('part_of_speech');
   const rank = searchParams.get('rank') ? parseInt(searchParams.get('rank')!, 10) : null;
 
-  if (password !== process.env.API_PASSWORD) {
+  if (password !== process.env.NEXT_PUBLIC_API_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -41,8 +41,8 @@ export async function GET(req: NextRequest) {
     // If not enough results, get the rest from random < seed
     if (docs.length < amount) {
       const remaining = amount - docs.length;
-      let query2 = baseQuery.where('random', '<', randomSeed).limit(remaining);
-      let snapshot2 = await query2.get();
+      const query2 = baseQuery.where('random', '<', randomSeed).limit(remaining);
+      const snapshot2 = await query2.get();
       docs = [...docs, ...snapshot2.docs];
     }
 

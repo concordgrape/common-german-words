@@ -95,7 +95,6 @@ export async function fetchRandomWords(
   count: number,
   password: string,
   rank: number | null = null,  // NEW optional param added at the end for backward-compat
-  refresh: boolean = false     // optional: force cache refresh if your API supports ?refresh=true
 ): Promise<Word[]> {
   try {
     const params = new URLSearchParams({
@@ -109,9 +108,6 @@ export async function fetchRandomWords(
     }
     if (rank !== null && !Number.isNaN(rank)) {
       params.set("rank", String(rank));
-    }
-    if (refresh) {
-      params.set("refresh", "true");
     }
 
     const url = `/api/random-words?${params.toString()}`;
