@@ -255,7 +255,10 @@ function SessionCustomizer({
 
   useEffect(() => {
     const max = filteredWords.length > 100 ? 100 : filteredWords.length;
-    setWordCount(max);
+    
+    if (wordCount > max) {
+      setWordCount(max);
+    }
   }, [mode]);
 
   return (
