@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
   const password = searchParams.get('password');
   const partOfSpeech = searchParams.get('part_of_speech');
   const rank = searchParams.get('rank') ? parseInt(searchParams.get('rank')!, 10) : null;
+  const priority = searchParams.get('priority') ?? 'random'; // "random" or "priority"
 
   if (password !== process.env.NEXT_PUBLIC_API_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -21,7 +22,6 @@ export async function GET(req: NextRequest) {
   try {
     const wordsCollection = db.collection('languages').doc(language).collection('words');
 
-    // Always use fallback logic (no composite index queries)
     const normalizedPOS = (partOfSpeech ?? '').trim().toLowerCase();
     const shouldFilterPOS = normalizedPOS && !['unknown', 'any', 'all'].includes(normalizedPOS);
 
@@ -30,17 +30,24 @@ export async function GET(req: NextRequest) {
       query = query.where('part_of_speech', '==', partOfSpeech);
     }
 
-    const fetchLimit = Math.max(amount * 5, 500);
+    const fetchLimit = Math.max(amount * 5, 1000);
     const snapshot = await query.limit(fetchLimit).get();
 
     let docs = snapshot.docs;
 
-    // Optional: filter by rank in memory
     if (rank !== null && !isNaN(rank)) {
       docs = docs.filter(doc => doc.get('rank') === rank);
     }
 
-    // Shuffle the docs randomly
+    if (priority === 'priority') {
+      // Sort by frequency DESC and take top 1000
+      docs = docs
+        .filter(doc => typeof doc.get('frequency') === 'number')
+        .sort((a, b) => b.get('frequency') - a.get('frequency'))
+        .slice(0, 1000);
+    }
+
+    // Shuffle remaining docs and take `amount`
     const shuffled = docs
       .map(doc => ({ doc, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
@@ -48,8 +55,8 @@ export async function GET(req: NextRequest) {
       .slice(0, amount);
 
     const words = shuffled.map(doc => ({
-      word: doc.id,                    
-      id: doc.get('id') ?? 0,          
+      word: doc.id,
+      id: doc.get('id') ?? 0,
       part_of_speech: doc.get('part_of_speech') ?? null,
       frequency: doc.get('frequency') ?? 0,
       rank: doc.get('rank') ?? 0,
