@@ -88,25 +88,26 @@ export async function fetchTopWords(
   }
 }
 
-
 export async function fetchRandomWords(
   language: string,
-  partOfSpeech: string | null, // optional
+  partOfSpeech: string | null,
   count: number,
   password: string,
-  rank: number | null = null,  // NEW optional param added at the end for backward-compat
+  rank: number | null = null,
+  priority: "common-words" | "random" = "random" // <-- NEW PARAM
 ): Promise<Word[]> {
   try {
     const params = new URLSearchParams({
       language,
       count: String(Math.min(Math.max(1, count || 0), 1000)), // 1..1000
       password,
+      priority, // <-- pass priority to the backend
     });
 
     if (partOfSpeech && partOfSpeech.trim() !== "") {
       params.set("part_of_speech", partOfSpeech);
     }
-    
+
     if (rank !== null && !Number.isNaN(rank)) {
       params.set("rank", String(rank));
     }
@@ -121,7 +122,6 @@ export async function fetchRandomWords(
 
     const data = await res.json();
 
-    // Do NOT sort here—preserve randomness from the API
     return Array.isArray(data.words) ? (data.words as Word[]) : [];
   } catch (error) {
     console.error("Error fetching words:", error);

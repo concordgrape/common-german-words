@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   const password = searchParams.get('password');
   const partOfSpeech = searchParams.get('part_of_speech');
   const rank = searchParams.get('rank') ? parseInt(searchParams.get('rank')!, 10) : null;
-  const priority = searchParams.get('priority') ?? 'random'; // "random" or "priority"
+  const priority = searchParams.get('common-words') ?? 'random'; // "random" or "priority"
 
   if (password !== process.env.NEXT_PUBLIC_API_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
       docs = docs.filter(doc => doc.get('rank') === rank);
     }
 
-    if (priority === 'priority') {
+    if (priority === 'common-words') {
       // Sort by frequency DESC and take top 1000
       docs = docs
         .filter(doc => typeof doc.get('frequency') === 'number')

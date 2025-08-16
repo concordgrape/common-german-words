@@ -61,7 +61,8 @@ const LearnWordPage: React.FC = () => {
         wordType,
         wordCount,
         process.env.NEXT_PUBLIC_API_PASSWORD || "",
-        rank === 0 ? null : rank
+        rank === 0 ? null : rank,
+        priority
       );
 
       if (words.length === 0) {
