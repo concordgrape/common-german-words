@@ -13,7 +13,7 @@ import { Mode } from "./page";
 import { formatFillInTheBlankQuestions } from "../helpers/userWordLibrary";
 
 interface LearnFormConfirmProps {
-  mode: Mode
+  mode: Mode;
 }
 
 export const LearnFormConfirm = ({ mode }: LearnFormConfirmProps) => {

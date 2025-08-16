@@ -47,7 +47,18 @@ export async function GET(req: NextRequest) {
       .map(entry => entry.doc)
       .slice(0, amount);
 
-    const words = shuffled.map(doc => ({ id: doc.id, ...doc.data() }));
+    const words = shuffled.map(doc => ({
+      word: doc.id,                    
+      id: doc.get('id') ?? 0,          
+      part_of_speech: doc.get('part_of_speech') ?? null,
+      frequency: doc.get('frequency') ?? 0,
+      rank: doc.get('rank') ?? 0,
+      translation: doc.get('translation') ?? '',
+      gender: doc.get('gender') ?? '',
+      phonetic_spelling: doc.get('phonetic_spelling') ?? '',
+      examples: doc.get('examples') ?? [],
+    }));
+
     return NextResponse.json({ words }, { status: 200 });
 
   } catch (error) {

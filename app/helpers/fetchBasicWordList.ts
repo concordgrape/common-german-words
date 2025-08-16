@@ -106,6 +106,7 @@ export async function fetchRandomWords(
     if (partOfSpeech && partOfSpeech.trim() !== "") {
       params.set("part_of_speech", partOfSpeech);
     }
+    
     if (rank !== null && !Number.isNaN(rank)) {
       params.set("rank", String(rank));
     }
