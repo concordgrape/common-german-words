@@ -20,6 +20,8 @@ const LearnWordPage: React.FC = () => {
     setAllWords,
     allWords,
     setSubmittedWords,
+    savedWords,
+    setSavedWords
   } = useWordForm();
   const [mode, setMode] = useState<Mode>("flashcards");
   const [wordType, setWordType] = useState<string>("All");
@@ -43,6 +45,7 @@ const LearnWordPage: React.FC = () => {
         console.log("Fetched words:", words.length);
         setFilteredWords(words);
         setAllWords(words);
+        setSavedWords([]);
       } catch (err) {
         console.error("Failed to fetch words", err);
       }
@@ -51,6 +54,15 @@ const LearnWordPage: React.FC = () => {
   }, [setFilteredWords, setAllWords]);
 
   const handleStartClick = async () => {
+    if (wordCount === 0 && savedWords.length === 0) {
+      toast({
+        title: "No Words Found",
+        subtitle: "Try a different filter or part of speech.",
+        variant: "error",
+      });
+      return;
+    }
+
     setLoading(true);
     const start = Date.now();
 
@@ -61,10 +73,11 @@ const LearnWordPage: React.FC = () => {
         wordCount,
         process.env.NEXT_PUBLIC_API_PASSWORD || "",
         rank === 0 ? null : rank,
-        priority
+        priority,
+        savedWords
       );
 
-      if (words.length === 0) {
+      if (words.length === 0 && savedWords.length === 0) {
         toast({
           title: "No Words Found",
           subtitle: "Try a different filter or part of speech.",
@@ -102,8 +115,8 @@ const LearnWordPage: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("wordType: ", wordType);
-  }, [wordType]);
+    console.log("wordCount: ", wordCount);
+  }, [wordCount]);
 
   useEffect(() => {
     console.log("loading ", loading);

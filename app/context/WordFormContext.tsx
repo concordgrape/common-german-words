@@ -17,6 +17,8 @@ interface WordFormContextProps {
   setSubmittedWords: (words: SubmittedWord[]) => void;
   allWords: Word[];
   setAllWords: (words: Word[]) => void;
+  savedWords: string[];
+  setSavedWords: (words: string[]) => void;
 }
 
 const WordFormContext = createContext<WordFormContextProps | undefined>(undefined);
@@ -25,9 +27,10 @@ export const WordFormProvider = ({ children }: { children: React.ReactNode }) =>
   const [filteredWords, setFilteredWords] = useState<Word[]>([]);
   const [submittedWords, setSubmittedWords] = useState<SubmittedWord[]>([]);
   const [allWords, setAllWords] = useState<Word[]>([]);
+  const [savedWords, setSavedWords] = useState<string[]>([]);
 
   return (
-    <WordFormContext.Provider value={{ filteredWords, setFilteredWords, submittedWords, setSubmittedWords, allWords, setAllWords }}>
+    <WordFormContext.Provider value={{ filteredWords, setFilteredWords, submittedWords, setSubmittedWords, allWords, setAllWords, savedWords, setSavedWords }}>
       {children}
     </WordFormContext.Provider>
   );

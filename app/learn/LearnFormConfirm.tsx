@@ -18,11 +18,11 @@ interface LearnFormConfirmProps {
 }
 
 export const LearnFormConfirm = ({ mode, wordCount }: LearnFormConfirmProps) => {
-  const { submittedWords, setSubmittedWords, allWords, filteredWords } = useWordForm();
+  const { submittedWords, setSubmittedWords, allWords, filteredWords, setSavedWords, savedWords } = useWordForm();
   const { user } = useUser();
 
-  // savedWords is just a set of word IDs (as strings) that the user has saved
-  const [savedWords, setSavedWords] = useState<Word[]>([]);
+  // savedWordsObject is just a set of word IDs (as strings) that the user has saved
+  const [savedWordsObject, setSavedWordsObjects] = useState<Word[]>([]);
 
   // store the actual Word objects we just added last,
   // so we can undo exactly those
@@ -35,7 +35,7 @@ export const LearnFormConfirm = ({ mode, wordCount }: LearnFormConfirmProps) => 
       try {
         const saved = await fetchWordStatusData(user.uid, "saved", 5000);
 
-        setSavedWords(saved);
+        setSavedWordsObjects(saved);
         console.log("fetched saved words: ", saved);
       } catch (err) {
         console.error("❌ Error preloading word status:", err);
@@ -45,8 +45,8 @@ export const LearnFormConfirm = ({ mode, wordCount }: LearnFormConfirmProps) => 
   }, [user?.uid]);
 
   useEffect(() => {
-    console.log("📝 LearnFormConfirm sees submittedWords:", filteredWords);
-  }, [filteredWords]);
+    console.log("📝 LearnFormConfirm sees submittedWords:", submittedWords);
+  }, [submittedWords]);
 
   const handleAddAll = () => {
     if (!user) {
@@ -58,17 +58,18 @@ export const LearnFormConfirm = ({ mode, wordCount }: LearnFormConfirmProps) => 
       return;
     }
 
-    // Filter savedWords to only those not already submitted
-    const available = savedWords.filter(
+    // Filter savedWordsObject to only those not already submitted
+    const available = savedWordsObject.filter(
       (word) =>
         !submittedWords.some(
           (sw) => isWord(sw) && sw.word === word.word
         )
     );
+    const words = available.map(obj => obj.word);
 
-    console.log("available: ", available)
+    console.log("available: ", words)
 
-    if (available.length === 0) {
+    if (words.length === 0) {
       toast({
         title: "No More Saved Words",
         subtitle: "You already added all available saved words",
@@ -76,63 +77,52 @@ export const LearnFormConfirm = ({ mode, wordCount }: LearnFormConfirmProps) => 
       });
       return;
     }
-    
-    const formatted = mode === 'quiz'
-      ? formatFillInTheBlankQuestions(available)
-      : available;
 
-    setLastAdded(formatted);
-    setSubmittedWords([...submittedWords, ...formatted]);
+    setSavedWords(words);
   };
 
-  const handleAdd = (amount: number) => {
-    if (!user) {
-      toast({
-        title: "Not signed in",
-        subtitle: "You must sign in to save words",
-        variant: "error",
-      });
-      return;
+const handleAdd = (amount: number) => {
+  if (!user) {
+    toast({ title: "Not signed in", subtitle: "You must sign in to save words", variant: "error" });
+    return;
+  }
+
+  if (savedWordsObject.length === 0) {
+    toast({ title: "No More Saved Words", subtitle: "You already added all available saved words", variant: "error" });
+    return;
+  }
+
+  // Exclude saved words already submitted
+  const available = savedWordsObject.filter(
+    (word) => !submittedWords.some((sw) => isWord(sw) && sw.word === word.word)
+  );
+
+  if (available.length === 0) {
+    toast({ title: "No More Saved Words", subtitle: "You already added all available saved words", variant: "error" });
+    return;
+  }
+
+  const words = available.map((obj) => obj.word);
+  const shuffledWords = shuffle(words, amount ?? available.length);
+
+  // Build a NEW array without duplicates (no functional updater)
+  const existing = new Set(savedWords);
+  const merged: string[] = [...savedWords];
+
+  for (const w of shuffledWords) {
+    if (!existing.has(w)) {
+      merged.push(w);
+      existing.add(w);
     }
+  }
 
-    if (savedWords.length === 0) {
-      toast({
-        title: "No More Saved Words",
-        subtitle: "You already added all available saved words",
-        variant: "error",
-      });
-      return;
-    }
+  setSavedWords(merged); // OK: this is a string[]
+};
 
-    // Filter out saved words that have already been submitted
-    const available = savedWords.filter(
-      (word) =>
-        !submittedWords.some(
-          (sw) => isWord(sw) && sw.word === word.word
-        )
-    );
 
-    if (available.length === 0) {
-      toast({
-        title: "No More Saved Words",
-        subtitle: "You already added all available saved words",
-        variant: "error",
-      });
-      return;
-    }
-
-    const toAdd = shuffle(available).slice(0, amount);
-
-    const formatted = mode === 'quiz'
-        ? formatFillInTheBlankQuestions(toAdd)
-        : toAdd;
-
-      setLastAdded(formatted);
-      setSubmittedWords([...submittedWords, ...formatted]);
-  };
 
 const handleUndo = () => {
-    if (lastAdded.length === 0) return;
+    if (savedWords.length === 0) return;
 
     const reverted = submittedWords.filter(
       (w) =>
@@ -143,7 +133,7 @@ const handleUndo = () => {
         })
     );
 
-    setSubmittedWords(reverted);
+    setSavedWords([]);
     setLastAdded([]);
   };
 
@@ -162,7 +152,7 @@ const handleUndo = () => {
                 <div className="animate-spin h-4 w-4 rounded-full border-4 border-white border-t-transparent" />
               </div>
             ) : (
-              wordCount
+              wordCount + savedWords.length
             )}{" "}
             words selected
           </span>
@@ -172,13 +162,13 @@ const handleUndo = () => {
         <p className="text-xs text-white mt-5">Bulk Add Saved Words</p>
         <div className="flex flex-col">
           <button
-            onClick={lastAdded.length > 0 ? handleUndo : handleAddAll}
+            onClick={savedWords.length > 0 ? handleUndo : handleAddAll}
             className="text-sm w-50 text-center text-white font-mono mt-5 py-2 px-2 rounded-lg bg-blue-600 hover:bg-blue-700 shadow-sm"
           >
-            {(lastAdded.length === savedWords.length) && savedWords.length != 0 ? (
-              <span>Undo Add All Saved Words ({savedWords.length})</span>
+            {(lastAdded.length === savedWordsObject.length) && savedWordsObject.length != 0 ? (
+              <span>Undo Add All Saved Words ({savedWordsObject.length})</span>
             ) : (
-              <span>Add All Saved Words ({savedWords.length})</span>
+              <span>Add All Saved Words ({savedWordsObject.length})</span>
             )}
           </button>
         </div>
@@ -207,7 +197,7 @@ const handleUndo = () => {
           <button
             onClick={handleUndo}
             className={`ml-3 w-10 items-center mx-auto rounded-lg ${
-              lastAdded.length > 0
+              savedWords.length > 0
                 ? "text-white hover:text-gray-300 cursor-pointer"
                 : "text-blue-300"
             }`}

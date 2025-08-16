@@ -228,7 +228,7 @@ function SessionCustomizer({
     //      toast({ title: 'You are offline', subtitle: 'Check your internet connection.', variant: 'error' });
 
     // Convert to quiz questions if in quiz mode
-    if (mode === "quiz") {
+    if (mode === "quiz" && shuffledSample.length != 0) {
       const quizQuestions: FillInTheBlankQuestion[] =
         formatFillInTheBlankQuestions(shuffledSample);
       setSubmittedWords(quizQuestions);

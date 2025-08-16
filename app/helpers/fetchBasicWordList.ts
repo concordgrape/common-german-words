@@ -94,14 +94,15 @@ export async function fetchRandomWords(
   count: number,
   password: string,
   rank: number | null = null,
-  priority: "common-words" | "random" = "random" // <-- NEW PARAM
+  priority: "common-words" | "random" = "random",
+  savedWords: string[] = [] // <-- NEW PARAM
 ): Promise<Word[]> {
   try {
     const params = new URLSearchParams({
       language,
-      count: String(Math.min(Math.max(1, count || 0), 1000)), // 1..1000
+      count: String(Math.min(Math.max(0, count), 1000)), // 0..1000
       password,
-      priority, // <-- pass priority to the backend
+      priority,
     });
 
     if (partOfSpeech && partOfSpeech.trim() !== "") {
@@ -110,6 +111,17 @@ export async function fetchRandomWords(
 
     if (rank !== null && !Number.isNaN(rank)) {
       params.set("rank", String(rank));
+    }
+
+    if (savedWords.length > 0) {
+      // Shuffle and take up to 100 saved words
+      const shuffled = savedWords
+        .map(word => ({ word, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(entry => entry.word)
+        .slice(0, 100);
+
+      params.set("saved", shuffled.join(","));
     }
 
     const url = `/api/random-words?${params.toString()}`;
@@ -121,7 +133,6 @@ export async function fetchRandomWords(
     }
 
     const data = await res.json();
-
     return Array.isArray(data.words) ? (data.words as Word[]) : [];
   } catch (error) {
     console.error("Error fetching words:", error);
