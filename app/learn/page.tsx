@@ -19,7 +19,6 @@ const LearnWordPage: React.FC = () => {
     setFilteredWords,
     setAllWords,
     allWords,
-    submittedWords,
     setSubmittedWords,
   } = useWordForm();
   const [mode, setMode] = useState<Mode>("flashcards");

@@ -177,7 +177,7 @@ function ModeSelector({ setMode }: ModeSelectorProps) {
 
 interface SessionCustomizerProps {
   mode: Mode;
-  wordType: String;
+  wordType: string;
   setWordType: React.Dispatch<React.SetStateAction<string>>;
   rank: number;
   setRank: React.Dispatch<React.SetStateAction<number>>;
@@ -202,7 +202,6 @@ function SessionCustomizer({
 }: SessionCustomizerProps) {
   //const [wordType, setWordType] = useState("All");
   //  const [selectedCEFR, setSelectedCEFR] = useState(0);
-  const [allWordCount, setAllWordCount] = useState(0);
   const { setFilteredWords, setSubmittedWords, allWords, filteredWords } =
     useWordForm();
 
@@ -213,8 +212,6 @@ function SessionCustomizer({
         wordType === "All" || word.part_of_speech === wordType;
       return matchesCEFR && matchesType;
     });
-
-    setAllWordCount(filtered.length);
 
     // Prioritize top 400 by frequency if selected
     if (priority === "common-words") {
