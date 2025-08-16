@@ -14,10 +14,11 @@ import { formatFillInTheBlankQuestions } from "../helpers/userWordLibrary";
 
 interface LearnFormConfirmProps {
   mode: Mode;
+  wordCount: number;
 }
 
-export const LearnFormConfirm = ({ mode }: LearnFormConfirmProps) => {
-  const { submittedWords, setSubmittedWords, allWords } = useWordForm();
+export const LearnFormConfirm = ({ mode, wordCount }: LearnFormConfirmProps) => {
+  const { submittedWords, setSubmittedWords, allWords, filteredWords } = useWordForm();
   const { user } = useUser();
 
   // savedWords is just a set of word IDs (as strings) that the user has saved
@@ -44,8 +45,8 @@ export const LearnFormConfirm = ({ mode }: LearnFormConfirmProps) => {
   }, [user?.uid]);
 
   useEffect(() => {
-    console.log("📝 LearnFormConfirm sees submittedWords:", submittedWords);
-  }, [submittedWords]);
+    console.log("📝 LearnFormConfirm sees submittedWords:", filteredWords);
+  }, [filteredWords]);
 
   const handleAddAll = () => {
     if (!user) {
@@ -161,7 +162,7 @@ const handleUndo = () => {
                 <div className="animate-spin h-4 w-4 rounded-full border-4 border-white border-t-transparent" />
               </div>
             ) : (
-              submittedWords.length
+              wordCount
             )}{" "}
             words selected
           </span>

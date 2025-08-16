@@ -8,11 +8,6 @@ import { GiFallingStar } from "react-icons/gi";
 import Image from "next/image";
 import SortButton from "../components/SortButtons/Sort";
 import { useWordForm } from "../context/WordFormContext";
-import {
-  fetchAllWords,
-  fetchRandomWords,
-  Word,
-} from "../helpers/fetchBasicWordList";
 import { shuffle } from "../helpers/utils";
 import { Mode } from "./page";
 import {
@@ -20,7 +15,6 @@ import {
   FillInTheBlankQuestion,
 } from "../helpers/userWordLibrary";
 import { InfoToast } from "../hooks/useInfoToast";
-import { setPriority } from "os";
 
 interface LearnFormProps {
   setMode: React.Dispatch<React.SetStateAction<Mode>>;
@@ -32,6 +26,8 @@ interface LearnFormProps {
   loading: boolean;
   priority: string;
   setPriority: React.Dispatch<React.SetStateAction<"common-words" | "random">>;
+  wordCount: number;
+  setWordCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const LearnForm = ({
@@ -43,7 +39,9 @@ export const LearnForm = ({
   setRank,
   loading,
   priority,
-  setPriority
+  setPriority,
+  wordCount,
+  setWordCount,
 }: LearnFormProps) => {
   return (
     <div
@@ -80,6 +78,8 @@ export const LearnForm = ({
         loading={loading}
         priority={priority}
         setPriority={setPriority}
+        wordCount={wordCount}
+        setWordCount={setWordCount}
       />
     </div>
   );
@@ -184,6 +184,8 @@ interface SessionCustomizerProps {
   loading: boolean;
   priority: string;
   setPriority: React.Dispatch<React.SetStateAction<"common-words" | "random">>;
+  wordCount: number;
+  setWordCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function SessionCustomizer({
@@ -194,13 +196,15 @@ function SessionCustomizer({
   setRank,
   loading,
   priority,
-  setPriority
+  setPriority,
+  wordCount,
+  setWordCount,
 }: SessionCustomizerProps) {
   //const [wordType, setWordType] = useState("All");
-  const [wordCount, setWordCount] = useState(0);
   //  const [selectedCEFR, setSelectedCEFR] = useState(0);
   const [allWordCount, setAllWordCount] = useState(0);
-  const { setFilteredWords, setSubmittedWords, allWords } = useWordForm();
+  const { setFilteredWords, setSubmittedWords, allWords, filteredWords } =
+    useWordForm();
 
   useEffect(() => {
     let filtered = allWords.filter((word) => {
@@ -235,7 +239,7 @@ function SessionCustomizer({
       setSubmittedWords(shuffledSample);
     }
 
-    setFilteredWords(shuffledSample);
+    setFilteredWords(filtered);
   }, [
     wordType,
     rank,
@@ -251,6 +255,11 @@ function SessionCustomizer({
       setWordCount(allWords.length);
     }
   }, [allWords]);
+
+  useEffect(() => {
+    const max = filteredWords.length > 100 ? 100 : filteredWords.length;
+    setWordCount(max);
+  }, [mode]);
 
   return (
     <div>
@@ -386,17 +395,23 @@ function SessionCustomizer({
             <div className="flex items-center justify-between text-sm">
               <span className="text-gray-500 dark:text-gray-300">{0}</span>
               <span className="font-semibold text-lg text-blue-600 dark:text-blue-500">
-                {wordCount}
+                {wordCount > filteredWords.length
+                  ? filteredWords.length
+                  : wordCount}
               </span>
               <span className="font-semibold text-gray-500 dark:text-gray-300">
-                {100}
+                {filteredWords.length > 100 ? 100 : filteredWords.length}
               </span>
             </div>
             <input
               type="range"
               min={0}
-              max={allWords.length > 100 ? 100 : allWords.length}
-              value={wordCount}
+              max={filteredWords.length > 100 ? 100 : filteredWords.length}
+              value={
+                wordCount > filteredWords.length
+                  ? filteredWords.length
+                  : wordCount
+              }
               onChange={(e) => setWordCount(Number(e.target.value))}
               className="w-full mt-2 range range-lg lg:range-md range-info"
               disabled={allWords.length == 0 || loading}
