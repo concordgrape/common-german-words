@@ -13,11 +13,11 @@ type FlashcardProps = {
 export default function Flashcard({ word, className }: FlashcardProps) {
   const [flipped, setFlipped] = useState(false);
 
-  const toggle = useCallback(() => setFlipped(f => !f), []);
+  const toggle = useCallback(() => setFlipped((f) => !f), []);
 
   // Space bar support
   useEffect(() => {
-    console.log(word)
+    console.log(word);
     const onKey = (e: KeyboardEvent) => {
       if (e.code === "Space") {
         e.preventDefault();
@@ -29,11 +29,20 @@ export default function Flashcard({ word, className }: FlashcardProps) {
   }, [toggle]);
 
   return (
-    <button
-      type="button"
+    <div
+      role="button"
+      tabIndex={0}
       aria-pressed={flipped}
       onClick={toggle}
-      className={`mx-auto ${styles.wrapper} ${className ?? ""}`}
+      onKeyDown={(e) => {
+        if (e.code === "Space" || e.code === "Enter") {
+          e.preventDefault();
+          toggle();
+        }
+      }}
+      className={`mx-auto ${styles.wrapper} ${
+        className ?? ""
+      } items-center justify-center focus:outline-none`}
     >
       <div className={`${styles.card} ${flipped ? styles.flipped : ""}`}>
         <div
@@ -43,7 +52,6 @@ export default function Flashcard({ word, className }: FlashcardProps) {
           <span className="absolute top-2 left-2 text-xs text-gray-600">
             {word.rank}
           </span>
-          
 
           {/* center‑of‑card word */}
           <div className="flex-1 flex items-center justify-center">
@@ -64,7 +72,9 @@ export default function Flashcard({ word, className }: FlashcardProps) {
             {word.examples?.[1]?.sentence?.replace(".", "") || ""}
           </div>
           <span className="absolute bottom-2 right-2 text-sm text-gray-600">
-            <GoogleTTSButton text={word.examples?.[1]?.sentence?.replace(".", "") || ""} />
+            <GoogleTTSButton
+              text={word.examples?.[1]?.sentence?.replace(".", "") || ""}
+            />
           </span>
         </div>
 
@@ -79,10 +89,12 @@ export default function Flashcard({ word, className }: FlashcardProps) {
 
           {/* 2. Bottom‑centered example translation */}
           <div className="py-2 text-sm text-white text-center">
-            {word.examples[1] ? word.examples[1].translation.replace(".", "") : ""}
+            {word.examples[1]
+              ? word.examples[1].translation.replace(".", "")
+              : ""}
           </div>
         </div>
       </div>
-    </button>
+    </div>
   );
 }

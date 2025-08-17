@@ -1,6 +1,6 @@
 .wrapper {
   perspective: 1000px;
-  display: block;
+  display: flex;
   border: none;
   padding: 0;
   background: transparent;
