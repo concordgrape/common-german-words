@@ -9,7 +9,6 @@ import { FaUndo } from "react-icons/fa";
 import { useToast } from "../hooks/useToast";
 import { Word } from "../helpers/fetchBasicWordList";
 import { isWord } from "../context/WordFormContext";
-import { Mode } from "./page";
 
 interface LearnFormConfirmProps {
   wordCount: number;
