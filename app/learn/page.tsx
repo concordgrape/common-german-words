@@ -11,6 +11,7 @@ import {
 } from "../helpers/fetchBasicWordList";
 import { useToast } from "../hooks/useToast";
 import { formatFillInTheBlankQuestions } from "../helpers/userWordLibrary";
+import { kDEFAULT_WORD_COUNT } from "../lib/constants";
 
 export type Mode = "flashcards" | "quiz" | "fill";
 
@@ -25,7 +26,7 @@ const LearnWordPage: React.FC = () => {
   } = useWordForm();
   const [mode, setMode] = useState<Mode>("flashcards");
   const [wordType, setWordType] = useState<string>("All");
-  const [wordCount, setWordCount] = useState<number>(0);
+  const [wordCount, setWordCount] = useState<number>(kDEFAULT_WORD_COUNT);
   const [priority, setPriority] = useState<"common-words" | "random">(
     "common-words"
   );

@@ -248,18 +248,29 @@ function SessionCustomizer({
   ]);
 
   useEffect(() => {
-    if (wordCount > allWords.length) {
-      setWordCount(allWords.length);
-    }
-  }, [allWords]);
+    if (loading) return;
 
-  useEffect(() => {
-    const max = filteredWords.length > 100 ? 100 : filteredWords.length;
-    
-    if (wordCount > max) {
-      setWordCount(max);
-    }
-  }, [mode]);
+    // Only clamp when we actually have data
+    const hasAll = allWords.length > 0;
+    const hasFiltered = filteredWords.length > 0;
+
+    // Compute caps; ignore empty lists so we don't clamp to 0
+    const capAll = hasAll ? allWords.length : Infinity;
+    const capFiltered = hasFiltered
+      ? Math.min(100, filteredWords.length)
+      : Infinity;
+
+    const cap = Math.min(capAll, capFiltered);
+
+    if (!Number.isFinite(cap)) return; // no real cap yet
+
+    setWordCount((prev) => Math.min(prev, cap));
+  }, [
+    loading,
+    allWords.length, // only depend on lengths, not arrays
+    filteredWords.length,
+    mode, // if mode changes, re-evaluate cap
+  ]);
 
   return (
     <div>
