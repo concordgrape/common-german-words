@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
   const hasRank = parsedRank !== null && !Number.isNaN(parsedRank) && parsedRank !== 0;
 
   // only use priority if rank is provided and not 0
-  const usePriority = priority === 'common-words' && hasRank && parsedRank <= 2;
+  const usePriority = priority === 'common-words' && parsedRank === null && partOfSpeech == "All";
 
   if (password !== process.env.NEXT_PUBLIC_API_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
