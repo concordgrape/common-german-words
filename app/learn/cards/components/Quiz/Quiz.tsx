@@ -206,7 +206,7 @@ export default function FillInTheBlankQuiz({
         </div>
         <div className="bottom-0 mt-8">
           <motion.div
-            className="flex justify-center flex-wrap gap-2"
+            className="flex justify-center flex-wrap gap-1"
             key={answer} // ensures remounting animation on question change
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -217,7 +217,7 @@ export default function FillInTheBlankQuiz({
               <motion.span
                 key={`letter-${i}`}
                 whileTap={{ scale: 0.9 }}
-                className="cursor-pointer mx-[1px] lg:mx-1 p-1 px-3 lg:p-3 lg:px-4 rounded-sm bg-gray-200 hover:bg-gray-100 hover:shadow-sm dark:bg-gray-500 dark:hover:bg-gray-600"
+                className="cursor-pointer mx-[1px] lg:mx-1 p-1 px-3 lg:p-3 lg:px-4 rounded-sm bg-gray-200 hover:bg-gray-100 hover:shadow-sm dark:bg-gray-500 dark:hover:bg-gray-600 flex items-center justify-center text-center"
                 onClick={() => setInput((input) => input + char)}
               >
                 {char.toLowerCase()}
