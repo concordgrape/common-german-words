@@ -143,7 +143,7 @@ const LearnWordPage: React.FC = () => {
 
       {/* WordInfo (right column) */}
       <div className="flex mt-5 sm:mt-0 md:mt-0 lg:mt-0 sticky top-25 self-start z-20 flex-col items-center w-full">
-        <LearnFormConfirm mode={mode} wordCount={wordCount} />
+        <LearnFormConfirm wordCount={wordCount} />
         <button
           onClick={() => {
             /*if (submittedWords.length === 0) {

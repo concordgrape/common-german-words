@@ -15,15 +15,6 @@ function formatWord(doc: FirebaseFirestore.DocumentSnapshot) {
   };
 }
 
-// Fisher–Yates
-function shuffleInPlace<T>(arr: T[]) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
 

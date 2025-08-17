@@ -10,15 +10,13 @@ import { useToast } from "../hooks/useToast";
 import { Word } from "../helpers/fetchBasicWordList";
 import { isWord } from "../context/WordFormContext";
 import { Mode } from "./page";
-import { formatFillInTheBlankQuestions } from "../helpers/userWordLibrary";
 
 interface LearnFormConfirmProps {
-  mode: Mode;
   wordCount: number;
 }
 
-export const LearnFormConfirm = ({ mode, wordCount }: LearnFormConfirmProps) => {
-  const { submittedWords, setSubmittedWords, allWords, filteredWords, setSavedWords, savedWords } = useWordForm();
+export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
+  const { submittedWords, allWords, setSavedWords, savedWords } = useWordForm();
   const { user } = useUser();
 
   // savedWordsObject is just a set of word IDs (as strings) that the user has saved
@@ -123,15 +121,6 @@ const handleAdd = (amount: number) => {
 
 const handleUndo = () => {
     if (savedWords.length === 0) return;
-
-    const reverted = submittedWords.filter(
-      (w) =>
-        !lastAdded.some((lw) => {
-          const lwKey = isWord(lw) ? lw.word : lw.answer;
-          const wKey = isWord(w) ? w.word : w.answer;
-          return lwKey === wKey;
-        })
-    );
 
     setSavedWords([]);
     setLastAdded([]);
