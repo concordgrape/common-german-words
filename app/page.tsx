@@ -15,7 +15,7 @@ import Germany4 from '../public/germany4.webp';
 import Germany5 from '../public/germany5.webp';
 import Germany6 from '../public/germany6.webp';
 import Germany7 from '../public/germany7.webp';
-import { kCOUNTRY_NAME } from "./lib/constants";
+import { kCOUNTRY_NAME, kESTIMATE_TOTAL_WORD_COUNT } from "./lib/constants";
 
 const App: React.FC = () => {
   const images = [
@@ -53,7 +53,7 @@ const App: React.FC = () => {
                 Browse Words
                 <FaArrowAltCircleRight className="ml-1 mb-1" />
               </h3>
-              <h4 className="text-xs">Explore <b>6000+</b> words from our library</h4>
+              <h4 className="text-xs">Explore <b>{kESTIMATE_TOTAL_WORD_COUNT}+</b> words from our library</h4>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>

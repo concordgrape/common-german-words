@@ -17,6 +17,7 @@ import {
   useToggleWordStatus,
 } from "../helpers/userWordLibrary";
 import { useUser } from "../context/UserContext";
+import { kESTIMATE_TOTAL_WORD_COUNT } from "../lib/constants";
 
 // WordTable component props interface
 interface WordTableProps {
@@ -620,7 +621,7 @@ export const WordTable: React.FC<WordTableProps> = ({
               Click here to see the full library
             </span>
             <span className="block font-bold font-mono text-lg text-blue-500">
-              (6000+ words)
+              ({kESTIMATE_TOTAL_WORD_COUNT}+ words)
             </span>
           </button>
         </div>

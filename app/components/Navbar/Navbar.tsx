@@ -14,6 +14,7 @@ import { FaBook, FaQuestionCircle } from 'react-icons/fa';
 import { FaChartLine } from 'react-icons/fa6';
 import Lottie from 'lottie-react';
 import fireAnimation from '../../external/Lottie/fire.json'
+import { kESTIMATE_TOTAL_WORD_COUNT } from '@/app/lib/constants';
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // mobile menu
@@ -220,7 +221,7 @@ export const Navbar: React.FC = () => {
                 <Link onClick={closeMenu} href="/browse" className="block py-3 px-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 font-bold">
                   <span className='pr-1'>💬</span> Browse
                   <br />
-                  <span className='pr-1 text-gray-400 font-bold text-xs'>Browse 6000+ frequent words</span>
+                  <span className='pr-1 text-gray-400 font-bold text-xs'>Browse {kESTIMATE_TOTAL_WORD_COUNT}+ frequent words</span>
                 </Link>
               </li>
               <li>
@@ -323,7 +324,7 @@ function HamburgerDropdown() {
                 <Link href="/browse" onClick={() => setIsOpen(false)} className="block px-4 py-3 hover:bg-gray-100 font-bold">
                   <span className='pr-1'>💬</span> Browse
                   <br />
-                  <span className='pr-1 text-gray-400 font-bold text-xs'>Browse 6000+ frequent words</span>
+                  <span className='pr-1 text-gray-400 font-bold text-xs'>Browse {kESTIMATE_TOTAL_WORD_COUNT}+ frequent words</span>
                 </Link>
               </li>
               <li>

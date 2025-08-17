@@ -8,7 +8,7 @@ import { fetchBasicWords, Word } from "@/app/helpers/fetchBasicWordList";
 import { useToast } from "@/app/hooks/useToast";
 import { useOnlineStatus } from "@/app/hooks/useOnlineStatus";
 import Link from "next/link";
-import { kLANG_NAME } from "@/app/lib/constants";
+import { kESTIMATE_TOTAL_WORD_COUNT, kLANG_NAME } from "@/app/lib/constants";
 
 const KnownWordList: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
@@ -67,7 +67,7 @@ const KnownWordList: React.FC = () => {
               Click here
             </Link>{" "}
             to see the full list of{" "}
-            <span className="font-mono font-bold">6000+</span> words
+            <span className="font-mono font-bold">{kESTIMATE_TOTAL_WORD_COUNT}+</span> words
           </p>
         </div>
         <WordTable

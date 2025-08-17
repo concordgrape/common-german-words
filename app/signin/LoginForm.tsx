@@ -9,6 +9,7 @@ import { useUser } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import globeImage from "../../public/010-planet.svg"
+import { kESTIMATE_TOTAL_WORD_COUNT } from '../lib/constants';
 
 const actionCodeSettings = {
   url: 'https://commongermanwords.com/sign-in-complete',
@@ -47,7 +48,7 @@ const LoginForm: React.FC = () => {
       <div className="flex items-center gap-4 mb-4">
         <div className="text-left">
           <h3 className="text-md text-gray-900 dark:text-white">
-            Get complete access to <span className="font-mono font-bold text-blue-500">6000+</span> German words, for free!
+            Get complete access to <span className="font-mono font-bold text-blue-500">{kESTIMATE_TOTAL_WORD_COUNT}+</span> German words, for free!
           </h3>
         </div>
         <Image
