@@ -17,6 +17,7 @@ import { FirebaseError } from "firebase/app";
 import { FaTrash } from "react-icons/fa6";
 import { ImExit } from "react-icons/im";
 import { deleteFirestoreDoc, fetchKnownWordMetadata, fetchSavedWordMetadata } from "../helpers/userWordLibrary";
+import { kCOUNTRY_LANG_CODE } from "../lib/constants";
 
 const ProfileContentPage: React.FC = () => {
     const { user, theme, setTheme, loading } = useUser();
@@ -185,12 +186,12 @@ const ProfileContentPage: React.FC = () => {
                 </label>
                 <button disabled={totalSavedWords == -1} onClick={() => deleteFirestoreDoc({
                     uid: user?.uid ?? '',
-                    languageCode: 'de',
+                    languageCode: kCOUNTRY_LANG_CODE,
                     docId: 'saved',
                     })} className={`${totalSavedWords == -1 ? 'skeleton opacity/50' : ''} cursor-pointer bg-gray-50 hover:bg-gray-100 border font-mono border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:hover:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 flex`}><FaTrash className="mt-[2px] mr-2" />Delete <span className="text-orange-500 font-bold px-2">SAVED</span> Words ({totalSavedWords == -1 ? 0 : totalSavedWords})</button>
                 <button disabled={totalKnownWords == -1} onClick={() => deleteFirestoreDoc({
                     uid: user?.uid ?? '',
-                    languageCode: 'de',
+                    languageCode: kCOUNTRY_LANG_CODE,
                     docId: 'known',
                     })} className={`${totalKnownWords == -1 ? 'skeleton opacity/50' : ''} mt-2 cursor-pointer bg-gray-50 hover:bg-gray-100 border font-mono border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:hover:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 flex`}><FaTrash className="mt-[2px] mr-2" />Delete <span className="text-green-600 font-bold px-2">KNOWN</span> Words ({totalKnownWords == -1 ? 0 : totalKnownWords})</button>
             </div>

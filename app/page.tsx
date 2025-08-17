@@ -15,6 +15,7 @@ import Germany4 from '../public/germany4.webp';
 import Germany5 from '../public/germany5.webp';
 import Germany6 from '../public/germany6.webp';
 import Germany7 from '../public/germany7.webp';
+import { kCOUNTRY_NAME } from "./lib/constants";
 
 const App: React.FC = () => {
   const images = [
@@ -246,7 +247,7 @@ const App: React.FC = () => {
           >
             <Image
               src={src}
-              alt={`Landscape in Germany - ${index + 1}`}
+              alt={`Landscape in ${kCOUNTRY_NAME} - ${index + 1}`}
               width={600} // You can adjust width and height based on your actual image sizes
               height={900}
               className="w-full h-auto rounded-lg object-cover"

@@ -9,6 +9,7 @@ import { fetchTopWords, Word } from '../../helpers/fetchBasicWordList';
 import { useOnlineStatus } from '@/app/hooks/useOnlineStatus';
 import { useToast } from '../../hooks/useToast';
 import Article from '@/app/components/Article/Article';
+import { kLANG_NAME } from '@/app/lib/constants';
 
 const TopNouns: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
@@ -19,7 +20,7 @@ const TopNouns: React.FC = () => {
 
   // Fetch words
   useEffect(() => {
-    fetchTopWords("german", "Noun", 100, process.env.NEXT_PUBLIC_API_PASSWORD || "").then(setWords);
+    fetchTopWords(kLANG_NAME, "Noun", 100, process.env.NEXT_PUBLIC_API_PASSWORD || "").then(setWords);
   }, []);
 
   useEffect(() => {

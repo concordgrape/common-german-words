@@ -9,6 +9,7 @@ import { fetchBasicWords, Word } from "@/app/helpers/fetchBasicWordList";
 import { useToast } from "@/app/hooks/useToast";
 import { useOnlineStatus } from "@/app/hooks/useOnlineStatus";
 import Link from "next/link";
+import { kLANG_NAME } from "@/app/lib/constants";
 
 const SavedWordList: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
@@ -19,7 +20,7 @@ const SavedWordList: React.FC = () => {
 
   // Fetch words
   useEffect(() => {
-    fetchBasicWords("german", process.env.NEXT_PUBLIC_API_PASSWORD || "").then(
+    fetchBasicWords(kLANG_NAME, process.env.NEXT_PUBLIC_API_PASSWORD || "").then(
       setWords
     );
   }, []);

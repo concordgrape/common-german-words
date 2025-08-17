@@ -11,7 +11,7 @@ import {
 } from "../helpers/fetchBasicWordList";
 import { useToast } from "../hooks/useToast";
 import { formatFillInTheBlankQuestions } from "../helpers/userWordLibrary";
-import { kDEFAULT_WORD_COUNT } from "../lib/constants";
+import { kDEFAULT_WORD_COUNT, kLANG_NAME } from "../lib/constants";
 
 export type Mode = "flashcards" | "quiz" | "fill";
 
@@ -40,7 +40,7 @@ const LearnWordPage: React.FC = () => {
       console.log("Loading words...");
       try {
         const words = await fetchBasicWords(
-          "german",
+          kLANG_NAME,
           process.env.NEXT_PUBLIC_API_PASSWORD || ""
         );
         console.log("Fetched words:", words.length);
@@ -69,7 +69,7 @@ const LearnWordPage: React.FC = () => {
 
     try {
       const words = await fetchRandomWords(
-        "german",
+        kLANG_NAME,
         wordType,
         wordCount,
         process.env.NEXT_PUBLIC_API_PASSWORD || "",

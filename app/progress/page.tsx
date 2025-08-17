@@ -24,6 +24,7 @@ import Lottie from "lottie-react";
 import fireAnimation from "../external/Lottie/fire.json";
 import { fetchBasicWords, Word } from "../helpers/fetchBasicWordList";
 import Link from "next/link";
+import { kLANG_NAME } from "../lib/constants";
 
 interface WordWithTimestamp {
   word: string;
@@ -83,7 +84,7 @@ function ProgressPage() {
   >({});
 
   useEffect(() => {
-    fetchBasicWords("german", process.env.NEXT_PUBLIC_API_PASSWORD || "").then(
+    fetchBasicWords(kLANG_NAME, process.env.NEXT_PUBLIC_API_PASSWORD || "").then(
       (e) => {
         setWords(e);
       }
