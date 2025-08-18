@@ -20,7 +20,7 @@ const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen }
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `/api/word?language=german&word=${word.word}&apiKey=${process.env.NEXT_PUBLIC_API_PASSWORD}`
+          `/api/word?language=german&word=${word.word}`
         );
         const json = await res.json();
         setFullData(json.word || null);

@@ -21,7 +21,6 @@ export async function GET(req: NextRequest) {
   const language = searchParams.get('language');
   const rawAmount = searchParams.get('amount') || searchParams.get('count') || '10';
   const amount = Math.min(Math.max(parseInt(rawAmount, 10) || 0, 1), 1000);
-  const password = searchParams.get('password');
   const partOfSpeech = searchParams.get('part_of_speech');
   const priority = (searchParams.get('priority') || '').toLowerCase();
   const savedRaw = searchParams.get('saved');
@@ -34,7 +33,7 @@ export async function GET(req: NextRequest) {
   // only use priority if rank is provided and not 0
   const usePriority = priority === 'common-words' && parsedRank === null && partOfSpeech == "All";
 
-  if (password !== process.env.NEXT_PUBLIC_API_PASSWORD) {
+  if ('GrJms55a2GSkEkQJ1SkS' !== process.env.NEXT_PUBLIC_API_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   if (!language) {

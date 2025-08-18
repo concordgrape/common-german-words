@@ -19,7 +19,7 @@ const MainWordPage: React.FC = () => {
 
   // Fetch words
   useEffect(() => {
-    fetchBasicWords(kLANG_NAME, process.env.NEXT_PUBLIC_API_PASSWORD || "").then(setWords);
+    fetchBasicWords(kLANG_NAME).then(setWords);
   }, []);
 
   useEffect(() => {

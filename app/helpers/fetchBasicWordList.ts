@@ -12,9 +12,9 @@ export interface Word {
     examples: { sentence: string; translation: string }[];
 }
 
-export async function fetchBasicWords(language: string, password: string): Promise<Word[]> {
+export async function fetchBasicWords(language: string): Promise<Word[]> {
   try {
-    const res = await fetch(`/api/basic-words?language=${language}&password=${password}`);
+    const res = await fetch(`/api/basic-words?language=${language}`);
 
     if (!res.ok) {
       console.error("Failed to fetch basic words:", res.statusText);
@@ -33,9 +33,9 @@ export async function fetchBasicWords(language: string, password: string): Promi
 }
 
 
-export async function fetchAllWords(language: string, password: string): Promise<Word[]> {
+export async function fetchAllWords(language: string): Promise<Word[]> {
   try {
-    const res = await fetch(`/api/all-words?language=${language}&password=${password}`);
+    const res = await fetch(`/api/all-words?language=${language}`);
 
     if (!res.ok) {
       console.error("Failed to fetch all words:", res.statusText);
@@ -57,11 +57,10 @@ export async function fetchTopWords(
   language: string,
   partOfSpeech: string | null, // now optional
   count: number,
-  password: string
 ): Promise<Word[]> {
   try {
     // Base URL
-    let url = `/api/filtered-words?language=${language}&count=${count > 500 ? 500 : count}&password=${password}`;
+    let url = `/api/filtered-words?language=${language}&count=${count > 500 ? 500 : count}`;
 
     // Only add part_of_speech if provided
     if (partOfSpeech && partOfSpeech.trim() !== "") {

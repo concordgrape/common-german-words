@@ -18,10 +18,9 @@ async function getRedisClient() {
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const language = searchParams.get('language');
-  const password = searchParams.get('password');
   const forceRefresh = searchParams.get("refresh") === "true";
 
-  if (password !== process.env.NEXT_PUBLIC_API_PASSWORD) {
+  if ('GrJms55a2GSkEkQJ1SkS' !== process.env.NEXT_PUBLIC_API_PASSWORD) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

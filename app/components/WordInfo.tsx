@@ -34,7 +34,7 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `/api/word?language=german&word=${selectedWord.word}&apiKey=${process.env.NEXT_PUBLIC_API_PASSWORD}`
+          `/api/word?language=german&word=${selectedWord.word}`
         );
         const json = await res.json();
         if (json.word) {

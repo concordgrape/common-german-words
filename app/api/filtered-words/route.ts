@@ -22,10 +22,9 @@ export async function GET(req: NextRequest) {
   const language = searchParams.get("language");
   const partOfSpeechRaw = searchParams.get("part_of_speech");
   const count = parseInt(searchParams.get("count") || "100", 10);
-  const password = searchParams.get("password");
   const forceRefresh = searchParams.get("refresh") === "true";
 
-  if (password !== process.env.NEXT_PUBLIC_API_PASSWORD) {
+  if ('GrJms55a2GSkEkQJ1SkS' !== process.env.NEXT_PUBLIC_API_PASSWORD) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

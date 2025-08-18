@@ -8,8 +8,6 @@ import { createClient } from 'redis';
 export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs';
 
-console.log('💬 /api/speak route loaded');
-
 const redisClient = createClient({
   url: process.env.REDIS_URL,
 });
@@ -39,9 +37,13 @@ export async function POST(req: NextRequest) {
     const { text } = await req.json();
     const cacheKey = `tts:de:${text.trim().toLowerCase()}`;
     console.log('GOOGLE_CREDENTIALS_BASE64:', !!process.env.GOOGLE_CREDENTIALS_BASE64);
-console.log('Got text:', text);
-console.log('Generated TTS client');
-console.log('Made TTS request');
+    console.log('Got text:', text);
+    console.log('Generated TTS client');
+    console.log('Made TTS request');
+
+    if ('GrJms55a2GSkEkQJ1SkS' !== process.env.NEXT_PUBLIC_API_PASSWORD) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
 
     await connectRedis();
 
