@@ -4,30 +4,18 @@ import Lottie from "lottie-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import fireAnimation from './/external/Lottie/fire.json';
+import fireAnimation from ".//external/Lottie/fire.json";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
-import Germany1 from '../public/germany1.webp';
-import Germany2 from '../public/germany2.webp';
-import Germany3 from '../public/germany3.webp';
-import Germany4 from '../public/germany4.webp';
-import Germany5 from '../public/germany5.webp';
-import Germany6 from '../public/germany6.webp';
-import Germany7 from '../public/germany7.webp';
-import { kCOUNTRY_NAME, kESTIMATE_TOTAL_WORD_COUNT } from "./lib/constants";
+import {
+  kCOUNTRY_NAME,
+  kESTIMATE_TOTAL_WORD_COUNT,
+  kIMAGE_PATHS,
+  kEXAMPLE_WORDS,
+} from "./lib/constants";
 
 const App: React.FC = () => {
-  const images = [
-    Germany1,
-    Germany2,
-    Germany3,
-    Germany4,
-    Germany5,
-    Germany6,
-    Germany7
-  ];
-
   const router = useRouter();
 
   return (
@@ -38,7 +26,11 @@ const App: React.FC = () => {
           Start Learning&nbsp;
           <span className="flex items-center">
             <span className="px-2 bg-red-500 text-white">German</span>
-            <Lottie className="h-10 w-10 lg:h-15 lg:w-15" animationData={fireAnimation} loop={true} />
+            <Lottie
+              className="h-10 w-10 lg:h-15 lg:w-15"
+              animationData={fireAnimation}
+              loop={true}
+            />
           </span>
         </h1>
 
@@ -47,29 +39,40 @@ const App: React.FC = () => {
         </h2>
 
         <div className="mt-8 space-y-2 gap-4 items-center">
+          {/* Browse */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/browse')} className="cursor-pointer hover:underline">
+            <button
+              onClick={() => router.push("/browse")}
+              className="cursor-pointer hover:underline"
+            >
               <h3 className="text-md font-bold flex items-center justify-center">
                 Browse Words
                 <FaArrowAltCircleRight className="ml-1 mb-1" />
               </h3>
-              <h4 className="text-xs">Explore <b>{kESTIMATE_TOTAL_WORD_COUNT}+</b> words from our library</h4>
+              <h4 className="text-xs">
+                Explore <b>{kESTIMATE_TOTAL_WORD_COUNT}+</b> words from our
+                library
+              </h4>
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/browse?word=die">die</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/browse?word=hund">hund</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/browse?word=aber">aber</Link></div>
-            </div>
+            <ChipsRow
+              words={kEXAMPLE_WORDS.browse}
+              hrefBase="/browse"
+              badgeClass="bg-blue-300 text-blue-700"
+            />
           </div>
 
           <ModeLinks />
 
           <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
+          {/* Top 100 */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/top-100-words')} className="cursor-pointer hover:underline">
+            <button
+              onClick={() => router.push("/top-100-words")}
+              className="cursor-pointer hover:underline"
+            >
               <h1 className="text-md font-bold flex items-center justify-center">
                 <span className="text-red-400">Top 100</span>&nbsp;German Words
                 <FaArrowAltCircleRight className="ml-1 mb-1" />
@@ -78,15 +81,19 @@ const App: React.FC = () => {
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-red-300 hover:scale-102 transition-transform duration-300 text-red-700 rounded-full text-xs font-bold"><Link href="/top-100-words?word=ich">ich</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-red-300 hover:scale-102 transition-transform duration-300 text-red-700 rounded-full text-xs font-bold"><Link href="/top-100-words?word=du">du</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-red-300 hover:scale-102 transition-transform duration-300 text-red-700 rounded-full text-xs font-bold"><Link href="/top-100-words?word=das">das</Link></div>
-            </div>
+            <ChipsRow
+              words={kEXAMPLE_WORDS.top100}
+              hrefBase="/top-100-words"
+              badgeClass="bg-red-300 text-red-700"
+            />
           </div>
 
+          {/* Top 500 */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/top-500-words')} className="cursor-pointer hover:underline">
+            <button
+              onClick={() => router.push("/top-500-words")}
+              className="cursor-pointer hover:underline"
+            >
               <h1 className="text-md font-bold flex items-center justify-center">
                 <span className="text-red-400">Top 500</span>&nbsp;German Words
                 <FaArrowAltCircleRight className="ml-1 mb-1" />
@@ -95,18 +102,21 @@ const App: React.FC = () => {
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-red-300 hover:scale-102 transition-transform duration-300 text-red-700 rounded-full text-xs font-bold"><Link href="/top-500-words?word=einfach">einfach</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-red-300 hover:scale-102 transition-transform duration-300 text-red-700 rounded-full text-xs font-bold"><Link href="/top-500-words?word=werden">werden</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-red-300 hover:scale-102 transition-transform duration-300 text-red-700 rounded-full text-xs font-bold"><Link href="/top-500-words?word=immer">immer</Link></div>
-            </div>
+            <ChipsRow
+              words={kEXAMPLE_WORDS.top500}
+              hrefBase="/top-500-words"
+              badgeClass="bg-red-300 text-red-700"
+            />
           </div>
 
           <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
           {/* TOP 500 WORDS SECTION */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/top-500-words/nouns')} className="cursor-pointer hover:underline">
+            <button
+              onClick={() => router.push("/top-500-words/nouns")}
+              className="cursor-pointer hover:underline"
+            >
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 500 <span className="text-orange-500 px-1">Nouns</span>
                 <FaArrowAltCircleRight className="mb-1" />
@@ -115,14 +125,18 @@ const App: React.FC = () => {
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-500-words/nouns?word=gott">gott</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-500-words/nouns?word=frau">frau</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-500-words/nouns?word=arzt">arzt</Link></div>
-            </div>
+            <ChipsRow
+              words={kEXAMPLE_WORDS.top500Nouns}
+              hrefBase="/top-500-words/nouns"
+              badgeClass="bg-orange-300 text-orange-700"
+            />
           </div>
+
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/top-500-words/verbs')} className="cursor-pointer hover:underline">
+            <button
+              onClick={() => router.push("/top-500-words/verbs")}
+              className="cursor-pointer hover:underline"
+            >
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 500 <span className="text-green-500 px-1">Verbs</span>
                 <FaArrowAltCircleRight className="mb-1" />
@@ -131,14 +145,18 @@ const App: React.FC = () => {
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/top-500-words/verbs?word=haben">haben</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/top-500-words/verbs?word=wollte">wollte</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/top-500-words/verbs?word=musst">musst</Link></div>
-            </div>
+            <ChipsRow
+              words={kEXAMPLE_WORDS.top500Verbs}
+              hrefBase="/top-500-words/verbs"
+              badgeClass="bg-green-300 text-green-700"
+            />
           </div>
+
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/top-500-words/adjectives')} className="cursor-pointer hover:underline">
+            <button
+              onClick={() => router.push("/top-500-words/adjectives")}
+              className="cursor-pointer hover:underline"
+            >
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 500 <span className="text-blue-500 px-1">Adjectives</span>
                 <FaArrowAltCircleRight className="mb-1" />
@@ -147,14 +165,18 @@ const App: React.FC = () => {
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/top-500-words/adjectives?word=gut">gut</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/top-500-words/adjectives?word=spät">spät</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/top-500-words/adjectives?word=alt">alt</Link></div>
-            </div>
+            <ChipsRow
+              words={kEXAMPLE_WORDS.top500Adjectives}
+              hrefBase="/top-500-words/adjectives"
+              badgeClass="bg-blue-300 text-blue-700"
+            />
           </div>
+
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/top-500-words/adverbs')} className="cursor-pointer hover:underline">
+            <button
+              onClick={() => router.push("/top-500-words/adverbs")}
+              className="cursor-pointer hover:underline"
+            >
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 500 <span className="text-orange-500 px-1">Adverbs</span>
                 <FaArrowAltCircleRight className="mb-1" />
@@ -163,18 +185,21 @@ const App: React.FC = () => {
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-500-words/adverbs?word=dann">dann</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-500-words/adverbs?word=immer">immer</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-500-words/adverbs?word=vielleicht">vielleicht</Link></div>
-            </div>
+            <ChipsRow
+              words={kEXAMPLE_WORDS.top500Adverbs}
+              hrefBase="/top-500-words/adverbs"
+              badgeClass="bg-orange-300 text-orange-700"
+            />
           </div>
 
           <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
           {/* TOP 100 WORDS SECTION */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/top-100-words/nouns')} className="cursor-pointer hover:underline">
+            <button
+              onClick={() => router.push("/top-100-words/nouns")}
+              className="cursor-pointer hover:underline"
+            >
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 100 <span className="text-orange-500 px-1">Nouns</span>
                 <FaArrowAltCircleRight className="mb-1" />
@@ -183,14 +208,18 @@ const App: React.FC = () => {
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-100-words/nouns?word=glaube">glaube</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-100-words/nouns?word=vater">vater</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-100-words/nouns?word=tag">tag</Link></div>
-            </div>
+            <ChipsRow
+              words={kEXAMPLE_WORDS.top100Nouns}
+              hrefBase="/top-100-words/nouns"
+              badgeClass="bg-orange-300 text-orange-700"
+            />
           </div>
+
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/top-100-words/verbs')} className="cursor-pointer hover:underline">
+            <button
+              onClick={() => router.push("/top-100-words/verbs")}
+              className="cursor-pointer hover:underline"
+            >
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 100 <span className="text-green-500 px-1">Verbs</span>
                 <FaArrowAltCircleRight className="mb-1" />
@@ -199,14 +228,18 @@ const App: React.FC = () => {
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/top-100-words/verbs?word=ist">ist</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/top-100-words/verbs?word=hast">hast</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-green-300 hover:scale-102 transition-transform duration-300 text-green-700 rounded-full text-xs font-bold"><Link href="/top-100-words/verbs?word=will">will</Link></div>
-            </div>
+            <ChipsRow
+              words={kEXAMPLE_WORDS.top100Verbs}
+              hrefBase="/top-100-words/verbs"
+              badgeClass="bg-green-300 text-green-700"
+            />
           </div>
+
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/top-100-words/adjectives')} className="cursor-pointer hover:underline">
+            <button
+              onClick={() => router.push("/top-100-words/adjectives")}
+              className="cursor-pointer hover:underline"
+            >
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 100 <span className="text-blue-500 px-1">Adjectives</span>
                 <FaArrowAltCircleRight className="mb-1" />
@@ -215,14 +248,18 @@ const App: React.FC = () => {
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/top-100-words/adjectives?word=toll">toll</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/top-100-words/adjectives?word=richtig">richtig</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-blue-300 hover:scale-102 transition-transform duration-300 text-blue-700 rounded-full text-xs font-bold"><Link href="/top-100-words/adjectives?word=lange">lange</Link></div>
-            </div>
+            <ChipsRow
+              words={kEXAMPLE_WORDS.top100Adjectives}
+              hrefBase="/top-100-words/adjectives"
+              badgeClass="bg-blue-300 text-blue-700"
+            />
           </div>
+
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
-            <button onClick={() => router.push('/top-100-words/adverbs')} className="cursor-pointer hover:underline">
+            <button
+              onClick={() => router.push("/top-100-words/adverbs")}
+              className="cursor-pointer hover:underline"
+            >
               <h3 className="text-md font-bold flex items-center justify-center">
                 Top 100 <span className="text-orange-500 px-1">Adverbs</span>
                 <FaArrowAltCircleRight className="mb-1" />
@@ -231,16 +268,18 @@ const App: React.FC = () => {
             </button>
 
             <p className="font-mono text-xs text-left pt-1 pb-1">Try:</p>
-            <div className="flex gap-2 justify-start">
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-100-words/adverbs?word=wo">wo</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-100-words/adverbs?word=nie">nie</Link></div>
-              <div className="cursor-pointer px-4 py-2 bg-orange-300 hover:scale-102 transition-transform duration-300 text-orange-700 rounded-full text-xs font-bold"><Link href="/top-100-words/adverbs?word=heute">heute</Link></div>
-            </div>
+            <ChipsRow
+              words={kEXAMPLE_WORDS.top100Adverbs}
+              hrefBase="/top-100-words/adverbs"
+              badgeClass="bg-orange-300 text-orange-700"
+            />
           </div>
         </div>
       </div>
+
+      {/* Right: Images */}
       <div className="hidden md:block w-full md:w-1/2 pt-4 pl-2 lg:pl-4 columns-2 md:columns-2 gap-4 space-y-4">
-        {images.map((src, index) => (
+        {kIMAGE_PATHS.map((src, index) => (
           <div
             key={index}
             className="break-inside-avoid rounded-lg overflow-hidden shadow-md hover:scale-102 transition-transform duration-300"
@@ -248,7 +287,7 @@ const App: React.FC = () => {
             <Image
               src={src}
               alt={`Landscape in ${kCOUNTRY_NAME} - ${index + 1}`}
-              width={600} // You can adjust width and height based on your actual image sizes
+              width={600}
               height={900}
               className="w-full h-auto rounded-lg object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -263,11 +302,34 @@ const App: React.FC = () => {
 
 export default App;
 
+function ChipsRow({
+  words,
+  hrefBase,
+  badgeClass,
+}: {
+  words: readonly string[];
+  hrefBase: string;
+  badgeClass: string;
+}) {
+  return (
+    <div className="flex gap-2 justify-start">
+      {words.map((word) => (
+        <div
+          key={`${hrefBase}-${word}`}
+          className={`cursor-pointer px-4 py-2 ${badgeClass} hover:scale-102 transition-transform duration-300 rounded-full text-xs font-bold`}
+        >
+          <Link href={{ pathname: hrefBase, query: { word } }}>{word}</Link>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 const modes = [
   {
-    key: 'flashcards',
-    title: 'Flashcards',
-    subtitle: 'Learn with flashcards',
+    key: "flashcards",
+    title: "Flashcards",
+    subtitle: "Learn with flashcards",
     icon: (
       <Image
         src="/card.svg"
@@ -277,13 +339,13 @@ const modes = [
         className="m-auto"
       />
     ),
-    bgColor: 'bg-blue-300 dark:bg-blue-300',
-    textColor: 'text-blue-600 dark:text-blue-700',
+    bgColor: "bg-blue-300 dark:bg-blue-300",
+    textColor: "text-blue-600 dark:text-blue-700",
   },
   {
-    key: 'quiz',
-    title: 'Quizzes',
-    subtitle: 'Fill in the blank questions',
+    key: "quiz",
+    title: "Quizzes",
+    subtitle: "Fill in the blank questions",
     icon: (
       <Image
         src="/quiz.svg"
@@ -293,8 +355,8 @@ const modes = [
         className="m-auto"
       />
     ),
-    bgColor: 'bg-blue-300 dark:bg-blue-300',
-    textColor: 'text-blue-600 dark:text-blue-700',
+    bgColor: "bg-blue-300 dark:bg-blue-300",
+    textColor: "text-blue-600 dark:text-blue-700",
   },
 ] as const;
 
@@ -314,7 +376,9 @@ function ModeLinks() {
           >
             <div className="mb-2">{mode.icon}</div>
             <h3 className="text-md font-mono font-bold">{mode.title}</h3>
-            <p className="text-xs font-mono text-gray-600 text-center">{mode.subtitle}</p>
+            <p className="text-xs font-mono text-gray-600 text-center">
+              {mode.subtitle}
+            </p>
           </Link>
         ))}
       </div>
