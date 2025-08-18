@@ -13,6 +13,7 @@ import {
   kESTIMATE_TOTAL_WORD_COUNT,
   kIMAGE_PATHS,
   kEXAMPLE_WORDS,
+  kLANG_NAME,
 } from "./lib/constants";
 
 const App: React.FC = () => {
@@ -25,7 +26,7 @@ const App: React.FC = () => {
         <h1 className="mt-10 text-4xl md:text-5xl font-bold text-black dark:text-white flex items-center flex-wrap">
           Start Learning&nbsp;
           <span className="flex items-center">
-            <span className="px-2 bg-red-500 text-white">German</span>
+            <span className="px-2 bg-red-500 text-white">{kLANG_NAME.charAt(0).toUpperCase() + kLANG_NAME.slice(1)}</span>
             <Lottie
               className="h-10 w-10 lg:h-15 lg:w-15"
               animationData={fireAnimation}
