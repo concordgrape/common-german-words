@@ -35,7 +35,7 @@ const App: React.FC = () => {
       {/* Left: Text content */}
       <div className="w-full md:w-1/2 px-6 mt-4 pb-6 bg-white sm:border-1 sm:border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
         <h1 className="mt-10 text-4xl md:text-5xl font-bold text-black dark:text-white flex items-center flex-wrap">
-          Start Learning{" "}
+          Start Learning&nbsp;
           <span className="flex items-center">
             <span className="px-2 bg-red-500 text-white">German</span>
             <Lottie className="h-10 w-10 lg:h-15 lg:w-15" animationData={fireAnimation} loop={true} />
