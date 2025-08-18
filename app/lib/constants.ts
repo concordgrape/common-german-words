@@ -1,6 +1,7 @@
 
 
 export const kDEFAULT_WORD_COUNT = 5;
+
 export const kESTIMATE_TOTAL_WORD_COUNT = 6000;
 
 export const kCOUNTRY_LANG_CODE = 'de';
@@ -34,6 +35,8 @@ export const kEXAMPLE_WORDS = {
 
 
 /*
+export const kESTIMATE_TOTAL_WORD_COUNT = 6000;
+
 export const kCOUNTRY_LANG_CODE = 'es';
 export const kLANG_NAME = 'spanish';
 export const kCOUNTRY_NAME = 'Spain';
@@ -48,4 +51,18 @@ export const kIMAGE_PATHS = [
   '/spain6.webp',
   '/spain7.webp',
 ];
-*/
+
+export const kEXAMPLE_WORDS = {
+  browse: ["que", "bueno", "hola"],
+  top100: ["de", "es", "la"],
+  top500: ["gracias", "esta", "nos"],
+  top500Nouns: ["dios", "favor", "casa"],
+  top500Verbs: ["estoy", "puedo", "sabes"],
+  top500Adjectives: ["grande", "nueva", "lista"],
+  top500Adverbs: ["casi", "todava", "cerca"],
+  top100Nouns: ["agua", "cena", "boca"],
+  top100Verbs: ["comer", "amo", "buscar"],
+  top100Adjectives: ["gran", "cierto", "genial"],
+  top100Adverbs: ["bien", "ahora", "tan"],
+} as const;
+ */
