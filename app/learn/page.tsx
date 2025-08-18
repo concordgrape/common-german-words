@@ -69,7 +69,6 @@ const LearnWordPage: React.FC = () => {
         kLANG_NAME,
         wordType,
         wordCount,
-        process.env.NEXT_PUBLIC_API_PASSWORD || "",
         rank === 0 ? null : rank,
         priority,
         savedWords
