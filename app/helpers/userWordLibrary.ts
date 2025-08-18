@@ -344,7 +344,7 @@ export async function updateStreak(userId: string): Promise<number> {
  * @param collectionPath - The collection name (e.g., "users")
  * @param docId - The ID of the document to delete
  */
-type LanguageCode = 'de';
+type LanguageCode = 'de' | 'es' | 'fr' | 'it';
 type WordDocCode = 'saved' | 'known';
 
 interface DeleteWordDocParams {
