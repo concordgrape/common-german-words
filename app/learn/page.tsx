@@ -39,10 +39,7 @@ const LearnWordPage: React.FC = () => {
     async function loadWords() {
       console.log("Loading words...");
       try {
-        const words = await fetchBasicWords(
-          kLANG_NAME,
-          process.env.NEXT_PUBLIC_API_PASSWORD || ""
-        );
+        const words = await fetchBasicWords(kLANG_NAME);
         console.log("Fetched words:", words.length);
         setFilteredWords(words);
         setAllWords(words);
