@@ -84,11 +84,9 @@ function ProgressPage() {
   >({});
 
   useEffect(() => {
-    fetchBasicWords(kLANG_NAME).then(
-      (e) => {
-        setWords(e);
-      }
-    );
+    fetchBasicWords(kLANG_NAME).then((e) => {
+      setWords(e);
+    });
   }, []);
 
   useEffect(() => {
@@ -234,240 +232,250 @@ function ProgressPage() {
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto min-h-screen pt-30 bg-white sm:border-1 sm:border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
-      <div className="flex justify-center items-center mb-10">
-        {" "}
-        {/* Parent container */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-          <div
-            data-tip="Total saved words"
-            className={`${
-              totalSavedWords == -1 ? "skeleton opacity-50" : ""
-            } tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
-          >
-            <div>
-              <span className="text-6xl font-mono font-bold text-blue-400">
-                {totalSavedWords == -1 ? 0 : totalSavedWords}
-              </span>
-              <span className="block text-xs font-mon font-regular text-black">
+    <div className="pt-10 sm:pt-18 sm:p-4 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
+      <div className="w-full px-6 py-6 mt-4 pb-6 bg-white sm:border-1 sm:border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
+        <div className="flex justify-center items-center mb-10">
+          {" "}
+          {/* Parent container */}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+            <div
+              data-tip="Total saved words"
+              className={`${
+                totalSavedWords == -1 ? "skeleton opacity-50" : ""
+              } tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
+            >
+              <div>
+                <span className="text-6xl font-mono font-bold text-blue-400">
+                  {totalSavedWords == -1 ? 0 : totalSavedWords}
+                </span>
+                <span className="block text-xs font-mon font-regular text-black">
                   total saved words
-              </span>
+                </span>
+              </div>
+            </div>
+            <div
+              data-tip="Total known words"
+              className={`${
+                totalKnownWords == -1 ? "skeleton opacity-50" : ""
+              } tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
+            >
+              <div>
+                <span className="text-6xl font-mono font-bold text-green-500">
+                  {totalKnownWords == -1 ? 0 : totalKnownWords}
+                </span>
+                <span className="block text-xs font-mon font-regular text-black">
+                  total known words
+                </span>
+              </div>
+            </div>
+            <div
+              data-tip="All available words"
+              className={`${
+                words.length == 0 ? "skeleton opacity-50" : ""
+              } tooltip py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
+            >
+              <div>
+                <span className="text-6xl font-mono font-bold text-gray-500 dark:text-gray-300">
+                  {words.length}
+                </span>
+                <span className="block text-xs font-mon font-regular text-black">
+                  total words
+                </span>
+              </div>
+            </div>
+            <div
+              data-tip="Your daily streak"
+              className={`${
+                loading ? "skeleton opacity-50" : ""
+              } tooltip px-4 py-6 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs hover:scale-105 transition-transform duration-200`}
+            >
+              <div className="flex flex-row items-center justify-center h-full w-full">
+                <span className="text-5xl font-mono font-bold text-orange-400">
+                  {streak}
+                </span>
+                <Lottie
+                  className="w-20 h-20"
+                  animationData={fireAnimation}
+                  loop={true}
+                />
+              </div>
             </div>
           </div>
-          <div
-            data-tip="Total known words"
-            className={`${
-              totalKnownWords == -1 ? "skeleton opacity-50" : ""
-            } tooltip px-4 py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
+        </div>
+
+        <h1 className="text-2xl font-bold mb-4 text-black dark:text-white">
+          History of reviewed words
+        </h1>
+
+        <div className="flex flex-col items-start mt-5 w-full">
+          <select
+            value={rangeKey}
+            onChange={(e) => setRangeKey(e.target.value as "7d" | "30d" | "6m")}
+            className="w-60 max-w-60 px-3 py-2 h-10 sm:h-auto rounded-md bg-gray-100 dark:bg-[#262839] cursor-pointer text-sm col-span-2 w-full border border-1 border-gray-200 dark:border-gray-600 rounded-lg text-black dark:text-white"
+            id="partOfSpeechSelect"
           >
-            <div>
-              <span className="text-6xl font-mono font-bold text-green-500">
-                {totalKnownWords == -1 ? 0 : totalKnownWords}
-              </span>
-              <span className="block text-xs font-mon font-regular text-black">
-                    total known words
-              </span>
-            </div>
+            {Object.entries(ranges).map(([key]) => (
+              <option key={key} value={key}>
+                {key === "7d"
+                  ? "7 Days"
+                  : key === "30d"
+                  ? "30 Days"
+                  : "6 Months"}
+              </option>
+            ))}
+          </select>
+          <div className="mt-2 text-xs w-full">
+            <p>
+              <span className="font-mono font-bold text-blue-400">
+                {totalSavedCount}
+              </span>{" "}
+              words saved &
+            </p>
+            <p>
+              <span className="font-mono font-bold text-green-500">
+                {totalKnownCount}
+              </span>{" "}
+              completed or &apos;known&apos; words in the last{" "}
+              {rangeKey === "7d"
+                ? "7 days"
+                : rangeKey === "30d"
+                ? "30 days"
+                : "6 months"}
+            </p>
           </div>
-          <div
-            data-tip="All available words"
-            className={`${
-              words.length == 0 ? "skeleton opacity-50" : ""
-            } tooltip py-6 pt-7 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs text-center hover:scale-105 transition-transform duration-200`}
-          >
-            <div>
-              <span className="text-6xl font-mono font-bold text-gray-500 dark:text-gray-300">
-                {words.length}
-              </span>
-              <span className="block text-xs font-mon font-regular text-black">
-                total words
-              </span>
-            </div>
-          </div>
-          <div
-            data-tip="Your daily streak"
-            className={`${
-              loading ? "skeleton opacity-50" : ""
-            } tooltip px-4 py-6 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs hover:scale-105 transition-transform duration-200`}
-          >
-            <div className="flex flex-row items-center justify-center h-full w-full">
-              <span className="text-5xl font-mono font-bold text-orange-400">
-                {streak}
-              </span>
-              <Lottie
-                className="w-20 h-20"
-                animationData={fireAnimation}
-                loop={true}
+        </div>
+
+        <div className="outline-none focus:outline-none focus:ring-0">
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart
+              data={mergedData}
+              margin={{ top: 20, right: 20, left: 0, bottom: 0 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis
+                dataKey="date"
+                tick={{
+                  fontSize: 12,
+                  fill: "var(--chart-text-color)",
+                }}
               />
-            </div>
-          </div>
+              <YAxis
+                allowDecimals={false}
+                tick={{
+                  fontSize: 12,
+                  fill: "var(--chart-text-color)",
+                }}
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "var(--chart-tooltip-bg)",
+                  color: "var(--chart-text-color)",
+                  border: "none",
+                }}
+                itemStyle={{ color: "var(--chart-text-color)" }}
+                labelStyle={{ color: "var(--chart-text-color)" }}
+              />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="savedCount"
+                stroke="#51a2ff" // orange
+                strokeWidth={2}
+                dot={false}
+                name="Saved Words"
+              />
+              <Line
+                type="monotone"
+                dataKey="knownCount"
+                stroke="#00c951" // green
+                strokeWidth={2}
+                dot={false}
+                name="Known Words"
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
-      </div>
-
-      <h1 className="text-2xl font-bold mb-4 text-black dark:text-white">
-        History of reviewed words
-      </h1>
-
-      <div className="flex flex-col items-start mt-5 w-full">
-        <select
-          value={rangeKey}
-          onChange={(e) => setRangeKey(e.target.value as "7d" | "30d" | "6m")}
-          className="w-60 max-w-60 px-3 py-2 h-10 sm:h-auto rounded-md bg-gray-100 dark:bg-[#262839] cursor-pointer text-sm col-span-2 w-full border border-1 border-gray-200 dark:border-gray-600 rounded-lg text-black dark:text-white"
-          id="partOfSpeechSelect"
-        >
-          {Object.entries(ranges).map(([key]) => (
-            <option key={key} value={key}>
-              {key === "7d" ? "7 Days" : key === "30d" ? "30 Days" : "6 Months"}
-            </option>
-          ))}
-        </select>
-        <div className="mt-2 text-xs w-full">
-          <p>
-            <span className="font-mono font-bold text-blue-400">
-              {totalSavedCount}
-            </span>{" "}
-            words saved &
-          </p>
-          <p>
-            <span className="font-mono font-bold text-green-500">
-              {totalKnownCount}
-            </span>{" "}
-            completed or &apos;known&apos; words in the last{" "}
-            {rangeKey === "7d"
-              ? "7 days"
-              : rangeKey === "30d"
-              ? "30 days"
-              : "6 months"}
-          </p>
+        <h2 className="text-xl font-semibold mt-10 mb-4 text-gray-800 dark:text-white">
+          Completion by Level
+        </h2>
+        <div className="w-full h-72">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={rankChartData}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis
+                dataKey="rank"
+                tick={{ fill: "var(--chart-text-color)" }}
+              />
+              <YAxis
+                allowDecimals={false}
+                tick={{ fill: "var(--chart-text-color)" }}
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "var(--chart-tooltip-bg)",
+                  color: "var(--chart-text-color)",
+                  border: "none",
+                }}
+                itemStyle={{ color: "var(--chart-text-color)" }}
+                labelStyle={{ color: "var(--chart-text-color)" }}
+              />
+              <Legend />
+              <Bar
+                type="monotone"
+                activeBar={{ fill: "#3164e4" }}
+                dataKey="total"
+                fill="#3164e4"
+                name="Total Words"
+              />
+              <Bar
+                activeBar={{ fill: "#00c951" }}
+                dataKey="completed"
+                fill="#00c951"
+                name="Completed Words"
+              />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
-      </div>
-
-      <div className="outline-none focus:outline-none focus:ring-0">
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart
-            data={mergedData}
-            margin={{ top: 20, right: 20, left: 0, bottom: 0 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="date"
-              tick={{
-                fontSize: 12,
-                fill: "var(--chart-text-color)",
-              }}
-            />
-            <YAxis
-              allowDecimals={false}
-              tick={{
-                fontSize: 12,
-                fill: "var(--chart-text-color)",
-              }}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "var(--chart-tooltip-bg)",
-                color: "var(--chart-text-color)",
-                border: "none",
-              }}
-              itemStyle={{ color: "var(--chart-text-color)" }}
-              labelStyle={{ color: "var(--chart-text-color)" }}
-            />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="savedCount"
-              stroke="#51a2ff" // orange
-              strokeWidth={2}
-              dot={false}
-              name="Saved Words"
-            />
-            <Line
-              type="monotone"
-              dataKey="knownCount"
-              stroke="#00c951" // green
-              strokeWidth={2}
-              dot={false}
-              name="Known Words"
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-      <h2 className="text-xl font-semibold mt-10 mb-4 text-gray-800 dark:text-white">
-        Completion by Level
-      </h2>
-      <div className="w-full h-72">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={rankChartData}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="rank" tick={{ fill: "var(--chart-text-color)" }} />
-            <YAxis
-              allowDecimals={false}
-              tick={{ fill: "var(--chart-text-color)" }}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "var(--chart-tooltip-bg)",
-                color: "var(--chart-text-color)",
-                border: "none",
-              }}
-              itemStyle={{ color: "var(--chart-text-color)" }}
-              labelStyle={{ color: "var(--chart-text-color)" }}
-            />
-            <Legend />
-            <Bar
-              type="monotone"
-              activeBar={{ fill: "#3164e4" }}
-              dataKey="total"
-              fill="#3164e4"
-              name="Total Words"
-            />
-            <Bar
-              activeBar={{ fill: "#00c951" }}
-              dataKey="completed"
-              fill="#00c951"
-              name="Completed Words"
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-      <div className="mt-12">
-        <ul className="space-y-2 text-sm text-gray-800 dark:text-gray-200">
-          {[1, 2, 3, 4].map((rank) => {
-            const data = rankStats[rank];
-            if (!data) return null;
-            const percentage =
-              data.total > 0
-                ? ((data.completed / data.total) * 100).toFixed(1)
-                : "0.0";
-            let rankLabel = "Other"
-            switch (rank) {
-              case 1:
-                rankLabel = "A1";
-                break;
-              case 2:
-                rankLabel = "A2";
-                break;
-              case 3:
-                rankLabel = "A3";
-                break;
-              default:
-                rankLabel = "Other";
-            }
-            return (
-              <li key={rank} className="flex items-center justify-between">
-                <span className="font-mono text-base">
-                  <span className="font-bold">{rankLabel}</span>: {data.completed} / {data.total} completed
-                </span>
-                <span className="text-sm font-semibold text-blue-500 text-xl">
-                  {percentage}%
-                </span>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="mt-12">
+          <ul className="space-y-2 text-sm text-gray-800 dark:text-gray-200">
+            {[1, 2, 3, 4].map((rank) => {
+              const data = rankStats[rank];
+              if (!data) return null;
+              const percentage =
+                data.total > 0
+                  ? ((data.completed / data.total) * 100).toFixed(1)
+                  : "0.0";
+              let rankLabel = "Other";
+              switch (rank) {
+                case 1:
+                  rankLabel = "A1";
+                  break;
+                case 2:
+                  rankLabel = "A2";
+                  break;
+                case 3:
+                  rankLabel = "A3";
+                  break;
+                default:
+                  rankLabel = "Other";
+              }
+              return (
+                <li key={rank} className="flex items-center justify-between">
+                  <span className="font-mono text-base">
+                    <span className="font-bold">{rankLabel}</span>:{" "}
+                    {data.completed} / {data.total} completed
+                  </span>
+                  <span className="text-sm font-semibold text-blue-500 text-xl">
+                    {percentage}%
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </div>
   );
