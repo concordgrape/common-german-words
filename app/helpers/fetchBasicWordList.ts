@@ -91,7 +91,6 @@ export async function fetchRandomWords(
   language: string,
   partOfSpeech: string | null,
   count: number,
-  password: string,
   rank: number | null = null,
   priority: "common-words" | "random" = "random",
   savedWords: string[] = [] // <-- NEW PARAM
@@ -100,7 +99,6 @@ export async function fetchRandomWords(
     const params = new URLSearchParams({
       language,
       count: String(Math.min(Math.max(0, count), 1000)), // 0..1000
-      password,
       priority,
     });
 

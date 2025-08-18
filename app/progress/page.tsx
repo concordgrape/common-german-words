@@ -84,7 +84,7 @@ function ProgressPage() {
   >({});
 
   useEffect(() => {
-    fetchBasicWords(kLANG_NAME, process.env.NEXT_PUBLIC_API_PASSWORD || "").then(
+    fetchBasicWords(kLANG_NAME).then(
       (e) => {
         setWords(e);
       }
