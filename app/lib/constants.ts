@@ -6,6 +6,7 @@ export const kESTIMATE_TOTAL_WORD_COUNT = 6000;
 export const kCOUNTRY_LANG_CODE = 'de';
 export const kLANG_NAME = 'german';
 export const kCOUNTRY_NAME = 'Germany';
+export const kCOUNTR_FLAG_IMG = '/de.webp';
 
 export const kIMAGE_PATHS = [
   '/germany1.webp',
@@ -36,6 +37,7 @@ export const kEXAMPLE_WORDS = {
 export const kCOUNTRY_LANG_CODE = 'es';
 export const kLANG_NAME = 'spanish';
 export const kCOUNTRY_NAME = 'Spain';
+export const kCOUNTR_FLAG_IMG = '/es.webp';
 
 export const kIMAGE_PATHS = [
   '/spain1.webp',

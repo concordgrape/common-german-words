@@ -14,7 +14,7 @@ import { FaBook, FaQuestionCircle } from 'react-icons/fa';
 import { FaChartLine } from 'react-icons/fa6';
 import Lottie from 'lottie-react';
 import fireAnimation from '../../external/Lottie/fire.json'
-import { kESTIMATE_TOTAL_WORD_COUNT } from '@/app/lib/constants';
+import { kESTIMATE_TOTAL_WORD_COUNT, kCOUNTR_FLAG_IMG } from '@/app/lib/constants';
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // mobile menu
@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
             {/* Left: Logo */}
             <Link href="/" className="flex-shrink-0">
               <Image
-                src="/de.webp"
+                src={kCOUNTR_FLAG_IMG}
                 alt="Logo"
                 width={70}
                 height={70}
@@ -195,7 +195,7 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center mb-4">
             <a className="mr-auto text-3xl font-bold leading-none" href="#">
               <Image
-                src="/de.webp"
+                src={kCOUNTR_FLAG_IMG}
                 alt="Logo"
                 width={70}
                 height={70}
