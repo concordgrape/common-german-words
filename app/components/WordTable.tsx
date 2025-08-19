@@ -14,7 +14,6 @@ import WordPopover from "./Popover/Popover";
 import WordStatusButtons from "./WordStatusButtons/WordStatusButtons";
 import {
   fetchWordStatusMetaData,
-  useToggleWordStatus,
 } from "../helpers/userWordLibrary";
 import { useWordStatusSetters } from "../hooks/useWordStatusSetters";
 import { useUser } from "../context/UserContext";
@@ -188,8 +187,6 @@ export const WordTable: React.FC<WordTableProps> = ({
 
   //const [checkEnabledById, setCheckEnabledById] = useState<Record<number, boolean>>({});
   //const [plusEnabledById, setPlusEnabledById] = useState<Record<number, boolean>>({});
-
-  const { toggleSavedStatus, toggleKnownStatus } = useToggleWordStatus();
 
   const changePage = (newPage: number) => {
     const params = new URLSearchParams(window.location.search);
