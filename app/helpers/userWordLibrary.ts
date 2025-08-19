@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Word } from './fetchBasicWordList';
 import { shuffle } from './utils';
 import dayjs from "dayjs";
+import { kCOUNTRY_LANG_CODE } from '../lib/constants';
 
 type WordStatusType = 'saved' | 'known';
 
@@ -42,7 +43,7 @@ export function useToggleWordStatus() {
     const uid = ensureUser();
     if (!word) throw new Error('Missing word');
 
-    const ref = doc(db, `users/${uid}/de/cards/saved/${word}`);
+    const ref = doc(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/saved/${word}`);
     const existing = await getDoc(ref);
     const wordRef = doc(db, `languages/german/words/${word}`);
 
@@ -246,7 +247,7 @@ export async function fetchSavedWordMetadata(
     throw new Error('Invalid UID');
   }
 
-  const cardsColRef = collection(db, `users/${uid}/de/cards/saved`);
+  const cardsColRef = collection(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/saved`);
   const snap = await getDocs(cardsColRef);
 
   const metadata: SavedWordMetadata[] = [];

@@ -17,6 +17,7 @@ import { useToggleWordStatus } from "@/app/helpers/userWordLibrary";
 import { useUser } from "@/app/context/UserContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebaseClient";
+import { kCOUNTRY_LANG_CODE } from "@/app/lib/constants";
 
 const LearnCardsPage: React.FC = () => {
   const { submittedWords } = useWordForm();
@@ -79,8 +80,8 @@ const LearnCardsPage: React.FC = () => {
       }
 
       const [savedSnap, knownSnap] = await Promise.all([
-        getDoc(doc(db, `users/${user.uid}/de/cards/saved/${current.word}`)),
-        getDoc(doc(db, `users/${user.uid}/de/cards/known/${current.word}`)),
+        getDoc(doc(db, `users/${user.uid}/${kCOUNTRY_LANG_CODE}/cards/saved/${current.word}`)),
+        getDoc(doc(db, `users/${user.uid}/${kCOUNTRY_LANG_CODE}/cards/known/${current.word}`)),
       ]);
 
       if (!cancelled) {
