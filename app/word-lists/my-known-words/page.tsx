@@ -8,7 +8,7 @@ import { fetchBasicWords, Word } from "@/app/helpers/fetchBasicWordList";
 import { useToast } from "@/app/hooks/useToast";
 import { useOnlineStatus } from "@/app/hooks/useOnlineStatus";
 import Link from "next/link";
-import { kESTIMATE_TOTAL_WORD_COUNT, kLANG_NAME, kLANG_NAME_CAPITAL } from "@/app/lib/constants";
+import { kESTIMATE_TOTAL_WORD_COUNT, kLANG_NAME } from "@/app/lib/constants";
 
 const KnownWordList: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
