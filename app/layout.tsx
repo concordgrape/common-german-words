@@ -39,7 +39,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(kCOMMONWORDS_URL_WWW),
   applicationName: `Common ${kLANG_NAME_CAPITAL} Words`,
-  title: `Common ${kLANG_NAME_CAPITAL} Words | Learn ${kLANG_NAME_CAPITAL} Vocabulary Fast`,
+  title: `Common ${kLANG_NAME_CAPITAL} Words | Study the Most Frequent ${kLANG_NAME_CAPITAL} Words`,
   description:
     `Master the most common ${kLANG_NAME_CAPITAL} words with interactive flashcards, quizzes, and CEFR-level vocabulary lists. Perfect for beginners and advanced learners.`,
   keywords: [
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: `Common ${kLANG_NAME_CAPITAL} Words | Learn ${kLANG_NAME_CAPITAL} Vocabulary Fast`,
+    title: `Common ${kLANG_NAME_CAPITAL} Words | Study the Most Frequent ${kLANG_NAME_CAPITAL} Words`,
     description:
       `Learn the most frequently used ${kLANG_NAME_CAPITAL} words with definitions, example sentences, and pronunciation. Includes flashcards, quizzes, and CEFR-level lists.`,
     url: kCOMMONWORDS_URL_WWW,
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Common ${kLANG_NAME_CAPITAL} Words | Learn ${kLANG_NAME_CAPITAL} Vocabulary Fast`,
+    title: `Common ${kLANG_NAME_CAPITAL} Words | Study the Most Frequent ${kLANG_NAME_CAPITAL} Words`,
     description:
       `Master ${kLANG_NAME_CAPITAL} vocabulary with flashcards, quizzes, and CEFR-level word lists. Perfect for beginners and advanced learners.`,
     images: ["/og-image.jpg"],
