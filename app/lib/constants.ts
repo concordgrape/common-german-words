@@ -9,7 +9,8 @@ export const kLANG_NAME = 'german';
 export const kLANG_NAME_CAPITAL = 'German';
 export const kCOUNTRY_NAME = 'Germany';
 export const kCOUNTRY_FLAG_IMG = '/de.webp';
-export const kCOMMONWORDS_URL_WWW = "https://www.commongermanwords.com"
+export const kCOMMONWORDS_URL_WWW = "https://www.commongermanwords.com";
+export const kCOUNTRY_FLAG_EMOJI = '🇩🇪';
 
 export const kIMAGE_PATHS = [
   '/germany1.webp',
@@ -50,7 +51,8 @@ export const kLANG_NAME = 'spanish';
 export const kLANG_NAME_CAPITAL = 'Spanish';
 export const kCOUNTRY_NAME = 'Spain';
 export const kCOUNTRY_FLAG_IMG = '/es.webp';
-export const kCOMMONWORDS_URL_WWW = "https://www.commonspanishwords.com"
+export const kCOMMONWORDS_URL_WWW = "https://www.commonspanishwords.com";
+export const kCOUNTRY_FLAG_EMOJI = '🇪🇸';
 
 export const kIMAGE_PATHS = [
   '/spain1.webp',

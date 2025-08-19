@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Word } from "../helpers/fetchBasicWordList";
 import GoogleTTSButton from "./GoogleTTSButton/GoogleTTSButton";
 import { FullWordData } from "./WordInfo";
-import { kLANG_NAME } from "../lib/constants";
+import { kCOUNTRY_FLAG_EMOJI, kLANG_NAME } from "../lib/constants";
 
 interface DropdownWordInfoProps {
   word: Word;
@@ -85,7 +85,7 @@ const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen }
               {fullData.examples.slice(0, visibleExamples).map((ex, idx) => (
                           <li key={idx} className="text-white/90">
                             <div className="flex justify-between items-center">
-                              <span>🇩🇪 {ex.sentence.replace(/\./g, '')}</span>
+                              <span>{kCOUNTRY_FLAG_EMOJI} {ex.sentence.replace(/\./g, '')}</span>
                               <GoogleTTSButton text={ex.sentence} color="text-white hover:bg-blue-400" />
                             </div>
                             <div className="text-white/70">🇬🇧 {ex.translation.replace(/\./g, '')}</div>

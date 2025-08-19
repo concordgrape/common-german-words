@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Word } from "../helpers/fetchBasicWordList";
 import GoogleTTSButton from "./GoogleTTSButton/GoogleTTSButton";
 import Link from "next/link";
-import { kLANG_NAME } from "../lib/constants";
+import { kCOUNTRY_FLAG_EMOJI, kLANG_NAME } from "../lib/constants";
 
 interface WordInfoProps {
   selectedWord?: Word | null;
@@ -111,7 +111,7 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
                   <li key={idx} className="text-white/90">
                     <div className="flex justify-between items-center">
                       <span className="flex flex-wrap gap-1">
-                        🇩🇪
+                        {kCOUNTRY_FLAG_EMOJI}
                         {ex.sentence
                           .replace(/[.,!?;:]/g, "")
                           .split(" ")
