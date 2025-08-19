@@ -2,7 +2,6 @@
 
 export const kDEFAULT_WORD_COUNT = 5;
 
-/*
 export const kESTIMATE_TOTAL_WORD_COUNT = 6000;
 
 export const kCOUNTRY_LANG_CODE = 'de';
@@ -42,8 +41,8 @@ export const kARTICLE_WORDS = [
   { word: "die Frau", translation: "the woman" },
   { word: "das Kind", translation: "the child" },
 ];
-*/
 
+/*
 export const kESTIMATE_TOTAL_WORD_COUNT = 6000;
 
 export const kCOUNTRY_LANG_CODE = 'es';
@@ -82,3 +81,4 @@ export const kARTICLE_WORDS = [
   { word: "la mujer", translation: "the woman" },
   { word: "el niño", translation: "the boy / child" },
 ];
+*/
