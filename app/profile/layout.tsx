@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "../lib/constants";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.commongermanwords.com"),
-  title: "Profile – Common German Words",
+  metadataBase: new URL(kCOMMONWORDS_URL_WWW),
+  title: `Profile – Common ${kLANG_NAME_CAPITAL} Words`,
   description:
-    "Manage your saved and known words, study preferences, theme, and account settings",
+    `Manage your saved and known words, study preferences, theme, and account settings`,
   alternates: {
     canonical: "https://www.commongermanwords.com/profile",
   },
@@ -21,18 +22,18 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Profile – Common German Words",
+    title: `Profile – Common $ Words`,
     description:
       "View and manage your saved words, study settings, and account preferences",
     url: "https://www.commongermanwords.com/profile",
-    siteName: "Common German Words",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Common German Words" }],
+    siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: `Common ${kLANG_NAME_CAPITAL} Words` }],
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Profile – Common German Words",
+    title: `Profile – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
       "Manage your vocabulary, preferences, and account settings",
     images: ["/og-image.jpg"],

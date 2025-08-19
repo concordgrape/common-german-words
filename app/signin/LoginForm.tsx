@@ -9,7 +9,7 @@ import { useUser } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import globeImage from "../../public/010-planet.svg"
-import { kESTIMATE_TOTAL_WORD_COUNT } from '../lib/constants';
+import { kESTIMATE_TOTAL_WORD_COUNT, kLANG_NAME_CAPITAL } from '../lib/constants';
 
 const actionCodeSettings = {
   url: 'https://commongermanwords.com/sign-in-complete',
@@ -48,7 +48,7 @@ const LoginForm: React.FC = () => {
       <div className="flex items-center gap-4 mb-4">
         <div className="text-left">
           <h3 className="text-md text-gray-900 dark:text-white">
-            Get complete access to <span className="font-mono font-bold text-blue-500">{kESTIMATE_TOTAL_WORD_COUNT}+</span> German words, for free!
+            Get complete access to <span className="font-mono font-bold text-blue-500">{kESTIMATE_TOTAL_WORD_COUNT}+</span> {kLANG_NAME_CAPITAL} words, for free!
           </h3>
         </div>
         <Image
@@ -63,7 +63,7 @@ const LoginForm: React.FC = () => {
       <h4 className="text-sm text-gray-900 dark:text-white mb-6 text-left">
         <i>
           We use a <b>password free</b> sign in method. You will receive a verification email.<br />
-          First time on Common German Words? An account will automatically be created.
+          First time on Common {kLANG_NAME_CAPITAL} Words? An account will automatically be created.
         </i>
       </h4>
       <form className={`space-y-5`} onSubmit={handleSubmit}>

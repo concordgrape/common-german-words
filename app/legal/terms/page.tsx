@@ -1,10 +1,11 @@
 import React from "react";
 import type { Metadata } from "next";
+import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Common German Words",
+  title: `Terms & Conditions | Common ${kLANG_NAME_CAPITAL} Words`,
   description:
-    "Terms and Conditions for Common German Words and Verbuu – Common Words.",
+    `Terms and Conditions for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
 };
 
 const EFFECTIVE_DATE = "August 8, 2025";
@@ -28,7 +29,7 @@ function Policy() {
       </p>
 
       <p>
-        Welcome to <strong>Common German Words</strong> (the “Website”) and{" "}
+        Welcome to <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the “Website”) and{" "}
         <strong>Verbuu – Common Words</strong> (the “App”). These Terms and
         Conditions (“Terms”) govern your access to and use of our website,
         applications, and related services (collectively, the “Services”). By

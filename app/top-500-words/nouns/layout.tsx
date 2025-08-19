@@ -1,34 +1,35 @@
+import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Top 500 German Nouns – Common German Words",
+  title: `Top 500 ${kLANG_NAME_CAPITAL} Nouns – Common ${kLANG_NAME_CAPITAL} Words`,
   description:
-    "Learn the 500 most frequently used German nouns with their meanings, gender, example sentences, and pronunciation. Ideal for learners wanting a strong vocabulary foundation",
+    `Master the 100 most frequently used ${kLANG_NAME_CAPITAL} nouns with definitions, conjugations, usage examples, and pronunciation guides. Perfect for speaking and writing fluently`,
   keywords: [
-    "German nouns",
-    "top German nouns",
-    "common German words",
-    "German vocabulary",
-    "learn German nouns",
-    "German language learning",
-    "German flashcards",
-    "German quizzes",
-    "study German",
-    "most used German nouns"
+    `${kLANG_NAME_CAPITAL} nouns`,
+    `top ${kLANG_NAME_CAPITAL} nouns`,
+    `common ${kLANG_NAME_CAPITAL} nouns`,
+    `${kLANG_NAME_CAPITAL} vocabulary`,
+    `learn ${kLANG_NAME_CAPITAL} nouns`,
+    `${kLANG_NAME_CAPITAL} language learning`,
+    `${kLANG_NAME_CAPITAL} flashcards`,
+    `${kLANG_NAME_CAPITAL} quizzes`,
+    `study ${kLANG_NAME_CAPITAL}`,
+    `most used ${kLANG_NAME_CAPITAL} nouns`
   ],
   openGraph: {
-    title: "Top 500 German Nouns – Common German Words",
+    title: `Top 500 ${kLANG_NAME_CAPITAL} Nouns – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
-      "Build your vocabulary with the 500 most common German nouns, complete with gender, examples, and interactive practice",
-    url: "https://commongermanwords.com/top-500-words/adverbs",
+      `Boost your ${kLANG_NAME_CAPITAL} skills by learning the 500 most frequently used nouns. Includes definitions, examples, pronunciation, and interactive study tools`,
+    url: "https://commongermanwords.com/top-100-words/words",
     type: "website",
-    siteName: "Common German Words",
+    siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Top 500 German Nouns – Common German Words",
+    title: `Top 500 ${kLANG_NAME_CAPITAL} Nouns – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
-      "Master the 500 most important German nouns with definitions, examples, and interactive learning tools",
+      `Learn the most common ${kLANG_NAME_CAPITAL} words with flashcards, quizzes, and example sentences to master your vocabulary`,
   },
 };
 

@@ -1,40 +1,41 @@
 import type { Metadata } from "next";
+import { kCOMMONWORDS_URL_WWW, kDEFAULT_WORD_COUNT, kLANG_NAME_CAPITAL } from "../lib/constants";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.commongermanwords.com"),
-  title: "Browse the Most Common German Words – Word Library | Common German Words",
+  metadataBase: new URL(kCOMMONWORDS_URL_WWW),
+  title: `Browse the Most Common ${kLANG_NAME_CAPITAL} Words – Word Library | Common ${kLANG_NAME_CAPITAL} Words`,
   description:
-    "Explore 6,000+ of the most common German words. View definitions, examples, part of speech, gender, and pronunciation. Filter by CEFR level, length, or part of speech, and save or mark words as known. Study with flashcards and quizzes.",
+    `Explore ${kDEFAULT_WORD_COUNT}+ of the most common ${kLANG_NAME_CAPITAL} words. View definitions, examples, part of speech, gender, and pronunciation. Filter by CEFR level, length, or part of speech, and save or mark words as known. Study with flashcards and quizzes.`,
   keywords: [
-    "common German words",
-    "most common German words",
-    "German vocabulary list",
-    "German frequency list",
-    "German word library",
-    "CEFR German",
-    "learn German words",
-    "German nouns verbs adjectives adverbs",
-    "German flashcards",
-    "German quizzes",
+    `common ${kLANG_NAME_CAPITAL} words`,
+    `most common ${kLANG_NAME_CAPITAL} words`,
+    `${kLANG_NAME_CAPITAL} vocabulary list`,
+    `${kLANG_NAME_CAPITAL} frequency list`,
+    `${kLANG_NAME_CAPITAL} word library`,
+    `CEFR ${kLANG_NAME_CAPITAL}`,
+    `learn ${kLANG_NAME_CAPITAL} words`,
+    `${kLANG_NAME_CAPITAL} nouns verbs adjectives adverbs`,
+    `${kLANG_NAME_CAPITAL} flashcards`,
+    `${kLANG_NAME_CAPITAL} quizzes`,
   ],
   alternates: {
     canonical: "https://www.commongermanwords.com/browse",
   },
   openGraph: {
-    title: "Browse the Most Common German Words – 6,000+ Word Library",
+    title: `Browse the Most Common ${kLANG_NAME_CAPITAL} Words – ${kDEFAULT_WORD_COUNT}+ Word Library`,
     description:
-      "Discover the full library of common German words with filters, saved/known tracking, and study tools like flashcards and quizzes.",
+      `Discover the full library of common ${kLANG_NAME_CAPITAL} words with filters, saved/known tracking, and study tools like flashcards and quizzes.`,
     url: "https://www.commongermanwords.com/browse",
-    siteName: "Common German Words",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Common German Words Library" }],
+    siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: `Common ${kLANG_NAME_CAPITAL} Words Library` }],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Browse the Most Common German Words – 6,000+ Word Library",
+    title: `Browse the Most Common ${kLANG_NAME_CAPITAL} Words – 6,000+ Word Library`,
     description:
-      "Filter, save, and study from a library of 6,000+ common German words with definitions, examples, and CEFR tags.",
+      `Filter, save, and study from a library of 6,000+ common ${kLANG_NAME_CAPITAL} words with definitions, examples, and CEFR tags.`,
     images: ["/og-image.jpg"],
   },
   robots: {

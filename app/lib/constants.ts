@@ -6,8 +6,10 @@ export const kESTIMATE_TOTAL_WORD_COUNT = 6000;
 
 export const kCOUNTRY_LANG_CODE = 'de';
 export const kLANG_NAME = 'german';
+export const kLANG_NAME_CAPITAL = 'German';
 export const kCOUNTRY_NAME = 'Germany';
-export const kCOUNTR_FLAG_IMG = '/de.webp';
+export const kCOUNTRY_FLAG_IMG = '/de.webp';
+export const kCOMMONWORDS_URL_WWW = "https://www.commongermanwords.com"
 
 export const kIMAGE_PATHS = [
   '/germany1.webp',
@@ -34,13 +36,22 @@ export const kEXAMPLE_WORDS = {
 } as const;
 
 
+export const kARTICLE_WORDS = [
+  { word: "der Mann", translation: "the man" },
+  { word: "die Frau", translation: "the woman" },
+  { word: "das Kind", translation: "the child" },
+];
+
+
 /*
 export const kESTIMATE_TOTAL_WORD_COUNT = 6000;
 
 export const kCOUNTRY_LANG_CODE = 'es';
-export const kLANG_NAME = 'spanish';
+export const kLANG_NAME_CAPITAL = 'spanish';
+export const kLANG_NAME_CAPITAL = 'Spanish';
 export const kCOUNTRY_NAME = 'Spain';
-export const kCOUNTR_FLAG_IMG = '/es.webp';
+export const kCOUNTRY_FLAG_IMG = '/es.webp';
+export const kCOMMONWORDS_URL_WWW = "https://www.commonspanishwords.com"
 
 export const kIMAGE_PATHS = [
   '/spain1.webp',
@@ -65,4 +76,10 @@ export const kEXAMPLE_WORDS = {
   top100Adjectives: ["gran", "cierto", "genial"],
   top100Adverbs: ["bien", "ahora", "tan"],
 } as const;
+
+export const kARTICLE_WORDS = [
+  { word: "el hombre", translation: "the man" },
+  { word: "la mujer", translation: "the woman" },
+  { word: "el niño", translation: "the boy / child" },
+];
  */

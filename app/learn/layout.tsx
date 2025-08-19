@@ -1,35 +1,36 @@
 import type { Metadata } from "next";
+import { kCOMMONWORDS_URL_WWW, kDEFAULT_WORD_COUNT, kLANG_NAME_CAPITAL } from "../lib/constants";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.commongermanwords.com"),
-  title: "Learn & Practice Common German Words – Flashcards & Quizzes | Common German Words",
+  metadataBase: new URL(kCOMMONWORDS_URL_WWW),
+  title: `Learn & Practice Common ${kLANG_NAME_CAPITAL} Words – Flashcards & Quizzes | Common ${kLANG_NAME_CAPITAL} Words`,
   description:
-    "Build German vocabulary with customizable flashcards and quizzes. Practice your saved words or randomize from our 6,000+ word library with CEFR filters and smart study modes",
+    `Build ${kLANG_NAME_CAPITAL} vocabulary with customizable flashcards and quizzes. Practice your saved words or randomize from our ${kDEFAULT_WORD_COUNT}+ word library with CEFR filters and smart study modes`,
   keywords: [
-    "learn German",
-    "German flashcards",
-    "German quizzes",
-    "practice German vocabulary",
-    "common German words",
-    "CEFR German",
-    "study German words",
-    "random German words",
+    `learn ${kLANG_NAME_CAPITAL}`,
+    `${kLANG_NAME_CAPITAL} flashcards`,
+    `${kLANG_NAME_CAPITAL} quizzes`,
+    `practice ${kLANG_NAME_CAPITAL} vocabulary`,
+    `common ${kLANG_NAME_CAPITAL} words`,
+    `CEFR ${kLANG_NAME_CAPITAL}`,
+    `study ${kLANG_NAME_CAPITAL} words`,
+    `random ${kLANG_NAME_CAPITAL} words`,
   ],
   alternates: {
     canonical: "https://www.commongermanwords.com/learn",
   },
   openGraph: {
-    title: "Learn & Practice Common German Words – Flashcards & Quizzes",
+    title: `Learn & Practice Common ${kLANG_NAME_CAPITAL} Words – Flashcards & Quizzes`,
     description:
-      "Configure German flashcards and quizzes, practice saved words, or pull random words from a 6,000+ library. Fast, focused vocabulary learning",
+      `Configure ${kLANG_NAME_CAPITAL} flashcards and quizzes, practice saved words, or pull random words from a ${kDEFAULT_WORD_COUNT}+ library. Fast, focused vocabulary learning`,
     url: "https://www.commongermanwords.com/learn",
-    siteName: "Common German Words",
+    siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Learn German with flashcards and quizzes",
+        alt: `Learn ${kLANG_NAME_CAPITAL} with flashcards and quizzes`,
       },
     ],
     locale: "en_US",
@@ -37,9 +38,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Learn & Practice Common German Words – Flashcards & Quizzes",
+    title: `Learn & Practice Common ${kLANG_NAME_CAPITAL} Words – Flashcards & Quizzes`,
     description:
-      "Customize flashcards and quizzes to study your saved German words or randomized sets from our 6,000+ library",
+      `Customize flashcards and quizzes to study your saved ${kLANG_NAME_CAPITAL} words or randomized sets from our ${kDEFAULT_WORD_COUNT}+ library`,
     images: ["/og-image.jpg"],
   },
   robots: {

@@ -1,10 +1,11 @@
 import React from "react";
 import type { Metadata } from "next";
+import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 
 export const metadata: Metadata = {
-  title: "GDPR Cookie Policy | Common German Words",
+  title: `GDPR Cookie Policy | Common ${kLANG_NAME_CAPITAL} Words`,
   description:
-    "GDPR-compliant Cookie Policy for Common German Words and Verbuu – Common Words.",
+    `GDPR-compliant Cookie Policy for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
 };
 
 const EFFECTIVE_DATE = "August 8, 2025";
@@ -29,7 +30,7 @@ function GDPRCookiePolicy() {
 
       <p>
         This GDPR Cookie Policy explains how{" "}
-        <strong>Common German Words</strong> (the “Website”) and{" "}
+        <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the “Website”) and{" "}
         <strong>Verbuu – Common Words</strong> (the “App”) use cookies and similar
         technologies in compliance with the{" "}
         <strong>General Data Protection Regulation (GDPR)</strong> and other

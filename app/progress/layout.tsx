@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "../lib/constants";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.commongermanwords.com"),
-  title: "Progress – Common German Words",
+  metadataBase: new URL(kCOMMONWORDS_URL_WWW),
+  title: `Progress – Common ${kLANG_NAME_CAPITAL} Words`,
   description:
-    "Track your German learning progress: words learned, words remaining, streaks, and study activity",
+    `Track your ${kLANG_NAME_CAPITAL} learning progress: words learned, words remaining, streaks, and study activity`,
   alternates: {
     canonical: "https://www.commongermanwords.com/progress",
   },
@@ -21,20 +22,20 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Progress – Common German Words",
+    title: `Progress – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
       "Monitor words learned, remaining goals, study streaks, and CEFR-level coverage",
     url: "https://www.commongermanwords.com/progress",
-    siteName: "Common German Words",
+    siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
     images: [
-      { url: "/og-image.jpg", width: 1200, height: 630, alt: "Common German Words Progress" },
+      { url: "/og-image.jpg", width: 1200, height: 630, alt: `Common ${kLANG_NAME_CAPITAL} Words Progress` },
     ],
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Progress – Common German Words",
+    title: `Progress – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
       "View your vocabulary growth, streaks, and CEFR coverage over time",
     images: ["/og-image.jpg"],

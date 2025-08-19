@@ -1,3 +1,4 @@
+import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 import Image from "next/image";
 
 const Footer = () => {
@@ -11,7 +12,7 @@ const Footer = () => {
                 height={50}
             />
             <p className="text-gray-600 dark:text-gray-400">
-            <span className="text-black dark:text-white"><i><b>Common German Words</b></i></span> is a&nbsp;
+            <span className="text-black dark:text-white"><i><b>Common {kLANG_NAME_CAPITAL} Words</b></i></span> is a&nbsp;
                 <a href="https://verbuu.com/" className="text-blue-400 hover:underline">Verbuu</a> project
                 <br />
                 Copyright © 2025 - All right reserved

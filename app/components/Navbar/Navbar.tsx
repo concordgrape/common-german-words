@@ -14,7 +14,7 @@ import { FaBook, FaQuestionCircle } from 'react-icons/fa';
 import { FaChartLine } from 'react-icons/fa6';
 import Lottie from 'lottie-react';
 import fireAnimation from '../../external/Lottie/fire.json'
-import { kESTIMATE_TOTAL_WORD_COUNT, kCOUNTR_FLAG_IMG } from '@/app/lib/constants';
+import { kESTIMATE_TOTAL_WORD_COUNT, kCOUNTRY_FLAG_IMG, kLANG_NAME_CAPITAL } from '@/app/lib/constants';
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // mobile menu
@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
             {/* Left: Logo */}
             <Link href="/" className="flex-shrink-0">
               <Image
-                src={kCOUNTR_FLAG_IMG}
+                src={kCOUNTRY_FLAG_IMG}
                 alt="Logo"
                 width={70}
                 height={70}
@@ -195,7 +195,7 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center mb-4">
             <a className="mr-auto text-3xl font-bold leading-none" href="#">
               <Image
-                src={kCOUNTR_FLAG_IMG}
+                src={kCOUNTRY_FLAG_IMG}
                 alt="Logo"
                 width={70}
                 height={70}
@@ -214,7 +214,7 @@ export const Navbar: React.FC = () => {
               </svg>
             </button>
           </div>
-          <span className="text-gray-700 dark:text-white text-lg font-bold">Common German Words</span>
+          <span className="text-gray-700 dark:text-white text-lg font-bold">Common {kLANG_NAME_CAPITAL} Words</span>
           <div className="mt-4">
              <ul className="flex flex-col text-sm text-gray-700 dark:text-white">
               <li>
@@ -332,13 +332,6 @@ function HamburgerDropdown() {
                   <span className='pr-1'>📖</span> Learn
                   <br />
                   <span className='pr-1 text-gray-400 font-bold text-xs'>Generate flashcards & quizzes</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/read" onClick={() => setIsOpen(false)} className="block px-4 py-3 hover:bg-gray-100 font-bold">
-                  <span className='pr-1'>📖</span> Read
-                  <br />
-                  <span className='pr-1 text-gray-400 font-bold text-xs'>Read famous German books</span>
                 </Link>
               </li>
               <hr className="h-px my-2 bg-gray-200 border-0" />

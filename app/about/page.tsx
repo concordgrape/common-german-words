@@ -2,11 +2,12 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { kLANG_NAME_CAPITAL } from "../lib/constants";
 
 export const metadata: Metadata = {
-  title: "About Us | Common German Words",
+  title: `About Us | Common ${kLANG_NAME_CAPITAL} Words`,
   description:
-    "Learn about Common German Words and Verbuu – Common Words: our mission, how it works, and what we value.",
+    `Learn about Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words: our mission, how it works, and what we value.`,
 };
 
 export default function AboutPage() {
@@ -25,8 +26,8 @@ function About() {
       <h1 className="text-4xl font-bold">About Us</h1>
 
       <p>
-        <strong>Common German Words</strong> helps you learn the most
-        useful German vocabulary—fast. We focus on frequency-based lists, clean
+        <strong>Common {kLANG_NAME_CAPITAL} Words</strong> helps you learn the most
+        useful {kLANG_NAME_CAPITAL} vocabulary—fast. We focus on frequency-based lists, clean
         design, and quick practice so you can build real reading and listening
         confidence without fluff.
       </p>

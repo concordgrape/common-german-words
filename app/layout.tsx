@@ -8,6 +8,7 @@ import { UserProvider } from "./context/UserContext";
 import { WordFormProvider } from "./context/WordFormContext";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "./lib/constants";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,30 +37,30 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.commongermanwords.com"),
-  applicationName: "Common German Words",
-  title: "Common German Words | Learn German Vocabulary Fast",
+  metadataBase: new URL(kCOMMONWORDS_URL_WWW),
+  applicationName: `Common ${kLANG_NAME_CAPITAL} Words`,
+  title: `Common ${kLANG_NAME_CAPITAL} Words | Learn ${kLANG_NAME_CAPITAL} Vocabulary Fast`,
   description:
-    "Master the most common German words with interactive flashcards, quizzes, and CEFR-level vocabulary lists. Perfect for beginners and advanced learners.",
+    `Master the most common ${kLANG_NAME_CAPITAL} words with interactive flashcards, quizzes, and CEFR-level vocabulary lists. Perfect for beginners and advanced learners.`,
   keywords: [
-    "German vocabulary",
-    "common German words",
-    "learn German",
-    "German flashcards",
-    "German quizzes",
-    "German verbs",
-    "German nouns",
-    "German adjectives",
-    "German adverbs",
-    "language learning",
+    `${kLANG_NAME_CAPITAL} vocabulary`,
+    `common ${kLANG_NAME_CAPITAL} words`,
+    `learn ${kLANG_NAME_CAPITAL}`,
+    `${kLANG_NAME_CAPITAL} flashcards`,
+    `${kLANG_NAME_CAPITAL} quizzes`,
+    `${kLANG_NAME_CAPITAL} verbs`,
+    `${kLANG_NAME_CAPITAL} nouns`,
+    `${kLANG_NAME_CAPITAL} adjectives`,
+    `${kLANG_NAME_CAPITAL} adverbs`,
+    `language learning`,
   ],
   category: "Education",
-  authors: [{ name: "Common German Words" }],
-  creator: "Common German Words",
-  publisher: "Common German Words",
+  authors: [{ name: `Common ${kLANG_NAME_CAPITAL} Words` }],
+  creator: `Common ${kLANG_NAME_CAPITAL} Words`,
+  publisher: `Common ${kLANG_NAME_CAPITAL} Words`,
   generator: "Next.js",
   alternates: {
-    canonical: "https://www.commongermanwords.com",
+    canonical: kCOMMONWORDS_URL_WWW,
   },
   robots: {
     index: true,
@@ -74,17 +75,17 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Common German Words | Learn German Vocabulary Fast",
+    title: `Common ${kLANG_NAME_CAPITAL} Words | Learn ${kLANG_NAME_CAPITAL} Vocabulary Fast`,
     description:
-      "Learn the most frequently used German words with definitions, example sentences, and pronunciation. Includes flashcards, quizzes, and CEFR-level lists.",
-    url: "https://www.commongermanwords.com",
-    siteName: "Common German Words",
+      `Learn the most frequently used ${kLANG_NAME_CAPITAL} words with definitions, example sentences, and pronunciation. Includes flashcards, quizzes, and CEFR-level lists.`,
+    url: kCOMMONWORDS_URL_WWW,
+    siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Common German Words - Learn Vocabulary Fast",
+        alt: `Common ${kLANG_NAME_CAPITAL} Words - Learn Vocabulary Fast`,
       },
     ],
     locale: "en_US",
@@ -92,9 +93,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Common German Words | Learn German Vocabulary Fast",
+    title: `Common ${kLANG_NAME_CAPITAL} Words | Learn ${kLANG_NAME_CAPITAL} Vocabulary Fast`,
     description:
-      "Master German vocabulary with flashcards, quizzes, and CEFR-level word lists. Perfect for beginners and advanced learners.",
+      `Master ${kLANG_NAME_CAPITAL} vocabulary with flashcards, quizzes, and CEFR-level word lists. Perfect for beginners and advanced learners.`,
     images: ["/og-image.jpg"],
   },
   icons: {

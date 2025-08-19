@@ -1,34 +1,35 @@
+import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Top 500 German Adjectives – Common German Words",
+  title: `Top 500 ${kLANG_NAME_CAPITAL} Adjectives – Common ${kLANG_NAME_CAPITAL} Words`,
   description:
-    "Discover the top 500 most frequently used German adjectives with meanings, usage examples, and pronunciation guides. Ideal for building advanced vocabulary skills with flashcards, quizzes, and real-world sentences",
+    `Master the 100 most frequently used ${kLANG_NAME_CAPITAL} adjectives with definitions, conjugations, usage examples, and pronunciation guides. Perfect for speaking and writing fluently`,
   keywords: [
-    "German adjectives",
-    "top German adjectives",
-    "common German words",
-    "German vocabulary",
-    "learn German adjectives",
-    "German language learning",
-    "German flashcards",
-    "German quizzes",
-    "study German",
-    "most used German adjectives"
+    `${kLANG_NAME_CAPITAL} adjectives`,
+    `top ${kLANG_NAME_CAPITAL} adjectives`,
+    `common ${kLANG_NAME_CAPITAL} adjectives`,
+    `${kLANG_NAME_CAPITAL} vocabulary`,
+    `learn ${kLANG_NAME_CAPITAL} adjectives`,
+    `${kLANG_NAME_CAPITAL} language learning`,
+    `${kLANG_NAME_CAPITAL} flashcards`,
+    `${kLANG_NAME_CAPITAL} quizzes`,
+    `study ${kLANG_NAME_CAPITAL}`,
+    `most used ${kLANG_NAME_CAPITAL} adjectives`
   ],
   openGraph: {
-    title: "Top 500 German Adjectives – Common German Words",
+    title: `Top 500 ${kLANG_NAME_CAPITAL} Adjectives – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
-      "Learn the 500 most important German adjectives with clear definitions, example sentences, and interactive study tools to master vocabulary faster",
-    url: "https://commongermanwords.com/top-500-words/adjectives",
+      `Boost your ${kLANG_NAME_CAPITAL} skills by learning the 500 most frequently used adjectives. Includes definitions, examples, pronunciation, and interactive study tools`,
+    url: "https://commongermanwords.com/top-100-words/words",
     type: "website",
-    siteName: "Common German Words",
+    siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Top 500 German Adjectives – Common German Words",
+    title: `Top 500 ${kLANG_NAME_CAPITAL} Adjectives – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
-      "Master German adjectives with our list of the top 500 most used words, complete with examples, pronunciation, and quizzes",
+      `Learn the most common ${kLANG_NAME_CAPITAL} words with flashcards, quizzes, and example sentences to master your vocabulary`,
   },
 };
 

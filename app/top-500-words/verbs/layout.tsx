@@ -1,37 +1,37 @@
+import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Top 500 German Verbs – Common German Words",
+  title: `Top 500 ${kLANG_NAME_CAPITAL} Verbs – Common ${kLANG_NAME_CAPITAL} Words`,
   description:
-    "Master the 500 most frequently used German verbs with definitions, conjugations, usage examples, and pronunciation guides. Perfect for speaking and writing fluently",
+    `Master the 100 most frequently used ${kLANG_NAME_CAPITAL} verbs with definitions, conjugations, usage examples, and pronunciation guides. Perfect for speaking and writing fluently`,
   keywords: [
-    "German verbs",
-    "top German verbs",
-    "common German words",
-    "German vocabulary",
-    "learn German verbs",
-    "German language learning",
-    "German flashcards",
-    "German quizzes",
-    "study German",
-    "most used German verbs"
+    `${kLANG_NAME_CAPITAL} verbs`,
+    `top ${kLANG_NAME_CAPITAL} verbs`,
+    `common ${kLANG_NAME_CAPITAL} verbs`,
+    `${kLANG_NAME_CAPITAL} vocabulary`,
+    `learn ${kLANG_NAME_CAPITAL} verbs`,
+    `${kLANG_NAME_CAPITAL} language learning`,
+    `${kLANG_NAME_CAPITAL} flashcards`,
+    `${kLANG_NAME_CAPITAL} quizzes`,
+    `study ${kLANG_NAME_CAPITAL}`,
+    `most used ${kLANG_NAME_CAPITAL} verbs`
   ],
   openGraph: {
-    title: "Top 500 German Verbs – Common German Words",
+    title: `Top 500 ${kLANG_NAME_CAPITAL} Verbs – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
-      "Learn 500 essential German verbs with conjugation examples, pronunciation, and interactive practice to boost fluency",
-    url: "https://commongermanwords.com/top-500-words/verbs",
+      `Boost your ${kLANG_NAME_CAPITAL} skills by learning the 500 most frequently used verbs. Includes definitions, examples, pronunciation, and interactive study tools`,
+    url: "https://commongermanwords.com/top-100-words/words",
     type: "website",
-    siteName: "Common German Words",
+    siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Top 500 German Verbs – Common German Words",
+    title: `Top 500 ${kLANG_NAME_CAPITAL} Verbs – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
-      "Boost your German fluency by mastering the 500 most common verbs with examples, pronunciation, and quizzes",
+      `Learn the most common ${kLANG_NAME_CAPITAL} words with flashcards, quizzes, and example sentences to master your vocabulary`,
   },
 };
-
 export default function VerbsLayout({
   children,
 }: {
