@@ -17,13 +17,7 @@ interface LearnFormConfirmProps {
 export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
   const { submittedWords, allWords, setSavedWords, savedWords } = useWordForm();
   const { user } = useUser();
-
-  // savedWordsObject is just a set of word IDs (as strings) that the user has saved
   const [savedWordsObject, setSavedWordsObjects] = useState<Word[]>([]);
-
-  // store the actual Word objects we just added last,
-  // so we can undo exactly those
-  const [lastAdded, setLastAdded] = useState<SubmittedWord[]>([]);
   const toast = useToast();
 
   useEffect(() => {
@@ -131,7 +125,6 @@ export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
     if (savedWords.length === 0) return;
 
     setSavedWords([]);
-    setLastAdded([]);
   };
 
   return (
