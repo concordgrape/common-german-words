@@ -366,11 +366,9 @@ export const WordTable: React.FC<WordTableProps> = ({
     });
 
     // write without blocking the UI
-    void setSaved(word, willEnable).catch((err) => {
-      // rollback if it failed
+    setSaved(word, willEnable).catch((err) => {
       setSavedWordIds((prev) => {
         const s = new Set(prev);
-        // revert
         willEnable ? s.delete(word) : s.add(word);
         return s;
       });
@@ -387,7 +385,7 @@ export const WordTable: React.FC<WordTableProps> = ({
       return s;
     });
 
-    void setKnown(word, willEnable).catch((err) => {
+    setKnown(word, willEnable).catch((err) => {
       setKnownWordIds((prev) => {
         const s = new Set(prev);
         willEnable ? s.delete(word) : s.add(word);
