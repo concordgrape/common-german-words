@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Word } from "../helpers/fetchBasicWordList";
 import GoogleTTSButton from "./GoogleTTSButton/GoogleTTSButton";
 import { FullWordData } from "./WordInfo";
-import { kLANG_NAME_CAPITAL } from "../lib/constants";
+import { kLANG_NAME } from "../lib/constants";
 
 interface DropdownWordInfoProps {
   word: Word;
@@ -21,7 +21,7 @@ const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({ word, isOpen }
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `/api/word?language=${kLANG_NAME_CAPITAL}&word=${word.word}`
+          `/api/word?language=${kLANG_NAME}&word=${word.word}`
         );
         const json = await res.json();
         setFullData(json.word || null);

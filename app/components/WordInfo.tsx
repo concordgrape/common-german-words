@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Word } from "../helpers/fetchBasicWordList";
 import GoogleTTSButton from "./GoogleTTSButton/GoogleTTSButton";
 import Link from "next/link";
-import { kLANG_NAME_CAPITAL } from "../lib/constants";
+import { kLANG_NAME } from "../lib/constants";
 
 interface WordInfoProps {
   selectedWord?: Word | null;
@@ -35,7 +35,7 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `/api/word?language=${kLANG_NAME_CAPITAL}&word=${selectedWord.word}`
+          `/api/word?language=${kLANG_NAME}&word=${selectedWord.word}`
         );
         const json = await res.json();
         if (json.word) {
