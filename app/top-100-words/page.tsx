@@ -9,7 +9,7 @@ import { fetchTopWords, Word } from '../helpers/fetchBasicWordList';
 import { useOnlineStatus } from '@/app/hooks/useOnlineStatus';
 import { useToast } from '../hooks/useToast';
 import Article from '@/app/components/Article/Article';
-import { kLANG_NAME_CAPITAL } from '../lib/constants';
+import { kLANG_NAME } from '../lib/constants';
 
 const TopVerbs: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
