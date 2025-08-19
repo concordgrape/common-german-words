@@ -16,6 +16,7 @@ import {
   fetchWordStatusMetaData,
   useToggleWordStatus,
 } from "../helpers/userWordLibrary";
+import { useWordStatusSetters } from "../hooks/useWordStatusSetters";
 import { useUser } from "../context/UserContext";
 import { kESTIMATE_TOTAL_WORD_COUNT } from "../lib/constants";
 
@@ -74,6 +75,7 @@ export const WordTable: React.FC<WordTableProps> = ({
   const router = useRouter();
   const toast = useToast();
   const { user } = useUser();
+  const { setSaved, setKnown } = useWordStatusSetters();
 
   const initialSearch = searchParams.get("search") || "";
   const [searchTerm, setSearchTerm] = useState<string>(initialSearch);
@@ -82,7 +84,9 @@ export const WordTable: React.FC<WordTableProps> = ({
   const currentPage = Math.max(1, isNaN(pageParam) ? 1 : pageParam);
 
   // Adjust Virtuoso height
-  const ITEMS_PER_PAGE = showUpTo500Rows ? LONG_ITEMS_PER_PAGE : SHORT_ITEMS_PER_PAGE;
+  const ITEMS_PER_PAGE = showUpTo500Rows
+    ? LONG_ITEMS_PER_PAGE
+    : SHORT_ITEMS_PER_PAGE;
   const isMobile = useIsMobile();
   const rowHeight = 45;
   const filteredBase = showOnlySaved
@@ -354,39 +358,46 @@ export const WordTable: React.FC<WordTableProps> = ({
   };
 
   const handlePlusClick = async (word: string) => {
-    try {
-      await toggleSavedStatus(word);
+    // desired state from current UI
+    const willEnable = !savedWordIds.has(word);
 
+    // optimistic flip (instant)
+    setSavedWordIds((prev) => {
+      const s = new Set(prev);
+      willEnable ? s.add(word) : s.delete(word);
+      return s;
+    });
+
+    // write without blocking the UI
+    void setSaved(word, willEnable).catch((err) => {
+      // rollback if it failed
       setSavedWordIds((prev) => {
-        const newSet = new Set(prev);
-        if (newSet.has(word)) {
-          newSet.delete(word);
-        } else {
-          newSet.add(word);
-        }
-        return newSet;
+        const s = new Set(prev);
+        // revert
+        willEnable ? s.delete(word) : s.add(word);
+        return s;
       });
-    } catch (err) {
-      console.error("❌ Error toggling saved status:", err);
-    }
+      console.error("❌ Error setting saved:", err);
+    });
   };
 
   const handleCheckClick = async (word: string) => {
-    try {
-      await toggleKnownStatus(word);
+    const willEnable = !knownWordIds.has(word);
 
+    setKnownWordIds((prev) => {
+      const s = new Set(prev);
+      willEnable ? s.add(word) : s.delete(word);
+      return s;
+    });
+
+    void setKnown(word, willEnable).catch((err) => {
       setKnownWordIds((prev) => {
-        const newSet = new Set(prev);
-        if (newSet.has(word)) {
-          newSet.delete(word);
-        } else {
-          newSet.add(word);
-        }
-        return newSet;
+        const s = new Set(prev);
+        willEnable ? s.delete(word) : s.add(word);
+        return s;
       });
-    } catch (err) {
-      console.error("❌ Error toggling known status:", err);
-    }
+      console.error("❌ Error setting known:", err);
+    });
   };
 
   const CustomScroller = React.forwardRef<HTMLDivElement>((props, ref) => (
@@ -416,10 +427,17 @@ export const WordTable: React.FC<WordTableProps> = ({
 
   return (
     <div
-      className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] dark:bg-[#0D1B2A] overflow-hidden mt-0 ${showOnlyKnown || showOnlySaved ? '' : 'pt-8 sm:pt-0'} sm:mt-5`}>
+      className={`w-full max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] dark:bg-[#0D1B2A] overflow-hidden mt-0 ${
+        showOnlyKnown || showOnlySaved ? "" : "pt-8 sm:pt-0"
+      } sm:mt-5`}
+    >
       {/* Header with Search and Sort border border-1 border-[#B1B1B1]*/}
       <div className="p-4">
-        <div className={`${showUpTo500Rows ? 'hidden' : 'block'} flex justify-between items-center mb-4`}>
+        <div
+          className={`${
+            showUpTo500Rows ? "hidden" : "block"
+          } flex justify-between items-center mb-4`}
+        >
           <button
             onClick={() => changePage(currentPage - 1)}
             disabled={currentPage <= 1}
@@ -465,10 +483,18 @@ export const WordTable: React.FC<WordTableProps> = ({
             </svg>
           </button>
         </div>
-        <hr className={`${showUpTo500Rows ? 'hidden' : 'block'} h-px my-4 bg-gray-200 border-0 dark:bg-gray-700`} />
+        <hr
+          className={`${
+            showUpTo500Rows ? "hidden" : "block"
+          } h-px my-4 bg-gray-200 border-0 dark:bg-gray-700`}
+        />
 
         {/* Search Input */}
-        <div className={`${showUpTo500Rows ? 'hidden' : 'block sm:hidden'} relative flex items-center w-full mb-4`}>
+        <div
+          className={`${
+            showUpTo500Rows ? "hidden" : "block sm:hidden"
+          } relative flex items-center w-full mb-4`}
+        >
           <input
             type="text"
             placeholder="Search words..."
@@ -511,7 +537,6 @@ export const WordTable: React.FC<WordTableProps> = ({
           } flex justify-center mb-5`}
         >
           <div className="flex lg:flex-wrap justify-center gap-2 lg:gap-10 items-start w-full">
-
             {/* CEFR Level Buttons */}
             <div className="flex flex-col items-start">
               <span className="mb-2 text-sm text-gray-600 dark:text-gray-300 font-medium">
@@ -538,8 +563,9 @@ export const WordTable: React.FC<WordTableProps> = ({
               </div>
               <div
                 className={`flex flex-col items-start mt-5 w-full ${
-                  showOnlySaved || showOnlyKnown ? "hidden" : ""}
-                  ${showUpTo500Rows ? 'hidden' : 'block'}`}
+                  showOnlySaved || showOnlyKnown ? "hidden" : ""
+                }
+                  ${showUpTo500Rows ? "hidden" : "block"}`}
               >
                 <span className="mb-2 text-sm text-gray-600 dark:text-gray-300 font-medium">
                   Part of Speech
@@ -614,12 +640,13 @@ export const WordTable: React.FC<WordTableProps> = ({
             Reset filters
           </span>
         </div>
-        <div className={`${showUpTo500Rows ? 'block' : 'hidden'}`}>
+        <div className={`${showUpTo500Rows ? "block" : "hidden"}`}>
           <hr className={`h-px my-4 bg-gray-200 border-0 dark:bg-gray-500`} />
-          <button onClick={() => router.push("/browse")} className="cursor-pointer text-center text-xs text-black dark:text-white hover:underline font-semibold bg-gray-100 dark:bg-gray-800 rounded-md px-2 py-3">
-            <span className="block">
-              Click here to see the full library
-            </span>
+          <button
+            onClick={() => router.push("/browse")}
+            className="cursor-pointer text-center text-xs text-black dark:text-white hover:underline font-semibold bg-gray-100 dark:bg-gray-800 rounded-md px-2 py-3"
+          >
+            <span className="block">Click here to see the full library</span>
             <span className="block font-bold font-mono text-lg text-blue-500">
               ({kESTIMATE_TOTAL_WORD_COUNT}+ words)
             </span>
@@ -674,7 +701,9 @@ export const WordTable: React.FC<WordTableProps> = ({
       {/* Table Rows */}
       {displayedWords.length === 0 && words.length === 0 ? (
         <div className="flex justify-center items-center h-64">
-          <div className={`animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent`} />
+          <div
+            className={`animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent`}
+          />
         </div>
       ) : (
         <Virtuoso
@@ -692,7 +721,11 @@ export const WordTable: React.FC<WordTableProps> = ({
                 }}
                 className={`border-1 font-arial dark:bg-[#1B263B]  ${
                   expandedRows.includes(word.id)
-                    ? `${showOnlyKnown ? 'border-green-300' : 'border-blue-300'} ${showOnlySaved ? 'border-orange-300' : 'border-blue-300'} lg:max-h-[44px] sm:max-h-[44px] md:max-h-[44px]`
+                    ? `${
+                        showOnlyKnown ? "border-green-300" : "border-blue-300"
+                      } ${
+                        showOnlySaved ? "border-orange-300" : "border-blue-300"
+                      } lg:max-h-[44px] sm:max-h-[44px] md:max-h-[44px]`
                     : "hover:bg-gray-50 dark:hover:bg-gray-900 border-[#F2F2F2] dark:border-gray-600 h-[44px] max-h-[44px]"
                 }`}
               >
