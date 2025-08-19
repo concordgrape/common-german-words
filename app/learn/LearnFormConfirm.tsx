@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
-import { SubmittedWord, useWordForm } from "../context/WordFormContext";
+import { useWordForm } from "../context/WordFormContext";
 import { fetchWordStatusData } from "../helpers/userWordLibrary";
 import { shuffle } from "../helpers/utils";
 import { FaUndo } from "react-icons/fa";
