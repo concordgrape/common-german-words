@@ -12,13 +12,22 @@ import { FaChevronLeft, FaChevronRight, FaRedo } from "react-icons/fa";
 import QuizFlashcard from "./components/Quiz/Quiz";
 import { useRouter } from "next/navigation";
 import { FaLightbulb } from "react-icons/fa6";
+import WordStatusButtons from "@/app/components/WordStatusButtons/WordStatusButtons";
+import { useToggleWordStatus } from "@/app/helpers/userWordLibrary";
+import { useUser } from "@/app/context/UserContext";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/lib/firebaseClient";
 
 const LearnCardsPage: React.FC = () => {
   const { submittedWords } = useWordForm();
   const router = useRouter();
+  const { user } = useUser();
+  const { toggleSavedStatus, toggleKnownStatus } = useToggleWordStatus();
   const [idx, setIdx] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [isKnown, setIsKnown] = useState(false);
 
   const total = submittedWords.length;
   const current = submittedWords[Math.min(idx, total - 1)]; // fallback
@@ -38,7 +47,9 @@ const LearnCardsPage: React.FC = () => {
   }, [total]);
 
   const handleExit = () => {
-    const confirmed = window.confirm("Are you sure? Your progress will be lost");
+    const confirmed = window.confirm(
+      "Are you sure? Your progress will be lost"
+    );
     if (confirmed) {
       router.push("/learn");
     }
@@ -57,6 +68,31 @@ const LearnCardsPage: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      if (!user?.uid || !isWord(current)) {
+        setIsSaved(false);
+        setIsKnown(false);
+        return;
+      }
+
+      const [savedSnap, knownSnap] = await Promise.all([
+        getDoc(doc(db, `users/${user.uid}/de/cards/saved/${current.word}`)),
+        getDoc(doc(db, `users/${user.uid}/de/cards/known/${current.word}`)),
+      ]);
+
+      if (!cancelled) {
+        setIsSaved(savedSnap.exists());
+        setIsKnown(knownSnap.exists());
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [user?.uid, current]);
 
   if (!total) {
     return (
@@ -93,22 +129,22 @@ const LearnCardsPage: React.FC = () => {
               {Math.min(idx + 1, total)} / {total}
             </span>
 
-            {isWord(current) ?
+            {isWord(current) ? (
               <></>
-              :
+            ) : (
               <FaLightbulb
                 size={18}
                 onClick={() => setShowHint(true)}
                 className="absolute right-0 text-orange-400 cursor-pointer hover:scale-110 transition-transform"
                 title="Hint"
               />
-            }
+            )}
           </div>
           {idx < total && (
             <div className="mt-10">
-              {isWord(current) ?
+              {isWord(current) ? (
                 <Flashcard key={current.word} word={current} />
-                :
+              ) : (
                 <QuizFlashcard
                   key={idx}
                   question={current.sentence}
@@ -119,11 +155,12 @@ const LearnCardsPage: React.FC = () => {
                   onHintUsed={() => setShowHint(false)}
                   onNext={next}
                 />
-              }
+              )}
             </div>
           )}
 
           <div className="flex items-center justify-between mt-15">
+            {/* Prev */}
             <button
               onClick={prev}
               disabled={idx === 0}
@@ -133,6 +170,35 @@ const LearnCardsPage: React.FC = () => {
               <FaChevronLeft size={22} />
             </button>
 
+            {isWord(current) && (
+              <WordStatusButtons
+                large
+                isPlusEnabled={isSaved}
+                isCheckEnabled={isKnown}
+                onPlusClick={async (e) => {
+                  e.stopPropagation();
+                  const prev = isSaved;
+                  setIsSaved(!prev);
+                  try {
+                    await toggleSavedStatus(current.word);
+                  } catch {
+                    setIsSaved(prev);
+                  }
+                }}
+                onCheckClick={async (e) => {
+                  e.stopPropagation();
+                  const prev = isKnown;
+                  setIsKnown(!prev);
+                  try {
+                    await toggleKnownStatus(current.word);
+                  } catch {
+                    setIsKnown(prev);
+                  }
+                }}
+              />
+            )}
+
+            {/* Next */}
             <button
               onClick={next}
               aria-label="Next card"
@@ -168,7 +234,12 @@ const LearnCardsPage: React.FC = () => {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </div>
@@ -190,7 +261,8 @@ const LearnCardsPage: React.FC = () => {
                   setIdx(0);
                 }}
               >
-                <FaRedo className="mr-1 mt-[1px]" /><span className="font-bold">Redo</span>
+                <FaRedo className="mr-1 mt-[1px]" />
+                <span className="font-bold">Redo</span>
               </button>
             </div>
           </motion.div>

@@ -12,6 +12,7 @@ import {
 import { useToast } from "../hooks/useToast";
 import { formatFillInTheBlankQuestions } from "../helpers/userWordLibrary";
 import { kDEFAULT_WORD_COUNT, kLANG_NAME } from "../lib/constants";
+import { shuffle } from "../helpers/utils";
 
 export type Mode = "flashcards" | "quiz" | "fill";
 
@@ -85,9 +86,9 @@ const LearnWordPage: React.FC = () => {
 
       if (mode === "quiz") {
         const quizWords = formatFillInTheBlankQuestions(words);
-        setSubmittedWords(quizWords);
+        setSubmittedWords(shuffle(quizWords));
       } else {
-        setSubmittedWords(words);
+        setSubmittedWords(shuffle(words));
       }
 
       // ensure at least 500ms loading

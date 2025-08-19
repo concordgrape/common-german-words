@@ -58,13 +58,11 @@ export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
     // Filter savedWordsObject to only those not already submitted
     const available = savedWordsObject.filter(
       (word) =>
-        !submittedWords.some(
-          (sw) => isWord(sw) && sw.word === word.word
-        )
+        !submittedWords.some((sw) => isWord(sw) && sw.word === word.word)
     );
-    const words = available.map(obj => obj.word);
+    const words = available.map((obj) => obj.word);
 
-    console.log("available: ", words)
+    console.log("available: ", words);
 
     if (words.length === 0) {
       toast({
@@ -78,53 +76,63 @@ export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
     setSavedWords(words);
   };
 
-const handleAdd = (amount: number) => {
-  if (!user) {
-    toast({ title: "Not signed in", subtitle: "You must sign in to save words", variant: "error" });
-    return;
-  }
-
-  if (savedWordsObject.length === 0) {
-    toast({ title: "No More Saved Words", subtitle: "You already added all available saved words", variant: "error" });
-    return;
-  }
-
-  // Exclude saved words already submitted
-  const available = savedWordsObject.filter(
-    (word) => !submittedWords.some((sw) => isWord(sw) && sw.word === word.word)
-  );
-
-  if (available.length === 0) {
-    toast({ title: "No More Saved Words", subtitle: "You already added all available saved words", variant: "error" });
-    return;
-  }
-
-  const words = available.map((obj) => obj.word);
-  const shuffledWords = shuffle(words, amount ?? available.length);
-
-  // Build a NEW array without duplicates (no functional updater)
-  const existing = new Set(savedWords);
-  const merged: string[] = [...savedWords];
-
-  for (const w of shuffledWords) {
-    if (!existing.has(w)) {
-      merged.push(w);
-      existing.add(w);
+  const handleAdd = (amount: number) => {
+    if (!user) {
+      toast({
+        title: "Not signed in",
+        subtitle: "You must sign in to save words",
+        variant: "error",
+      });
+      return;
     }
-  }
 
-  setSavedWords(merged); // OK: this is a string[]
-};
+    if (savedWordsObject.length === 0) {
+      toast({
+        title: "No More Saved Words",
+        subtitle: "You already added all available saved words",
+        variant: "error",
+      });
+      return;
+    }
 
+    // Exclude saved words already submitted
+    const available = savedWordsObject.filter(
+      (word) =>
+        !submittedWords.some((sw) => isWord(sw) && sw.word === word.word)
+    );
 
+    if (available.length === 0) {
+      toast({
+        title: "No More Saved Words",
+        subtitle: "You already added all available saved words",
+        variant: "error",
+      });
+      return;
+    }
 
-const handleUndo = () => {
+    const words = available.map((obj) => obj.word);
+    const shuffledWords = shuffle(words, amount ?? available.length);
+
+    // Build a NEW array without duplicates (no functional updater)
+    const existing = new Set(savedWords);
+    const merged: string[] = [...savedWords];
+
+    for (const w of shuffledWords) {
+      if (!existing.has(w)) {
+        merged.push(w);
+        existing.add(w);
+      }
+    }
+
+    setSavedWords(merged); // OK: this is a string[]
+  };
+
+  const handleUndo = () => {
     if (savedWords.length === 0) return;
 
     setSavedWords([]);
     setLastAdded([]);
   };
-
 
   return (
     <div className="max-w-80 lg:max-w-full lg:w-full">
@@ -153,8 +161,8 @@ const handleUndo = () => {
             onClick={savedWords.length > 0 ? handleUndo : handleAddAll}
             className="text-sm w-50 text-center text-white font-mono mt-5 py-2 px-2 rounded-lg bg-blue-600 hover:bg-blue-700 shadow-sm"
           >
-            {(lastAdded.length === savedWordsObject.length) && savedWordsObject.length != 0 ? (
-              <span>Undo Add All Saved Words ({savedWordsObject.length})</span>
+            {savedWords.length > 0 ? (
+              <span>Undo Adding Saved Words ({savedWordsObject.length})</span>
             ) : (
               <span>Add All Saved Words ({savedWordsObject.length})</span>
             )}
