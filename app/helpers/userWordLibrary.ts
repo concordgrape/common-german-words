@@ -61,7 +61,7 @@ export function useToggleWordStatus() {
     const uid = ensureUser();
     if (!word) throw new Error('Missing word');
 
-    const ref = doc(db, `users/${uid}/de/cards/known/${word}`);
+    const ref = doc(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/known/${word}`);
     const existing = await getDoc(ref);
     const wordRef = doc(db, `languages/german/words/${word}`);
 
@@ -119,7 +119,7 @@ export async function fetchWordStatusMetaData(
     throw new Error('Invalid arguments');
   }
 
-  const cardsColRef = collection(db, `users/${uid}/de/cards/${type}`);
+  const cardsColRef = collection(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/${type}`);
   const q = query(cardsColRef, limit(max));
   const snap = await getDocs(q);
 
@@ -167,7 +167,7 @@ export async function fetchWordStatusData(
     throw new Error('Invalid arguments');
   }
 
-  const cardsColRef = collection(db, `users/${uid}/de/cards/${type}`);
+  const cardsColRef = collection(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/${type}`);
   const q = query(cardsColRef, limit(max));
   const snap = await getDocs(q);
 
@@ -276,7 +276,7 @@ export async function fetchKnownWordMetadata(
     throw new Error('Invalid UID');
   }
 
-  const cardsColRef = collection(db, `users/${uid}/de/cards/known`);
+  const cardsColRef = collection(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/known`);
   const snap = await getDocs(cardsColRef);
 
   const metadata: SavedWordMetadata[] = [];
