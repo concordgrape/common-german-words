@@ -11,7 +11,7 @@ import {
 } from "../helpers/fetchBasicWordList";
 import { useToast } from "../hooks/useToast";
 import { formatFillInTheBlankQuestions } from "../helpers/userWordLibrary";
-import { kDEFAULT_WORD_COUNT, kLANG_NAME, kLANG_NAME_CAPITAL } from "../lib/constants";
+import { kDEFAULT_WORD_COUNT, kLANG_NAME } from "../lib/constants";
 
 export type Mode = "flashcards" | "quiz" | "fill";
 

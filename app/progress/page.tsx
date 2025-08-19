@@ -24,7 +24,7 @@ import Lottie from "lottie-react";
 import fireAnimation from "../external/Lottie/fire.json";
 import { fetchBasicWords, Word } from "../helpers/fetchBasicWordList";
 import Link from "next/link";
-import { kLANG_NAME_CAPITAL } from "../lib/constants";
+import { kLANG_NAME } from "../lib/constants";
 
 interface WordWithTimestamp {
   word: string;
