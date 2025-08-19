@@ -15,7 +15,6 @@ export default function FinishSignIn() {
       try {
         const email = window.localStorage.getItem('emailForSignIn');
         if (!email || !isSignInWithEmailLink(auth, window.location.href)) {
-          alert("Invalid sign-in link, redirecting...");
           router.push('/signin');
           throw new Error('Invalid sign-in link.');
         }
