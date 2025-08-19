@@ -35,7 +35,7 @@ export default function FinishSignIn() {
 
   return (
     <div className="min-h-screen w-full pt-15 pt-50 text-center items-center justify-center">
-      <p className="text-gray-500"><span className='text-xl font-bold'>Sign in Complete</span><br/>You will be redirected, <span className='font-semibold'>click the button below if you haven't been redirected in 3 seconds</span></p>
+      <p className="text-gray-500"><span className='text-xl font-bold'>Sign in Complete</span><br/>You will be redirected, <span className='font-semibold'>click the button below if you haven&apos;t been redirected in 3 seconds</span></p>
       <Link href="/browse">
         <button disabled={status == 'checking' || status == 'error'} className="bg-blue-500 text-white font-bold font-mono p-4 rounded-2xl mt-5 cursor-pointer hover:shadow-lg">
           &gt; Go Home &lt;
