@@ -354,46 +354,64 @@ export const WordTable: React.FC<WordTableProps> = ({
     setSearchTerm(value);
   };
 
-  const handlePlusClick = async (word: string) => {
-    // desired state from current UI
-    const willEnable = !savedWordIds.has(word);
+// --- handlePlusClick ---
+const handlePlusClick = async (word: string) => {
+  const willEnable = !savedWordIds.has(word);
 
-    // optimistic flip (instant)
+  setSavedWordIds((prev) => {
+    const s = new Set(prev);
+    if (willEnable) {
+      s.add(word);
+    } else {
+      s.delete(word);
+    }
+    return s;
+  });
+
+  setSaved(word, willEnable).catch((err) => {
     setSavedWordIds((prev) => {
       const s = new Set(prev);
-      willEnable ? s.add(word) : s.delete(word);
+      // revert
+      if (willEnable) {
+        s.delete(word);
+      } else {
+        s.add(word);
+      }
       return s;
     });
+    console.error("❌ Error setting saved:", err);
+  });
+};
 
-    // write without blocking the UI
-    setSaved(word, willEnable).catch((err) => {
-      setSavedWordIds((prev) => {
-        const s = new Set(prev);
-        willEnable ? s.delete(word) : s.add(word);
-        return s;
-      });
-      console.error("❌ Error setting saved:", err);
-    });
-  };
-
+  // --- handleCheckClick ---
   const handleCheckClick = async (word: string) => {
     const willEnable = !knownWordIds.has(word);
 
     setKnownWordIds((prev) => {
       const s = new Set(prev);
-      willEnable ? s.add(word) : s.delete(word);
+      if (willEnable) {
+        s.add(word);
+      } else {
+        s.delete(word);
+      }
       return s;
     });
 
     setKnown(word, willEnable).catch((err) => {
       setKnownWordIds((prev) => {
         const s = new Set(prev);
-        willEnable ? s.delete(word) : s.add(word);
+        // revert
+        if (willEnable) {
+          s.delete(word);
+        } else {
+          s.add(word);
+        }
         return s;
       });
       console.error("❌ Error setting known:", err);
     });
   };
+
 
   const CustomScroller = React.forwardRef<HTMLDivElement>((props, ref) => (
     <div ref={ref} {...props} />
