@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Word } from './fetchBasicWordList';
 import { shuffle } from './utils';
 import dayjs from "dayjs";
-import { kCOUNTRY_LANG_CODE } from '../lib/constants';
+import { kCOUNTRY_LANG_CODE, kLANG_NAME } from '../lib/constants';
 
 type WordStatusType = 'saved' | 'known';
 
@@ -45,7 +45,7 @@ export function useToggleWordStatus() {
 
     const ref = doc(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/saved/${word}`);
     const existing = await getDoc(ref);
-    const wordRef = doc(db, `languages/german/words/${word}`);
+    const wordRef = doc(db, `languages/${kLANG_NAME}/words/${word}`);
 
     if (existing.exists()) {
       await deleteDoc(ref);
@@ -63,7 +63,7 @@ export function useToggleWordStatus() {
 
     const ref = doc(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/known/${word}`);
     const existing = await getDoc(ref);
-    const wordRef = doc(db, `languages/german/words/${word}`);
+    const wordRef = doc(db, `languages/${kLANG_NAME}/words/${word}`);
 
     if (existing.exists()) {
       await deleteDoc(ref);
@@ -82,7 +82,7 @@ export function useToggleWordStatus() {
 }
 
 /**
- * Fetch full word data from languages/german/words/{word}
+ * Fetch full word data from languages/${kLANG_NAME}/words/{word}
  * @param word - Word to fetch data for
  * @returns Word data or null if not found
  */
@@ -91,7 +91,7 @@ export async function fetchWordData(word: string) {
     throw new Error('Word is required');
   }
 
-  const wordRef = doc(db, `languages/german/words/${word}`);
+  const wordRef = doc(db, `languages/${kLANG_NAME}/words/${word}`);
   const wordSnap = await getDoc(wordRef);
 
   if (!wordSnap.exists()) {

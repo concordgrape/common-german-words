@@ -19,13 +19,13 @@ export const metadata: Metadata = {
     `${kLANG_NAME_CAPITAL} quizzes`,
   ],
   alternates: {
-    canonical: "https://www.commongermanwords.com/browse",
+    canonical: `${kCOMMONWORDS_URL_WWW}/browse`,
   },
   openGraph: {
     title: `Browse the Most Common ${kLANG_NAME_CAPITAL} Words – ${kDEFAULT_WORD_COUNT}+ Word Library`,
     description:
       `Discover the full library of common ${kLANG_NAME_CAPITAL} words with filters, saved/known tracking, and study tools like flashcards and quizzes.`,
-    url: "https://www.commongermanwords.com/browse",
+    url: `${kCOMMONWORDS_URL_WWW}/browse`,
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: `Common ${kLANG_NAME_CAPITAL} Words Library` }],
     locale: "en_US",

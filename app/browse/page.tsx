@@ -8,7 +8,7 @@ import { WordInfo } from '@/app/components/WordInfo';
 import { fetchBasicWords, Word } from '../helpers/fetchBasicWordList';
 import { useToast } from '../hooks/useToast';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
-import { kLANG_NAME } from '../lib/constants';
+import { kLANG_NAME } from '@/app/lib/constants';
 
 const MainWordPage: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);

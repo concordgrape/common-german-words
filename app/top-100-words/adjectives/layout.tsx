@@ -1,4 +1,4 @@
-import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
+import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: `Top 100 ${kLANG_NAME_CAPITAL} Adjectives – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
       `Boost your ${kLANG_NAME_CAPITAL} skills by learning the 100 most frequently used adjectives. Includes definitions, examples, pronunciation, and interactive study tools`,
-    url: "https://commongermanwords.com/top-100-words/adjectives",
+    url: `${kCOMMONWORDS_URL_WWW}/top-100-words/adjectives`,
     type: "website",
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
   },

@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
+import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 
 export const metadata: Metadata = {
   title: `Terms & Conditions | Common ${kLANG_NAME_CAPITAL} Words`,
@@ -207,7 +207,7 @@ function Policy() {
       <hr className="my-8 border-gray-300 dark:border-gray-600" />
 
       <p className="text-sm">
-        Website: <strong>https://commongermanwords.com</strong> &nbsp;|&nbsp;
+        Website: <strong>{kCOMMONWORDS_URL_WWW}</strong> &nbsp;|&nbsp;
         App: <strong>Verbuu – Common Words</strong>
       </p>
     </main>

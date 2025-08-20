@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: `Top 500 ${kLANG_NAME_CAPITAL} Words – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
       `Boost your ${kLANG_NAME_CAPITAL} skills by learning the 100 most frequently used words. Includes definitions, examples, pronunciation, and interactive study tools`,
-    url: "https://commongermanwords.com/top-100-words/words",
+    url: `${kCOMMONWORDS_URL_WWW}/top-100-words/words`,
     type: "website",
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
   },

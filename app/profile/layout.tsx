@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     `Manage your saved and known words, study preferences, theme, and account settings`,
   alternates: {
-    canonical: "https://www.commongermanwords.com/profile",
+    canonical: `${kCOMMONWORDS_URL_WWW}/profile`,
   },
   robots: {
     index: false,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: `Profile – Common $ Words`,
     description:
       "View and manage your saved words, study settings, and account preferences",
-    url: "https://www.commongermanwords.com/profile",
+    url: `${kCOMMONWORDS_URL_WWW}/profile`,
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: `Common ${kLANG_NAME_CAPITAL} Words` }],
     type: "website",

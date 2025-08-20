@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     `Track your ${kLANG_NAME_CAPITAL} learning progress: words learned, words remaining, streaks, and study activity`,
   alternates: {
-    canonical: "https://www.commongermanwords.com/progress",
+    canonical: `${kCOMMONWORDS_URL_WWW}/progress`,
   },
   robots: {
     index: false,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: `Progress – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
       "Monitor words learned, remaining goals, study streaks, and CEFR-level coverage",
-    url: "https://www.commongermanwords.com/progress",
+    url: `${kCOMMONWORDS_URL_WWW}/progress`,
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
     images: [
       { url: "/og-image.jpg", width: 1200, height: 630, alt: `Common ${kLANG_NAME_CAPITAL} Words Progress` },

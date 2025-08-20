@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     `random ${kLANG_NAME_CAPITAL} words`,
   ],
   alternates: {
-    canonical: "https://www.commongermanwords.com/learn",
+    canonical: `${kCOMMONWORDS_URL_WWW}/learn`,
   },
   openGraph: {
     title: `Learn & Practice Common ${kLANG_NAME_CAPITAL} Words – Flashcards & Quizzes`,
     description:
       `Configure ${kLANG_NAME_CAPITAL} flashcards and quizzes, practice saved words, or pull random words from a ${kDEFAULT_WORD_COUNT}+ library. Fast, focused vocabulary learning`,
-    url: "https://www.commongermanwords.com/learn",
+    url: `${kCOMMONWORDS_URL_WWW}/learn`,
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
     images: [
       {

@@ -17,7 +17,7 @@ import { FirebaseError } from "firebase/app";
 import { FaTrash } from "react-icons/fa6";
 import { ImExit } from "react-icons/im";
 import { deleteFirestoreDoc, fetchKnownWordMetadata, fetchSavedWordMetadata } from "../helpers/userWordLibrary";
-import { kCOUNTRY_LANG_CODE } from "../lib/constants";
+import { kCOUNTRY_LANG_CODE, kLANG_NAME_CAPITAL } from "../lib/constants";
 
 const ProfileContentPage: React.FC = () => {
     const { user, theme, setTheme, loading } = useUser();
@@ -137,7 +137,7 @@ const ProfileContentPage: React.FC = () => {
               Profile
             </h1>
             <h4 className="text-left text-sm text-black dark:text-white mb-4">
-              Settings for your <i>Common German Words</i> account
+              Settings for your <i>Common {kLANG_NAME_CAPITAL} Words</i> account
             </h4>
           </div>
           <div className="ml-auto">

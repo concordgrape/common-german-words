@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { kLANG_NAME_CAPITAL } from "../lib/constants";
+import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "../lib/constants";
 
 export const metadata: Metadata = {
   title: `Top 100 ${kLANG_NAME_CAPITAL} Words – Common ${kLANG_NAME_CAPITAL} Words`,
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: `Top 100 ${kLANG_NAME_CAPITAL} Words – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
       `Learn 100 essential ${kLANG_NAME_CAPITAL} words with conjugation examples, pronunciation, and interactive practice to boost fluency`,
-    url: "https://commongermanwords.com/top-100-words",
+    url: `${kCOMMONWORDS_URL_WWW}/top-100-words`,
     type: "website",
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
   },

@@ -9,10 +9,10 @@ import { useUser } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import globeImage from "../../public/010-planet.svg"
-import { kESTIMATE_TOTAL_WORD_COUNT, kLANG_NAME_CAPITAL } from '../lib/constants';
+import { kCOMMONWORDS_URL_WWW, kESTIMATE_TOTAL_WORD_COUNT, kLANG_NAME_CAPITAL } from '../lib/constants';
 
 const actionCodeSettings = {
-  url: 'https://commongermanwords.com/sign-in-complete',
+  url: `${kCOMMONWORDS_URL_WWW}/sign-in-complete`,
   handleCodeInApp: true,
 };
 

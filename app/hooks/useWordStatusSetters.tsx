@@ -2,6 +2,7 @@ import { doc, setDoc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import { db } from '@/lib/firebaseClient';
 import { useUser } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
+import { kCOUNTRY_LANG_CODE, kLANG_NAME } from "../lib/constants";
 
 export function useWordStatusSetters() {
   const { user } = useUser();
@@ -17,11 +18,11 @@ export function useWordStatusSetters() {
 
   const setSaved = async (word: string, enabled: boolean) => {
     const uid = ensureUser();
-    const ref = doc(db, `users/${uid}/de/cards/saved/${word}`);
+    const ref = doc(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/saved/${word}`);
     if (enabled) {
       await setDoc(ref, {
         timestamp: serverTimestamp(),
-        wordRef: doc(db, `languages/german/words/${word}`),
+        wordRef: doc(db, `languages/${kLANG_NAME}/words/${word}`),
       }, { merge: true });
     } else {
       await deleteDoc(ref);
@@ -30,11 +31,11 @@ export function useWordStatusSetters() {
 
   const setKnown = async (word: string, enabled: boolean) => {
     const uid = ensureUser();
-    const ref = doc(db, `users/${uid}/de/cards/known/${word}`);
+    const ref = doc(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/known/${word}`);
     if (enabled) {
       await setDoc(ref, {
         timestamp: serverTimestamp(),
-        wordRef: doc(db, `languages/german/words/${word}`),
+        wordRef: doc(db, `languages/${kLANG_NAME}/words/${word}`),
       }, { merge: true });
     } else {
       await deleteDoc(ref);

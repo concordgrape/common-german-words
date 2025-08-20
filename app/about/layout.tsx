@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(kCOMMONWORDS_URL_WWW),
   title: `About Us – Common ${kLANG_NAME_CAPITAL} Words`,
   description:
-    `Learn more about Common ${kLANG_NAME_CAPITAL} Words, our mission to make learning ${kLANG_NAME_CAPITAL} vocabulary simple and effective, and how we help learners master the most frequently used German words.`,
+    `Learn more about Common ${kLANG_NAME_CAPITAL} Words, our mission to make learning ${kLANG_NAME_CAPITAL} vocabulary simple and effective, and how we help learners master the most frequently used ${kLANG_NAME_CAPITAL} words.`,
   keywords: [
     `about Common ${kLANG_NAME_CAPITAL} Words`,
     `learn ${kLANG_NAME_CAPITAL} vocabulary`,
@@ -15,13 +15,13 @@ export const metadata: Metadata = {
     `language learning tools`,
   ],
   alternates: {
-    canonical: "https://www.commongermanwords.com/about",
+    canonical: `${kCOMMONWORDS_URL_WWW}/about`,
   },
   openGraph: {
     title: `About Us – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
       `Discover our mission to make learning ${kLANG_NAME_CAPITAL} faster and easier through word frequency lists, flashcards, quizzes, and CEFR-based study tools.`,
-    url: "https://www.commongermanwords.com/about",
+    url: `${kCOMMONWORDS_URL_WWW}/about`,
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
     images: [
       {
