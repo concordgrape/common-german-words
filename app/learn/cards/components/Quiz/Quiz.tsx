@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { FaDeleteLeft } from "react-icons/fa6";
 import Lottie from "lottie-react";
 import confettiAnimation from "../../../../external/Lottie/confetti2.json";
+import { kLANGUAGE_ALPHABET } from "@/app/lib/constants";
 
 type FillInTheBlankProps = {
   question: string;
@@ -36,39 +37,6 @@ export default function FillInTheBlankQuiz({
   );
   const [displayLetters, setDisplayLetters] = useState<string[]>([]);
   const [showConfetti, setShowConfetti] = useState(false);
-
-  const germanAlphabet = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-    "ä",
-    "ö",
-    "ü",
-    "ß",
-  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -115,7 +83,7 @@ export default function FillInTheBlankQuiz({
     const answerLetters = [...new Set(answer.toUpperCase())];
 
     // Remove any duplicates from the extra letters too
-    const availableExtras = germanAlphabet.filter(
+    const availableExtras = kLANGUAGE_ALPHABET.filter(
       (letter) => !answerLetters.includes(letter.toUpperCase())
     );
 
