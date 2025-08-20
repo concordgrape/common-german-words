@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { kLANG_NAME_CAPITAL } from "../lib/constants";
+import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "../lib/constants";
 
 export const metadata: Metadata = {
   title: `Top 500 ${kLANG_NAME_CAPITAL} Words – Common ${kLANG_NAME_CAPITAL} Words`,
