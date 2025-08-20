@@ -5,6 +5,7 @@ export const kDEFAULT_WORD_COUNT = 5;
 export const kESTIMATE_TOTAL_WORD_COUNT = 6000;
 
 export const kCOUNTRY_LANG_CODE = 'de';
+export const kSPEAK_LANG_CODE = 'de-DE';
 export const kLANG_NAME = 'german';
 export const kLANG_NAME_CAPITAL = 'German';
 export const kCOUNTRY_NAME = 'Germany';
@@ -47,6 +48,7 @@ export const kARTICLE_WORDS = [
 export const kESTIMATE_TOTAL_WORD_COUNT = 6000;
 
 export const kCOUNTRY_LANG_CODE = 'es';
+export const kSPEAK_LANG_CODE = 'es-ES';
 export const kLANG_NAME = 'spanish';
 export const kLANG_NAME_CAPITAL = 'Spanish';
 export const kCOUNTRY_NAME = 'Spain';
