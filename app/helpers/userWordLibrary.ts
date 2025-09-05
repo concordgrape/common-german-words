@@ -215,11 +215,6 @@ export function formatFillInTheBlankQuestions(words: Word[]): FillInTheBlankQues
         break;
       }
     }
-      sentence: chosen,
-      answer: word.word,
-      hint: word.translation,
-      sentence_translated: chosen_translated ? chosen_translated : ""
-    })
 
     if (!chosen) continue; // skip if no valid example
 
