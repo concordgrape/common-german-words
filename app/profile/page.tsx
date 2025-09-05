@@ -124,6 +124,7 @@ const ProfileContentPage: React.FC = () => {
         window.location.reload();
       })
       .catch((error: Error) => {
+        console.error("Unhandler error: ", error);
       });
   };
 
