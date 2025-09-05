@@ -60,8 +60,6 @@ export async function GET(req: NextRequest) {
       };
     }).sort((a, b) => b.frequency - a.frequency);
 
-    console.log("snapshot: ", snapshot.docs)
-        console.log("words: ", words)
 
 
     // ✅ Cache the result for 1 hour

@@ -337,7 +337,6 @@ export const WordTable: React.FC<WordTableProps> = ({
   const handleSortChange = (optionId: SortOption["id"]) => {
     setActiveSort(optionId);
     // In a real application, you would trigger a data sort here
-    console.log(`Sorting by: ${optionId}`);
   };
 
   const handleSearchChange = (value: string) => {

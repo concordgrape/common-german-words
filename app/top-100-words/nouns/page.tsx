@@ -33,7 +33,7 @@ const TopNouns: React.FC = () => {
   useEffect(() => {
     if (words.length === 0) return;
 
-    console.log("words loaded: ", words);
+    
 
     const wordParam = searchParams.get("word");
     if (wordParam) {

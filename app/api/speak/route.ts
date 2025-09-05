@@ -36,10 +36,6 @@ export async function POST(req: NextRequest) {
   try {
     const { text, langCode } = await req.json();
     const cacheKey = `tts:de:${text.trim().toLowerCase()}`;
-    console.log('GOOGLE_CREDENTIALS_BASE64:', !!process.env.GOOGLE_CREDENTIALS_BASE64);
-    console.log('Got text:', text);
-    console.log('Generated TTS client');
-    console.log('Made TTS request');
 
     if ('GrJms55a2GSkEkQJ1SkS' !== process.env.NEXT_PUBLIC_API_PASSWORD) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

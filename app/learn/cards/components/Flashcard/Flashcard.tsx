@@ -17,7 +17,6 @@ export default function Flashcard({ word, className }: FlashcardProps) {
 
   // Space bar support
   useEffect(() => {
-    console.log(word);
     const onKey = (e: KeyboardEvent) => {
       if (e.code === "Space") {
         e.preventDefault();

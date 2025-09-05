@@ -17,14 +17,12 @@ function GoogleSignInButton() {
 
       if (accessToken) {
         localStorage.setItem("googleAccessToken", accessToken); // Store for later API calls
-                console.log("attemping to redirect")
         router.push("/browse");
       } else {
         console.error("No access token received.");
       }
 
       if (result.user) {
-        console.log("User signed in:", result.user);
       } else {
         console.error("No user information available after sign-in.");
       }

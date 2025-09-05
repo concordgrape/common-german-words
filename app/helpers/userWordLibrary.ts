@@ -139,7 +139,6 @@ export async function fetchWordStatusMetaData(
     wordEntries.map(entry => getDoc(entry.ref))
   );
 
-  console.log("wordSnaps: ", wordSnaps);
 
   const results: WordDataWithMeta[] = wordSnaps
     .map((snap, i) => {
@@ -175,7 +174,6 @@ export async function fetchWordStatusData(
 
   for (const docSnap of snap.docs) {
     const data = docSnap.data();
-    console.log("data: ", data)
     if (data.wordRef) {
       wordRefs.push(data.wordRef as DocumentReference<DocumentData>);
     }
@@ -201,7 +199,6 @@ export async function fetchWordStatusData(
 export function formatFillInTheBlankQuestions(words: Word[]): FillInTheBlankQuestion[] {
   const questions: FillInTheBlankQuestion[] = [];
 
-  console.log("formatFillInTheBlankQuestions words: ", words)
 
   for (const word of words) {
     if (!word.examples || word.examples.length === 0) continue;
@@ -218,7 +215,6 @@ export function formatFillInTheBlankQuestions(words: Word[]): FillInTheBlankQues
         break;
       }
     }
-  console.log("formatFillInTheBlankQuestions questions.push: ", {
       sentence: chosen,
       answer: word.word,
       hint: word.translation,
@@ -376,7 +372,6 @@ export async function deleteFirestoreDoc({
     const deletePromises = snapshot.docs.map((docSnap) => deleteDoc(docSnap.ref));
     await Promise.all(deletePromises);
 
-    console.log(`Deleted all documents from /${uid}/${languageCode}/cards/${docId}`);
     alert("All documents deleted.");
   } catch (error) {
     console.error("Error deleting documents:", error);

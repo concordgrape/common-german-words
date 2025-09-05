@@ -44,7 +44,6 @@ export async function GET(req: NextRequest) {
 
     const cached = await redis.get(cacheKey);
     if (cached) {
-      console.log(`Returning cached result for ${cacheKey}`);
       return NextResponse.json(JSON.parse(cached), { status: 200 });
     }
 
@@ -91,10 +90,6 @@ export async function GET(req: NextRequest) {
         }
       }
     }
-
-    console.log(
-      `Found ${docs.length} documents matching part_of_speech = ${partOfSpeech ?? "all"}`
-    );
 
     const words = docs
       .map((doc, index) => {

@@ -40,7 +40,6 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
         const json = await res.json();
         if (json.word) {
           setFullData(json.word);
-          console.log("fetching words");
         } else {
           setFullData(null);
         }

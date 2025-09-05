@@ -24,7 +24,6 @@ export async function fetchBasicWords(language: string): Promise<Word[]> {
     const data = await res.json();
 
     // Make sure we return exactly the `words` array
-    console.log("Fetched basic words:", data);
     return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching basic words:", error);
@@ -45,7 +44,6 @@ export async function fetchAllWords(language: string): Promise<Word[]> {
     const data = await res.json();
 
     // Make sure we return exactly the `words` array
-    console.log("Fetched all words:", data);
     return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching all words:", error);
@@ -77,7 +75,6 @@ export async function fetchTopWords(
     const data = await res.json();
 
     // Ensure we return exactly the `words` array
-    console.log("Fetched words:", data);
     return Array.isArray(data.words)
       ? data.words.sort((a: Word, b: Word) => b.frequency - a.frequency)
       : [];

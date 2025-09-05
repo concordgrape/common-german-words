@@ -41,7 +41,6 @@ const [theme, setTheme] = useState<"light" | "dark" | "system">(() => {
         try {
           const currentStreak = await updateStreak(uid);
           setStreak(Math.max(currentStreak, 1));
-          console.log("updating streak")
         } catch (err) {
           console.error("Failed to update streak:", err);
           setStreak(1); // fallback

@@ -38,10 +38,8 @@ const LearnWordPage: React.FC = () => {
 
   useEffect(() => {
     async function loadWords() {
-      console.log("Loading words...");
       try {
         const words = await fetchBasicWords(kLANG_NAME);
-        console.log("Fetched words:", words.length);
         setFilteredWords(words);
         setAllWords(words);
         setSavedWords([]);
@@ -113,11 +111,9 @@ const LearnWordPage: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("wordCount: ", wordCount);
   }, [wordCount]);
 
   useEffect(() => {
-    console.log("priority ", priority);
   }, [priority]);
 
   return (

@@ -27,7 +27,6 @@ export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
         const saved = await fetchWordStatusData(user.uid, "saved", 5000);
 
         setSavedWordsObjects(saved);
-        console.log("fetched saved words: ", saved);
       } catch (err) {
         console.error("❌ Error preloading word status:", err);
       }
@@ -36,7 +35,6 @@ export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
   }, [user?.uid]);
 
   useEffect(() => {
-    console.log("📝 LearnFormConfirm sees submittedWords:", submittedWords);
   }, [submittedWords]);
 
   const handleAddAll = () => {
@@ -56,7 +54,6 @@ export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
     );
     const words = available.map((obj) => obj.word);
 
-    console.log("available: ", words);
 
     if (words.length === 0) {
       toast({

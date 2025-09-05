@@ -124,7 +124,6 @@ const ProfileContentPage: React.FC = () => {
         window.location.reload();
       })
       .catch((error: Error) => {
-        console.log("Logout error:", error);
       });
   };
 

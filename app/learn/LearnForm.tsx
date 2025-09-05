@@ -223,7 +223,6 @@ function SessionCustomizer({
 
     const shuffledSample = shuffle(filtered).slice(0, wordCount);
 
-    console.log("shuffledSample: ", shuffledSample);
 
     //      toast({ title: 'You are offline', subtitle: 'Check your internet connection.', variant: 'error' });
 
