@@ -34,7 +34,7 @@ function getTextToSpeechClient(): TextToSpeechClient {
 
 export async function POST(req: NextRequest) {
   try {
-    const { text } = await req.json();
+    const { text, langCode } = await req.json();
     const cacheKey = `tts:de:${text.trim().toLowerCase()}`;
     console.log('GOOGLE_CREDENTIALS_BASE64:', !!process.env.GOOGLE_CREDENTIALS_BASE64);
     console.log('Got text:', text);
@@ -64,10 +64,10 @@ export async function POST(req: NextRequest) {
     const client = getTextToSpeechClient();
 
     const request: textToSpeech.protos.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest = {
-      input: { text },
+      input: { text: `${text}.` },
       voice: {
-        languageCode: 'de-DE',
-        name: 'de-DE-Chirp-HD-F',
+        languageCode: langCode,
+        name: langCode+'-Wavenet-F',
       },
       audioConfig: {
         audioEncoding: 'MP3',
