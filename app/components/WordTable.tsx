@@ -754,7 +754,7 @@ const handlePlusClick = async (word: string) => {
                   {/*<span className="mr-3 text-gray-400">{index}</span>*/}
 
                   {/* Word Term */}
-                  <div className="text-left text-black dark:text-white font-medium px-1 rounded-sm flex items-center gap-1">
+                  <div className="text-left text-black dark:text-white font-medium px-1 rounded-sm flex items-center">
                     {/* Hover trigger isolated to just the word */}
                     <span className="relative group inline-block">
                       <span className="hover:bg-gray-200 rounded-sm px-0.5 cursor-pointer">
@@ -769,17 +769,17 @@ const handlePlusClick = async (word: string) => {
                       <>
                         {word.gender.toLowerCase() === "masculine" && (
                           <span className="text-gray-700 dark:text-gray-400 text-sm italic">
-                            , der
+                            , masc.
                           </span>
                         )}
-                        {word.gender.toLowerCase() === "feminine" && (
+                        {(word.gender.toLowerCase() === "feminine" || word.gender.toLowerCase() === "femininen") && (
                           <span className="text-gray-700 dark:text-gray-400 text-sm italic">
-                            , die
+                            , fem.
                           </span>
                         )}
                         {word.gender.toLowerCase() === "neuter" && (
                           <span className="text-gray-700 dark:text-gray-400 text-sm italic">
-                            , das
+                            , neu.
                           </span>
                         )}
                       </>
