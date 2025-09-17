@@ -16,7 +16,15 @@ export function useIsMobile(breakpoint: number = 768): boolean {
 }
 
 export function truncateString(str: string, maxLength = 30) {
-  const textAfterColon = str.includes(':') ? str.split(':').pop()!.trim() : str;
+  // Replace semicolons with commas
+  const normalized = str.replace(/;/g, ',');
+
+  // Keep only the part after the last colon, if present
+  const textAfterColon = normalized.includes(':') 
+    ? normalized.split(':').pop()!.trim() 
+    : normalized;
+
+  // Apply truncation
   return textAfterColon.length > maxLength 
     ? textAfterColon.slice(0, maxLength - 3) + '...' 
     : textAfterColon;
