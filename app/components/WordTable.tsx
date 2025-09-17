@@ -5,7 +5,7 @@ import SortButton, { SortOption } from "./SortButtons/Sort";
 import { Virtuoso } from "react-virtuoso";
 import { Word } from "../helpers/fetchBasicWordList";
 import { useSearchParams, useRouter } from "next/navigation";
-import { truncateString, useIsMobile } from "../helpers/utils";
+import { truncateAtCommaOrSemicolon, truncateString, useIsMobile } from "../helpers/utils";
 import { FaQuestionCircle } from "react-icons/fa";
 import { FaArrowDownShortWide, FaX } from "react-icons/fa6";
 import { DropdownWordInfo } from "./DropdownWordInfo";
@@ -788,10 +788,15 @@ const handlePlusClick = async (word: string) => {
 
                   {/* Translation */}
                   <div className="flex-1 pl-10 text-center font-medium text-gray-500 dark:text-gray-400">
-                    <i>
+                    <i className={`hidden md:block`}>
                       {truncateString(
                         word.translation,
-                        isMobile ? (word.word.length > 8 ? 5 : 15) : 30
+                        isMobile ? (word.translation.length > 8 ? 5 : 15) : 25
+                      )}
+                    </i>
+                    <i className={`block md:hidden`}>
+                      {truncateAtCommaOrSemicolon(
+                        word.translation
                       )}
                     </i>
                   </div>

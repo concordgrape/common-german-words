@@ -32,3 +32,23 @@ export function shuffle<T>(arr: T[], count?: number): T[] {
 
   return typeof count === "number" ? a.slice(0, count) : a;
 }
+
+export function truncateAtCommaOrSemicolon(text: string, maxLength: number = 15): string {
+  const commaIndex = text.indexOf(",");
+  const semicolonIndex = text.indexOf(";");
+
+  // Get the first occurring punctuation (comma or semicolon)
+  const cutIndex = [commaIndex, semicolonIndex]
+    .filter(index => index !== -1)
+    .reduce((min, current) => (min === -1 || current < min ? current : min), -1);
+
+  if (cutIndex !== -1) {
+    return text.slice(0, cutIndex).trim();
+  }
+
+  if (text.length >= maxLength) {
+    return text.slice(0, maxLength) + "...";
+  }
+
+  return text;
+}
