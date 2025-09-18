@@ -59,7 +59,7 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
           setFullData(null);
         }
         lastFetchedWord.current = selectedWord.word;
-      } catch (error) {
+      } catch {
         setFullData(null);
       }
     };
