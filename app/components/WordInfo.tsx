@@ -84,7 +84,7 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
           className="space-y-4"
         >
           <div className="w-full">
-            <div className="w-full bg-[#027AFB] poppins rounded-sm shadow-lg px-6 py-4 flex flex-col max-h-[80vh] overflow-y-auto">
+            <div className="w-full bg-[#027AFB] poppins rounded-sm shadow-lg px-6 py-4 flex flex-col max-h-[65vh] overflow-y-auto">
               {fullData ? (
                 <div className="text-white space-y-4">
                   <div className="relative w-full">
