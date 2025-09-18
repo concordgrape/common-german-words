@@ -5,7 +5,7 @@ import SortButton, { SortOption } from "./SortButtons/Sort";
 import { Virtuoso } from "react-virtuoso";
 import { Word } from "../helpers/fetchBasicWordList";
 import { useSearchParams, useRouter } from "next/navigation";
-import { truncateAtCommaOrSemicolon, truncateString, useIsMobile } from "../helpers/utils";
+import { truncateString, useIsMobile } from "../helpers/utils";
 import { FaQuestionCircle } from "react-icons/fa";
 import { FaArrowDownShortWide, FaX } from "react-icons/fa6";
 import { DropdownWordInfo } from "./DropdownWordInfo";
@@ -731,7 +731,7 @@ const handlePlusClick = async (word: string) => {
                 ref={(el) => {
                   wordRefs.current[word.id] = el;
                 }}
-                className={`border-1 font-arial dark:bg-[#1B263B]  ${
+                className={`border-1 dark:bg-[#1B263B]  ${
                   expandedRows.includes(word.id)
                     ? `${
                         showOnlyKnown ? "border-green-300" : "border-blue-300"
@@ -742,7 +742,7 @@ const handlePlusClick = async (word: string) => {
                 }`}
               >
                 <div
-                  className={`flex items-center justify-between py-[5px] px-2 sm:p-3 md:p-3 lg:p-3 cursor-pointer transition-colors duration-200 ${
+                  className={`flex font-arial items-center justify-between py-[5px] px-2 sm:p-3 md:p-3 lg:p-3 cursor-pointer transition-colors duration-200 ${
                     expandedRows.includes(word.id) ? "" : ""
                   }`}
                   onClick={() => {
@@ -788,15 +788,10 @@ const handlePlusClick = async (word: string) => {
 
                   {/* Translation */}
                   <div className="flex-1 pl-10 text-center font-medium text-gray-500 dark:text-gray-400">
-                    <i className={`hidden md:block`}>
+                    <i>
                       {truncateString(
                         word.translation,
-                        isMobile ? (word.translation.length > 8 ? 5 : 15) : 25
-                      )}
-                    </i>
-                    <i className={`block md:hidden`}>
-                      {truncateAtCommaOrSemicolon(
-                        word.translation
+                        isMobile ? (word.word.length > 8 ? 5 : 15) : 30
                       )}
                     </i>
                   </div>
@@ -876,7 +871,7 @@ const handlePlusClick = async (word: string) => {
                 </div>
 
                 <div
-                  className={`transition-max-height overflow-hidden bg-[#027AFB] text-white visible sm:hidden md:hidden ${
+                  className={`poppins transition-max-height overflow-hidden bg-[#027AFB] text-white visible sm:hidden md:hidden ${
                     expandedRows.includes(word.id)
                       ? "opacity-100 p-4"
                       : "opacity-0 p-0"

@@ -76,8 +76,14 @@ export const kARTICLE_WORDS = [
   { word: "das Kind", translation: "the child" },
 ];
 
+export const kARTICLES_BY_GENDER = {
+  masculine: { singular: "der", plural: "die" },
+  feminine: { singular: "die", plural: "die" },
+  neuter: { singular: "das", plural: "die" },
+}
+
 /*
-export const kESTIMATE_TOTAL_WORD_COUNT = 6000;
+export const kESTIMATE_TOTAL_WORD_COUNT = 7000;
 
 export const kCOUNTRY_LANG_CODE = 'es';
 export const kSPEAK_LANG_CODE = 'es-ES';
@@ -151,4 +157,100 @@ export const kARTICLE_WORDS = [
   { word: "la mujer", translation: "the woman" },
   { word: "el niño", translation: "the boy / child" },
 ];
+
+export const kARTICLES_BY_GENDER = {
+      masculine: { singular: "el", plural: "los" },
+      feminine: { singular: "la", plural: "las" },
+    }
+*/
+
+/*
+export const kESTIMATE_TOTAL_WORD_COUNT = 7000;
+
+export const kCOUNTRY_LANG_CODE = 'fr';
+export const kSPEAK_LANG_CODE = 'fr-FR';
+export const kLANG_NAME = 'french';
+export const kLANG_NAME_CAPITAL = 'French';
+export const kCOUNTRY_NAME = 'France';
+export const kCOUNTRY_FLAG_IMG = '/fr.webp';
+export const kCOMMONWORDS_URL_WWW = "https://www.commonfrenchwords.com";
+export const kCOUNTRY_FLAG_EMOJI = '🇫🇷';
+export const kLANGUAGE_ALPHABET = [
+  "a",
+  "à",
+  "â",
+  "b",
+  "c",
+  "ç",
+  "d",
+  "e",
+  "é",
+  "è",
+  "ê",
+  "ë",
+  "f",
+  "g",
+  "h",
+  "i",
+  "î",
+  "ï",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "ô",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "ù",
+  "û",
+  "ü",
+  "v",
+  "w",
+  "x",
+  "y",
+  "ÿ",
+  "z",
+];
+
+export const kIMAGE_PATHS = [
+  '/france1.webp',
+  '/france2.webp',
+  '/france3.webp',
+  '/france4.webp',
+  '/france5.webp',
+  '/france6.webp',
+  '/france7.webp',
+];
+
+export const kEXAMPLE_WORDS = {
+  browse: ["bonjour", "merci", "salut"],
+  top100: ["de", "la", "et"],
+  top500: ["merci", "toujours", "notre"],
+  top500Nouns: ["dieu", "maison", "femme"],
+  top500Verbs: ["être", "avoir", "savoir"],
+  top500Adjectives: ["grand", "nouveau", "petit"],
+  top500Adverbs: ["souvent", "toujours", "près"],
+  top100Nouns: ["eau", "dîner", "bouche"],
+  top100Verbs: ["manger", "aimer", "chercher"],
+  top100Adjectives: ["grand", "vrai", "génial"],
+  top100Adverbs: ["bien", "maintenant", "tellement"],
+} as const;
+
+export const kARTICLE_WORDS = [
+  { word: "l’homme", translation: "the man" },
+  { word: "la femme", translation: "the woman" },
+  { word: "l’enfant", translation: "the child" },
+];
+
+export const kARTICLES_BY_GENDER = {
+  masculine: { singular: "le", plural: "les" },
+  feminine: { singular: "la", plural: "les" },
+  vowel: { singular: "l’", plural: "les" },
+}
 */
