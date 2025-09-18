@@ -10,7 +10,7 @@ export const kLANG_NAME = 'german';
 export const kLANG_NAME_CAPITAL = 'German';
 export const kCOUNTRY_NAME = 'Germany';
 export const kCOUNTRY_FLAG_IMG = '/de.webp';
-export const kCOMMONWORDS_URL_WWW = "https://www.commongermanwords.com";
+export const kCOMMONWORDS_URL_WWW = "https://commongermanwords.com";
 export const kCOUNTRY_FLAG_EMOJI = '🇩🇪';
 export const kLANGUAGE_ALPHABET =   [
     "a",
@@ -91,7 +91,7 @@ export const kLANG_NAME = 'spanish';
 export const kLANG_NAME_CAPITAL = 'Spanish';
 export const kCOUNTRY_NAME = 'Spain';
 export const kCOUNTRY_FLAG_IMG = '/es.webp';
-export const kCOMMONWORDS_URL_WWW = "https://www.commonspanishwords.com";
+export const kCOMMONWORDS_URL_WWW = "https://commonspanishwords.com";
 export const kCOUNTRY_FLAG_EMOJI = '🇪🇸';
 export const kLANGUAGE_ALPHABET = [
   "a",
@@ -173,7 +173,7 @@ export const kLANG_NAME = 'french';
 export const kLANG_NAME_CAPITAL = 'French';
 export const kCOUNTRY_NAME = 'France';
 export const kCOUNTRY_FLAG_IMG = '/fr.webp';
-export const kCOMMONWORDS_URL_WWW = "https://www.commonfrenchwords.com";
+export const kCOMMONWORDS_URL_WWW = "https://commonfrenchwords.com";
 export const kCOUNTRY_FLAG_EMOJI = '🇫🇷';
 export const kLANGUAGE_ALPHABET = [
   "a",
