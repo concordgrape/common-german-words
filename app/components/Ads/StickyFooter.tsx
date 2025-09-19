@@ -5,8 +5,6 @@ import { useEffect } from "react";
 export default function StickyFooterAd() {
   useEffect(() => {
     try {
-      // Push Adsense request
-      // @ts-ignore
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (e) {
       console.error("Adsense error", e);
