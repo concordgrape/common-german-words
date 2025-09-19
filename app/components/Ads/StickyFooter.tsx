@@ -18,7 +18,6 @@ export default function StickyFooterAd() {
 
   return (
     <div
-      id="cgw-stickyfooter"
       className="fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-sm shadow-lg z-50"
     >
       <div className="flex justify-center">
