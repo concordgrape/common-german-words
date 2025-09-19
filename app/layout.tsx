@@ -9,6 +9,7 @@ import { WordFormProvider } from "./context/WordFormContext";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "./lib/constants";
+import StickyFooterAd from "./components/Ads/StickyFooter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -157,6 +158,7 @@ export default function RootLayout({
             <Navbar />
             <ToastProvider>{children}</ToastProvider>
             <Footer />
+            <StickyFooterAd />
           </WordFormProvider>
         </UserProvider>
       </body>
