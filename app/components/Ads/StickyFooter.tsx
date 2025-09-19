@@ -19,7 +19,6 @@ export default function StickyFooterAd() {
             style={{ display: "block", margin: "0 auto", width: "100%", maxWidth: "970px", height: "90px" }}
             data-ad-client="ca-pub-7585653265358782"
             data-ad-slot="9960428411"
-            data-ad-format="rectangle"
             data-full-width-responsive="false"
             ></ins>
         </div>
