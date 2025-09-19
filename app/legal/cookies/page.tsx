@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import type { Metadata } from "next";
 import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 import { useDeleteAds } from "@/app/hooks/useDeleteAds";
