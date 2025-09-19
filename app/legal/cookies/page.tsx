@@ -12,9 +12,7 @@ export const metadata: Metadata = {
 const EFFECTIVE_DATE = "August 8, 2025";
 
 export default function CookiePolicyPage() {
-  useEffect(() => {
-    useDeleteAds();
-  })
+  useDeleteAds();
   return (
     <div className="pt-10 sm:pt-15 sm:pt-20 sm:p-4 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
       <div className="w-full px-6 py-6 mt-4 pb-6 bg-white sm:border-1 sm:border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
