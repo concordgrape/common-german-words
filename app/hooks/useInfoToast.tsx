@@ -35,7 +35,7 @@ export const InfoToast: React.FC<InfoToastProps> = ({ loading, title, subtitle }
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-[100px] right-4 z-50">
       <div
         className="flex items-center w-full max-w-xs p-4 text-gray-300 dark:text-gray-500 bg-gray-700 dark:bg-white rounded-lg shadow-sm"
         role="alert"

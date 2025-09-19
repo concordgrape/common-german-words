@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { kCOMMONWORDS_URL_WWW, kDEFAULT_WORD_COUNT, kLANG_NAME_CAPITAL } from "../lib/constants";
-import StickyFooterAd from "../components/Ads/StickyFooter";
 
 export const metadata: Metadata = {
   metadataBase: new URL(kCOMMONWORDS_URL_WWW),
@@ -64,6 +63,5 @@ export default function LearnLayout({
 }) {
   return <>
   {children}
-  <StickyFooterAd />
   </>;
 }

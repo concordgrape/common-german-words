@@ -13,6 +13,7 @@ import { formatFillInTheBlankQuestions } from "../helpers/userWordLibrary";
 import { kDEFAULT_WORD_COUNT, kLANG_NAME } from "../lib/constants";
 import { shuffle } from "../helpers/utils";
 import { useGoNavigation } from "../lib/navigation";
+import StickyFooterAd from "../components/Ads/StickyFooter";
 
 export type Mode = "flashcards" | "quiz" | "fill";
 
@@ -118,6 +119,7 @@ const LearnWordPage: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full sm:top-15 md:top-15 pt-15 sm:p-4 md:p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">
+      <StickyFooterAd />
       {/* WordTable (left column) */}
       <div className="z-10">
         <LearnForm
