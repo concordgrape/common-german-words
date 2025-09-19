@@ -12,7 +12,6 @@ export default function StickyFooterAd() {
       setShouldRender(true);
       setTimeout(() => {
         try {
-          // @ts-ignore
           (window.adsbygoogle = window.adsbygoogle || []).push({});
         } catch (e) {
           console.error("Adsense error", e);
