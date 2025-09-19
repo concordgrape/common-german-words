@@ -1,11 +1,22 @@
 "use client";
 
 import { useEffect } from "react";
-import { useDeleteAds } from "@/app/hooks/useDeleteAds";
 
 export default function StickyFooterAd() {
   useEffect(() => {
-    useDeleteAds();
+    const removeAds = () => {
+      const ads = document.querySelectorAll("ins.adsbygoogle");
+      ads.forEach((ad) => {
+        ad.remove();
+      });
+
+      // Also remove any wrapping container if needed
+      const iframes = document.querySelectorAll("iframe[id^='aswift_']");
+      iframes.forEach((iframe) => {
+        iframe.remove();
+      });
+    };
+    removeAds();
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (e) {
