@@ -1,10 +1,10 @@
 import { OAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebaseClient";
-import { useRouter } from "next/navigation";
+import { useGoNavigation } from "../lib/navigation";
 
 function SignInWithApple() {
     const provider = new OAuthProvider('apple.com');
-    const router = useRouter();
+    const { go } = useGoNavigation();
 
     provider.addScope('email');
     provider.addScope('name');
@@ -16,7 +16,7 @@ function SignInWithApple() {
                 const user = result.user;
 
                 if (user) {
-                    router.push('/browse');
+                    go('/browse');
                 }
             })
             .catch((error) => {

@@ -1,16 +1,16 @@
 import { doc, setDoc, serverTimestamp, deleteDoc } from "firebase/firestore";
 import { db } from '@/lib/firebaseClient';
 import { useUser } from '../context/UserContext';
-import { useRouter } from 'next/navigation';
+import { useGoNavigation } from '../lib/navigation';
 import { kCOUNTRY_LANG_CODE, kLANG_NAME } from "../lib/constants";
 
 export function useWordStatusSetters() {
   const { user } = useUser();
-  const router = useRouter();
+  const { go } = useGoNavigation();
 
   const ensureUser = () => {
     if (!user?.uid) {
-      router.push('/signin');
+      go('/signin');
       throw new Error('User not signed in');
     }
     return user.uid;

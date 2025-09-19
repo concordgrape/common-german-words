@@ -1,7 +1,7 @@
 import { doc, setDoc, serverTimestamp, getDoc, DocumentData, collection, query, getDocs, limit, DocumentReference, deleteDoc, Timestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebaseClient';
 import { useUser } from '../context/UserContext';
-import { useRouter } from 'next/navigation';
+import { useGoNavigation } from '../lib/navigation';
 import { Word } from './fetchBasicWordList';
 import { shuffle } from './utils';
 import dayjs from "dayjs";
@@ -29,11 +29,11 @@ export type FillInTheBlankQuestion = {
 
 export function useToggleWordStatus() {
   const { user } = useUser();
-  const router = useRouter();
+  const { go } = useGoNavigation();
 
   const ensureUser = () => {
     if (!user?.uid) {
-      router.push('/signin');
+      go('/signin');
       throw new Error('User not signed in');
     }
     return user.uid;

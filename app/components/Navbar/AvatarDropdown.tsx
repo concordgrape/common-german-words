@@ -7,7 +7,7 @@ import Error from "next/error";
 import { useUser } from "@/app/context/UserContext";
 import { FaCheck, FaRegBookmark, FaRegUser } from "react-icons/fa";
 import { ImExit } from "react-icons/im";
-import { useRouter } from "next/navigation";
+import { useGoNavigation } from "@/app/lib/navigation";
 import { FaBook, FaQuestionCircle } from "react-icons/fa";
 import { FaChartLine } from "react-icons/fa6";
 import Link from "next/link";
@@ -144,7 +144,7 @@ const UserDropdown = ({
   handleLogout,
   setOpen,
 }: UserDropdownProps) => {
-  const router = useRouter();
+  const { go } = useGoNavigation();
   const { user } = useUser();
 
   return (
@@ -169,7 +169,7 @@ const UserDropdown = ({
             <button
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100"
               onClick={() => {
-                router.push("/browse");
+                go("/browse");
                 setOpen(false);
               }}
             >
@@ -182,7 +182,7 @@ const UserDropdown = ({
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                         hover:text-green-700 transition-colors duration-800"
               onClick={() => {
-                router.push("/learn");
+                go("/learn");
                 setOpen(false);
               }}
             >
@@ -195,7 +195,7 @@ const UserDropdown = ({
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                           hover:text-orange-500 transition-colors duration-800"
               onClick={() => {
-                router.push("/progress");
+                go("/progress");
                 setOpen(false);
               }}
             >
@@ -214,7 +214,7 @@ const UserDropdown = ({
             } w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                         hover:text-orange-500 transition-colors duration-800`}
             onClick={() => {
-              router.push("/word-lists/my-saved-words");
+              go("/word-lists/my-saved-words");
               setOpen(false);
             }}
           >
@@ -229,7 +229,7 @@ const UserDropdown = ({
             } w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100
                       hover:text-green-700 transition-colors duration-800`}
             onClick={() => {
-              router.push("/word-lists/my-known-words");
+              go("/word-lists/my-known-words");
               setOpen(false);
             }}
           >
@@ -247,7 +247,7 @@ const UserDropdown = ({
             <button
               className="w-full flex items-center gap-2 px-4 py-2 text-left hover:bg-gray-100"
               onClick={() => {
-                router.push("/profile");
+                go("/profile");
                 setOpen(false);
               }}
             >

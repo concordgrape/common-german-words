@@ -6,7 +6,7 @@ import Link from "next/link";
 import React from "react";
 import fireAnimation from ".//external/Lottie/fire.json";
 import { FaArrowAltCircleRight } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import { useGoNavigation } from "./lib/navigation";
 
 import {
   kCOUNTRY_NAME,
@@ -17,8 +17,7 @@ import {
 } from "./lib/constants";
 
 const App: React.FC = () => {
-  const router = useRouter();
-
+  const { go } = useGoNavigation();
   return (
     <div className="pt-10 sm:pt-15 sm:pt-20 sm:p-4 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
       {/* Left: Text content */}
@@ -43,7 +42,7 @@ const App: React.FC = () => {
           {/* Browse */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button
-              onClick={() => router.push("/browse")}
+              onClick={() => go("/browse")}
               className="cursor-pointer hover:underline"
             >
               <h3 className="text-md font-bold flex items-center justify-center">
@@ -71,7 +70,7 @@ const App: React.FC = () => {
           {/* Top 100 */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button
-              onClick={() => router.push("/top-100-words")}
+              onClick={() => go("/top-100-words")}
               className="cursor-pointer hover:underline"
             >
               <h1 className="text-md font-bold flex items-center justify-center">
@@ -92,7 +91,7 @@ const App: React.FC = () => {
           {/* Top 500 */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button
-              onClick={() => router.push("/top-500-words")}
+              onClick={() => go("/top-500-words")}
               className="cursor-pointer hover:underline"
             >
               <h1 className="text-md font-bold flex items-center justify-center">
@@ -115,7 +114,7 @@ const App: React.FC = () => {
           {/* TOP 500 WORDS SECTION */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button
-              onClick={() => router.push("/top-500-words/nouns")}
+              onClick={() => go("/top-500-words/nouns")}
               className="cursor-pointer hover:underline"
             >
               <h3 className="text-md font-bold flex items-center justify-center">
@@ -135,7 +134,7 @@ const App: React.FC = () => {
 
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button
-              onClick={() => router.push("/top-500-words/verbs")}
+              onClick={() => go("/top-500-words/verbs")}
               className="cursor-pointer hover:underline"
             >
               <h3 className="text-md font-bold flex items-center justify-center">
@@ -155,7 +154,7 @@ const App: React.FC = () => {
 
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button
-              onClick={() => router.push("/top-500-words/adjectives")}
+              onClick={() => go("/top-500-words/adjectives")}
               className="cursor-pointer hover:underline"
             >
               <h3 className="text-md font-bold flex items-center justify-center">
@@ -175,7 +174,7 @@ const App: React.FC = () => {
 
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button
-              onClick={() => router.push("/top-500-words/adverbs")}
+              onClick={() => go("/top-500-words/adverbs")}
               className="cursor-pointer hover:underline"
             >
               <h3 className="text-md font-bold flex items-center justify-center">
@@ -198,7 +197,7 @@ const App: React.FC = () => {
           {/* TOP 100 WORDS SECTION */}
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button
-              onClick={() => router.push("/top-100-words/nouns")}
+              onClick={() => go("/top-100-words/nouns")}
               className="cursor-pointer hover:underline"
             >
               <h3 className="text-md font-bold flex items-center justify-center">
@@ -218,7 +217,7 @@ const App: React.FC = () => {
 
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button
-              onClick={() => router.push("/top-100-words/verbs")}
+              onClick={() => go("/top-100-words/verbs")}
               className="cursor-pointer hover:underline"
             >
               <h3 className="text-md font-bold flex items-center justify-center">
@@ -238,7 +237,7 @@ const App: React.FC = () => {
 
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button
-              onClick={() => router.push("/top-100-words/adjectives")}
+              onClick={() => go("/top-100-words/adjectives")}
               className="cursor-pointer hover:underline"
             >
               <h3 className="text-md font-bold flex items-center justify-center">
@@ -258,7 +257,7 @@ const App: React.FC = () => {
 
           <div className="w-full lg:w-100 max-w-100 h-32 bg-gray-100 dark:bg-[#1B263B] p-4 flex flex-col m-auto mb-4 text-center rounded-md">
             <button
-              onClick={() => router.push("/top-100-words/adverbs")}
+              onClick={() => go("/top-100-words/adverbs")}
               className="cursor-pointer hover:underline"
             >
               <h3 className="text-md font-bold flex items-center justify-center">

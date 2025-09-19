@@ -6,7 +6,7 @@ import { auth } from '@/lib/firebaseClient';
 import GoogleSignInButton from './SignInWithGoogle';
 import { useUser } from '../context/UserContext';
 //import SignInWithApple from './SignInWithApple';
-import { useRouter } from 'next/navigation';
+import { useGoNavigation } from '../lib/navigation';
 import Image from 'next/image';
 import globeImage from "../../public/010-planet.svg"
 import { kCOMMONWORDS_URL_WWW, kESTIMATE_TOTAL_WORD_COUNT, kLANG_NAME_CAPITAL } from '../lib/constants';
@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const { user, loading } = useUser();
-  const router = useRouter();
+  const { go } = useGoNavigation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,7 +38,7 @@ const LoginForm: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      router.push("/browse")
+      go("/browse")
     }
   }, [user]);
 

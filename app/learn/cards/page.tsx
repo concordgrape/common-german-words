@@ -10,7 +10,7 @@ import confettiAnimation from "../../external/Lottie/confetti3.json";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronLeft, FaChevronRight, FaRedo } from "react-icons/fa";
 import QuizFlashcard from "./components/Quiz/Quiz";
-import { useRouter } from "next/navigation";
+import { useGoNavigation } from "@/app/lib/navigation";
 import { FaLightbulb } from "react-icons/fa6";
 import WordStatusButtons from "@/app/components/WordStatusButtons/WordStatusButtons";
 import { useToggleWordStatus } from "@/app/helpers/userWordLibrary";
@@ -21,7 +21,7 @@ import { kCOUNTRY_LANG_CODE } from "@/app/lib/constants";
 
 const LearnCardsPage: React.FC = () => {
   const { submittedWords } = useWordForm();
-  const router = useRouter();
+  const { go } = useGoNavigation();
   const { user } = useUser();
   const { toggleSavedStatus, toggleKnownStatus } = useToggleWordStatus();
   const [idx, setIdx] = useState(0);
@@ -52,7 +52,7 @@ const LearnCardsPage: React.FC = () => {
       "Are you sure? Your progress will be lost"
     );
     if (confirmed) {
-      router.push("/learn");
+      go("/learn");
     }
   };
 

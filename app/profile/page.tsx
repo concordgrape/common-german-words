@@ -3,7 +3,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
 import { useToast } from "../hooks/useToast";
-import { useRouter } from "next/navigation";
+import { useGoNavigation } from "../lib/navigation";
 import { auth } from "@/lib/firebaseClient";
 import {
   deleteUser,
@@ -25,13 +25,13 @@ const ProfileContentPage: React.FC = () => {
     const [totalSavedWords, setTotalSavedWords] = useState<number>(-1);
     const [totalKnownWords, setTotalKnownWords] = useState<number>(-1);
     const toast = useToast();
-    const router = useRouter();
+    const { go } = useGoNavigation();
 
   useEffect(() => {
     if (!user && !loading) {
-      router.push("/signin");
+      go("/signin");
     }
-  }, [user, router, loading]);
+  }, [user, loading]);
 
 
     useEffect(() => {
@@ -236,7 +236,7 @@ const ProfileContentPage: React.FC = () => {
 
 const DeleteAccountPrompt: React.FC = () => {
     const toast = useToast();
-    const router = useRouter();
+    const { go } = useGoNavigation();
 
 const handleDeleteAccount = async () => {
   const user = auth.currentUser;
@@ -270,7 +270,7 @@ const handleDeleteAccount = async () => {
       variant: "success",
     });
 
-    router.push("/signin");
+    go("/signin");
   } catch (error) {
     console.error("Error deleting account:", error);
     toast({

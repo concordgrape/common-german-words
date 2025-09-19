@@ -4,7 +4,8 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import SortButton, { SortOption } from "./SortButtons/Sort";
 import { Virtuoso } from "react-virtuoso";
 import { Word } from "../helpers/fetchBasicWordList";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useGoNavigation } from "../lib/navigation";
 import { truncateString, useIsMobile } from "../helpers/utils";
 import { FaQuestionCircle } from "react-icons/fa";
 import { FaArrowDownShortWide, FaX } from "react-icons/fa6";
@@ -71,7 +72,7 @@ export const WordTable: React.FC<WordTableProps> = ({
   const wordRefs = useRef<Record<number, HTMLDivElement | null>>({});
 
   const searchParams = useSearchParams();
-  const router = useRouter();
+  const { go } = useGoNavigation();
   const toast = useToast();
   const { user } = useUser();
   const { setSaved, setKnown } = useWordStatusSetters();
@@ -191,7 +192,7 @@ export const WordTable: React.FC<WordTableProps> = ({
   const changePage = (newPage: number) => {
     const params = new URLSearchParams(window.location.search);
     params.set("page", String(newPage));
-    router.push(`?${params.toString()}`);
+    go(`?${params.toString()}`);
   };
 
   useEffect(() => {
@@ -234,7 +235,7 @@ export const WordTable: React.FC<WordTableProps> = ({
     if (searchTerm) {
       const params = new URLSearchParams(window.location.search);
       params.set("page", "1");
-      router.push(`?${params.toString()}`);
+      go(`?${params.toString()}`);
     }
   }, [searchTerm]);
 
@@ -655,7 +656,7 @@ const handlePlusClick = async (word: string) => {
         <div className={`${showUpTo500Rows ? "block" : "hidden"}`}>
           <hr className={`h-px my-4 bg-gray-200 border-0 dark:bg-gray-500`} />
           <button
-            onClick={() => router.push("/browse")}
+            onClick={() => go("/browse")}
             className="cursor-pointer text-center text-xs text-black dark:text-white hover:underline font-semibold bg-gray-100 dark:bg-gray-800 rounded-md px-2 py-3"
           >
             <span className="block">Click here to see the full library</span>

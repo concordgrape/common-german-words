@@ -1,13 +1,12 @@
 "use client"
 
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { useRouter } from "next/navigation";
-
+import { useGoNavigation } from "../lib/navigation";
 import { auth } from "@/lib/firebaseClient";
 
 function GoogleSignInButton() {
   const provider = new GoogleAuthProvider();
-  const router = useRouter();
+  const { go } = useGoNavigation();
 
   const handleGoogleSignIn = async () => {
     try {
@@ -17,7 +16,7 @@ function GoogleSignInButton() {
 
       if (accessToken) {
         localStorage.setItem("googleAccessToken", accessToken); // Store for later API calls
-        router.push("/browse");
+        go("/browse");
       } else {
         console.error("No access token received.");
       }

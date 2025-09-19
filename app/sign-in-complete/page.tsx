@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import { auth } from '@/lib/firebaseClient';
 import { isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
+import { useGoNavigation } from '../lib/navigation';
 import Link from 'next/link';
 
 export default function FinishSignIn() {
-  const router = useRouter();
+  const { go } = useGoNavigation();
   const [status, setStatus] = useState<'checking' | 'success' | 'error'>('checking');
 
   useEffect(() => {
@@ -15,14 +15,14 @@ export default function FinishSignIn() {
       try {
         const email = window.localStorage.getItem('emailForSignIn');
         if (!email || !isSignInWithEmailLink(auth, window.location.href)) {
-          router.push('/signin');
+          go('/signin');
           throw new Error('Invalid sign-in link.');
         }
 
         await signInWithEmailLink(auth, email, window.location.href);
         window.localStorage.removeItem('emailForSignIn');
         setStatus('success');
-        router.push('/browse');
+        go('/browse');
       } catch (error) {
         console.error('Error signing in:', error);
         setStatus('error');

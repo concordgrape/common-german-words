@@ -4,7 +4,6 @@ import React, { Suspense, useEffect, useState } from "react";
 import { LearnForm } from "./LearnForm";
 import { LearnFormConfirm } from "./LearnFormConfirm";
 import { useWordForm } from "../context/WordFormContext";
-import { useRouter } from "next/navigation";
 import {
   fetchBasicWords,
   fetchRandomWords,
@@ -13,6 +12,7 @@ import { useToast } from "../hooks/useToast";
 import { formatFillInTheBlankQuestions } from "../helpers/userWordLibrary";
 import { kDEFAULT_WORD_COUNT, kLANG_NAME } from "../lib/constants";
 import { shuffle } from "../helpers/utils";
+import { useGoNavigation } from "../lib/navigation";
 
 export type Mode = "flashcards" | "quiz" | "fill";
 
@@ -34,7 +34,7 @@ const LearnWordPage: React.FC = () => {
   const [rank, setRank] = useState<number>(0);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-  const router = useRouter();
+  const { go } = useGoNavigation();
 
   useEffect(() => {
     async function loadWords() {
@@ -95,7 +95,7 @@ const LearnWordPage: React.FC = () => {
       setTimeout(
         () => {
           setLoading(false);
-          router.push("/learn/cards");
+          go("/learn/cards");
         },
         remaining > 0 ? remaining : 0
       );
