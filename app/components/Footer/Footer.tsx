@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="footer text-black dark:text-white mt-10 sm:footer-horizontal bg-base-200 text-base-content p-10 bg-white dark:bg-[#181922]">
+    <footer className="footer text-black dark:text-white mt-10 pb-30 sm:footer-horizontal bg-base-200 text-base-content p-10 bg-white dark:bg-[#181922]">
         <aside>
             <Image
                 src="/verbuu-logo.webp"
