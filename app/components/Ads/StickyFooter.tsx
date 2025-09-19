@@ -12,14 +12,17 @@ export default function StickyFooterAd() {
   }, []);
 
   return (
-    <div className="fixed bottom-0 left-0 w-full max-h-[90px] flex justify-center bg-white/80 dark:bg-white/20 backdrop-blur-sm shadow-lg z-50">
-        <ins
+    <div className="fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-sm shadow-lg z-50">
+        <div className="flex justify-center">
+            <ins
             className="adsbygoogle"
-            style={{ display: "block", width: "100%", height: "90px", maxHeight: '90px' }}
+            style={{ display: "block", margin: "0 auto", width: "100%", maxWidth: "970px", height: "90px" }}
             data-ad-client="ca-pub-7585653265358782"
             data-ad-slot="9960428411"
+            data-ad-format="rectangle"
             data-full-width-responsive="false"
-        ></ins>
+            ></ins>
+        </div>
     </div>
   );
 }
