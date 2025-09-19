@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import { useDeleteAds } from "@/app/hooks/useDeleteAds";
 
 export default function StickyFooterAd() {
   useEffect(() => {
+    useDeleteAds();
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (e) {
