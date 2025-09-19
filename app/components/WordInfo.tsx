@@ -5,7 +5,7 @@ import { Word } from "../helpers/fetchBasicWordList";
 import GoogleTTSButton from "./GoogleTTSButton/GoogleTTSButton";
 import Link from "next/link";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
-import { kARTICLES_BY_GENDER, kCOUNTRY_FLAG_EMOJI, kCOUNTRY_LANG_CODE, kLANG_NAME } from "../lib/constants";
+import { kARTICLES_BY_GENDER, kCOUNTRY_FLAG_EMOJI, kLANG_NAME } from "../lib/constants";
 
 interface WordInfoProps {
   selectedWord?: Word | null;
@@ -234,7 +234,7 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
                                     .map((word, i) => (
                                       <Link
                                         key={i}
-                                        href={`/${kCOUNTRY_LANG_CODE}/browse?word=${word}`}
+                                        href={`/browse?word=${word}`}
                                       >
                                         <span
                                           key={i}
@@ -307,7 +307,7 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
                           {fullData.connected_words.map((w, index) => (
                             <Link
                               key={w + index}
-                              href={`/${kCOUNTRY_LANG_CODE}/browse?word=${w}`}
+                              href={`/browse?word=${w}`}
                             >
                               <motion.span
                                 key={w + index}
