@@ -7,10 +7,13 @@ export function useGoNavigation() {
   const router = useRouter();
   //useDeleteAds(); // sets up cleanup logic
 
-  const go = (link: string) => {
+  const go = (link: string, deleteAds: boolean = false) => {
     // clear ads immediately before navigating
-   // document.querySelectorAll("ins.adsbygoogle").forEach((el) => el.remove());
-   // document.querySelectorAll("iframe[id^='aswift_']").forEach((el) => el.remove());
+    if (deleteAds) {
+        console.log("deleting ads...")
+        document.querySelectorAll("ins.adsbygoogle").forEach((el) => el.remove());
+        document.querySelectorAll("iframe[id^='aswift_']").forEach((el) => el.remove());
+    }
 
     router.push(link);
   };
