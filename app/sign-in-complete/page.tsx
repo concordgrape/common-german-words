@@ -30,7 +30,7 @@ export default function FinishSignIn() {
     };
 
     completeSignIn();
-  }, [router]);
+  }, []);
 
   return (
     <div className="min-h-screen w-full pt-15 pt-50 text-center items-center justify-center">
