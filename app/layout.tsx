@@ -158,7 +158,6 @@ export default function RootLayout({
             <Navbar />
             <ToastProvider>{children}</ToastProvider>
             <Footer />
-            <StickyFooterAd />
           </WordFormProvider>
         </UserProvider>
       </body>

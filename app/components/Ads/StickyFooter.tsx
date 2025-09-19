@@ -23,7 +23,7 @@ export default function StickyFooterAd() {
   if (!shouldRender) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-sm shadow-lg z-50">
+    <div className="fixed bottom-0 left-0 w-full bg-white/80 dark:bg-white/20 backdrop-blur-sm shadow-lg z-50">
       <div className="flex justify-center">
         <ins
           className="adsbygoogle cgw-stickyfooter"
