@@ -93,7 +93,7 @@ function ProgressPage() {
     if (!user?.uid) return;
 
     const loadSavedData = async () => {
-      const savedWords = await fetchSavedWordMetadata(user.uid, 100);
+      const savedWords = await fetchSavedWordMetadata(user.uid, 9000);
       setTotalSavedWords(savedWords.length);
       setRawSavedWords(savedWords);
       const countsByDate: Record<string, number> = {};
@@ -116,7 +116,7 @@ function ProgressPage() {
     };
 
     const loadKnownData = async () => {
-      const knownWords = await fetchKnownWordMetadata(user.uid, 100);
+      const knownWords = await fetchKnownWordMetadata(user.uid, 9000);
       setTotalKnownWords(knownWords.length);
       const countsByDate: Record<string, number> = {};
 

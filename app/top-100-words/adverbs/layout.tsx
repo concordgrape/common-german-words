@@ -1,4 +1,4 @@
-import StickyFooterAd from "@/app/components/Ads/StickyFooter";
+import StickyFooterAd from "@/app/components/ads/StickyFooter";
 import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 import type { Metadata } from "next";
 

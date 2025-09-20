@@ -13,7 +13,7 @@ import { formatFillInTheBlankQuestions } from "../helpers/userWordLibrary";
 import { kDEFAULT_WORD_COUNT, kLANG_NAME } from "../lib/constants";
 import { shuffle } from "../helpers/utils";
 import { useGoNavigation } from "../lib/navigation";
-import StickyFooterAd from "../components/Ads/StickyFooter";
+import StickyFooterAd from "../components/ads/StickyFooter";
 
 export type Mode = "flashcards" | "quiz" | "fill";
 
