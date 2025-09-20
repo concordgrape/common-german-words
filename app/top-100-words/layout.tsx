@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "../lib/constants";
-import StickyFooterAd from "../components/ads/StickyFooter";
+import StickyFooterAd from "../components/ads/StickyFooterAd";
 
 export const metadata: Metadata = {
   title: `Top 100 ${kLANG_NAME_CAPITAL} Words – Common ${kLANG_NAME_CAPITAL} Words`,

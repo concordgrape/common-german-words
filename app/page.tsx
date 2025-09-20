@@ -15,7 +15,7 @@ import {
   kEXAMPLE_WORDS,
   kLANG_NAME_CAPITAL,
 } from "./lib/constants";
-import StickyFooterAd from "./components/ads/StickyFooter";
+import StickyFooterAd from "./components/ads/StickyFooterAd";
 
 const App: React.FC = () => {
   const { go } = useGoNavigation();
