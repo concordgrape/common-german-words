@@ -38,12 +38,12 @@ const ProfileContentPage: React.FC = () => {
       if (!user?.uid) return;
   
       const loadSavedData = async () => {
-        const savedWords = await fetchSavedWordMetadata(user.uid, 100);
+        const savedWords = await fetchSavedWordMetadata(user.uid, 9000);
         setTotalSavedWords(savedWords.length);
       };
   
       const loadKnownData = async () => {
-        const knownWords = await fetchKnownWordMetadata(user.uid, 100);
+        const knownWords = await fetchKnownWordMetadata(user.uid, 9000);
         setTotalKnownWords(knownWords.length);
       };
   
