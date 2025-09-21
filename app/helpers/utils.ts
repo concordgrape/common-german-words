@@ -16,19 +16,33 @@ export function useIsMobile(breakpoint: number = 768): boolean {
 }
 
 export function truncateString(str: string, maxLength = 30) {
-  // Replace semicolons with commas
+  // Normalize semicolons to commas
   const normalized = str.replace(/;/g, ',');
 
-  // Keep only the part after the last colon, if present
-  const textAfterColon = normalized.includes(':') 
-    ? normalized.split(':').pop()!.trim() 
-    : normalized;
+  // Track delimiter positions (commas or colons)
+  const delimiterRegex = /[,:]/g;
+  let match;
+  let count = 0;
+  let cutIndex = -1;
 
-  // Apply truncation
-  return textAfterColon.length > maxLength 
-    ? textAfterColon.slice(0, maxLength - 3) + '...' 
-    : textAfterColon;
+  while ((match = delimiterRegex.exec(normalized)) !== null) {
+    count++;
+    if (count === 3) {
+      cutIndex = match.index + 1; // include the delimiter itself
+      break;
+    }
+  }
+
+  let truncated = cutIndex !== -1 ? normalized.slice(0, cutIndex) : normalized;
+
+  // Apply maxLength truncation if needed
+  if (truncated.length > maxLength) {
+    truncated = truncated.slice(0, maxLength - 3) + "...";
+  }
+
+  return truncated.trim();
 }
+
 
 
 export function shuffle<T>(arr: T[], count?: number): T[] {
