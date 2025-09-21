@@ -177,7 +177,7 @@ const ProfileContentPage: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center p-4">
-            <div className="w-65 sm:w-60">
+            <div className="w-65 sm:w-70">
                 <label
                     htmlFor="email"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
