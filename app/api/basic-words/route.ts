@@ -60,10 +60,8 @@ export async function GET(req: NextRequest) {
       };
     }).sort((a, b) => b.frequency - a.frequency);
 
-
-
-    // ✅ Cache the result for 1 hour
-    await redis.set(cacheKey, JSON.stringify(words), { EX: 86400 });
+    // ✅ Cache the result for 1 week
+    await redis.set(cacheKey, JSON.stringify(words), { EX: 604800 });
 
     return NextResponse.json({ words: words }, { status: 200 });
   } catch (error) {
