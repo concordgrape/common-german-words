@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
     const wordData = docSnap.data();
 
     // ✅ Cache for 1 day
-    await redis.set(cacheKey, JSON.stringify(wordData), { EX: 86400 });
+    await redis.set(cacheKey, JSON.stringify(wordData), { EX: 604800 });
 
     return NextResponse.json({ word: wordData }, { status: 200 });
   } catch (error) {
