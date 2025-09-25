@@ -6,7 +6,7 @@ let redisClient: ReturnType<typeof createClient> | null = null;
 export async function getRedisClient() {
   if (!redisClient) {
     redisClient = createClient({
-      url: process.env.REDIS_URL,
+      url: process.env.REDIS_SKYROTH_REDIS_URL,
     });
 
     redisClient.on('error', (err) => console.error('Redis Client Error:', err));

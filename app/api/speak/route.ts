@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic'
 export const runtime = 'nodejs';
 
 const redisClient = createClient({
-  url: process.env.REDIS_URL,
+  url: process.env.REDIS_SKYROTH_REDIS_URL,
 });
 
 let redisConnected = false;
