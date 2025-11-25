@@ -1,4 +1,4 @@
-// This script imports German words from a JSON file into a Firestore database.
+// This script imports portuguese words from a JSON file into a Firestore database.
 // Make sure to have Firebase Admin SDK installed: npm install firebase-admin
 
 const admin = require('firebase-admin');
@@ -15,25 +15,43 @@ admin.initializeApp({
 const db = admin.firestore();
 
 // Load your JSON file
-const wordsData = JSON.parse(fs.readFileSync('spanish_words_enriched_ranked.json', 'utf8'));
+const wordsData = JSON.parse(fs.readFileSync('portuguese_words_enriched_ranked.json', 'utf8'));
 
-// Upload each word into `languages/german/words/{word}`
-async function importGermanWords() {
+// Upload each word into `languages/portuguese/words/{word}`
+async function importportugueseWords() {
   const baseCollectionRef = db
     .collection('languages')
-    .doc('spanish')
+    .doc('portuguese')
     .collection('words');
+
+  let count = 0;
+  let batch = db.batch();
+  const BATCH_SIZE = 500; // Firestore allows max 500 operations per batch
 
   for (const [word, entries] of Object.entries(wordsData)) {
     if (!Array.isArray(entries) || entries.length === 0) continue;
 
     const wordData = entries[0]; // Use the first entry
     const docRef = baseCollectionRef.doc(word);
-    await docRef.set(wordData);
-    console.log(`✅ Imported word: ${word}`);
+    
+    batch.set(docRef, wordData);
+    count++;
+
+    // Commit batch when it reaches the limit
+    if (count % BATCH_SIZE === 0) {
+      await batch.commit();
+      console.log(`✅ Committed batch of ${BATCH_SIZE} words (total: ${count})`);
+      batch = db.batch(); // Create new batch
+    }
   }
 
-  console.log('🎉 All words imported into languages/german/words');
+  // Commit any remaining documents
+  if (count % BATCH_SIZE !== 0) {
+    await batch.commit();
+    console.log(`✅ Committed final batch (total: ${count})`);
+  }
+
+  console.log('🎉 All words imported into languages/portuguese/words');
 }
 
 // Run this once when uploading words or with a cron job
@@ -46,11 +64,11 @@ async function generateWordIdList(language) {
 }
 
 /*
-generateWordIdList('german').catch((err) => {
+generateWordIdList('portuguese').catch((err) => {
   console.error('❌ Failed to generate word ID list:', err);
 });
 */
 
-importGermanWords().catch((err) => {
+importportugueseWords().catch((err) => {
   console.error('❌ Import failed:', err);
 });
