@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { FaCheck } from 'react-icons/fa';
+import { FaCheck } from "react-icons/fa";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
-import { useIsMobile } from '@/app/helpers/utils';
+import { useIsMobile } from "@/app/helpers/utils";
 
 interface WordStatusButtonsProps {
   isPlusEnabled: boolean;
@@ -22,10 +22,12 @@ export default function WordStatusButtons({
   const isMobile = useIsMobile();
 
   // ✅ Dynamically calculate icon size
-  const iconSize = large ? (isMobile ? 20 : 22) : (isMobile ? 14 : 13);
-  const checkSize = large ? (isMobile ? 18 : 20) : (isMobile ? 12 : 10);
+  const iconSize = large ? (isMobile ? 20 : 22) : isMobile ? 14 : 13;
+  const checkSize = large ? (isMobile ? 18 : 20) : isMobile ? 12 : 10;
 
-  const baseButtonSize = large ? "w-10 h-10" : "w-8 h-8 sm:h-6 sm:w-6 md:h-6 md:w-6 lg:h-6 lg:w-6";
+  const baseButtonSize = large
+    ? "w-10 h-10"
+    : "w-8 h-8 sm:h-6 sm:w-6 md:h-6 md:w-6 lg:h-6 lg:w-6";
 
   return (
     <div className="flex gap-1 items-center">
@@ -37,8 +39,8 @@ export default function WordStatusButtons({
         <button
           className={`w-full h-full transition-colors duration-300 ${
             isPlusEnabled
-              ? 'bg-orange-400 text-white'
-              : 'bg-gray-100 dark:bg-gray-500 dark:text-gray-200 text-black'
+              ? "bg-orange-400 text-white"
+              : "bg-gray-100 dark:bg-gray-500 dark:text-gray-200 text-black"
           } rounded-sm hover:bg-orange-400 hover:text-white cursor-pointer`}
           onClick={onPlusClick}
         >
@@ -55,8 +57,8 @@ export default function WordStatusButtons({
         data-tip="Known Word"
         className={`tooltip ${baseButtonSize} transition-colors duration-300 ${
           isCheckEnabled
-            ? 'bg-green-500 text-white'
-            : 'bg-gray-100 dark:bg-gray-500 dark:text-gray-200'
+            ? "bg-green-500 text-white"
+            : "bg-gray-100 dark:bg-gray-500 dark:text-gray-200"
         } rounded-sm hover:bg-green-500 hover:text-white cursor-pointer`}
         onClick={onCheckClick}
       >

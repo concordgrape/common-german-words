@@ -4,8 +4,7 @@ import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 
 export const metadata: Metadata = {
   title: `Cookie Policy | Common ${kLANG_NAME_CAPITAL} Words`,
-  description:
-    `Cookie Policy for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
+  description: `Cookie Policy for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
 };
 
 const EFFECTIVE_DATE = "August 8, 2025";
@@ -29,10 +28,11 @@ function CookiePolicy() {
       </p>
 
       <p>
-        This Cookie Policy explains how <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the
-        “Website”) and <strong>Verbuu – Common Words</strong> (the “App”) use
-        cookies and similar technologies to provide, improve, and personalize our
-        services (“Services”).
+        This Cookie Policy explains how{" "}
+        <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the “Website”) and{" "}
+        <strong>Verbuu – Common Words</strong> (the “App”) use cookies and
+        similar technologies to provide, improve, and personalize our services
+        (“Services”).
       </p>
 
       <h2 className="mt-8 text-2xl font-semibold">What Are Cookies?</h2>
@@ -67,9 +67,7 @@ function CookiePolicy() {
       </ul>
 
       <h2 className="mt-8 text-2xl font-semibold">Third-Party Cookies</h2>
-      <p>
-        We use third-party services that may set cookies on your device:
-      </p>
+      <p>We use third-party services that may set cookies on your device:</p>
       <ul className="list-disc pl-6 space-y-1">
         <li>
           <strong>Google Analytics</strong> – Tracks usage patterns and
@@ -117,8 +115,8 @@ function CookiePolicy() {
       <h2 className="mt-8 text-2xl font-semibold">Consent</h2>
       <p>
         By using our Services, you consent to the use of cookies as described in
-        this policy. If you do not agree, you should adjust your browser settings
-        or discontinue using the Services.
+        this policy. If you do not agree, you should adjust your browser
+        settings or discontinue using the Services.
       </p>
 
       <h2 className="mt-8 text-2xl font-semibold">Policy Updates</h2>

@@ -4,8 +4,7 @@ import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 
 export const metadata: Metadata = {
   title: `Terms & Conditions | Common ${kLANG_NAME_CAPITAL} Words`,
-  description:
-    `Terms and Conditions for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
+  description: `Terms and Conditions for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
 };
 
 const EFFECTIVE_DATE = "August 8, 2025";
@@ -29,12 +28,12 @@ function Policy() {
       </p>
 
       <p>
-        Welcome to <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the “Website”) and{" "}
-        <strong>Verbuu – Common Words</strong> (the “App”). These Terms and
-        Conditions (“Terms”) govern your access to and use of our website,
-        applications, and related services (collectively, the “Services”). By
-        using the Services, you agree to these Terms. If you do not agree, do
-        not use the Services.
+        Welcome to <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the
+        “Website”) and <strong>Verbuu – Common Words</strong> (the “App”). These
+        Terms and Conditions (“Terms”) govern your access to and use of our
+        website, applications, and related services (collectively, the
+        “Services”). By using the Services, you agree to these Terms. If you do
+        not agree, do not use the Services.
       </p>
 
       <h2 className="mt-8 text-2xl font-semibold">Who we are</h2>
@@ -70,24 +69,30 @@ function Policy() {
 
       <h2 className="mt-8 text-2xl font-semibold">User Content</h2>
       <ul className="list-disc pl-6 space-y-1">
-        <li>Users cannot upload, post, or share content through the Services.</li>
+        <li>
+          Users cannot upload, post, or share content through the Services.
+        </li>
         <li>
           Any feedback, feature ideas, or suggestions you voluntarily provide
           (“Feedback”) may be used by us without obligation, attribution, or
-          compensation to you. You grant us a perpetual, irrevocable,
-          worldwide, royalty-free license to use, modify, and implement such
-          Feedback in our products and Services.
+          compensation to you. You grant us a perpetual, irrevocable, worldwide,
+          royalty-free license to use, modify, and implement such Feedback in
+          our products and Services.
         </li>
       </ul>
 
-      <h2 className="mt-8 text-2xl font-semibold">Purchases and Subscriptions</h2>
+      <h2 className="mt-8 text-2xl font-semibold">
+        Purchases and Subscriptions
+      </h2>
       <ul className="list-disc pl-6 space-y-1">
         <li>We do not offer in-app purchases or paid subscriptions.</li>
         <li>Users cannot buy goods or services through the Services.</li>
       </ul>
 
       <h2 className="mt-8 text-2xl font-semibold">Contests and Sweepstakes</h2>
-      <p>We do not plan to offer contests, sweepstakes, or similar promotions.</p>
+      <p>
+        We do not plan to offer contests, sweepstakes, or similar promotions.
+      </p>
 
       <h2 className="mt-8 text-2xl font-semibold">Intellectual Property</h2>
       <ul className="list-disc pl-6 space-y-1">
@@ -97,10 +102,9 @@ function Policy() {
           licensors and are protected by copyright and other laws.
         </li>
         <li>
-          All trademarks, logos, and service marks displayed on the Services
-          are our property or the property of third parties. You are not
-          granted any rights or licenses to use them without prior written
-          permission.
+          All trademarks, logos, and service marks displayed on the Services are
+          our property or the property of third parties. You are not granted any
+          rights or licenses to use them without prior written permission.
         </li>
         <li>
           You may access and use the Services for your personal, non-commercial
@@ -120,7 +124,9 @@ function Policy() {
           Reverse engineer, decompile, or attempt to extract source code except
           to the extent such restrictions are prohibited by applicable law;
         </li>
-        <li>Use automated means (bots, scrapers) without our written consent;</li>
+        <li>
+          Use automated means (bots, scrapers) without our written consent;
+        </li>
         <li>Impersonate any person or misrepresent your affiliation.</li>
       </ul>
 
@@ -175,7 +181,9 @@ function Policy() {
         termination, your right to use the Services will cease immediately.
       </p>
 
-      <h2 className="mt-8 text-2xl font-semibold">Changes to the Services or Terms</h2>
+      <h2 className="mt-8 text-2xl font-semibold">
+        Changes to the Services or Terms
+      </h2>
       <p>
         We may update or modify the Services and these Terms from time to time.
         If we make material changes to the Terms, we will post the updated
@@ -207,8 +215,8 @@ function Policy() {
       <hr className="my-8 border-gray-300 dark:border-gray-600" />
 
       <p className="text-sm">
-        Website: <strong>{kCOMMONWORDS_URL_WWW}</strong> &nbsp;|&nbsp;
-        App: <strong>Verbuu – Common Words</strong>
+        Website: <strong>{kCOMMONWORDS_URL_WWW}</strong> &nbsp;|&nbsp; App:{" "}
+        <strong>Verbuu – Common Words</strong>
       </p>
     </main>
   );

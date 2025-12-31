@@ -1,13 +1,16 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useState } from 'react';
-import { Word } from '../helpers/fetchBasicWordList';
-import { FillInTheBlankQuestion } from '../helpers/userWordLibrary';
+import React, { createContext, useContext, useState } from "react";
+import { Word } from "../helpers/fetchBasicWordList";
+import { FillInTheBlankQuestion } from "../helpers/userWordLibrary";
 
 export type SubmittedWord = Word | FillInTheBlankQuestion;
 
 export function isWord(entry: SubmittedWord): entry is Word {
-  return typeof (entry as FillInTheBlankQuestion).answer != 'string' && typeof (entry as FillInTheBlankQuestion).hint != 'string';
+  return (
+    typeof (entry as FillInTheBlankQuestion).answer != "string" &&
+    typeof (entry as FillInTheBlankQuestion).hint != "string"
+  );
 }
 
 interface WordFormContextProps {
@@ -21,16 +24,33 @@ interface WordFormContextProps {
   setSavedWords: (words: string[]) => void;
 }
 
-const WordFormContext = createContext<WordFormContextProps | undefined>(undefined);
+const WordFormContext = createContext<WordFormContextProps | undefined>(
+  undefined,
+);
 
-export const WordFormProvider = ({ children }: { children: React.ReactNode }) => {
+export const WordFormProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [filteredWords, setFilteredWords] = useState<Word[]>([]);
   const [submittedWords, setSubmittedWords] = useState<SubmittedWord[]>([]);
   const [allWords, setAllWords] = useState<Word[]>([]);
   const [savedWords, setSavedWords] = useState<string[]>([]);
 
   return (
-    <WordFormContext.Provider value={{ filteredWords, setFilteredWords, submittedWords, setSubmittedWords, allWords, setAllWords, savedWords, setSavedWords }}>
+    <WordFormContext.Provider
+      value={{
+        filteredWords,
+        setFilteredWords,
+        submittedWords,
+        setSubmittedWords,
+        allWords,
+        setAllWords,
+        savedWords,
+        setSavedWords,
+      }}
+    >
       {children}
     </WordFormContext.Provider>
   );
@@ -39,7 +59,7 @@ export const WordFormProvider = ({ children }: { children: React.ReactNode }) =>
 export const useWordForm = (): WordFormContextProps => {
   const context = useContext(WordFormContext);
   if (!context) {
-    throw new Error('useWordForm must be used within a WordFormProvider');
+    throw new Error("useWordForm must be used within a WordFormProvider");
   }
   return context;
 };

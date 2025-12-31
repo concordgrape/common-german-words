@@ -49,7 +49,7 @@ const LearnCardsPage: React.FC = () => {
 
   const handleExit = () => {
     const confirmed = window.confirm(
-      "Are you sure? Your progress will be lost"
+      "Are you sure? Your progress will be lost",
     );
     if (confirmed) {
       go("/learn");
@@ -80,8 +80,18 @@ const LearnCardsPage: React.FC = () => {
       }
 
       const [savedSnap, knownSnap] = await Promise.all([
-        getDoc(doc(db, `users/${user.uid}/${kCOUNTRY_LANG_CODE}/cards/saved/${current.word}`)),
-        getDoc(doc(db, `users/${user.uid}/${kCOUNTRY_LANG_CODE}/cards/known/${current.word}`)),
+        getDoc(
+          doc(
+            db,
+            `users/${user.uid}/${kCOUNTRY_LANG_CODE}/cards/saved/${current.word}`,
+          ),
+        ),
+        getDoc(
+          doc(
+            db,
+            `users/${user.uid}/${kCOUNTRY_LANG_CODE}/cards/known/${current.word}`,
+          ),
+        ),
       ]);
 
       if (!cancelled) {

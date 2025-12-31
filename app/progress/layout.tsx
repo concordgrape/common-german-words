@@ -4,8 +4,7 @@ import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "../lib/constants";
 export const metadata: Metadata = {
   metadataBase: new URL(kCOMMONWORDS_URL_WWW),
   title: `Progress – Common ${kLANG_NAME_CAPITAL} Words`,
-  description:
-    `Track your ${kLANG_NAME_CAPITAL} learning progress: words learned, words remaining, streaks, and study activity`,
+  description: `Track your ${kLANG_NAME_CAPITAL} learning progress: words learned, words remaining, streaks, and study activity`,
   alternates: {
     canonical: `${kCOMMONWORDS_URL_WWW}/progress`,
   },
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
       "max-image-preview": "none",
       "max-snippet": 0,
       "max-video-preview": 0,
-      "noimageindex": true,
+      noimageindex: true,
     },
   },
   openGraph: {
@@ -28,7 +27,12 @@ export const metadata: Metadata = {
     url: `${kCOMMONWORDS_URL_WWW}/progress`,
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
     images: [
-      { url: "/og-image.jpg", width: 1200, height: 630, alt: `Common ${kLANG_NAME_CAPITAL} Words Progress` },
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: `Common ${kLANG_NAME_CAPITAL} Words Progress`,
+      },
     ],
     type: "website",
     locale: "en_US",

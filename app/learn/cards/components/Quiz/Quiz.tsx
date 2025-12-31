@@ -29,11 +29,11 @@ export default function FillInTheBlankQuiz({
 }: FillInTheBlankProps) {
   const [input, setInput] = useState("");
   const [status, setStatus] = useState<"idle" | "correct" | "incorrect">(
-    "idle"
+    "idle",
   );
   const [shake, setShake] = useState(false);
   const [revealedIndexes, setRevealedIndexes] = useState<Set<number>>(
-    new Set()
+    new Set(),
   );
   const [displayLetters, setDisplayLetters] = useState<string[]>([]);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -66,7 +66,7 @@ export default function FillInTheBlankQuiz({
       // Compute unrevealed indexes
       const allIndexes = [...Array(answer.length).keys()];
       const remainingIndexes = allIndexes.filter(
-        (i) => !revealedIndexes.has(i)
+        (i) => !revealedIndexes.has(i),
       );
 
       if (remainingIndexes.length > 0) {
@@ -84,7 +84,7 @@ export default function FillInTheBlankQuiz({
 
     // Remove any duplicates from the extra letters too
     const availableExtras = kLANGUAGE_ALPHABET.filter(
-      (letter) => !answerLetters.includes(letter.toUpperCase())
+      (letter) => !answerLetters.includes(letter.toUpperCase()),
     );
 
     const extraLetters = [...availableExtras]
@@ -93,7 +93,7 @@ export default function FillInTheBlankQuiz({
 
     // Combine and remove duplicates one last time
     const combined = [...new Set([...answerLetters, ...extraLetters])].sort(
-      () => 0.5 - Math.random()
+      () => 0.5 - Math.random(),
     );
 
     setDisplayLetters(combined);
@@ -106,7 +106,7 @@ export default function FillInTheBlankQuiz({
   return (
     <motion.div
       className={clsx(
-        "max-w-xl h-[400px] flex flex-col justify-between text-center text-lg font-mono mx-auto lg:my-8 lg:p-4 rounded-lg transition-colors"
+        "max-w-xl h-[400px] flex flex-col justify-between text-center text-lg font-mono mx-auto lg:my-8 lg:p-4 rounded-lg transition-colors",
       )}
       animate={shake ? { x: [-10, 10, -8, 8, -5, 5, 0] } : {}}
       transition={{ duration: 0.3 }}
@@ -147,7 +147,7 @@ export default function FillInTheBlankQuiz({
                       {
                         "bg-green-400 border-green-500": status === "correct",
                         "bg-red-400 border-red-500": status === "incorrect",
-                      }
+                      },
                     )}
                     placeholder="?"
                     disabled={status === "correct"}
@@ -203,11 +203,9 @@ export default function FillInTheBlankQuiz({
             <h3 className="mb-1 font-bold text-gray-400 text-sm">
               <i>Hint:</i>
             </h3>
-           {[...answer].map((part, i) => (
+            {[...answer].map((part, i) => (
               <React.Fragment key={i}>
-                <span
-                  className="mx-1 inline-block w-6 h-8 text-center font-mono text-lg leading-8 border-b-2 border-black dark:border-white text-black dark:text-white"
-                >
+                <span className="mx-1 inline-block w-6 h-8 text-center font-mono text-lg leading-8 border-b-2 border-black dark:border-white text-black dark:text-white">
                   {revealedIndexes.has(i) ? part : "_"}
                 </span>
               </React.Fragment>

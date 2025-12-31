@@ -19,9 +19,7 @@ const KnownWordList: React.FC = () => {
 
   // Fetch words
   useEffect(() => {
-    fetchBasicWords(kLANG_NAME).then(
-      setWords
-    );
+    fetchBasicWords(kLANG_NAME).then(setWords);
   }, []);
 
   useEffect(() => {
@@ -41,7 +39,7 @@ const KnownWordList: React.FC = () => {
     const wordParam = searchParams.get("word");
     if (wordParam) {
       const match = words.find(
-        (w) => w.word.toLowerCase() === wordParam.toLowerCase()
+        (w) => w.word.toLowerCase() === wordParam.toLowerCase(),
       );
       if (match) {
         setSelectedWord(match);
@@ -67,7 +65,10 @@ const KnownWordList: React.FC = () => {
               Click here
             </Link>{" "}
             to see the full list of{" "}
-            <span className="font-mono font-bold">{kESTIMATE_TOTAL_WORD_COUNT}+</span> words
+            <span className="font-mono font-bold">
+              {kESTIMATE_TOTAL_WORD_COUNT}+
+            </span>{" "}
+            words
           </p>
         </div>
         <WordTable

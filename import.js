@@ -1,11 +1,11 @@
 // This script imports korean words from a JSON file into a Firestore database.
 // Make sure to have Firebase Admin SDK installed: npm install firebase-admin
 
-const admin = require('firebase-admin');
-const fs = require('fs');
+const admin = require("firebase-admin");
+const fs = require("fs");
 
 // Load Firebase service account credentials
-const serviceAccount = require('./serviceAccountKey.json');
+const serviceAccount = require("./serviceAccountKey.json");
 
 // Initialize Firebase Admin
 admin.initializeApp({
@@ -15,14 +15,16 @@ admin.initializeApp({
 const db = admin.firestore();
 
 // Load your JSON file
-const wordsData = JSON.parse(fs.readFileSync('korean_words_enriched_ranked.json', 'utf8'));
+const wordsData = JSON.parse(
+  fs.readFileSync("korean_words_enriched_ranked.json", "utf8"),
+);
 
 // Upload each word into `languages/korean/words/{word}`
 async function importkoreanWords() {
   const baseCollectionRef = db
-    .collection('languages')
-    .doc('korean')
-    .collection('words');
+    .collection("languages")
+    .doc("korean")
+    .collection("words");
 
   let count = 0;
   let batch = db.batch();
@@ -33,14 +35,16 @@ async function importkoreanWords() {
 
     const wordData = entries[0]; // Use the first entry
     const docRef = baseCollectionRef.doc(word);
-    
+
     batch.set(docRef, wordData);
     count++;
 
     // Commit batch when it reaches the limit
     if (count % BATCH_SIZE === 0) {
       await batch.commit();
-      console.log(`✅ Committed batch of ${BATCH_SIZE} words (total: ${count})`);
+      console.log(
+        `✅ Committed batch of ${BATCH_SIZE} words (total: ${count})`,
+      );
       batch = db.batch(); // Create new batch
     }
   }
@@ -51,15 +55,24 @@ async function importkoreanWords() {
     console.log(`✅ Committed final batch (total: ${count})`);
   }
 
-  console.log('🎉 All words imported into languages/korean/words');
+  console.log("🎉 All words imported into languages/korean/words");
 }
 
 // Run this once when uploading words or with a cron job
 async function generateWordIdList(language) {
-  const wordsSnapshot = await db.collection('languages').doc(language).collection('words').listDocuments();
-  const ids = wordsSnapshot.map(doc => doc.id);
+  const wordsSnapshot = await db
+    .collection("languages")
+    .doc(language)
+    .collection("words")
+    .listDocuments();
+  const ids = wordsSnapshot.map((doc) => doc.id);
 
-  await db.collection('languages').doc(language).collection('meta').doc('word_ids').set({ ids });
+  await db
+    .collection("languages")
+    .doc(language)
+    .collection("meta")
+    .doc("word_ids")
+    .set({ ids });
   console.log(`Stored ${ids.length} word IDs for ${language}`);
 }
 
@@ -70,5 +83,5 @@ generateWordIdList('korean').catch((err) => {
 */
 
 importkoreanWords().catch((err) => {
-  console.error('❌ Import failed:', err);
+  console.error("❌ Import failed:", err);
 });

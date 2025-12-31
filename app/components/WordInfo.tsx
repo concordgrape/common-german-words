@@ -5,7 +5,11 @@ import { Word } from "../helpers/fetchBasicWordList";
 import GoogleTTSButton from "./GoogleTTSButton/GoogleTTSButton";
 import Link from "next/link";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
-import { kARTICLES_BY_GENDER, kCOUNTRY_FLAG_EMOJI, kLANG_NAME } from "../lib/constants";
+import {
+  kARTICLES_BY_GENDER,
+  kCOUNTRY_FLAG_EMOJI,
+  kLANG_NAME,
+} from "../lib/constants";
 
 interface WordInfoProps {
   selectedWord?: Word | null;
@@ -50,7 +54,7 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `/api/word?language=${kLANG_NAME}&word=${selectedWord.word}`
+          `/api/word?language=${kLANG_NAME}&word=${selectedWord.word}`,
         );
         const json = await res.json();
         if (json.word) {
@@ -211,50 +215,47 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
                   <div>
                     <h3 className="text-lg font-semibold mb-1">Examples</h3>
                     <ul className="space-y-2">
-                        {fullData?.examples
-                          .slice(0, visibleExamples)
-                          .map((ex, idx) => (
-                            <motion.li
-                              key={ex.sentence + idx}
-                              className="text-white/90"
-                              initial={{ opacity: 0, y: 8 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -8 }}
-                              transition={{
-                                duration: 0.18,
-                                delay: idx * 0.025,
-                              }}
-                            >
-                              <div className="flex justify-between items-center">
-                                <span className="flex flex-wrap gap-1">
-                                  {kCOUNTRY_FLAG_EMOJI}
-                                  {ex.sentence
-                                    .replace(/[.,!?;:]/g, "")
-                                    .split(" ")
-                                    .map((word, i) => (
-                                      <Link
+                      {fullData?.examples
+                        .slice(0, visibleExamples)
+                        .map((ex, idx) => (
+                          <motion.li
+                            key={ex.sentence + idx}
+                            className="text-white/90"
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{
+                              duration: 0.18,
+                              delay: idx * 0.025,
+                            }}
+                          >
+                            <div className="flex justify-between items-center">
+                              <span className="flex flex-wrap gap-1">
+                                {kCOUNTRY_FLAG_EMOJI}
+                                {ex.sentence
+                                  .replace(/[.,!?;:]/g, "")
+                                  .split(" ")
+                                  .map((word, i) => (
+                                    <Link key={i} href={`/browse?word=${word}`}>
+                                      <span
                                         key={i}
-                                        href={`/browse?word=${word}`}
+                                        className="hover:bg-blue-300 cursor-pointer rounded"
                                       >
-                                        <span
-                                          key={i}
-                                          className="hover:bg-blue-300 cursor-pointer rounded"
-                                        >
-                                          {word}
-                                        </span>
-                                      </Link>
-                                    ))}
-                                </span>
-                                <GoogleTTSButton
-                                  text={ex.sentence}
-                                  color="text-white hover:bg-blue-400"
-                                />
-                              </div>
-                              <div className="text-white/70">
-                                🇬🇧 {ex.translation.replace(/\./g, "")}
-                              </div>
-                            </motion.li>
-                          ))}
+                                        {word}
+                                      </span>
+                                    </Link>
+                                  ))}
+                              </span>
+                              <GoogleTTSButton
+                                text={ex.sentence}
+                                color="text-white hover:bg-blue-400"
+                              />
+                            </div>
+                            <div className="text-white/70">
+                              🇬🇧 {ex.translation.replace(/\./g, "")}
+                            </div>
+                          </motion.li>
+                        ))}
                     </ul>
 
                     {visibleExamples < fullData.examples.length && (
@@ -305,10 +306,7 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
                       >
                         <AnimatePresence initial={false}>
                           {fullData.connected_words.map((w, index) => (
-                            <Link
-                              key={w + index}
-                              href={`/browse?word=${w}`}
-                            >
+                            <Link key={w + index} href={`/browse?word=${w}`}>
                               <motion.span
                                 key={w + index}
                                 initial={{ opacity: 0, y: 6 }}

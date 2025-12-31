@@ -1,7 +1,7 @@
 // components/Toast/InfoToast.tsx
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 type InfoToastProps = {
   loading: boolean;
@@ -9,7 +9,11 @@ type InfoToastProps = {
   subtitle?: string;
 };
 
-export const InfoToast: React.FC<InfoToastProps> = ({ loading, title, subtitle }) => {
+export const InfoToast: React.FC<InfoToastProps> = ({
+  loading,
+  title,
+  subtitle,
+}) => {
   const [visible, setVisible] = useState(false);
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
@@ -41,7 +45,12 @@ export const InfoToast: React.FC<InfoToastProps> = ({ loading, title, subtitle }
         role="alert"
       >
         <div className="inline-flex items-center justify-center shrink-0 w-8 h-8 rounded-lg bg-blue-100 text-blue-600">
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <svg
+            className="w-4 h-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -51,7 +60,9 @@ export const InfoToast: React.FC<InfoToastProps> = ({ loading, title, subtitle }
           </svg>
         </div>
         <div className="ms-3 text-sm font-normal">
-          <div className="font-semibold text-gray-100 dark:text-gray-900">{title}</div>
+          <div className="font-semibold text-gray-100 dark:text-gray-900">
+            {title}
+          </div>
           {subtitle && <div>{subtitle}</div>}
         </div>
       </div>

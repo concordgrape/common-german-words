@@ -7,7 +7,7 @@ import Footer from "./components/Footer/Footer";
 import { UserProvider } from "./context/UserContext";
 import { WordFormProvider } from "./context/WordFormContext";
 import { Analytics } from "@vercel/analytics/next";
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "./lib/constants";
 
 const geistSans = Geist({
@@ -40,8 +40,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(kCOMMONWORDS_URL_WWW),
   applicationName: `Common ${kLANG_NAME_CAPITAL} Words`,
   title: `Common ${kLANG_NAME_CAPITAL} Words | Study the Most Frequent ${kLANG_NAME_CAPITAL} Words`,
-  description:
-    `Master the most common ${kLANG_NAME_CAPITAL} words with interactive flashcards, quizzes, and CEFR-level vocabulary lists. Perfect for beginners and advanced learners.`,
+  description: `Master the most common ${kLANG_NAME_CAPITAL} words with interactive flashcards, quizzes, and CEFR-level vocabulary lists. Perfect for beginners and advanced learners.`,
   keywords: [
     `${kLANG_NAME_CAPITAL} vocabulary`,
     `common ${kLANG_NAME_CAPITAL} words`,
@@ -76,8 +75,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `Common ${kLANG_NAME_CAPITAL} Words | Study the Most Frequent ${kLANG_NAME_CAPITAL} Words`,
-    description:
-      `Learn the most frequently used ${kLANG_NAME_CAPITAL} words with definitions, example sentences, and pronunciation. Includes flashcards, quizzes, and CEFR-level lists.`,
+    description: `Learn the most frequently used ${kLANG_NAME_CAPITAL} words with definitions, example sentences, and pronunciation. Includes flashcards, quizzes, and CEFR-level lists.`,
     url: kCOMMONWORDS_URL_WWW,
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
     images: [
@@ -94,8 +92,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: `Common ${kLANG_NAME_CAPITAL} Words | Study the Most Frequent ${kLANG_NAME_CAPITAL} Words`,
-    description:
-      `Master ${kLANG_NAME_CAPITAL} vocabulary with flashcards, quizzes, and CEFR-level word lists. Perfect for beginners and advanced learners.`,
+    description: `Master ${kLANG_NAME_CAPITAL} vocabulary with flashcards, quizzes, and CEFR-level word lists. Perfect for beginners and advanced learners.`,
     images: ["/og-image.jpg"],
   },
   icons: {
@@ -144,8 +141,15 @@ export default function RootLayout({
                 `,
           }}
         />
-        <meta name="google-adsense-platform-account" content="ca-host-pub-7585653265358782"></meta>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7585653265358782" crossOrigin="anonymous"></script>
+        <meta
+          name="google-adsense-platform-account"
+          content="ca-host-pub-7585653265358782"
+        ></meta>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7585653265358782"
+          crossOrigin="anonymous"
+        ></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#1B263B]`}

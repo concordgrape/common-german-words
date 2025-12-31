@@ -45,7 +45,7 @@ interface MergedLineData {
 
 function mergeSavedAndKnownData(
   saved: { date: string; count: number }[],
-  known: { date: string; count: number }[]
+  known: { date: string; count: number }[],
 ): MergedLineData[] {
   const merged: Record<string, MergedLineData> = {};
 
@@ -65,10 +65,10 @@ function mergeSavedAndKnownData(
 function ProgressPage() {
   const { user, streak, loading } = useUser();
   const [savedData, setSavedData] = useState<{ date: string; count: number }[]>(
-    []
+    [],
   );
   const [knownData, setKnownData] = useState<{ date: string; count: number }[]>(
-    []
+    [],
   );
   const [totalSavedWords, setTotalSavedWords] = useState<number>(-1);
   const [totalKnownWords, setTotalKnownWords] = useState<number>(-1);
@@ -146,7 +146,7 @@ function ProgressPage() {
 
     const matched: Word[] = rawSavedWords
       .map((saved) =>
-        words.find((w) => w.word.toLowerCase() === saved.word.toLowerCase())
+        words.find((w) => w.word.toLowerCase() === saved.word.toLowerCase()),
       )
       .filter((w): w is Word => !!w);
 
@@ -319,8 +319,8 @@ function ProgressPage() {
                 {key === "7d"
                   ? "7 Days"
                   : key === "30d"
-                  ? "30 Days"
-                  : "6 Months"}
+                    ? "30 Days"
+                    : "6 Months"}
               </option>
             ))}
           </select>
@@ -339,8 +339,8 @@ function ProgressPage() {
               {rangeKey === "7d"
                 ? "7 days"
                 : rangeKey === "30d"
-                ? "30 days"
-                : "6 months"}
+                  ? "30 days"
+                  : "6 months"}
             </p>
           </div>
         </div>

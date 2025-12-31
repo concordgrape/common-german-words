@@ -4,8 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: `Top 100 ${kLANG_NAME_CAPITAL} Adjectives – Common ${kLANG_NAME_CAPITAL} Words`,
-  description:
-    `Master the 100 most frequently used ${kLANG_NAME_CAPITAL} adjectives with definitions, conjugations, usage examples, and pronunciation guides. Perfect for speaking and writing fluently`,
+  description: `Master the 100 most frequently used ${kLANG_NAME_CAPITAL} adjectives with definitions, conjugations, usage examples, and pronunciation guides. Perfect for speaking and writing fluently`,
   keywords: [
     `${kLANG_NAME_CAPITAL} words`,
     `top ${kLANG_NAME_CAPITAL} adjectives`,
@@ -16,12 +15,11 @@ export const metadata: Metadata = {
     `${kLANG_NAME_CAPITAL} flashcards`,
     `${kLANG_NAME_CAPITAL} quizzes`,
     `study ${kLANG_NAME_CAPITAL}`,
-    `most used ${kLANG_NAME_CAPITAL} adjectives`
+    `most used ${kLANG_NAME_CAPITAL} adjectives`,
   ],
   openGraph: {
     title: `Top 100 ${kLANG_NAME_CAPITAL} Adjectives – Common ${kLANG_NAME_CAPITAL} Words`,
-    description:
-      `Boost your ${kLANG_NAME_CAPITAL} skills by learning the 100 most frequently used adjectives. Includes definitions, examples, pronunciation, and interactive study tools`,
+    description: `Boost your ${kLANG_NAME_CAPITAL} skills by learning the 100 most frequently used adjectives. Includes definitions, examples, pronunciation, and interactive study tools`,
     url: `${kCOMMONWORDS_URL_WWW}/top-100-words/adjectives`,
     type: "website",
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
@@ -29,8 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: `Top 100 ${kLANG_NAME_CAPITAL} Adjectives – Common ${kLANG_NAME_CAPITAL} Words`,
-    description:
-      `Learn the most common ${kLANG_NAME_CAPITAL} adjectives with flashcards, quizzes, and example sentences to master your vocabulary`,
+    description: `Learn the most common ${kLANG_NAME_CAPITAL} adjectives with flashcards, quizzes, and example sentences to master your vocabulary`,
   },
 };
 
@@ -39,8 +36,10 @@ export default function AdjectivesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>
-  {children}
-  <StickyFooterAd />
-  </>;
+  return (
+    <>
+      {children}
+      <StickyFooterAd />
+    </>
+  );
 }

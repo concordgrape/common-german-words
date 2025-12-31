@@ -1,20 +1,24 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import clsx from 'clsx';
-import Link from 'next/link';
-import Image from 'next/image';
-import { FiMenu } from 'react-icons/fi';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useUser } from '@/app/context/UserContext';
+import React, { useState, useEffect, useRef } from "react";
+import clsx from "clsx";
+import Link from "next/link";
+import Image from "next/image";
+import { FiMenu } from "react-icons/fi";
+import { AnimatePresence, motion } from "framer-motion";
+import { useUser } from "@/app/context/UserContext";
 
-import SearchBar from './SearchBar';
-import AvatarDropdown from './AvatarDropdown';
-import { FaBook, FaQuestionCircle } from 'react-icons/fa';
-import { FaChartLine } from 'react-icons/fa6';
-import Lottie from 'lottie-react';
-import fireAnimation from '../../external/Lottie/fire.json'
-import { kESTIMATE_TOTAL_WORD_COUNT, kCOUNTRY_FLAG_IMG, kLANG_NAME_CAPITAL } from '@/app/lib/constants';
+import SearchBar from "./SearchBar";
+import AvatarDropdown from "./AvatarDropdown";
+import { FaBook, FaQuestionCircle } from "react-icons/fa";
+import { FaChartLine } from "react-icons/fa6";
+import Lottie from "lottie-react";
+import fireAnimation from "../../external/Lottie/fire.json";
+import {
+  kESTIMATE_TOTAL_WORD_COUNT,
+  kCOUNTRY_FLAG_IMG,
+  kLANG_NAME_CAPITAL,
+} from "@/app/lib/constants";
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // mobile menu
@@ -39,11 +43,11 @@ export const Navbar: React.FC = () => {
         desktopDropdownRef.current &&
         !desktopDropdownRef.current.contains(e.target as Node)
       ) {
-       closeMenu();
+        closeMenu();
       }
     };
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => document.removeEventListener('mousedown', handleOutsideClick);
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, [isMenuOpen]);
 
   return (
@@ -68,7 +72,7 @@ export const Navbar: React.FC = () => {
             <div className="hidden sm:flex items-center flex-nowrap">
               <SearchBar />
               <AnimatePresence>
-                {(user && !loading) && (
+                {user && !loading && (
                   <motion.div
                     key="streak-badge"
                     initial={{ opacity: 0, scale: 0.9, x: 10 }}
@@ -79,8 +83,12 @@ export const Navbar: React.FC = () => {
                     className="tooltip tooltip-bottom bg-clear px-4 py-1 ml-2 flex-shrink-0"
                   >
                     <span className="text-3xl flex text-orange-400 font-mono font-bold">
-                      <span className='pt-1'>{streak}</span>               
-                      <Lottie className="h-10 w-10" animationData={fireAnimation} loop={true} />
+                      <span className="pt-1">{streak}</span>
+                      <Lottie
+                        className="h-10 w-10"
+                        animationData={fireAnimation}
+                        loop={true}
+                      />
                     </span>
                   </motion.div>
                 )}
@@ -91,13 +99,21 @@ export const Navbar: React.FC = () => {
           {/* Right side */}
           <div className="flex items-center gap-2 lg:gap-6 relative">
             <div className="font-mono text-black dark:text-white text-sm hidden sm:flex space-x-6">
-              {user ? 
-              <Link href="/progress" className="hidden lg:flex hover:underline flex items-center">
-                <FaChartLine className="mr-2" />
-                <span>Progress</span>
-              </Link>
-              : <></>}
-              <Link href="/browse" className="hover:underline flex items-center">
+              {user ? (
+                <Link
+                  href="/progress"
+                  className="hidden lg:flex hover:underline flex items-center"
+                >
+                  <FaChartLine className="mr-2" />
+                  <span>Progress</span>
+                </Link>
+              ) : (
+                <></>
+              )}
+              <Link
+                href="/browse"
+                className="hover:underline flex items-center"
+              >
                 <FaQuestionCircle className="mr-2" />
                 <span>Browse</span>
               </Link>
@@ -107,33 +123,37 @@ export const Navbar: React.FC = () => {
               </Link>
             </div>
             <div className={`w-full flex justify-end`}>
-                <div className='block sm:hidden'>
-                  <AnimatePresence>
-                    {user && (
-                      <motion.div
-                        key="streak-badge"
-                        initial={{ opacity: 0, scale: 0.9, x: 10 }}
-                        animate={{ opacity: 1, scale: 1, x: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, x: 10 }}
-                        transition={{ duration: 0.3 }}
-                        data-tip="Your daily streak"
-                        className="tooltip tooltip-bottom bg-clear px-1 py-1 ml-2 flex-shrink-0"
-                      >
-                        <span className="text-3xl flex text-orange-400 font-mono font-bold">
-                          <span className='pt-1'>{streak}</span>               
-                          <Lottie className="h-10 w-10" animationData={fireAnimation} loop={true} />
-                        </span>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              <div className={`${user ? 'block' : 'sm:hidden'}`}>
+              <div className="block sm:hidden">
+                <AnimatePresence>
+                  {user && (
+                    <motion.div
+                      key="streak-badge"
+                      initial={{ opacity: 0, scale: 0.9, x: 10 }}
+                      animate={{ opacity: 1, scale: 1, x: 0 }}
+                      exit={{ opacity: 0, scale: 0.9, x: 10 }}
+                      transition={{ duration: 0.3 }}
+                      data-tip="Your daily streak"
+                      className="tooltip tooltip-bottom bg-clear px-1 py-1 ml-2 flex-shrink-0"
+                    >
+                      <span className="text-3xl flex text-orange-400 font-mono font-bold">
+                        <span className="pt-1">{streak}</span>
+                        <Lottie
+                          className="h-10 w-10"
+                          animationData={fireAnimation}
+                          loop={true}
+                        />
+                      </span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              <div className={`${user ? "block" : "sm:hidden"}`}>
                 <AvatarDropdown />
               </div>
-              <div className={`${user ? 'hidden' : 'hidden sm:flex'}`}>
+              <div className={`${user ? "hidden" : "hidden sm:flex"}`}>
                 <Link
                   href="/signin"
-                  className={`${loading ? 'skeleton opacity-50 disabled' : ''} flex items-center px-4 py-2 text-sm text-black border border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm w-full justify-center`}
+                  className={`${loading ? "skeleton opacity-50 disabled" : ""} flex items-center px-4 py-2 text-sm text-black border border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm w-full justify-center`}
                 >
                   <svg
                     width="20px"
@@ -158,7 +178,7 @@ export const Navbar: React.FC = () => {
               </div>
             </div>
             {/* Desktop Dropdown (Hamburger Icon) */}
-            <div className='hidden'>
+            <div className="hidden">
               <HamburgerDropdown />
             </div>
 
@@ -167,10 +187,7 @@ export const Navbar: React.FC = () => {
               onClick={toggleMenu}
               className="hidden flex items-center text-black dark:text-white hover:text-gray-300 cursor-pointer p-1 sm:p-3"
             >
-              <svg
-                className="block h-6 w-6 fill-current"
-                viewBox="0 0 20 20"
-              >
+              <svg className="block h-6 w-6 fill-current" viewBox="0 0 20 20">
                 <title>Mobile menu</title>
                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
               </svg>
@@ -183,8 +200,8 @@ export const Navbar: React.FC = () => {
       <div
         ref={menuRef}
         className={clsx(
-          'navbar-menu fixed top-0 left-0 bottom-0 z-200 w-5/6 max-w-xs py-6 px-6 bg-white dark:bg-[#181922] border-r dark:border-gray-800 overflow-y-auto transition-transform duration-300 ease-in-out',
-          isMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          "navbar-menu fixed top-0 left-0 bottom-0 z-200 w-5/6 max-w-xs py-6 px-6 bg-white dark:bg-[#181922] border-r dark:border-gray-800 overflow-y-auto transition-transform duration-300 ease-in-out",
+          isMenuOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
         <div
@@ -210,63 +227,90 @@ export const Navbar: React.FC = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
-          <span className="text-gray-700 dark:text-white text-lg font-bold">Common {kLANG_NAME_CAPITAL} Words</span>
+          <span className="text-gray-700 dark:text-white text-lg font-bold">
+            Common {kLANG_NAME_CAPITAL} Words
+          </span>
           <div className="mt-4">
-             <ul className="flex flex-col text-sm text-gray-700 dark:text-white">
+            <ul className="flex flex-col text-sm text-gray-700 dark:text-white">
               <li>
-                <Link onClick={closeMenu} href="/browse" className="block py-3 px-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 font-bold">
-                  <span className='pr-1'>💬</span> Browse
+                <Link
+                  onClick={closeMenu}
+                  href="/browse"
+                  className="block py-3 px-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 font-bold"
+                >
+                  <span className="pr-1">💬</span> Browse
                   <br />
-                  <span className='pr-1 text-gray-400 font-bold text-xs'>Browse {kESTIMATE_TOTAL_WORD_COUNT}+ frequent words</span>
+                  <span className="pr-1 text-gray-400 font-bold text-xs">
+                    Browse {kESTIMATE_TOTAL_WORD_COUNT}+ frequent words
+                  </span>
                 </Link>
               </li>
               <li>
-                <Link onClick={closeMenu} href="/learn" className="block py-3 px-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 font-bold">
-                  <span className='pr-1'>📖</span> Learn
+                <Link
+                  onClick={closeMenu}
+                  href="/learn"
+                  className="block py-3 px-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 font-bold"
+                >
+                  <span className="pr-1">📖</span> Learn
                   <br />
-                  <span className='pr-1 text-gray-400 font-bold text-xs'>Generate flashcards & quizzes</span>
+                  <span className="pr-1 text-gray-400 font-bold text-xs">
+                    Generate flashcards & quizzes
+                  </span>
                 </Link>
               </li>
-              {user ?
-                <Link onClick={closeMenu} href="/progress" className="block py-3 px-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 font-bold">
-                  <span className='pr-1'>📈</span> Progress
+              {user ? (
+                <Link
+                  onClick={closeMenu}
+                  href="/progress"
+                  className="block py-3 px-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 font-bold"
+                >
+                  <span className="pr-1">📈</span> Progress
                   <br />
-                  <span className='pr-1 text-gray-400 font-bold text-xs'>View your current progress</span>
+                  <span className="pr-1 text-gray-400 font-bold text-xs">
+                    View your current progress
+                  </span>
                 </Link>
-              : <></>}
+              ) : (
+                <></>
+              )}
               <hr className="h-px my-2 bg-gray-200 border-0" />
             </ul>
           </div>
           <div className="mt-auto">
             <div className="pt-6">
               <Link
-                  href="/signin"
-                  className="flex items-center px-4 py-2 text-sm text-black dark:text-white border border-gray-200 dark:border-blue-400 bg-gray-100 dark:bg-blue-500 hover:border-gray-300 dark:hover:border-blue-700 hover:shadow-sm rounded-sm w-full justify-center"
+                href="/signin"
+                className="flex items-center px-4 py-2 text-sm text-black dark:text-white border border-gray-200 dark:border-blue-400 bg-gray-100 dark:bg-blue-500 hover:border-gray-300 dark:hover:border-blue-700 hover:shadow-sm rounded-sm w-full justify-center"
+              >
+                <svg
+                  width="20px"
+                  height="20px"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  xmlns="http://www.w3.org/2000/svg"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                  className="stroke-black dark:stroke-white"
                 >
-                  <svg
-                    width="20px"
-                    height="20px"
-                    viewBox="0 0 24 24"
-                    role="img"
-                    xmlns="http://www.w3.org/2000/svg"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                    className="stroke-black dark:stroke-white"
-                  >
-                    <title id="happyFaceIconTitle">Happy Face</title>
-                    <path d="M7.3,14 C8.07,15.76 9.99,17 12,17 C14,17 15.91,15.75 16.69,14" />
-                    <line x1="9" y1="9" x2="9" y2="9" />
-                    <line x1="15" y1="9" x2="15" y2="9" />
-                    <circle cx="12" cy="12" r="10" />
-                  </svg>
-                  <span className="pl-2">Sign In</span>
-                </Link>
+                  <title id="happyFaceIconTitle">Happy Face</title>
+                  <path d="M7.3,14 C8.07,15.76 9.99,17 12,17 C14,17 15.91,15.75 16.69,14" />
+                  <line x1="9" y1="9" x2="9" y2="9" />
+                  <line x1="15" y1="9" x2="15" y2="9" />
+                  <circle cx="12" cy="12" r="10" />
+                </svg>
+                <span className="pl-2">Sign In</span>
+              </Link>
               {/*<a className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-black font-semibold bg-blue-600 hover:bg-blue-700 rounded-xl" href="#">
                 Sign Up
               </a>*/}
@@ -281,23 +325,23 @@ export const Navbar: React.FC = () => {
   );
 };
 
-
-
-
 function HamburgerDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const toggleDropdown = () => setIsOpen(prev => !prev);
+  const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -316,22 +360,34 @@ function HamburgerDropdown() {
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             className="absolute right-0 mt-2 w-60 bg-white border border-gray-200 rounded-md shadow-lg z-50 origin-top-right"
           >
             <ul className="flex flex-col text-sm text-gray-700">
               <li>
-                <Link href="/browse" onClick={() => setIsOpen(false)} className="block px-4 py-3 hover:bg-gray-100 font-bold">
-                  <span className='pr-1'>💬</span> Browse
+                <Link
+                  href="/browse"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-3 hover:bg-gray-100 font-bold"
+                >
+                  <span className="pr-1">💬</span> Browse
                   <br />
-                  <span className='pr-1 text-gray-400 font-bold text-xs'>Browse {kESTIMATE_TOTAL_WORD_COUNT}+ frequent words</span>
+                  <span className="pr-1 text-gray-400 font-bold text-xs">
+                    Browse {kESTIMATE_TOTAL_WORD_COUNT}+ frequent words
+                  </span>
                 </Link>
               </li>
               <li>
-                <Link href="/learn" onClick={() => setIsOpen(false)} className="block px-4 py-3 hover:bg-gray-100 font-bold">
-                  <span className='pr-1'>📖</span> Learn
+                <Link
+                  href="/learn"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-3 hover:bg-gray-100 font-bold"
+                >
+                  <span className="pr-1">📖</span> Learn
                   <br />
-                  <span className='pr-1 text-gray-400 font-bold text-xs'>Generate flashcards & quizzes</span>
+                  <span className="pr-1 text-gray-400 font-bold text-xs">
+                    Generate flashcards & quizzes
+                  </span>
                 </Link>
               </li>
               <hr className="h-px my-2 bg-gray-200 border-0" />

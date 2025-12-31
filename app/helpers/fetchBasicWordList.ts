@@ -1,15 +1,15 @@
 // lib/fetchBasicWords.ts
 
 export interface Word {
-    word: string;
-    id: number;
-    part_of_speech: string | null;
-    frequency: number; 
-    rank: number; 
-    translation: string;
-    gender: string;
-    phonetic_spelling: string;
-    examples: { sentence: string; translation: string }[];
+  word: string;
+  id: number;
+  part_of_speech: string | null;
+  frequency: number;
+  rank: number;
+  translation: string;
+  gender: string;
+  phonetic_spelling: string;
+  examples: { sentence: string; translation: string }[];
 }
 
 export async function fetchBasicWords(language: string): Promise<Word[]> {
@@ -30,7 +30,6 @@ export async function fetchBasicWords(language: string): Promise<Word[]> {
     return [];
   }
 }
-
 
 export async function fetchAllWords(language: string): Promise<Word[]> {
   try {
@@ -90,7 +89,7 @@ export async function fetchRandomWords(
   count: number,
   rank: number | null = null,
   priority: "common-words" | "random" = "random",
-  savedWords: string[] = [] // <-- NEW PARAM
+  savedWords: string[] = [], // <-- NEW PARAM
 ): Promise<Word[]> {
   try {
     const params = new URLSearchParams({
@@ -110,9 +109,9 @@ export async function fetchRandomWords(
     if (savedWords.length > 0) {
       // Shuffle and take up to 100 saved words
       const shuffled = savedWords
-        .map(word => ({ word, sort: Math.random() }))
+        .map((word) => ({ word, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
-        .map(entry => entry.word)
+        .map((entry) => entry.word)
         .slice(0, 100);
 
       params.set("saved", shuffled.join(","));

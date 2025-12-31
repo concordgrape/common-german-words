@@ -13,9 +13,7 @@ import { DropdownWordInfo } from "./DropdownWordInfo";
 import { useToast } from "../hooks/useToast";
 import WordPopover from "./Popover/Popover";
 import WordStatusButtons from "./WordStatusButtons/WordStatusButtons";
-import {
-  fetchWordStatusMetaData,
-} from "../helpers/userWordLibrary";
+import { fetchWordStatusMetaData } from "../helpers/userWordLibrary";
 import { useWordStatusSetters } from "../hooks/useWordStatusSetters";
 import { useUser } from "../context/UserContext";
 import { kESTIMATE_TOTAL_WORD_COUNT } from "../lib/constants";
@@ -56,15 +54,15 @@ export const WordTable: React.FC<WordTableProps> = ({
   const [savedWordIds, setSavedWordIds] = useState<Set<string>>(new Set());
   const [knownWordIds, setKnownWordIds] = useState<Set<string>>(new Set());
   const [savedTimestamps, setSavedTimestamps] = useState<Map<string, number>>(
-    new Map()
+    new Map(),
   );
   const [knownTimestamps, setKnownTimestamps] = useState<Map<string, number>>(
-    new Map()
+    new Map(),
   );
 
   const [activeSort, setActiveSort] = useState<SortOption["id"]>("frequency"); // 'alphabetically' is active by default as per screenshot
   const [selectedCEFR, setSelectedCEFR] = useState<"All" | "A1" | "A2" | "B1">(
-    "All"
+    "All",
   );
 
   // Create a ref for the dropdown container
@@ -92,8 +90,8 @@ export const WordTable: React.FC<WordTableProps> = ({
   const filteredBase = showOnlySaved
     ? words.filter((word) => savedWordIds.has(word.word))
     : showOnlyKnown
-    ? words.filter((word) => knownWordIds.has(word.word))
-    : words;
+      ? words.filter((word) => knownWordIds.has(word.word))
+      : words;
 
   const scoredWords = filteredBase
     .map((word) => {
@@ -151,7 +149,7 @@ export const WordTable: React.FC<WordTableProps> = ({
     if (selectedType !== "All") {
       result = result.filter(
         (word) =>
-          word.part_of_speech?.toLowerCase() === selectedType.toLowerCase()
+          word.part_of_speech?.toLowerCase() === selectedType.toLowerCase(),
       );
     }
 
@@ -173,7 +171,7 @@ export const WordTable: React.FC<WordTableProps> = ({
   // Only show paginated results if not filtering
   const displayedWords = filteredWords.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   const wordTypes = [
@@ -218,10 +216,10 @@ export const WordTable: React.FC<WordTableProps> = ({
         setKnownWordIds(new Set(known.map((doc) => doc.id)));
 
         setSavedTimestamps(
-          new Map(saved.map((doc) => [doc.id, doc.timestamp.toMillis()]))
+          new Map(saved.map((doc) => [doc.id, doc.timestamp.toMillis()])),
         );
         setKnownTimestamps(
-          new Map(known.map((doc) => [doc.id, doc.timestamp.toMillis()]))
+          new Map(known.map((doc) => [doc.id, doc.timestamp.toMillis()])),
         );
       } catch (err) {
         console.error("❌ Error preloading word status:", err);
@@ -303,7 +301,7 @@ export const WordTable: React.FC<WordTableProps> = ({
     45;
 
   const [virtuosoHeight, setVirtuosoHeight] = useState<string>(
-    `${initialHeight}px`
+    `${initialHeight}px`,
   );
 
   // Toggle expanded row by ID and pass clicked word to parent
@@ -354,34 +352,34 @@ export const WordTable: React.FC<WordTableProps> = ({
     setSearchTerm(value);
   };
 
-// --- handlePlusClick ---
-const handlePlusClick = async (word: string) => {
-  const willEnable = !savedWordIds.has(word);
+  // --- handlePlusClick ---
+  const handlePlusClick = async (word: string) => {
+    const willEnable = !savedWordIds.has(word);
 
-  setSavedWordIds((prev) => {
-    const s = new Set(prev);
-    if (willEnable) {
-      s.add(word);
-    } else {
-      s.delete(word);
-    }
-    return s;
-  });
-
-  setSaved(word, willEnable).catch((err) => {
     setSavedWordIds((prev) => {
       const s = new Set(prev);
-      // revert
       if (willEnable) {
-        s.delete(word);
-      } else {
         s.add(word);
+      } else {
+        s.delete(word);
       }
       return s;
     });
-    console.error("❌ Error setting saved:", err);
-  });
-};
+
+    setSaved(word, willEnable).catch((err) => {
+      setSavedWordIds((prev) => {
+        const s = new Set(prev);
+        // revert
+        if (willEnable) {
+          s.delete(word);
+        } else {
+          s.add(word);
+        }
+        return s;
+      });
+      console.error("❌ Error setting saved:", err);
+    });
+  };
 
   // --- handleCheckClick ---
   const handleCheckClick = async (word: string) => {
@@ -411,7 +409,6 @@ const handlePlusClick = async (word: string) => {
       console.error("❌ Error setting known:", err);
     });
   };
-
 
   const CustomScroller = React.forwardRef<HTMLDivElement>((props, ref) => (
     <div ref={ref} {...props} />
@@ -773,7 +770,8 @@ const handlePlusClick = async (word: string) => {
                             , masc.
                           </span>
                         )}
-                        {(word.gender.toLowerCase() === "feminine" || word.gender.toLowerCase() === "femininen") && (
+                        {(word.gender.toLowerCase() === "feminine" ||
+                          word.gender.toLowerCase() === "femininen") && (
                           <span className="text-gray-700 dark:text-gray-400 text-sm italic">
                             , fem.
                           </span>
@@ -792,7 +790,7 @@ const handlePlusClick = async (word: string) => {
                     <i>
                       {truncateString(
                         word.translation,
-                        isMobile ? (word.word.length > 8 ? 5 : 15) : 30
+                        isMobile ? (word.word.length > 8 ? 5 : 15) : 30,
                       )}
                     </i>
                   </div>

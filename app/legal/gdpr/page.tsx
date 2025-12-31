@@ -4,8 +4,7 @@ import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 
 export const metadata: Metadata = {
   title: `GDPR Cookie Policy | Common ${kLANG_NAME_CAPITAL} Words`,
-  description:
-    `GDPR-compliant Cookie Policy for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
+  description: `GDPR-compliant Cookie Policy for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
 };
 
 const EFFECTIVE_DATE = "August 8, 2025";
@@ -31,8 +30,8 @@ function GDPRCookiePolicy() {
       <p>
         This GDPR Cookie Policy explains how{" "}
         <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the “Website”) and{" "}
-        <strong>Verbuu – Common Words</strong> (the “App”) use cookies and similar
-        technologies in compliance with the{" "}
+        <strong>Verbuu – Common Words</strong> (the “App”) use cookies and
+        similar technologies in compliance with the{" "}
         <strong>General Data Protection Regulation (GDPR)</strong> and other
         applicable laws.
       </p>
@@ -51,12 +50,12 @@ function GDPRCookiePolicy() {
           Services to function (e.g., authentication, security).
         </li>
         <li>
-          <strong>Preference Cookies</strong> – Save your theme preference (light
-          or dark mode) locally on your device. Not sent to our servers.
+          <strong>Preference Cookies</strong> – Save your theme preference
+          (light or dark mode) locally on your device. Not sent to our servers.
         </li>
         <li>
-          <strong>Analytics Cookies</strong> – Set by Google Analytics and Vercel
-          Analytics to collect anonymized data on site usage, including:
+          <strong>Analytics Cookies</strong> – Set by Google Analytics and
+          Vercel Analytics to collect anonymized data on site usage, including:
           <ul className="list-disc pl-6 space-y-1">
             <li>Pages visited and time spent</li>
             <li>Approximate location (country, state, city)</li>
@@ -65,10 +64,10 @@ function GDPRCookiePolicy() {
         </li>
       </ul>
 
-      <h2 className="mt-8 text-2xl font-semibold">Legal Basis for Processing</h2>
-      <p>
-        Under GDPR, we process your data using cookies based on:
-      </p>
+      <h2 className="mt-8 text-2xl font-semibold">
+        Legal Basis for Processing
+      </h2>
+      <p>Under GDPR, we process your data using cookies based on:</p>
       <ul className="list-disc pl-6 space-y-1">
         <li>
           <strong>Consent</strong> – For analytics cookies, given through our
@@ -83,8 +82,8 @@ function GDPRCookiePolicy() {
       <h2 className="mt-8 text-2xl font-semibold">Managing Cookies</h2>
       <p>
         You can change or withdraw your consent at any time using our{" "}
-        <strong>Cookie Settings</strong> link in the footer, or by adjusting your
-        browser settings to block or delete cookies.
+        <strong>Cookie Settings</strong> link in the footer, or by adjusting
+        your browser settings to block or delete cookies.
       </p>
 
       <h2 className="mt-8 text-2xl font-semibold">Third-Party Cookies</h2>
@@ -124,15 +123,15 @@ function GDPRCookiePolicy() {
 
       <h2 className="mt-8 text-2xl font-semibold">Consent</h2>
       <p>
-        On your first visit to our Services, you will see a cookie consent banner
-        that allows you to accept or reject non-essential cookies. We will only
-        set analytics cookies if you give your consent.
+        On your first visit to our Services, you will see a cookie consent
+        banner that allows you to accept or reject non-essential cookies. We
+        will only set analytics cookies if you give your consent.
       </p>
 
       <h2 className="mt-8 text-2xl font-semibold">Policy Updates</h2>
       <p>
-        We may update this GDPR Cookie Policy from time to time. Any changes will
-        be posted here with a new effective date.
+        We may update this GDPR Cookie Policy from time to time. Any changes
+        will be posted here with a new effective date.
       </p>
 
       <h2 className="mt-8 text-2xl font-semibold">Contact Us</h2>

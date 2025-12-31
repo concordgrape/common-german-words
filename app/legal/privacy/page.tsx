@@ -4,8 +4,7 @@ import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 
 export const metadata: Metadata = {
   title: `Privacy Policy | Common ${kLANG_NAME_CAPITAL} Words`,
-  description:
-    `Privacy Policy for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
+  description: `Privacy Policy for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
 };
 
 const EFFECTIVE_DATE = "August 8, 2025";
@@ -29,10 +28,11 @@ function PrivacyPolicy() {
       </p>
 
       <p>
-        This Privacy Policy explains how <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the
-        “Website”) and <strong>Verbuu – Common Words</strong> (the “App”) collect,
-        use, and protect your information when you use our services
-        (“Services”). By using the Services, you agree to this policy.
+        This Privacy Policy explains how{" "}
+        <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the “Website”) and{" "}
+        <strong>Verbuu – Common Words</strong> (the “App”) collect, use, and
+        protect your information when you use our services (“Services”). By
+        using the Services, you agree to this policy.
       </p>
 
       <h2 className="mt-8 text-2xl font-semibold">Who We Are</h2>
@@ -73,7 +73,9 @@ function PrivacyPolicy() {
         </li>
       </ul>
 
-      <h2 className="mt-8 text-2xl font-semibold">How We Use Your Information</h2>
+      <h2 className="mt-8 text-2xl font-semibold">
+        How We Use Your Information
+      </h2>
       <ul className="list-disc pl-6 space-y-1">
         <li>To provide and maintain the Services.</li>
         <li>To track learning progress and personalize your experience.</li>
@@ -96,9 +98,7 @@ function PrivacyPolicy() {
       </p>
 
       <h2 className="mt-8 text-2xl font-semibold">Third-Party Services</h2>
-      <p>
-        We use the following third-party services:
-      </p>
+      <p>We use the following third-party services:</p>
       <ul className="list-disc pl-6 space-y-1">
         <li>
           **Google Firebase** – for user authentication, database storage, and
@@ -109,8 +109,8 @@ function PrivacyPolicy() {
         </li>
         <li>**Vercel Analytics** – for website performance metrics.</li>
         <li>
-          **Google Text-to-Speech (TTS)** – to play pre-recorded or pre-generated
-          audio of words and sentences.
+          **Google Text-to-Speech (TTS)** – to play pre-recorded or
+          pre-generated audio of words and sentences.
         </li>
       </ul>
       <p>

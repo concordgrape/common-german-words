@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { FaX } from 'react-icons/fa6';
+import { useEffect, useState } from "react";
+import { FaX } from "react-icons/fa6";
 
 export default function SearchBar() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
-      const initialSearch = params.get('search') || '';
+      const initialSearch = params.get("search") || "";
       setSearch(initialSearch);
     }
   }, []);
@@ -17,32 +17,32 @@ export default function SearchBar() {
   useEffect(() => {
     const handleUrlChange = () => {
       const params = new URLSearchParams(window.location.search);
-      const newSearch = params.get('search') || '';
+      const newSearch = params.get("search") || "";
       setSearch(newSearch);
     };
 
     // Listen to back/forward navigation and manual pushState
-    window.addEventListener('popstate', handleUrlChange);
+    window.addEventListener("popstate", handleUrlChange);
 
     return () => {
-      window.removeEventListener('popstate', handleUrlChange);
+      window.removeEventListener("popstate", handleUrlChange);
     };
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && search.trim()) {
+    if (e.key === "Enter" && search.trim()) {
       window.location.href = `/browse?search=${encodeURIComponent(search.trim())}`;
     }
   };
 
   const clearSearch = () => {
-    setSearch('');
-    
-    const isOnBrowsePage = window.location.pathname === '/browse';
+    setSearch("");
+
+    const isOnBrowsePage = window.location.pathname === "/browse";
     const hasQuery = window.location.search.length > 0;
 
     if (isOnBrowsePage && hasQuery) {
-      window.location.href = '/browse';
+      window.location.href = "/browse";
     }
   };
 

@@ -24,13 +24,13 @@ const LearnWordPage: React.FC = () => {
     allWords,
     setSubmittedWords,
     savedWords,
-    setSavedWords
+    setSavedWords,
   } = useWordForm();
   const [mode, setMode] = useState<Mode>("flashcards");
   const [wordType, setWordType] = useState<string>("All");
   const [wordCount, setWordCount] = useState<number>(kDEFAULT_WORD_COUNT);
   const [priority, setPriority] = useState<"common-words" | "random">(
-    "common-words"
+    "common-words",
   );
   const [rank, setRank] = useState<number>(0);
   const [loading, setLoading] = useState(false);
@@ -71,7 +71,7 @@ const LearnWordPage: React.FC = () => {
         wordCount,
         rank === 0 ? null : rank,
         priority,
-        savedWords
+        savedWords,
       );
 
       if (words.length === 0 && savedWords.length === 0) {
@@ -98,7 +98,7 @@ const LearnWordPage: React.FC = () => {
           setLoading(false);
           go("/learn/cards");
         },
-        remaining > 0 ? remaining : 0
+        remaining > 0 ? remaining : 0,
       );
     } catch (err) {
       console.error("Error fetching words:", err);
@@ -111,11 +111,9 @@ const LearnWordPage: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-  }, [wordCount]);
+  useEffect(() => {}, [wordCount]);
 
-  useEffect(() => {
-  }, [priority]);
+  useEffect(() => {}, [priority]);
 
   return (
     <div className="min-h-screen w-full sm:top-15 md:top-15 pt-15 sm:p-4 md:p-4 text-black grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr] gap-0 max-w-7xl mx-auto relative z-0">

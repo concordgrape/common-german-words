@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useEffect, useState, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import React, { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
-import { WordTable } from '@/app/components/WordTable';
-import { WordInfo } from '@/app/components/WordInfo';
-import { fetchBasicWords, Word } from '../helpers/fetchBasicWordList';
-import { useToast } from '../hooks/useToast';
-import { useOnlineStatus } from '../hooks/useOnlineStatus';
-import { kLANG_NAME } from '@/app/lib/constants';
+import { WordTable } from "@/app/components/WordTable";
+import { WordInfo } from "@/app/components/WordInfo";
+import { fetchBasicWords, Word } from "../helpers/fetchBasicWordList";
+import { useToast } from "../hooks/useToast";
+import { useOnlineStatus } from "../hooks/useOnlineStatus";
+import { kLANG_NAME } from "@/app/lib/constants";
 
 const MainWordPage: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
@@ -24,7 +24,11 @@ const MainWordPage: React.FC = () => {
 
   useEffect(() => {
     if (!isOnline) {
-      toast({ title: 'You are offline', subtitle: 'Check your internet connection.', variant: 'error' });
+      toast({
+        title: "You are offline",
+        subtitle: "Check your internet connection.",
+        variant: "error",
+      });
     }
   }, [isOnline]);
 
@@ -34,14 +38,16 @@ const MainWordPage: React.FC = () => {
 
     const wordParam = searchParams.get("word");
     if (wordParam) {
-      const match = words.find((w) => w.word.toLowerCase() === wordParam.toLowerCase());
+      const match = words.find(
+        (w) => w.word.toLowerCase() === wordParam.toLowerCase(),
+      );
       if (match) {
         setSelectedWord(match);
         return;
       }
     }
 
-    if (typeof window !== 'undefined' && window.innerWidth >= 768) {
+    if (typeof window !== "undefined" && window.innerWidth >= 768) {
       setSelectedWord(words[0]);
     }
   }, [words, searchParams]);
@@ -51,7 +57,9 @@ const MainWordPage: React.FC = () => {
       {/* WordTable (left column) */}
       <div className="z-10">
         <WordTable
-          onRowClick={(word) => { setSelectedWord(word) }}
+          onRowClick={(word) => {
+            setSelectedWord(word);
+          }}
           selectedWord={selectedWord}
           words={words}
         />
@@ -59,9 +67,7 @@ const MainWordPage: React.FC = () => {
 
       {/* WordInfo (right column) */}
       <div className="hidden sm:block md:block sticky top-25 self-start z-20">
-        <WordInfo 
-          selectedWord={selectedWord} 
-        />
+        <WordInfo selectedWord={selectedWord} />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { Suspense } from 'react';
-import LoginForm from './LoginForm';
+import React, { Suspense } from "react";
+import LoginForm from "./LoginForm";
 
 function SignIn() {
   return (
@@ -9,13 +9,12 @@ function SignIn() {
       <LoginForm />
     </div>
   );
-};
-
+}
 
 export default function SignInPage() {
   return (
     <Suspense>
       <SignIn />
     </Suspense>
-  )
+  );
 }

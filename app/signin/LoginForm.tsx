@@ -1,15 +1,19 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { sendSignInLinkToEmail } from 'firebase/auth';
-import { auth } from '@/lib/firebaseClient';
-import GoogleSignInButton from './SignInWithGoogle';
-import { useUser } from '../context/UserContext';
+import React, { useState, useEffect } from "react";
+import { sendSignInLinkToEmail } from "firebase/auth";
+import { auth } from "@/lib/firebaseClient";
+import GoogleSignInButton from "./SignInWithGoogle";
+import { useUser } from "../context/UserContext";
 //import SignInWithApple from './SignInWithApple';
-import { useGoNavigation } from '../lib/navigation';
-import Image from 'next/image';
-import globeImage from "../../public/010-planet.svg"
-import { kCOMMONWORDS_URL_WWW, kESTIMATE_TOTAL_WORD_COUNT, kLANG_NAME_CAPITAL } from '../lib/constants';
+import { useGoNavigation } from "../lib/navigation";
+import Image from "next/image";
+import globeImage from "../../public/010-planet.svg";
+import {
+  kCOMMONWORDS_URL_WWW,
+  kESTIMATE_TOTAL_WORD_COUNT,
+  kLANG_NAME_CAPITAL,
+} from "../lib/constants";
 
 const actionCodeSettings = {
   url: `${kCOMMONWORDS_URL_WWW}/sign-in-complete`,
@@ -17,38 +21,46 @@ const actionCodeSettings = {
 };
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
   const { user, loading } = useUser();
   const { go } = useGoNavigation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('sending');
+    setStatus("sending");
 
     try {
       await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-      window.localStorage.setItem('emailForSignIn', email);
-      setStatus('sent');
+      window.localStorage.setItem("emailForSignIn", email);
+      setStatus("sent");
     } catch (error) {
-      console.error('Error sending sign-in link:', error);
-      setStatus('error');
+      console.error("Error sending sign-in link:", error);
+      setStatus("error");
     }
   };
 
   useEffect(() => {
     if (user) {
-      go("/browse")
+      go("/browse");
     }
   }, [user]);
 
   return (
     <div className="w-[90%] sm:w-full m-auto max-h-[800px] max-w-md bg-white dark:bg-[#1E1E1E] p-6 sm:p-8 rounded-xl shadow">
-      <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-2">Sign in</h2>
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-2">
+        Sign in
+      </h2>
       <div className="flex items-center gap-4 mb-4">
         <div className="text-left">
           <h3 className="text-md text-gray-900 dark:text-white">
-            Get complete access to <span className="font-mono font-bold text-blue-500">{kESTIMATE_TOTAL_WORD_COUNT}+</span> {kLANG_NAME_CAPITAL} words, for free!
+            Get complete access to{" "}
+            <span className="font-mono font-bold text-blue-500">
+              {kESTIMATE_TOTAL_WORD_COUNT}+
+            </span>{" "}
+            {kLANG_NAME_CAPITAL} words, for free!
           </h3>
         </div>
         <Image
@@ -62,13 +74,19 @@ const LoginForm: React.FC = () => {
       <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
       <h4 className="text-sm text-gray-900 dark:text-white mb-6 text-left">
         <i>
-          We use a <b>password free</b> sign in method. You will receive a verification email.<br />
-          First time on Common {kLANG_NAME_CAPITAL} Words? An account will automatically be created.
+          We use a <b>password free</b> sign in method. You will receive a
+          verification email.
+          <br />
+          First time on Common {kLANG_NAME_CAPITAL} Words? An account will
+          automatically be created.
         </i>
       </h4>
       <form className={`space-y-5`} onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          >
             Email address
           </label>
           <input
@@ -84,10 +102,14 @@ const LoginForm: React.FC = () => {
         </div>
         <button
           type="submit"
-          disabled={status === 'sending'}
+          disabled={status === "sending"}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition duration-150"
         >
-          {status === 'sending' ? 'Sending...' : status === 'sent' ? 'Email Sent!' : 'Sign in'}
+          {status === "sending"
+            ? "Sending..."
+            : status === "sent"
+              ? "Email Sent!"
+              : "Sign in"}
         </button>
       </form>
 
@@ -99,7 +121,8 @@ const LoginForm: React.FC = () => {
 
       <div className="flex flex-col items-center justify-center">
         <GoogleSignInButton />
-        {/*<SignInWithApple />*/} {/* We must wait until we have an app to enable/configure through it */}
+        {/*<SignInWithApple />*/}{" "}
+        {/* We must wait until we have an app to enable/configure through it */}
       </div>
     </div>
   );

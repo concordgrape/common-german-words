@@ -5,9 +5,13 @@ import { Word } from "../helpers/fetchBasicWordList";
 import GoogleTTSButton from "./GoogleTTSButton/GoogleTTSButton";
 import { FullWordData } from "./WordInfo";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
-import { kARTICLES_BY_GENDER, kCOUNTRY_FLAG_EMOJI, kLANG_NAME } from "../lib/constants";
+import {
+  kARTICLES_BY_GENDER,
+  kCOUNTRY_FLAG_EMOJI,
+  kLANG_NAME,
+} from "../lib/constants";
 
-import "../globals.css"
+import "../globals.css";
 
 interface DropdownWordInfoProps {
   word: Word;
@@ -27,7 +31,7 @@ const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `/api/word?language=${kLANG_NAME}&word=${word.word}`
+          `/api/word?language=${kLANG_NAME}&word=${word.word}`,
         );
         const json = await res.json();
         setFullData(json.word || null);
@@ -193,7 +197,9 @@ const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({
 
                 {/* Examples (tiny stagger) */}
                 <div>
-                  <h3 className="text-lg font-semibold mb-1 poppins">Examples</h3>
+                  <h3 className="text-lg font-semibold mb-1 poppins">
+                    Examples
+                  </h3>
                   <ul className="space-y-2">
                     <AnimatePresence initial={false}>
                       {fullData.examples
@@ -302,5 +308,5 @@ export const DropdownWordInfo = React.memo(
   InnerDropdownWordInfo,
   (prev, next) => {
     return prev.word.word === next.word.word && prev.isOpen === next.isOpen;
-  }
+  },
 );

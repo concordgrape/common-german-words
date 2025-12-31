@@ -31,7 +31,7 @@
   font-size: 1.25rem;
   padding: 1rem;
   border-radius: 0.75rem;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .front {
@@ -40,7 +40,7 @@
 }
 
 .back {
-  background: #027AFB; /* tailwind gray-900-ish */
+  background: #027afb; /* tailwind gray-900-ish */
   color: #fff;
   transform: rotateY(180deg);
 }

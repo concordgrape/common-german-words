@@ -34,8 +34,7 @@ export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
     fetchStatusData();
   }, [user?.uid]);
 
-  useEffect(() => {
-  }, [submittedWords]);
+  useEffect(() => {}, [submittedWords]);
 
   const handleAddAll = () => {
     if (!user) {
@@ -50,10 +49,9 @@ export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
     // Filter savedWordsObject to only those not already submitted
     const available = savedWordsObject.filter(
       (word) =>
-        !submittedWords.some((sw) => isWord(sw) && sw.word === word.word)
+        !submittedWords.some((sw) => isWord(sw) && sw.word === word.word),
     );
     const words = available.map((obj) => obj.word);
-
 
     if (words.length === 0) {
       toast({
@@ -89,7 +87,7 @@ export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
     // Exclude saved words already submitted
     const available = savedWordsObject.filter(
       (word) =>
-        !submittedWords.some((sw) => isWord(sw) && sw.word === word.word)
+        !submittedWords.some((sw) => isWord(sw) && sw.word === word.word),
     );
 
     if (available.length === 0) {
@@ -125,27 +123,29 @@ export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
   };
 
   return (
-    <div className="max-w-80 lg:max-w-full lg:w-full">
-      <div
-        className={`${
-          allWords.length == 0 ? "skeleton opacity-20 fill-[#027AFB]" : ""
-        } w-full bg-[#027AFB] rounded-sm shadow-lg p-6 flex flex-col max-h-[80vh] overflow-y-auto`}
-      >
-        <span className="mb-2 text-white font-bold">
-          <span className="font-semibold text-white flex">
-            {allWords.length == 0 ? (
-              <div className={`flex pt-1 pr-2`}>
-                <div className="animate-spin h-4 w-4 rounded-full border-4 border-white border-t-transparent" />
-              </div>
-            ) : (
-              wordCount + savedWords.length
-            )}{" "}
-            words selected
+    <div className="lg:mt-4">
+      <div className="w-full poppins">
+        <div
+          className={`${
+            allWords.length == 0 ? "skeleton opacity-20 fill-[#027AFB]" : ""
+          } w-full mb-4 bg-[#027AFB] rounded-sm shadow-lg p-4 flex flex-col max-h-[80vh] overflow-y-auto`}
+        >
+          <span className="text-white font-bold">
+            <span className="font-semibold text-white flex">
+              {allWords.length == 0 ? (
+                <div className={`flex pt-1 pr-2`}>
+                  <div className="animate-spin h-4 w-4 rounded-full border-4 border-white border-t-transparent" />
+                </div>
+              ) : (
+                wordCount + savedWords.length
+              )}{" "}
+              words selected
+            </span>
           </span>
-        </span>
-
-        {/* your existing +5 / +10 / +20 quick buttons, unchanged */}
-        <p className="text-xs text-white mt-5">Bulk Add Saved Words</p>
+        </div>
+      </div>
+      <div className="bg-[#027AFB] mt-2 rounded-sm shadow-sm p-6">
+        <p className="text-sm text-white font-semibold">Bulk Add Saved Words</p>
         <div className="flex flex-col">
           <button
             onClick={savedWords.length > 0 ? handleUndo : handleAddAll}

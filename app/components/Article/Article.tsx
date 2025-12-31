@@ -38,14 +38,19 @@ export default function Article({ type, count }: ArticleProps) {
       className={`w-full px-6 text-black dark:text-white max-w-[800px] p-1 sm:p-4 md:p-4 items-start bg-[#FFFFFF] dark:bg-[#0D1B2A] border-0 sm:border-1 border-gray-200 dark:border-gray-700 overflow-hidden mt-0 pt-10 sm:pt-0 sm:mt-5`}
     >
       <h1 className="text-4xl font-bold mb-6">
-        Explore the Top {count} {kLANG_NAME_CAPITAL} <span className={textColor}>{type}</span>
+        Explore the Top {count} {kLANG_NAME_CAPITAL}{" "}
+        <span className={textColor}>{type}</span>
       </h1>
 
       <p className="mb-4">
-        Welcome to <strong>Common {kLANG_NAME_CAPITAL} Words</strong>! On this page, you’ll
-        find the
-        <strong> {count} most common {kLANG_NAME_CAPITAL} {type.toLowerCase()}</strong> — a great
-        place to start if you want to build a strong vocabulary quickly.
+        Welcome to <strong>Common {kLANG_NAME_CAPITAL} Words</strong>! On this
+        page, you’ll find the
+        <strong>
+          {" "}
+          {count} most common {kLANG_NAME_CAPITAL} {type.toLowerCase()}
+        </strong>{" "}
+        — a great place to start if you want to build a strong vocabulary
+        quickly.
       </p>
 
       <p className="mb-4">You’ll see a big list of words like:</p>
@@ -118,8 +123,8 @@ export default function Article({ type, count }: ArticleProps) {
 
       <p className="text-md">
         This tool is here to help you learn the words that actually show up in
-        real {kLANG_NAME_CAPITAL} conversations. Take your time, save what you don’t know yet,
-        and come back anytime to keep learning!
+        real {kLANG_NAME_CAPITAL} conversations. Take your time, save what you
+        don’t know yet, and come back anytime to keep learning!
       </p>
     </div>
   );

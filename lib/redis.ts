@@ -1,5 +1,5 @@
 // lib/redis.ts
-import { createClient } from 'redis';
+import { createClient } from "redis";
 
 let redisClient: ReturnType<typeof createClient> | null = null;
 
@@ -9,7 +9,7 @@ export async function getRedisClient() {
       url: process.env.REDIS_SKYROTH_REDIS_URL,
     });
 
-    redisClient.on('error', (err) => console.error('Redis Client Error:', err));
+    redisClient.on("error", (err) => console.error("Redis Client Error:", err));
 
     await redisClient.connect();
   }

@@ -1,17 +1,19 @@
-const admin = require('firebase-admin');
-const fs = require('fs');
+const admin = require("firebase-admin");
+const fs = require("fs");
 
-const serviceAccount = require('./serviceAccountKey.json');
+const serviceAccount = require("./serviceAccountKey.json");
 admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 const db = admin.firestore();
 
-const rankedData = JSON.parse(fs.readFileSync('german_words_simple_translations.json', 'utf8'));
+const rankedData = JSON.parse(
+  fs.readFileSync("german_words_simple_translations.json", "utf8"),
+);
 
 const BATCH_SIZE = 500; // Firestore max batch size
 const MAX_RETRIES = 5;
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function withRetry(fn, retries = MAX_RETRIES, delay = 1000) {
@@ -26,7 +28,10 @@ async function withRetry(fn, retries = MAX_RETRIES, delay = 1000) {
 }
 
 async function appendRanksToExistingWords() {
-  const baseCollectionRef = db.collection('languages').doc('german').collection('words');
+  const baseCollectionRef = db
+    .collection("languages")
+    .doc("german")
+    .collection("words");
   const allEntries = Object.entries(rankedData);
 
   let updatedCount = 0;
@@ -38,7 +43,7 @@ async function appendRanksToExistingWords() {
     let opsInBatch = 0;
 
     for (const [word, data] of chunk) {
-      if (!word || word.includes('/')) {
+      if (!word || word.includes("/")) {
         console.warn(`⚠️ Skipped invalid key: "${word}"`);
         skippedCount++;
         continue;
@@ -57,7 +62,9 @@ async function appendRanksToExistingWords() {
         translation: data,
       });
 
-      console.log(`✅ Queued: "${word}" → rank: ${data}, freq: ${data.frequency}`);
+      console.log(
+        `✅ Queued: "${word}" → rank: ${data}, freq: ${data.frequency}`,
+      );
       opsInBatch++;
     }
 
@@ -68,9 +75,11 @@ async function appendRanksToExistingWords() {
     }
   }
 
-  console.log(`🎯 Done. Updated ${updatedCount} words. Skipped ${skippedCount} missing or invalid.`);
+  console.log(
+    `🎯 Done. Updated ${updatedCount} words. Skipped ${skippedCount} missing or invalid.`,
+  );
 }
 
-appendRanksToExistingWords().catch(err => {
-  console.error('❌ Failed to append ranks and frequency:', err);
+appendRanksToExistingWords().catch((err) => {
+  console.error("❌ Failed to append ranks and frequency:", err);
 });

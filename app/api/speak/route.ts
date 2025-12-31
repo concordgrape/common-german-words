@@ -1,12 +1,12 @@
 // /app/api/speak/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-import * as textToSpeech from '@google-cloud/text-to-speech';
-import { TextToSpeechClient } from '@google-cloud/text-to-speech';
-import { Buffer } from 'buffer';
-import { createClient } from 'redis';
+import { NextRequest, NextResponse } from "next/server";
+import * as textToSpeech from "@google-cloud/text-to-speech";
+import { TextToSpeechClient } from "@google-cloud/text-to-speech";
+import { Buffer } from "buffer";
+import { createClient } from "redis";
 
-export const dynamic = 'force-dynamic'
-export const runtime = 'nodejs';
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 const redisClient = createClient({
   url: process.env.REDIS_SKYROTH_REDIS_URL,
@@ -23,10 +23,10 @@ async function connectRedis() {
 
 function getTextToSpeechClient(): TextToSpeechClient {
   const base64 = process.env.GOOGLE_CREDENTIALS_BASE64;
-  if (!base64) throw new Error('Missing GOOGLE_CREDENTIALS_BASE64');
+  if (!base64) throw new Error("Missing GOOGLE_CREDENTIALS_BASE64");
 
   const credentials = JSON.parse(
-    Buffer.from(base64, 'base64').toString('utf-8')
+    Buffer.from(base64, "base64").toString("utf-8"),
   );
 
   return new TextToSpeechClient({ credentials });
@@ -37,21 +37,21 @@ export async function POST(req: NextRequest) {
     const { text, langCode } = await req.json();
     const cacheKey = `tts:de:${text.trim().toLowerCase()}`;
 
-    if ('GrJms55a2GSkEkQJ1SkS' !== process.env.NEXT_PUBLIC_API_PASSWORD) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if ("GrJms55a2GSkEkQJ1SkS" !== process.env.NEXT_PUBLIC_API_PASSWORD) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     await connectRedis();
 
     // Check Redis cache
-   const cached = await redisClient.get(cacheKey);
+    const cached = await redisClient.get(cacheKey);
     if (cached) {
-      const audioBuffer = Buffer.from(cached, 'base64');
+      const audioBuffer = Buffer.from(cached, "base64");
       return new NextResponse(audioBuffer, {
         status: 200,
         headers: {
-          'Content-Type': 'audio/mpeg',
-          'X-Cache': 'HIT',
+          "Content-Type": "audio/mpeg",
+          "X-Cache": "HIT",
         },
       });
     }
@@ -59,55 +59,55 @@ export async function POST(req: NextRequest) {
     // Generate TTS
     const client = getTextToSpeechClient();
 
-    const request: textToSpeech.protos.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest = {
-      input: { text: `${text}.` },
-      voice: {
-        languageCode: langCode,
-        name: langCode+'-Wavenet-F',
-      },
-      audioConfig: {
-        audioEncoding: 'MP3',
-        speakingRate: 1,
-      },
-    };
+    const request: textToSpeech.protos.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest =
+      {
+        input: { text: `${text}.` },
+        voice: {
+          languageCode: langCode,
+          name: langCode + "-Wavenet-F",
+        },
+        audioConfig: {
+          audioEncoding: "MP3",
+          speakingRate: 1,
+        },
+      };
 
     const [response] = await client.synthesizeSpeech(request);
 
     if (!response.audioContent) {
-      return NextResponse.json({ error: 'No audio content returned' }, { status: 500 });
+      return NextResponse.json(
+        { error: "No audio content returned" },
+        { status: 500 },
+      );
     }
 
     const audioBuffer = Buffer.from(response.audioContent as Uint8Array);
 
     // Cache result in Redis as base64 string
-    await redisClient.set(cacheKey, audioBuffer.toString('base64'), {
+    await redisClient.set(cacheKey, audioBuffer.toString("base64"), {
       EX: 60 * 60 * 24 * 30, // 30 days
     });
 
-return new Response(audioBuffer, {
-  status: 200,
-  headers: {
-    'Content-Type': 'audio/mpeg',
-    'X-Cache': 'MISS',
-  },
-});
+    return new Response(audioBuffer, {
+      status: 200,
+      headers: {
+        "Content-Type": "audio/mpeg",
+        "X-Cache": "MISS",
+      },
+    });
+  } catch (err: unknown) {
+    console.error("TTS Error Raw:", err);
 
-} catch (err: unknown) {
-  console.error('TTS Error Raw:', err);
+    const message =
+      err instanceof Error
+        ? err.message
+        : typeof err === "string"
+          ? err
+          : JSON.stringify(err);
 
-  const message =
-    err instanceof Error
-      ? err.message
-      : typeof err === 'string'
-      ? err
-      : JSON.stringify(err);
-
-  return new Response(JSON.stringify({ error: message }), {
-    status: 500,
-    headers: { 'Content-Type': 'application/json' },
-  });
-}
-
-
-
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }

@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "@/lib/firebaseClient";
 import { updateStreak } from "../helpers/userWordLibrary";
@@ -26,66 +32,76 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<SimpleUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [streak, setStreak] = useState(1);
-const [theme, setTheme] = useState<"light" | "dark" | "system">(() => {
-  if (typeof window === "undefined") return "system";
-  return (localStorage.getItem("theme") as "light" | "dark" | "system" | null) ?? "system";
-});
+  const [theme, setTheme] = useState<"light" | "dark" | "system">(() => {
+    if (typeof window === "undefined") return "system";
+    return (
+      (localStorage.getItem("theme") as "light" | "dark" | "system" | null) ??
+      "system"
+    );
+  });
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: User | null) => {
-      if (firebaseUser) {
-        const { uid, email, displayName, photoURL } = firebaseUser;
-        const simpleUser = { uid, email, displayName, photoURL };
-        setUser(simpleUser);
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      async (firebaseUser: User | null) => {
+        if (firebaseUser) {
+          const { uid, email, displayName, photoURL } = firebaseUser;
+          const simpleUser = { uid, email, displayName, photoURL };
+          setUser(simpleUser);
 
-        try {
-          const currentStreak = await updateStreak(uid);
-          setStreak(Math.max(currentStreak, 1));
-        } catch (err) {
-          console.error("Failed to update streak:", err);
-          setStreak(1); // fallback
+          try {
+            const currentStreak = await updateStreak(uid);
+            setStreak(Math.max(currentStreak, 1));
+          } catch (err) {
+            console.error("Failed to update streak:", err);
+            setStreak(1); // fallback
+          }
+        } else {
+          setUser(null);
+          setStreak(1);
         }
-      } else {
-        setUser(null);
-        setStreak(1);
-      }
-      setLoading(false);
-    });
+        setLoading(false);
+      },
+    );
 
     return () => unsubscribe();
   }, []);
 
-useEffect(() => {
-  const root = document.documentElement;
-  const mql = window.matchMedia("(prefers-color-scheme: dark)");
+  useEffect(() => {
+    const root = document.documentElement;
+    const mql = window.matchMedia("(prefers-color-scheme: dark)");
 
-  if (theme === "system") {
-    localStorage.setItem("theme", "system");
-    const apply = (dark: boolean) => root.classList.toggle("dark", dark);
-    apply(mql.matches);
-    const onChange = (e: MediaQueryListEvent) => apply(e.matches);
-    mql.addEventListener("change", onChange);
-    return () => mql.removeEventListener("change", onChange);
-  }
+    if (theme === "system") {
+      localStorage.setItem("theme", "system");
+      const apply = (dark: boolean) => root.classList.toggle("dark", dark);
+      apply(mql.matches);
+      const onChange = (e: MediaQueryListEvent) => apply(e.matches);
+      mql.addEventListener("change", onChange);
+      return () => mql.removeEventListener("change", onChange);
+    }
 
-  // Explicit user choice overrides system
-  localStorage.setItem("theme", theme);
-  root.classList.toggle("dark", theme === "dark");
-}, [theme]);
+    // Explicit user choice overrides system
+    localStorage.setItem("theme", theme);
+    root.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
-useEffect(() => {
-  localStorage.setItem("theme", theme);
-  const root = document.documentElement;
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    const root = document.documentElement;
 
-  if (theme === "dark" || (theme === "system" && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    root.classList.add("dark");
-  } else {
-    root.classList.remove("dark");
-  }
-}, [theme]);
+    if (
+      theme === "dark" ||
+      (theme === "system" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+  }, [theme]);
 
   return (
-<UserContext.Provider value={{ user, loading, streak, theme, setTheme }}>
+    <UserContext.Provider value={{ user, loading, streak, theme, setTheme }}>
       {children}
     </UserContext.Provider>
   );

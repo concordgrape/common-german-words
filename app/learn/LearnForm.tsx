@@ -223,7 +223,6 @@ function SessionCustomizer({
 
     const shuffledSample = shuffle(filtered).slice(0, wordCount);
 
-
     //      toast({ title: 'You are offline', subtitle: 'Check your internet connection.', variant: 'error' });
 
     // Convert to quiz questions if in quiz mode
@@ -273,6 +272,76 @@ function SessionCustomizer({
 
   return (
     <div>
+      <div className="bg-[#FFFFFF] dark:bg-[#0D1B2A] border-1 border-gray-200 dark:border-gray-900 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
+        <h1 className="text-black dark:text-white text-2xl font-bold flex">
+          <SlidersHorizontal className="mr-3 mt-1 text-blue-500" />
+          Set Word Count
+        </h1>
+        <p className="text-gray-500 dark:text-gray-300 mt-3 font-mono text-xs">
+          How many words do you want to practise?
+        </p>
+
+        <hr className="h-px my-4 bg-gray-200 dark:bg-gray-600 border-0" />
+        <div className="mx-aut p-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-3 flex items-center gap-1">
+              <BookOpen className="w-4 h-4 text-gray-500 dark:text-gray-200" />{" "}
+              <span className="font-bold">Word Count</span>
+            </label>
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-gray-500 dark:text-gray-300">{0}</span>
+              <span className="font-semibold text-lg text-blue-600 dark:text-blue-500">
+                {wordCount > filteredWords.length
+                  ? filteredWords.length
+                  : wordCount}
+              </span>
+              <span className="font-semibold text-gray-500 dark:text-gray-300">
+                {filteredWords.length > 100 ? 100 : filteredWords.length}
+              </span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={filteredWords.length > 100 ? 100 : filteredWords.length}
+              value={
+                wordCount > filteredWords.length
+                  ? filteredWords.length
+                  : wordCount
+              }
+              onChange={(e) => setWordCount(Number(e.target.value))}
+              className="w-full mt-2 range range-lg lg:range-md range-info"
+              disabled={allWords.length == 0 || loading}
+            />
+            <div className="mt-4 flex justify-center items-center space-x-3">
+              {[5, 10, 20].map((inc) => (
+                <button
+                  data-tip={`Add ${inc} words`}
+                  key={inc}
+                  onClick={() =>
+                    setWordCount((prev) =>
+                      Math.min(
+                        prev + inc,
+                        allWords.length > 100 ? 100 : allWords.length,
+                      ),
+                    )
+                  }
+                  disabled={wordCount >= allWords.length}
+                  className={`
+                  tooltip py-2 w-10 rounded-lg
+                  ${
+                    wordCount >= allWords.length
+                      ? "bg-gray-200 dark:bg-gray-900 text-gray-400 dark:text-gray-700 cursor-not-allowed"
+                      : "bg-gray-100 dark:bg-[#1B263B] text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800"
+                  }
+                `}
+                >
+                  <u>+{inc}</u>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="bg-[#FFFFFF] dark:bg-[#0D1B2A] border-1 border-gray-200 dark:border-gray-900 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
         <InfoToast
           loading={allWords.length == 0}
@@ -381,76 +450,6 @@ function SessionCustomizer({
                   />
                   {option.label}
                 </label>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="bg-[#FFFFFF] dark:bg-[#0D1B2A] border-1 border-gray-200 dark:border-gray-900 px-6 py-4 pt-5 rounded-lg mt-3 shadow-sm">
-        <h1 className="text-black dark:text-white text-2xl font-bold flex">
-          <SlidersHorizontal className="mr-3 mt-1 text-blue-500" />
-          Set Word Count
-        </h1>
-        <p className="text-gray-500 dark:text-gray-300 mt-3 font-mono text-xs">
-          How many words do you want to practise?
-        </p>
-
-        <hr className="h-px my-4 bg-gray-200 dark:bg-gray-600 border-0" />
-        <div className="mx-aut p-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-3 flex items-center gap-1">
-              <BookOpen className="w-4 h-4 text-gray-500 dark:text-gray-200" />{" "}
-              <span className="font-bold">Word Count</span>
-            </label>
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-500 dark:text-gray-300">{0}</span>
-              <span className="font-semibold text-lg text-blue-600 dark:text-blue-500">
-                {wordCount > filteredWords.length
-                  ? filteredWords.length
-                  : wordCount}
-              </span>
-              <span className="font-semibold text-gray-500 dark:text-gray-300">
-                {filteredWords.length > 100 ? 100 : filteredWords.length}
-              </span>
-            </div>
-            <input
-              type="range"
-              min={0}
-              max={filteredWords.length > 100 ? 100 : filteredWords.length}
-              value={
-                wordCount > filteredWords.length
-                  ? filteredWords.length
-                  : wordCount
-              }
-              onChange={(e) => setWordCount(Number(e.target.value))}
-              className="w-full mt-2 range range-lg lg:range-md range-info"
-              disabled={allWords.length == 0 || loading}
-            />
-            <div className="mt-4 flex justify-center items-center space-x-3">
-              {[5, 10, 20].map((inc) => (
-                <button
-                  data-tip={`Add ${inc} words`}
-                  key={inc}
-                  onClick={() =>
-                    setWordCount((prev) =>
-                      Math.min(
-                        prev + inc,
-                        allWords.length > 100 ? 100 : allWords.length
-                      )
-                    )
-                  }
-                  disabled={wordCount >= allWords.length}
-                  className={`
-                  tooltip py-2 w-10 rounded-lg
-                  ${
-                    wordCount >= allWords.length
-                      ? "bg-gray-200 dark:bg-gray-900 text-gray-400 dark:text-gray-700 cursor-not-allowed"
-                      : "bg-gray-100 dark:bg-[#1B263B] text-black dark:text-white hover:bg-gray-200 hover:bg-gray-800"
-                  }
-                `}
-                >
-                  <u>+{inc}</u>
-                </button>
               ))}
             </div>
           </div>

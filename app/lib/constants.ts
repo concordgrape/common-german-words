@@ -1,58 +1,56 @@
-
-
 export const kDEFAULT_WORD_COUNT = 5;
 
 export const kESTIMATE_TOTAL_WORD_COUNT = 6000;
 
-export const kCOUNTRY_LANG_CODE = 'de';
-export const kSPEAK_LANG_CODE = 'de-DE';
-export const kLANG_NAME = 'german';
-export const kLANG_NAME_CAPITAL = 'German';
-export const kCOUNTRY_NAME = 'Germany';
-export const kCOUNTRY_FLAG_IMG = '/de.webp';
+export const kCOUNTRY_LANG_CODE = "de";
+export const kSPEAK_LANG_CODE = "de-DE";
+export const kLANG_NAME = "german";
+export const kLANG_NAME_CAPITAL = "German";
+export const kCOUNTRY_NAME = "Germany";
+export const kCOUNTRY_FLAG_IMG = "/de.webp";
 export const kCOMMONWORDS_URL_WWW = "https://commongermanwords.com";
-export const kCOUNTRY_FLAG_EMOJI = '🇩🇪';
-export const kLANGUAGE_ALPHABET =   [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-    "ä",
-    "ö",
-    "ü",
-    "ß",
-  ];
+export const kCOUNTRY_FLAG_EMOJI = "🇩🇪";
+export const kLANGUAGE_ALPHABET = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+  "ä",
+  "ö",
+  "ü",
+  "ß",
+];
 
 export const kIMAGE_PATHS = [
-  '/germany1.webp',
-  '/germany2.webp',
-  '/germany3.webp',
-  '/germany4.webp',
-  '/germany5.webp',
-  '/germany6.webp',
-  '/germany7.webp',
+  "/germany1.webp",
+  "/germany2.webp",
+  "/germany3.webp",
+  "/germany4.webp",
+  "/germany5.webp",
+  "/germany6.webp",
+  "/germany7.webp",
 ];
 
 export const kEXAMPLE_WORDS = {
@@ -69,7 +67,6 @@ export const kEXAMPLE_WORDS = {
   top100Adverbs: ["wo", "nie", "heute"],
 } as const;
 
-
 export const kARTICLE_WORDS = [
   { word: "der Mann", translation: "the man" },
   { word: "die Frau", translation: "the woman" },
@@ -80,7 +77,7 @@ export const kARTICLES_BY_GENDER = {
   masculine: { singular: "der", plural: "die" },
   feminine: { singular: "die", plural: "die" },
   neuter: { singular: "das", plural: "die" },
-}
+};
 
 /*
 export const kESTIMATE_TOTAL_WORD_COUNT = 7000;

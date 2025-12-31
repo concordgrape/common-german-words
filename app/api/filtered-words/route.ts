@@ -10,7 +10,9 @@ async function getRedisClient() {
     redisClient = createClient({
       url: process.env.REDIS_SKYROTH_REDIS_URL,
     });
-    redisClient.on("error", (err: unknown) => console.error("Redis error:", err));
+    redisClient.on("error", (err: unknown) =>
+      console.error("Redis error:", err),
+    );
     await redisClient.connect();
   }
   return redisClient;
@@ -24,7 +26,7 @@ export async function GET(req: NextRequest) {
   const count = parseInt(searchParams.get("count") || "100", 10);
   const forceRefresh = searchParams.get("refresh") === "true";
 
-  if ('GrJms55a2GSkEkQJ1SkS' !== process.env.NEXT_PUBLIC_API_PASSWORD) {
+  if ("GrJms55a2GSkEkQJ1SkS" !== process.env.NEXT_PUBLIC_API_PASSWORD) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -33,7 +35,8 @@ export async function GET(req: NextRequest) {
   }
 
   const partOfSpeech = partOfSpeechRaw
-    ? partOfSpeechRaw.charAt(0).toUpperCase() + partOfSpeechRaw.slice(1).toLowerCase()
+    ? partOfSpeechRaw.charAt(0).toUpperCase() +
+      partOfSpeechRaw.slice(1).toLowerCase()
     : null;
 
   const cacheKey = `filtered_words:${language}:${partOfSpeech ?? "all"}:${count}`;
@@ -47,13 +50,20 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(JSON.parse(cached), { status: 200 });
     }
 
-    const collectionRef = db.collection("languages").doc(language).collection("words");
+    const collectionRef = db
+      .collection("languages")
+      .doc(language)
+      .collection("words");
 
-    let docs: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>[] = [];
+    let docs: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>[] =
+      [];
 
     if (!partOfSpeech) {
       // Simple: no composite index needed
-      const snapshot = await collectionRef.orderBy("frequency", "desc").limit(count).get();
+      const snapshot = await collectionRef
+        .orderBy("frequency", "desc")
+        .limit(count)
+        .get();
       docs = snapshot.docs;
     } else {
       try {
@@ -66,24 +76,30 @@ export async function GET(req: NextRequest) {
         docs = snapshot.docs;
       } catch (e: unknown) {
         if (
-          (typeof e === 'object' && e !== null && 'code' in e && e.code === 9) ||
+          (typeof e === "object" &&
+            e !== null &&
+            "code" in e &&
+            e.code === 9) ||
           /requires an index/i.test(String(e))
         ) {
           console.warn("Composite index missing — using in-memory fallback.");
 
-          const normalizedPOS = (partOfSpeech ?? '').trim().toLowerCase();
-          const shouldFilterPOS = normalizedPOS && !['unknown', 'any', 'all'].includes(normalizedPOS);
+          const normalizedPOS = (partOfSpeech ?? "").trim().toLowerCase();
+          const shouldFilterPOS =
+            normalizedPOS && !["unknown", "any", "all"].includes(normalizedPOS);
 
           let query: FirebaseFirestore.Query = collectionRef;
           if (shouldFilterPOS) {
-            query = query.where('part_of_speech', '==', partOfSpeech);
+            query = query.where("part_of_speech", "==", partOfSpeech);
           }
 
           const fetchLimit = Math.max(count * 5, 500);
           const snapshot = await query.limit(fetchLimit).get();
 
           docs = snapshot.docs
-            .sort((a, b) => (b.get('frequency') ?? 0) - (a.get('frequency') ?? 0))
+            .sort(
+              (a, b) => (b.get("frequency") ?? 0) - (a.get("frequency") ?? 0),
+            )
             .slice(0, count);
         } else {
           throw e;
@@ -109,10 +125,13 @@ export async function GET(req: NextRequest) {
 
     // ✅ Cache the result for 1 week
     await redis.set(cacheKey, JSON.stringify(words), { EX: 604800 });
-    
+
     return NextResponse.json({ words }, { status: 200 });
   } catch (error: unknown) {
     console.error("Error fetching filtered words:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }

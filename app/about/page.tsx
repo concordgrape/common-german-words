@@ -6,8 +6,7 @@ import { kLANG_NAME_CAPITAL } from "../lib/constants";
 
 export const metadata: Metadata = {
   title: `About Us | Common ${kLANG_NAME_CAPITAL} Words`,
-  description:
-    `Learn about Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words: our mission, how it works, and what we value.`,
+  description: `Learn about Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words: our mission, how it works, and what we value.`,
 };
 
 export default function AboutPage() {
@@ -26,10 +25,10 @@ function About() {
       <h1 className="text-4xl font-bold">About Us</h1>
 
       <p>
-        <strong>Common {kLANG_NAME_CAPITAL} Words</strong> helps you learn the most
-        useful {kLANG_NAME_CAPITAL} vocabulary—fast. We focus on frequency-based lists, clean
-        design, and quick practice so you can build real reading and listening
-        confidence without fluff.
+        <strong>Common {kLANG_NAME_CAPITAL} Words</strong> helps you learn the
+        most useful {kLANG_NAME_CAPITAL} vocabulary—fast. We focus on
+        frequency-based lists, clean design, and quick practice so you can build
+        real reading and listening confidence without fluff.
       </p>
 
       <h2 className="mt-4 text-2xl font-semibold">Our Mission</h2>
@@ -60,7 +59,12 @@ function About() {
 
       <h2 className="mt-4 text-2xl font-semibold">How It Works</h2>
       <p>
-       We take millions of sentences from your favorite TV shows in the language you want to learn. Then we choose the words you hear the most. For each word, we give you an easy-to-understand definition and example sentences. Some are taken from the shows, and others are written to sound like real, everyday speech, so learning new words feels simple and natural.
+        We take millions of sentences from your favorite TV shows in the
+        language you want to learn. Then we choose the words you hear the most.
+        For each word, we give you an easy-to-understand definition and example
+        sentences. Some are taken from the shows, and others are written to
+        sound like real, everyday speech, so learning new words feels simple and
+        natural.
       </p>
 
       <h2 className="mt-4 text-2xl font-semibold">Feature Requests</h2>

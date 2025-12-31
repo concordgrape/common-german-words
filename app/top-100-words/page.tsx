@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useEffect, useState, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import React, { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
-import { WordTable } from '@/app/components/WordTable';
-import { WordInfo } from '@/app/components/WordInfo';
-import { fetchTopWords, Word } from '../helpers/fetchBasicWordList';
-import { useOnlineStatus } from '@/app/hooks/useOnlineStatus';
-import { useToast } from '../hooks/useToast';
-import Article from '@/app/components/Article/Article';
-import { kLANG_NAME } from '../lib/constants';
+import { WordTable } from "@/app/components/WordTable";
+import { WordInfo } from "@/app/components/WordInfo";
+import { fetchTopWords, Word } from "../helpers/fetchBasicWordList";
+import { useOnlineStatus } from "@/app/hooks/useOnlineStatus";
+import { useToast } from "../hooks/useToast";
+import Article from "@/app/components/Article/Article";
+import { kLANG_NAME } from "../lib/constants";
 
 const TopVerbs: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
@@ -25,7 +25,11 @@ const TopVerbs: React.FC = () => {
 
   useEffect(() => {
     if (!isOnline) {
-      toast({ title: 'You are offline', subtitle: 'Check your internet connection.', variant: 'error' });
+      toast({
+        title: "You are offline",
+        subtitle: "Check your internet connection.",
+        variant: "error",
+      });
     }
   }, [isOnline]);
 
@@ -35,14 +39,16 @@ const TopVerbs: React.FC = () => {
 
     const wordParam = searchParams.get("word");
     if (wordParam) {
-      const match = words.find((w) => w.word.toLowerCase() === wordParam.toLowerCase());
+      const match = words.find(
+        (w) => w.word.toLowerCase() === wordParam.toLowerCase(),
+      );
       if (match) {
         setSelectedWord(match);
         return;
       }
     }
 
-    if (typeof window !== 'undefined' && window.innerWidth >= 768) {
+    if (typeof window !== "undefined" && window.innerWidth >= 768) {
       setSelectedWord(words[0]);
     }
   }, [words, searchParams]);

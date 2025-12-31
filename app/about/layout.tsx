@@ -4,8 +4,7 @@ import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "../lib/constants";
 export const metadata: Metadata = {
   metadataBase: new URL(kCOMMONWORDS_URL_WWW),
   title: `About Us – Common ${kLANG_NAME_CAPITAL} Words`,
-  description:
-    `Learn more about Common ${kLANG_NAME_CAPITAL} Words, our mission to make learning ${kLANG_NAME_CAPITAL} vocabulary simple and effective, and how we help learners master the most frequently used ${kLANG_NAME_CAPITAL} words.`,
+  description: `Learn more about Common ${kLANG_NAME_CAPITAL} Words, our mission to make learning ${kLANG_NAME_CAPITAL} vocabulary simple and effective, and how we help learners master the most frequently used ${kLANG_NAME_CAPITAL} words.`,
   keywords: [
     `about Common ${kLANG_NAME_CAPITAL} Words`,
     `learn ${kLANG_NAME_CAPITAL} vocabulary`,
@@ -19,8 +18,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `About Us – Common ${kLANG_NAME_CAPITAL} Words`,
-    description:
-      `Discover our mission to make learning ${kLANG_NAME_CAPITAL} faster and easier through word frequency lists, flashcards, quizzes, and CEFR-based study tools.`,
+    description: `Discover our mission to make learning ${kLANG_NAME_CAPITAL} faster and easier through word frequency lists, flashcards, quizzes, and CEFR-based study tools.`,
     url: `${kCOMMONWORDS_URL_WWW}/about`,
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
     images: [
@@ -37,8 +35,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: `About Us – Common ${kLANG_NAME_CAPITAL} Words`,
-    description:
-      `Learn more about Common ${kLANG_NAME_CAPITAL} Words, our mission, and how we help ${kLANG_NAME_CAPITAL} learners with curated vocabulary tools.`,
+    description: `Learn more about Common ${kLANG_NAME_CAPITAL} Words, our mission, and how we help ${kLANG_NAME_CAPITAL} learners with curated vocabulary tools.`,
     images: ["/og-image.jpg"],
   },
   robots: {

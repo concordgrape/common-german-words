@@ -1,20 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 @plugin "daisyui";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #F2F2F2;
+  --background: #f2f2f2;
   --foreground: #262839;
   --chart-text-color: #000000;
   --chart-tooltip-bg: #ffffff;
 }
 
 .dark {
-  --background: #1B263B;
-  --foreground: #F2F2F2;
+  --background: #1b263b;
+  --foreground: #f2f2f2;
   --chart-text-color: #ffffff;
   --chart-tooltip-bg: #1f2937;
 }
@@ -36,7 +37,7 @@ body {
 }
 
 .font-arial {
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 @media screen and (min-width: 850px) {
@@ -47,7 +48,10 @@ body {
 
 /* Transition for expanding table view on mobile */
 .transition-max-height {
-  transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.3s ease,
+    padding 0.3s ease;
 }
 
 /* global.css or styles.css */

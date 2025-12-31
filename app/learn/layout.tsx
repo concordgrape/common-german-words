@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import { kCOMMONWORDS_URL_WWW, kDEFAULT_WORD_COUNT, kLANG_NAME_CAPITAL } from "../lib/constants";
+import {
+  kCOMMONWORDS_URL_WWW,
+  kDEFAULT_WORD_COUNT,
+  kLANG_NAME_CAPITAL,
+} from "../lib/constants";
 
 export const metadata: Metadata = {
   metadataBase: new URL(kCOMMONWORDS_URL_WWW),
   title: `Learn & Practice Common ${kLANG_NAME_CAPITAL} Words – Flashcards & Quizzes | Common ${kLANG_NAME_CAPITAL} Words`,
-  description:
-    `Build ${kLANG_NAME_CAPITAL} vocabulary with customizable flashcards and quizzes. Practice your saved words or randomize from our ${kDEFAULT_WORD_COUNT}+ word library with CEFR filters and smart study modes`,
+  description: `Build ${kLANG_NAME_CAPITAL} vocabulary with customizable flashcards and quizzes. Practice your saved words or randomize from our ${kDEFAULT_WORD_COUNT}+ word library with CEFR filters and smart study modes`,
   keywords: [
     `learn ${kLANG_NAME_CAPITAL}`,
     `${kLANG_NAME_CAPITAL} flashcards`,
@@ -21,8 +24,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `Learn & Practice Common ${kLANG_NAME_CAPITAL} Words – Flashcards & Quizzes`,
-    description:
-      `Configure ${kLANG_NAME_CAPITAL} flashcards and quizzes, practice saved words, or pull random words from a ${kDEFAULT_WORD_COUNT}+ library. Fast, focused vocabulary learning`,
+    description: `Configure ${kLANG_NAME_CAPITAL} flashcards and quizzes, practice saved words, or pull random words from a ${kDEFAULT_WORD_COUNT}+ library. Fast, focused vocabulary learning`,
     url: `${kCOMMONWORDS_URL_WWW}/learn`,
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
     images: [
@@ -39,8 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: `Learn & Practice Common ${kLANG_NAME_CAPITAL} Words – Flashcards & Quizzes`,
-    description:
-      `Customize flashcards and quizzes to study your saved ${kLANG_NAME_CAPITAL} words or randomized sets from our ${kDEFAULT_WORD_COUNT}+ library`,
+    description: `Customize flashcards and quizzes to study your saved ${kLANG_NAME_CAPITAL} words or randomized sets from our ${kDEFAULT_WORD_COUNT}+ library`,
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -61,7 +62,5 @@ export default function LearnLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>
-  {children}
-  </>;
+  return <>{children}</>;
 }

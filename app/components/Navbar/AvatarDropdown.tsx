@@ -126,10 +126,7 @@ export default function AvatarDropdown() {
           }
         `}
       >
-        <UserDropdown
-          handleLogout={handleLogout}
-          setOpen={setOpen}
-        />
+        <UserDropdown handleLogout={handleLogout} setOpen={setOpen} />
       </div>
     </div>
   );
@@ -140,10 +137,7 @@ interface UserDropdownProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const UserDropdown = ({
-  handleLogout,
-  setOpen,
-}: UserDropdownProps) => {
+const UserDropdown = ({ handleLogout, setOpen }: UserDropdownProps) => {
   const { go } = useGoNavigation();
   const { user } = useUser();
 
@@ -161,7 +155,9 @@ const UserDropdown = ({
         <p className="text-base font-semibold text-gray-900 leading-tight">
           {user?.displayName || "User"}
         </p>
-        <p className="text-sm text-gray-600 truncate">{user?.email || 'null@email.com'}</p>
+        <p className="text-sm text-gray-600 truncate">
+          {user?.email || "null@email.com"}
+        </p>
       </div>
       <div className="block lg:hidden">
         <ul className="py-1 text-sm text-gray-700">

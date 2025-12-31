@@ -1,10 +1,16 @@
-'use client';
+"use client";
 
-import { useState, useRef } from 'react';
-import { useToast } from '@/app/hooks/useToast';
-import { kSPEAK_LANG_CODE } from '@/app/lib/constants';
+import { useState, useRef } from "react";
+import { useToast } from "@/app/hooks/useToast";
+import { kSPEAK_LANG_CODE } from "@/app/lib/constants";
 
-export default function GoogleTTSButton({ text, color }: { text: string; color?: string }) {
+export default function GoogleTTSButton({
+  text,
+  color,
+}: {
+  text: string;
+  color?: string;
+}) {
   const [loading, setLoading] = useState(false);
   const lastPlayedRef = useRef<number>(0);
 
@@ -15,7 +21,9 @@ export default function GoogleTTSButton({ text, color }: { text: string; color?:
     const cooldownMs = 5000;
 
     if (now - lastPlayedRef.current < cooldownMs) {
-      const secondsLeft = Math.ceil((cooldownMs - (now - lastPlayedRef.current)) / 1000);
+      const secondsLeft = Math.ceil(
+        (cooldownMs - (now - lastPlayedRef.current)) / 1000,
+      );
       console.warn(`Please wait ${secondsLeft}s before playing again.`);
       return;
     }
@@ -23,38 +31,42 @@ export default function GoogleTTSButton({ text, color }: { text: string; color?:
     setLoading(true);
 
     try {
-        const res = await fetch('/api/speak', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text, langCode: kSPEAK_LANG_CODE }),
-        });
+      const res = await fetch("/api/speak", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, langCode: kSPEAK_LANG_CODE }),
+      });
 
-        if (!res.ok) {
+      if (!res.ok) {
         let errorMessage = `TTS failed (${res.status})`;
 
-            try {
-                const errorJson = await res.json();
-                if (errorJson?.error) errorMessage += `: ${errorJson.error}`;
-            } catch {
-                // fallback for binary or non-JSON errors
-                errorMessage += ' (non-JSON error body)';
-            }
-
-            throw new Error(errorMessage);
+        try {
+          const errorJson = await res.json();
+          if (errorJson?.error) errorMessage += `: ${errorJson.error}`;
+        } catch {
+          // fallback for binary or non-JSON errors
+          errorMessage += " (non-JSON error body)";
         }
 
-        const audioBlob = await res.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-        const audio = new Audio(audioUrl);
-        audio.play();
+        throw new Error(errorMessage);
+      }
 
-        lastPlayedRef.current = now;
+      const audioBlob = await res.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      audio.play();
 
-        setLoading(false);
+      lastPlayedRef.current = now;
+
+      setLoading(false);
     } catch (err) {
-        console.error('❌ Speak error:', err);
-        toast({ title: 'Audio Failed', subtitle: 'Failed to play audio, please try again later', variant: 'error' });
-        setLoading(false);
+      console.error("❌ Speak error:", err);
+      toast({
+        title: "Audio Failed",
+        subtitle: "Failed to play audio, please try again later",
+        variant: "error",
+      });
+      setLoading(false);
     }
   };
 
@@ -66,7 +78,9 @@ export default function GoogleTTSButton({ text, color }: { text: string; color?:
       }}
       disabled={loading}
       className={`${
-        color ? color + ' lg:mt-1 h-8 w-8 pl-2' : 'text-blue-500 flex items-center justify-center hover:bg-gray-100 w-6 h-6'
+        color
+          ? color + " lg:mt-1 h-8 w-8 pl-2"
+          : "text-blue-500 flex items-center justify-center hover:bg-gray-100 w-6 h-6"
       } rounded`}
     >
       {loading ? (

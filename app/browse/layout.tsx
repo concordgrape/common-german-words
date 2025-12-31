@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { kCOMMONWORDS_URL_WWW, kDEFAULT_WORD_COUNT, kLANG_NAME_CAPITAL } from "../lib/constants";
+import {
+  kCOMMONWORDS_URL_WWW,
+  kDEFAULT_WORD_COUNT,
+  kLANG_NAME_CAPITAL,
+} from "../lib/constants";
 import StickyFooterAd from "../components/ads/StickyFooterAd";
 
 export const metadata: Metadata = {
   metadataBase: new URL(kCOMMONWORDS_URL_WWW),
   title: `Browse the Most Common ${kLANG_NAME_CAPITAL} Words – Word Library | Common ${kLANG_NAME_CAPITAL} Words`,
-  description:
-    `Explore ${kDEFAULT_WORD_COUNT}+ of the most common ${kLANG_NAME_CAPITAL} words. View definitions, examples, part of speech, gender, and pronunciation. Filter by CEFR level, length, or part of speech, and save or mark words as known. Study with flashcards and quizzes.`,
+  description: `Explore ${kDEFAULT_WORD_COUNT}+ of the most common ${kLANG_NAME_CAPITAL} words. View definitions, examples, part of speech, gender, and pronunciation. Filter by CEFR level, length, or part of speech, and save or mark words as known. Study with flashcards and quizzes.`,
   keywords: [
     `common ${kLANG_NAME_CAPITAL} words`,
     `most common ${kLANG_NAME_CAPITAL} words`,
@@ -24,19 +27,24 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `Browse the Most Common ${kLANG_NAME_CAPITAL} Words – ${kDEFAULT_WORD_COUNT}+ Word Library`,
-    description:
-      `Discover the full library of common ${kLANG_NAME_CAPITAL} words with filters, saved/known tracking, and study tools like flashcards and quizzes.`,
+    description: `Discover the full library of common ${kLANG_NAME_CAPITAL} words with filters, saved/known tracking, and study tools like flashcards and quizzes.`,
     url: `${kCOMMONWORDS_URL_WWW}/browse`,
     siteName: `Common ${kLANG_NAME_CAPITAL} Words`,
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: `Common ${kLANG_NAME_CAPITAL} Words Library` }],
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: `Common ${kLANG_NAME_CAPITAL} Words Library`,
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: `Browse the Most Common ${kLANG_NAME_CAPITAL} Words – 6,000+ Word Library`,
-    description:
-      `Filter, save, and study from a library of 6,000+ common ${kLANG_NAME_CAPITAL} words with definitions, examples, and CEFR tags.`,
+    description: `Filter, save, and study from a library of 6,000+ common ${kLANG_NAME_CAPITAL} words with definitions, examples, and CEFR tags.`,
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -57,8 +65,10 @@ export default function BrowseLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>
-    {children}
-    <StickyFooterAd />
-  </>;
+  return (
+    <>
+      {children}
+      <StickyFooterAd />
+    </>
+  );
 }

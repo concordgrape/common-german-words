@@ -1,13 +1,26 @@
-import { doc, setDoc, serverTimestamp, getDoc, DocumentData, collection, query, getDocs, limit, DocumentReference, deleteDoc, Timestamp } from 'firebase/firestore';
-import { db } from '@/lib/firebaseClient';
-import { useUser } from '../context/UserContext';
-import { useGoNavigation } from '../lib/navigation';
-import { Word } from './fetchBasicWordList';
-import { shuffle } from './utils';
+import {
+  doc,
+  setDoc,
+  serverTimestamp,
+  getDoc,
+  DocumentData,
+  collection,
+  query,
+  getDocs,
+  limit,
+  DocumentReference,
+  deleteDoc,
+  Timestamp,
+} from "firebase/firestore";
+import { db } from "@/lib/firebaseClient";
+import { useUser } from "../context/UserContext";
+import { useGoNavigation } from "../lib/navigation";
+import { Word } from "./fetchBasicWordList";
+import { shuffle } from "./utils";
 import dayjs from "dayjs";
-import { kCOUNTRY_LANG_CODE, kLANG_NAME } from '../lib/constants';
+import { kCOUNTRY_LANG_CODE, kLANG_NAME } from "../lib/constants";
 
-type WordStatusType = 'saved' | 'known';
+type WordStatusType = "saved" | "known";
 
 type WordDataWithMeta = {
   id: string;
@@ -33,17 +46,20 @@ export function useToggleWordStatus() {
 
   const ensureUser = () => {
     if (!user?.uid) {
-      go('/signin');
-      throw new Error('User not signed in');
+      go("/signin");
+      throw new Error("User not signed in");
     }
     return user.uid;
   };
 
   const toggleSavedStatus = async (word: string): Promise<void> => {
     const uid = ensureUser();
-    if (!word) throw new Error('Missing word');
+    if (!word) throw new Error("Missing word");
 
-    const ref = doc(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/saved/${word}`);
+    const ref = doc(
+      db,
+      `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/saved/${word}`,
+    );
     const existing = await getDoc(ref);
     const wordRef = doc(db, `languages/${kLANG_NAME}/words/${word}`);
 
@@ -59,9 +75,12 @@ export function useToggleWordStatus() {
 
   const toggleKnownStatus = async (word: string): Promise<void> => {
     const uid = ensureUser();
-    if (!word) throw new Error('Missing word');
+    if (!word) throw new Error("Missing word");
 
-    const ref = doc(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/known/${word}`);
+    const ref = doc(
+      db,
+      `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/known/${word}`,
+    );
     const existing = await getDoc(ref);
     const wordRef = doc(db, `languages/${kLANG_NAME}/words/${word}`);
 
@@ -88,7 +107,7 @@ export function useToggleWordStatus() {
  */
 export async function fetchWordData(word: string) {
   if (!word) {
-    throw new Error('Word is required');
+    throw new Error("Word is required");
   }
 
   const wordRef = doc(db, `languages/${kLANG_NAME}/words/${word}`);
@@ -101,8 +120,6 @@ export async function fetchWordData(word: string) {
   return wordSnap.data();
 }
 
-
-
 /**
  * Fetches word data for a user's saved or known words (parallel version), sorted by latest saved.
  * @param uid - User ID
@@ -113,17 +130,23 @@ export async function fetchWordData(word: string) {
 export async function fetchWordStatusMetaData(
   uid: string,
   type: WordStatusType,
-  max: number
+  max: number,
 ): Promise<WordDataWithMeta[]> {
-  if (!uid || (type !== 'saved' && type !== 'known')) {
-    throw new Error('Invalid arguments');
+  if (!uid || (type !== "saved" && type !== "known")) {
+    throw new Error("Invalid arguments");
   }
 
-  const cardsColRef = collection(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/${type}`);
+  const cardsColRef = collection(
+    db,
+    `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/${type}`,
+  );
   const q = query(cardsColRef, limit(max));
   const snap = await getDocs(q);
 
-  const wordEntries: { ref: DocumentReference<DocumentData>, timestamp: Timestamp }[] = [];
+  const wordEntries: {
+    ref: DocumentReference<DocumentData>;
+    timestamp: Timestamp;
+  }[] = [];
 
   for (const docSnap of snap.docs) {
     const data = docSnap.data();
@@ -136,9 +159,8 @@ export async function fetchWordStatusMetaData(
   }
 
   const wordSnaps = await Promise.all(
-    wordEntries.map(entry => getDoc(entry.ref))
+    wordEntries.map((entry) => getDoc(entry.ref)),
   );
-
 
   const results: WordDataWithMeta[] = wordSnaps
     .map((snap, i) => {
@@ -160,13 +182,16 @@ export async function fetchWordStatusMetaData(
 export async function fetchWordStatusData(
   uid: string,
   type: WordStatusType,
-  max: number
+  max: number,
 ): Promise<Word[]> {
-  if (!uid || (type !== 'saved' && type !== 'known')) {
-    throw new Error('Invalid arguments');
+  if (!uid || (type !== "saved" && type !== "known")) {
+    throw new Error("Invalid arguments");
   }
 
-  const cardsColRef = collection(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/${type}`);
+  const cardsColRef = collection(
+    db,
+    `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/${type}`,
+  );
   const q = query(cardsColRef, limit(max));
   const snap = await getDocs(q);
 
@@ -179,14 +204,14 @@ export async function fetchWordStatusData(
     }
   }
 
-  const wordSnaps = await Promise.all(wordRefs.map(ref => getDoc(ref)));
+  const wordSnaps = await Promise.all(wordRefs.map((ref) => getDoc(ref)));
 
   const results: Word[] = wordSnaps
-    .map(snap => {
+    .map((snap) => {
       if (!snap.exists()) return null;
-      const data = snap.data() as Omit<Word, 'word'>;
+      const data = snap.data() as Omit<Word, "word">;
       return {
-        word: snap.id, 
+        word: snap.id,
         ...data,
       };
     })
@@ -195,10 +220,10 @@ export async function fetchWordStatusData(
   return results;
 }
 
-
-export function formatFillInTheBlankQuestions(words: Word[]): FillInTheBlankQuestion[] {
+export function formatFillInTheBlankQuestions(
+  words: Word[],
+): FillInTheBlankQuestion[] {
   const questions: FillInTheBlankQuestion[] = [];
-
 
   for (const word of words) {
     if (!word.examples || word.examples.length === 0) continue;
@@ -208,9 +233,9 @@ export function formatFillInTheBlankQuestions(words: Word[]): FillInTheBlankQues
     let chosen_translated: string | null = null;
 
     for (const ex of shuffledExamples) {
-      const regex = new RegExp(`\\b${word.word}\\b`, 'i'); // whole word match
+      const regex = new RegExp(`\\b${word.word}\\b`, "i"); // whole word match
       if (regex.test(ex.sentence)) {
-        chosen = ex.sentence.replace(regex, '_____');
+        chosen = ex.sentence.replace(regex, "_____");
         chosen_translated = ex.translation;
         break;
       }
@@ -222,23 +247,25 @@ export function formatFillInTheBlankQuestions(words: Word[]): FillInTheBlankQues
       sentence: chosen,
       answer: word.word,
       hint: word.translation,
-      sentence_translated: chosen_translated ? chosen_translated : ""
+      sentence_translated: chosen_translated ? chosen_translated : "",
     });
   }
 
   return questions;
 }
 
-
 export async function fetchSavedWordMetadata(
   uid: string,
-  max: number
+  max: number,
 ): Promise<SavedWordMetadata[]> {
   if (!uid) {
-    throw new Error('Invalid UID');
+    throw new Error("Invalid UID");
   }
 
-  const cardsColRef = collection(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/saved`);
+  const cardsColRef = collection(
+    db,
+    `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/saved`,
+  );
   const snap = await getDocs(cardsColRef);
 
   const metadata: SavedWordMetadata[] = [];
@@ -258,16 +285,18 @@ export async function fetchSavedWordMetadata(
     .slice(0, max);
 }
 
-
 export async function fetchKnownWordMetadata(
   uid: string,
-  max: number
+  max: number,
 ): Promise<SavedWordMetadata[]> {
   if (!uid) {
-    throw new Error('Invalid UID');
+    throw new Error("Invalid UID");
   }
 
-  const cardsColRef = collection(db, `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/known`);
+  const cardsColRef = collection(
+    db,
+    `users/${uid}/${kCOUNTRY_LANG_CODE}/cards/known`,
+  );
   const snap = await getDocs(cardsColRef);
 
   const metadata: SavedWordMetadata[] = [];
@@ -307,7 +336,7 @@ export async function updateStreak(userId: string): Promise<number> {
       const lastDay = dayjs(lastActive).startOf("day");
 
       if (lastDay.isSame(today)) {
-        return streak; 
+        return streak;
       } else if (lastDay.isSame(yesterday)) {
         streak += 1;
         if (streak > longestStreak) longestStreak = streak;
@@ -324,20 +353,19 @@ export async function updateStreak(userId: string): Promise<number> {
       streak,
       longestStreak,
     },
-    { merge: true }
+    { merge: true },
   );
 
   return streak;
 }
-
 
 /**
  * Deletes a Firestore document after confirming with the user.
  * @param collectionPath - The collection name (e.g., "users")
  * @param docId - The ID of the document to delete
  */
-type LanguageCode = 'de' | 'es' | 'fr' | 'it';
-type WordDocCode = 'saved' | 'known';
+type LanguageCode = "de" | "es" | "fr" | "it";
+type WordDocCode = "saved" | "known";
 
 interface DeleteWordDocParams {
   uid: string;
@@ -351,12 +379,19 @@ export async function deleteFirestoreDoc({
   docId,
 }: DeleteWordDocParams): Promise<void> {
   const confirmed = confirm(
-    `Are you sure you want to delete all ${docId} words? This action cannot be undone.`
+    `Are you sure you want to delete all ${docId} words? This action cannot be undone.`,
   );
   if (!confirmed) return;
 
   try {
-    const collectionRef = collection(db, 'users', uid, languageCode, 'cards', docId);
+    const collectionRef = collection(
+      db,
+      "users",
+      uid,
+      languageCode,
+      "cards",
+      docId,
+    );
     const snapshot = await getDocs(collectionRef);
 
     if (snapshot.empty) {
@@ -364,7 +399,9 @@ export async function deleteFirestoreDoc({
       return;
     }
 
-    const deletePromises = snapshot.docs.map((docSnap) => deleteDoc(docSnap.ref));
+    const deletePromises = snapshot.docs.map((docSnap) =>
+      deleteDoc(docSnap.ref),
+    );
     await Promise.all(deletePromises);
 
     alert("All documents deleted.");
@@ -373,4 +410,3 @@ export async function deleteFirestoreDoc({
     alert("Failed to delete documents.");
   }
 }
-

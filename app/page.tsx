@@ -27,7 +27,9 @@ const App: React.FC = () => {
         <h1 className="mt-10 text-4xl md:text-5xl font-bold text-black dark:text-white flex items-center flex-wrap">
           Start Learning&nbsp;
           <span className="flex items-center">
-            <span className="px-2 bg-red-500 text-white">{kLANG_NAME_CAPITAL}</span>
+            <span className="px-2 bg-red-500 text-white">
+              {kLANG_NAME_CAPITAL}
+            </span>
             <Lottie
               className="h-10 w-10 lg:h-15 lg:w-15"
               animationData={fireAnimation}
@@ -76,7 +78,8 @@ const App: React.FC = () => {
               className="cursor-pointer hover:underline"
             >
               <h1 className="text-md font-bold flex items-center justify-center">
-                <span className="text-red-400">Top 100</span>&nbsp;{kLANG_NAME_CAPITAL} Words
+                <span className="text-red-400">Top 100</span>&nbsp;
+                {kLANG_NAME_CAPITAL} Words
                 <FaArrowAltCircleRight className="ml-1 mb-1" />
               </h1>
               <h3 className="text-xs">Start exploring our top 100 words</h3>
@@ -97,7 +100,8 @@ const App: React.FC = () => {
               className="cursor-pointer hover:underline"
             >
               <h1 className="text-md font-bold flex items-center justify-center">
-                <span className="text-red-400">Top 500</span>&nbsp;{kLANG_NAME_CAPITAL} Words
+                <span className="text-red-400">Top 500</span>&nbsp;
+                {kLANG_NAME_CAPITAL} Words
                 <FaArrowAltCircleRight className="ml-1 mb-1" />
               </h1>
               <h3 className="text-xs">Start exploring our top 500 words</h3>

@@ -1,10 +1,10 @@
-import admin from 'firebase-admin';
+import admin from "firebase-admin";
 
 if (!admin.apps.length) {
-  const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+  const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
 
   if (!privateKey) {
-    throw new Error('FIREBASE_PRIVATE_KEY is missing');
+    throw new Error("FIREBASE_PRIVATE_KEY is missing");
   }
 
   admin.initializeApp({
