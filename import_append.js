@@ -5,11 +5,9 @@ const serviceAccount = require("./serviceAccountKey.json");
 admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 const db = admin.firestore();
 
-const rankedData = JSON.parse(
-  fs.readFileSync("german_words_simple_translations.json", "utf8"),
-);
+const rankedData = JSON.parse(fs.readFileSync("german.json", "utf8"));
 
-const BATCH_SIZE = 500; // Firestore max batch size
+const BATCH_SIZE = 500;
 const MAX_RETRIES = 5;
 
 function sleep(ms) {
@@ -42,11 +40,24 @@ async function appendRanksToExistingWords() {
     const batch = db.batch();
     let opsInBatch = 0;
 
-    for (const [word, data] of chunk) {
+    for (const [word, rawData] of chunk) {
       if (!word || word.includes("/")) {
         console.warn(`⚠️ Skipped invalid key: "${word}"`);
         skippedCount++;
         continue;
+      }
+
+      // Extract data from your malformed JSON structure
+      let data = null;
+      
+      if (Array.isArray(rawData) && rawData.length > 0) {
+        // Get first element of array
+        const firstElement = rawData[0];
+        
+        // Extract from 'properties' field
+        if (firstElement && firstElement.properties) {
+          data = firstElement.properties;
+        }
       }
 
       const docRef = baseCollectionRef.doc(word);
@@ -58,12 +69,27 @@ async function appendRanksToExistingWords() {
         continue;
       }
 
-      batch.update(docRef, {
-        translation: data,
-      });
+      // Build update object from extracted data
+      const updateData = {
+        connected_words: data.connected_words || [],
+        definitions: data.definitions || [],
+        examples: data.examples || [],
+        parsed_examples: data.parsed_examples || [],
+        same_words: data.same_words || [],
+        article: data.article || "",
+        frequency: data.frequency || 0,
+        gender: data.gender || "",
+        language: data.language || "German",
+        part_of_speech: data.part_of_speech || "",
+        phonetic_spelling: data.phonetic_spelling || "",
+        rank: data.rank || 0,
+        translation: data.translation || "",
+      };
+
+      batch.update(docRef, updateData);
 
       console.log(
-        `✅ Queued: "${word}" → rank: ${data}, freq: ${data.frequency}`,
+        `✅ Queued: "${word}" → rank: ${updateData.rank}, freq: ${updateData.frequency}`
       );
       opsInBatch++;
     }
@@ -71,7 +97,7 @@ async function appendRanksToExistingWords() {
     if (opsInBatch > 0) {
       await withRetry(() => batch.commit());
       updatedCount += opsInBatch;
-      await sleep(250); // Throttle between batches
+      await sleep(250);
     }
   }
 

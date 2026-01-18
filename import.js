@@ -1,4 +1,4 @@
-// This script imports korean words from a JSON file into a Firestore database.
+// This script imports german words from a JSON file into a Firestore database.
 // Make sure to have Firebase Admin SDK installed: npm install firebase-admin
 
 const admin = require("firebase-admin");
@@ -16,14 +16,14 @@ const db = admin.firestore();
 
 // Load your JSON file
 const wordsData = JSON.parse(
-  fs.readFileSync("korean_words_enriched_ranked.json", "utf8"),
+  fs.readFileSync("JAPANESE_words_enriched_ranked.json", "utf8"),
 );
 
-// Upload each word into `languages/korean/words/{word}`
-async function importkoreanWords() {
+// Upload each word into `languages/german/words/{word}`
+async function importgermanWords() {
   const baseCollectionRef = db
     .collection("languages")
-    .doc("korean")
+    .doc("japanese")
     .collection("words");
 
   let count = 0;
@@ -55,7 +55,7 @@ async function importkoreanWords() {
     console.log(`✅ Committed final batch (total: ${count})`);
   }
 
-  console.log("🎉 All words imported into languages/korean/words");
+  console.log("🎉 All words imported into languages/german/words");
 }
 
 // Run this once when uploading words or with a cron job
@@ -77,11 +77,11 @@ async function generateWordIdList(language) {
 }
 
 /*
-generateWordIdList('korean').catch((err) => {
+generateWordIdList('german').catch((err) => {
   console.error('❌ Failed to generate word ID list:', err);
 });
 */
 
-importkoreanWords().catch((err) => {
+importgermanWords().catch((err) => {
   console.error("❌ Import failed:", err);
 });
