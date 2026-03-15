@@ -49,11 +49,11 @@ async function appendRanksToExistingWords() {
 
       // Extract data from your malformed JSON structure
       let data = null;
-      
+
       if (Array.isArray(rawData) && rawData.length > 0) {
         // Get first element of array
         const firstElement = rawData[0];
-        
+
         // Extract from 'properties' field
         if (firstElement && firstElement.properties) {
           data = firstElement.properties;
@@ -89,7 +89,7 @@ async function appendRanksToExistingWords() {
       batch.update(docRef, updateData);
 
       console.log(
-        `✅ Queued: "${word}" → rank: ${updateData.rank}, freq: ${updateData.frequency}`
+        `✅ Queued: "${word}" → rank: ${updateData.rank}, freq: ${updateData.frequency}`,
       );
       opsInBatch++;
     }

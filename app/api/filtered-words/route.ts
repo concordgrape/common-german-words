@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
 
     const cached = await redis.get(cacheKey);
     if (cached) {
-      return NextResponse.json(JSON.parse(cached), { status: 200 });
+      return NextResponse.json({ words: JSON.parse(cached) }, { status: 200 });
     }
 
     const collectionRef = db
@@ -125,7 +125,7 @@ export async function GET(req: NextRequest) {
 
     // ✅ Cache the result for 1 week
     await redis.set(cacheKey, JSON.stringify(words), { EX: 604800 });
-
+    console.log("returing redis");
     return NextResponse.json({ words }, { status: 200 });
   } catch (error: unknown) {
     console.error("Error fetching filtered words:", error);

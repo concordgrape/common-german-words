@@ -1,3 +1,5 @@
+// basic-words/route.ts
+
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/firebaseAdmin";
 import { createClient } from "redis";
