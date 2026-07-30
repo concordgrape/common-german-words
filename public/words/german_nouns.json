@@ -1,0 +1,904 @@
+{
+  "words": [
+    {
+      "id": 0,
+      "word": "gott",
+      "part_of_speech": "Noun",
+      "frequency": 840,
+      "rank": 1,
+      "translation": "god",
+      "gender": "masculine"
+    },
+    {
+      "id": 1,
+      "word": "mann",
+      "part_of_speech": "Noun",
+      "frequency": 824,
+      "rank": 1,
+      "translation": "man",
+      "gender": "masculine"
+    },
+    {
+      "id": 2,
+      "word": "leid",
+      "part_of_speech": "Noun",
+      "frequency": 813,
+      "rank": 1,
+      "translation": "sorrow",
+      "gender": "neuter"
+    },
+    {
+      "id": 3,
+      "word": "frau",
+      "part_of_speech": "Noun",
+      "frequency": 723,
+      "rank": 1,
+      "translation": "woman",
+      "gender": "feminine"
+    },
+    {
+      "id": 4,
+      "word": "zeit",
+      "part_of_speech": "Noun",
+      "frequency": 492,
+      "rank": 1,
+      "translation": "time",
+      "gender": "feminine"
+    },
+    {
+      "id": 5,
+      "word": "liebe",
+      "part_of_speech": "Noun",
+      "frequency": 470,
+      "rank": 1,
+      "translation": "love",
+      "gender": "feminine"
+    },
+    {
+      "id": 6,
+      "word": "macht",
+      "part_of_speech": "Noun",
+      "frequency": 447,
+      "rank": 1,
+      "translation": "power",
+      "gender": "feminine"
+    },
+    {
+      "id": 7,
+      "word": "weg",
+      "part_of_speech": "Noun",
+      "frequency": 437,
+      "rank": 1,
+      "translation": "way",
+      "gender": "masculine"
+    },
+    {
+      "id": 8,
+      "word": "leute",
+      "part_of_speech": "Noun",
+      "frequency": 433,
+      "rank": 1,
+      "translation": "people",
+      "gender": "None"
+    },
+    {
+      "id": 9,
+      "word": "glaube",
+      "part_of_speech": "Noun",
+      "frequency": 418,
+      "rank": 1,
+      "translation": "belief",
+      "gender": "masculine"
+    },
+    {
+      "id": 10,
+      "word": "musik",
+      "part_of_speech": "Noun",
+      "frequency": 395,
+      "rank": 1,
+      "translation": "music",
+      "gender": "feminine"
+    },
+    {
+      "id": 11,
+      "word": "freund",
+      "part_of_speech": "Noun",
+      "frequency": 361,
+      "rank": 1,
+      "translation": "friend",
+      "gender": "masculine"
+    },
+    {
+      "id": 12,
+      "word": "morgen",
+      "part_of_speech": "Noun",
+      "frequency": 360,
+      "rank": 1,
+      "translation": "tomorrow",
+      "gender": "masculine"
+    },
+    {
+      "id": 13,
+      "word": "vater",
+      "part_of_speech": "Noun",
+      "frequency": 333,
+      "rank": 1,
+      "translation": "father",
+      "gender": "Masculine"
+    },
+    {
+      "id": 14,
+      "word": "tag",
+      "part_of_speech": "Noun",
+      "frequency": 328,
+      "rank": 1,
+      "translation": "day",
+      "gender": "masculine"
+    },
+    {
+      "id": 15,
+      "word": "frage",
+      "part_of_speech": "Noun",
+      "frequency": 320,
+      "rank": 1,
+      "translation": "question",
+      "gender": "feminine"
+    },
+    {
+      "id": 16,
+      "word": "wohnung",
+      "part_of_speech": "Noun",
+      "frequency": 318,
+      "rank": 1,
+      "translation": "apartment",
+      "gender": "feminine"
+    },
+    {
+      "id": 17,
+      "word": "ordnung",
+      "part_of_speech": "Noun",
+      "frequency": 304,
+      "rank": 1,
+      "translation": "order",
+      "gender": "feminine"
+    },
+    {
+      "id": 18,
+      "word": "abend",
+      "part_of_speech": "Noun",
+      "frequency": 292,
+      "rank": 1,
+      "translation": "evening",
+      "gender": "masculine"
+    },
+    {
+      "id": 19,
+      "word": "geld",
+      "part_of_speech": "Noun",
+      "frequency": 280,
+      "rank": 1,
+      "translation": "money",
+      "gender": "Neuter"
+    },
+    {
+      "id": 20,
+      "word": "freunde",
+      "part_of_speech": "Noun",
+      "frequency": 267,
+      "rank": 1,
+      "translation": "friends",
+      "gender": ""
+    },
+    {
+      "id": 21,
+      "word": "klasse",
+      "part_of_speech": "Noun",
+      "frequency": 245,
+      "rank": 2,
+      "translation": "great",
+      "gender": "feminine"
+    },
+    {
+      "id": 22,
+      "word": "mutter",
+      "part_of_speech": "Noun",
+      "frequency": 237,
+      "rank": 2,
+      "translation": "mother",
+      "gender": "feminine"
+    },
+    {
+      "id": 23,
+      "word": "frauen",
+      "part_of_speech": "Noun",
+      "frequency": 236,
+      "rank": 2,
+      "translation": "women",
+      "gender": ""
+    },
+    {
+      "id": 24,
+      "word": "kinder",
+      "part_of_speech": "Noun",
+      "frequency": 232,
+      "rank": 2,
+      "translation": "children",
+      "gender": "None"
+    },
+    {
+      "id": 25,
+      "word": "freundin",
+      "part_of_speech": "Noun",
+      "frequency": 226,
+      "rank": 2,
+      "translation": "girlfriend",
+      "gender": "feminine"
+    },
+    {
+      "id": 26,
+      "word": "kind",
+      "part_of_speech": "Noun",
+      "frequency": 220,
+      "rank": 2,
+      "translation": "child",
+      "gender": "neuter"
+    },
+    {
+      "id": 27,
+      "word": "idee",
+      "part_of_speech": "Noun",
+      "frequency": 220,
+      "rank": 2,
+      "translation": "idea",
+      "gender": "feminine"
+    },
+    {
+      "id": 28,
+      "word": "dank",
+      "part_of_speech": "Noun",
+      "frequency": 219,
+      "rank": 2,
+      "translation": "thanks",
+      "gender": "masculine"
+    },
+    {
+      "id": 29,
+      "word": "nacht",
+      "part_of_speech": "Noun",
+      "frequency": 218,
+      "rank": 2,
+      "translation": "night",
+      "gender": "feminine"
+    },
+    {
+      "id": 30,
+      "word": "gefühl",
+      "part_of_speech": "Noun",
+      "frequency": 214,
+      "rank": 2,
+      "translation": "feeling",
+      "gender": "neuter"
+    },
+    {
+      "id": 31,
+      "word": "schwester",
+      "part_of_speech": "Noun",
+      "frequency": 206,
+      "rank": 2,
+      "translation": "sister",
+      "gender": "feminine"
+    },
+    {
+      "id": 32,
+      "word": "kerl",
+      "part_of_speech": "Noun",
+      "frequency": 205,
+      "rank": 2,
+      "translation": "guy",
+      "gender": "masculine"
+    },
+    {
+      "id": 33,
+      "word": "halt",
+      "part_of_speech": "Noun",
+      "frequency": 204,
+      "rank": 2,
+      "translation": "stop",
+      "gender": "masculine"
+    },
+    {
+      "id": 34,
+      "word": "spaß",
+      "part_of_speech": "Noun",
+      "frequency": 199,
+      "rank": 2,
+      "translation": "fun",
+      "gender": "masculine"
+    },
+    {
+      "id": 35,
+      "word": "sachen",
+      "part_of_speech": "Noun",
+      "frequency": 199,
+      "rank": 2,
+      "translation": "things",
+      "gender": "None"
+    },
+    {
+      "id": 36,
+      "word": "angst",
+      "part_of_speech": "Noun",
+      "frequency": 194,
+      "rank": 2,
+      "translation": "fear",
+      "gender": "die"
+    },
+    {
+      "id": 37,
+      "word": "emma",
+      "part_of_speech": "Noun",
+      "frequency": 183,
+      "rank": 2,
+      "translation": "grandma",
+      "gender": "feminine"
+    },
+    {
+      "id": 38,
+      "word": "tür",
+      "part_of_speech": "Noun",
+      "frequency": 182,
+      "rank": 2,
+      "translation": "door",
+      "gender": "feminine"
+    },
+    {
+      "id": 39,
+      "word": "namen",
+      "part_of_speech": "Noun",
+      "frequency": 181,
+      "rank": 2,
+      "translation": "names",
+      "gender": "masculine"
+    },
+    {
+      "id": 40,
+      "word": "au",
+      "part_of_speech": "Noun",
+      "frequency": 180,
+      "rank": 2,
+      "translation": "ouch",
+      "gender": "die"
+    },
+    {
+      "id": 41,
+      "word": "menschen",
+      "part_of_speech": "Noun",
+      "frequency": 179,
+      "rank": 2,
+      "translation": "people",
+      "gender": ""
+    },
+    {
+      "id": 42,
+      "word": "bett",
+      "part_of_speech": "Noun",
+      "frequency": 178,
+      "rank": 2,
+      "translation": "bed",
+      "gender": "Neuter"
+    },
+    {
+      "id": 43,
+      "word": "sache",
+      "part_of_speech": "Noun",
+      "frequency": 176,
+      "rank": 2,
+      "translation": "thing",
+      "gender": "feminine"
+    },
+    {
+      "id": 44,
+      "word": "glück",
+      "part_of_speech": "Noun",
+      "frequency": 173,
+      "rank": 2,
+      "translation": "luck",
+      "gender": "neuter"
+    },
+    {
+      "id": 45,
+      "word": "sage",
+      "part_of_speech": "Noun",
+      "frequency": 171,
+      "rank": 2,
+      "translation": "say",
+      "gender": "die"
+    },
+    {
+      "id": 46,
+      "word": "arbeit",
+      "part_of_speech": "Noun",
+      "frequency": 170,
+      "rank": 2,
+      "translation": "work",
+      "gender": "die"
+    },
+    {
+      "id": 47,
+      "word": "spiel",
+      "part_of_speech": "Noun",
+      "frequency": 169,
+      "rank": 2,
+      "translation": "game",
+      "gender": "neuter"
+    },
+    {
+      "id": 48,
+      "word": "hochzeit",
+      "part_of_speech": "Noun",
+      "frequency": 169,
+      "rank": 2,
+      "translation": "wedding",
+      "gender": "die"
+    },
+    {
+      "id": 49,
+      "word": "eltern",
+      "part_of_speech": "Noun",
+      "frequency": 169,
+      "rank": 2,
+      "translation": "parents",
+      "gender": "plural"
+    },
+    {
+      "id": 50,
+      "word": "welt",
+      "part_of_speech": "Noun",
+      "frequency": 166,
+      "rank": 2,
+      "translation": "world",
+      "gender": "feminine"
+    },
+    {
+      "id": 51,
+      "word": "moment",
+      "part_of_speech": "Noun",
+      "frequency": 165,
+      "rank": 2,
+      "translation": "moment",
+      "gender": "masculine"
+    },
+    {
+      "id": 52,
+      "word": "jahre",
+      "part_of_speech": "Noun",
+      "frequency": 165,
+      "rank": 2,
+      "translation": "years",
+      "gender": "Neuter"
+    },
+    {
+      "id": 53,
+      "word": "kaffee",
+      "part_of_speech": "Noun",
+      "frequency": 164,
+      "rank": 2,
+      "translation": "coffee",
+      "gender": "masculine"
+    },
+    {
+      "id": 54,
+      "word": "haus",
+      "part_of_speech": "Noun",
+      "frequency": 164,
+      "rank": 2,
+      "translation": "house",
+      "gender": "Neuter"
+    },
+    {
+      "id": 55,
+      "word": "zimmer",
+      "part_of_speech": "Noun",
+      "frequency": 157,
+      "rank": 2,
+      "translation": "room",
+      "gender": "neuter"
+    },
+    {
+      "id": 56,
+      "word": "typ",
+      "part_of_speech": "Noun",
+      "frequency": 155,
+      "rank": 2,
+      "translation": "type",
+      "gender": "masculine"
+    },
+    {
+      "id": 57,
+      "word": "jahr",
+      "part_of_speech": "Noun",
+      "frequency": 154,
+      "rank": 2,
+      "translation": "year",
+      "gender": "Neuter"
+    },
+    {
+      "id": 58,
+      "word": "hand",
+      "part_of_speech": "Noun",
+      "frequency": 154,
+      "rank": 2,
+      "translation": "mobile phone",
+      "gender": "die"
+    },
+    {
+      "id": 59,
+      "word": "uhr",
+      "part_of_speech": "Noun",
+      "frequency": 150,
+      "rank": 2,
+      "translation": "clock",
+      "gender": "die"
+    },
+    {
+      "id": 60,
+      "word": "wiedersehen",
+      "part_of_speech": "Noun",
+      "frequency": 149,
+      "rank": 2,
+      "translation": "goodbye",
+      "gender": "das"
+    },
+    {
+      "id": 61,
+      "word": "güte",
+      "part_of_speech": "Noun",
+      "frequency": 147,
+      "rank": 2,
+      "translation": "kindness",
+      "gender": "feminine"
+    },
+    {
+      "id": 62,
+      "word": "mädchen",
+      "part_of_speech": "Noun",
+      "frequency": 146,
+      "rank": 2,
+      "translation": "girl",
+      "gender": "Neuter"
+    },
+    {
+      "id": 63,
+      "word": "fall",
+      "part_of_speech": "Noun",
+      "frequency": 146,
+      "rank": 2,
+      "translation": "case",
+      "gender": "Masculine"
+    },
+    {
+      "id": 64,
+      "word": "jahren",
+      "part_of_speech": "Noun",
+      "frequency": 145,
+      "rank": 2,
+      "translation": "years",
+      "gender": "neuter"
+    },
+    {
+      "id": 65,
+      "word": "augenblick",
+      "part_of_speech": "Noun",
+      "frequency": 144,
+      "rank": 2,
+      "translation": "moment",
+      "gender": "masculine"
+    },
+    {
+      "id": 66,
+      "word": "kopf",
+      "part_of_speech": "Noun",
+      "frequency": 143,
+      "rank": 2,
+      "translation": "head",
+      "gender": "masculine"
+    },
+    {
+      "id": 67,
+      "word": "minuten",
+      "part_of_speech": "Noun",
+      "frequency": 142,
+      "rank": 2,
+      "translation": "minutes",
+      "gender": "None"
+    },
+    {
+      "id": 68,
+      "word": "schluss",
+      "part_of_speech": "Noun",
+      "frequency": 140,
+      "rank": 2,
+      "translation": "end",
+      "gender": "der"
+    },
+    {
+      "id": 69,
+      "word": "geschichte",
+      "part_of_speech": "Noun",
+      "frequency": 139,
+      "rank": 2,
+      "translation": "history",
+      "gender": "feminine"
+    },
+    {
+      "id": 70,
+      "word": "junge",
+      "part_of_speech": "Noun",
+      "frequency": 136,
+      "rank": 2,
+      "translation": "boy",
+      "gender": "masculine"
+    },
+    {
+      "id": 71,
+      "word": "teddy",
+      "part_of_speech": "Noun",
+      "frequency": 134,
+      "rank": 2,
+      "translation": "teddy bear",
+      "gender": "der"
+    },
+    {
+      "id": 72,
+      "word": "beziehung",
+      "part_of_speech": "Noun",
+      "frequency": 134,
+      "rank": 2,
+      "translation": "relationship",
+      "gender": "feminine"
+    },
+    {
+      "id": 73,
+      "word": "jungs",
+      "part_of_speech": "Noun",
+      "frequency": 130,
+      "rank": 2,
+      "translation": "boys",
+      "gender": ""
+    },
+    {
+      "id": 74,
+      "word": "augen",
+      "part_of_speech": "Noun",
+      "frequency": 130,
+      "rank": 2,
+      "translation": "eyes",
+      "gender": "neuter"
+    },
+    {
+      "id": 75,
+      "word": "wars",
+      "part_of_speech": "Noun",
+      "frequency": 129,
+      "rank": 2,
+      "translation": "was",
+      "gender": "masculine"
+    },
+    {
+      "id": 76,
+      "word": "ahnung",
+      "part_of_speech": "Noun",
+      "frequency": 129,
+      "rank": 2,
+      "translation": "clue",
+      "gender": "feminine"
+    },
+    {
+      "id": 77,
+      "word": "ding",
+      "part_of_speech": "Noun",
+      "frequency": 127,
+      "rank": 2,
+      "translation": "thing",
+      "gender": "Neuter"
+    },
+    {
+      "id": 78,
+      "word": "name",
+      "part_of_speech": "Noun",
+      "frequency": 125,
+      "rank": 2,
+      "translation": "name",
+      "gender": "masculine"
+    },
+    {
+      "id": 79,
+      "word": "stunden",
+      "part_of_speech": "Noun",
+      "frequency": 124,
+      "rank": 2,
+      "translation": "hours",
+      "gender": "feminine"
+    },
+    {
+      "id": 80,
+      "word": "bruder",
+      "part_of_speech": "Noun",
+      "frequency": 124,
+      "rank": 2,
+      "translation": "brother",
+      "gender": "masculine"
+    },
+    {
+      "id": 81,
+      "word": "familie",
+      "part_of_speech": "Noun",
+      "frequency": 123,
+      "rank": 2,
+      "translation": "family",
+      "gender": "feminine"
+    },
+    {
+      "id": 82,
+      "word": "telefon",
+      "part_of_speech": "Noun",
+      "frequency": 122,
+      "rank": 2,
+      "translation": "telephone",
+      "gender": "das"
+    },
+    {
+      "id": 83,
+      "word": "hund",
+      "part_of_speech": "Noun",
+      "frequency": 120,
+      "rank": 2,
+      "translation": "dog",
+      "gender": "masculine"
+    },
+    {
+      "id": 84,
+      "word": "rede",
+      "part_of_speech": "Noun",
+      "frequency": 117,
+      "rank": 2,
+      "translation": "speech",
+      "gender": "die"
+    },
+    {
+      "id": 85,
+      "word": "männer",
+      "part_of_speech": "Noun",
+      "frequency": 117,
+      "rank": 2,
+      "translation": "men",
+      "gender": ""
+    },
+    {
+      "id": 86,
+      "word": "kriege",
+      "part_of_speech": "Noun",
+      "frequency": 116,
+      "rank": 2,
+      "translation": "get",
+      "gender": "plural"
+    },
+    {
+      "id": 87,
+      "word": "lust",
+      "part_of_speech": "Noun",
+      "frequency": 115,
+      "rank": 2,
+      "translation": "desire",
+      "gender": "die"
+    },
+    {
+      "id": 88,
+      "word": "hilfe",
+      "part_of_speech": "Noun",
+      "frequency": 115,
+      "rank": 2,
+      "translation": "help",
+      "gender": "feminine"
+    },
+    {
+      "id": 89,
+      "word": "grund",
+      "part_of_speech": "Noun",
+      "frequency": 114,
+      "rank": 2,
+      "translation": "reason",
+      "gender": "masculine"
+    },
+    {
+      "id": 90,
+      "word": "tisch",
+      "part_of_speech": "Noun",
+      "frequency": 113,
+      "rank": 2,
+      "translation": "table",
+      "gender": "masculine"
+    },
+    {
+      "id": 91,
+      "word": "nummer",
+      "part_of_speech": "Noun",
+      "frequency": 112,
+      "rank": 2,
+      "translation": "number",
+      "gender": "die"
+    },
+    {
+      "id": 92,
+      "word": "schatz",
+      "part_of_speech": "Noun",
+      "frequency": 109,
+      "rank": 2,
+      "translation": "treasure",
+      "gender": "der"
+    },
+    {
+      "id": 93,
+      "word": "mensch",
+      "part_of_speech": "Noun",
+      "frequency": 109,
+      "rank": 2,
+      "translation": "person",
+      "gender": "masculine"
+    },
+    {
+      "id": 94,
+      "word": "ende",
+      "part_of_speech": "Noun",
+      "frequency": 108,
+      "rank": 2,
+      "translation": "end",
+      "gender": "das"
+    },
+    {
+      "id": 95,
+      "word": "rolle",
+      "part_of_speech": "Noun",
+      "frequency": 104,
+      "rank": 2,
+      "translation": "role",
+      "gender": "die"
+    },
+    {
+      "id": 96,
+      "word": "büro",
+      "part_of_speech": "Noun",
+      "frequency": 104,
+      "rank": 2,
+      "translation": "office",
+      "gender": "neuter"
+    },
+    {
+      "id": 97,
+      "word": "ring",
+      "part_of_speech": "Noun",
+      "frequency": 103,
+      "rank": 2,
+      "translation": "ring",
+      "gender": "masculine"
+    },
+    {
+      "id": 98,
+      "word": "buch",
+      "part_of_speech": "Noun",
+      "frequency": 103,
+      "rank": 2,
+      "translation": "book",
+      "gender": "neuter"
+    },
+    {
+      "id": 99,
+      "word": "wort",
+      "part_of_speech": "Noun",
+      "frequency": 99,
+      "rank": 2,
+      "translation": "word",
+      "gender": "Neuter"
+    }
+  ]
+}

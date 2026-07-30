@@ -1,0 +1,904 @@
+{
+  "words": [
+    {
+      "id": 0,
+      "word": "ist",
+      "part_of_speech": "Verb",
+      "frequency": 12921,
+      "rank": 1,
+      "translation": "is",
+      "gender": ""
+    },
+    {
+      "id": 1,
+      "word": "was",
+      "part_of_speech": "Verb",
+      "frequency": 8012,
+      "rank": 1,
+      "translation": "past form of be",
+      "gender": "neutral"
+    },
+    {
+      "id": 2,
+      "word": "hat",
+      "part_of_speech": "Verb",
+      "frequency": 3133,
+      "rank": 1,
+      "translation": "has",
+      "gender": ""
+    },
+    {
+      "id": 3,
+      "word": "hast",
+      "part_of_speech": "Verb",
+      "frequency": 3095,
+      "rank": 1,
+      "translation": "have",
+      "gender": ""
+    },
+    {
+      "id": 4,
+      "word": "habe",
+      "part_of_speech": "Verb",
+      "frequency": 3052,
+      "rank": 1,
+      "translation": "have",
+      "gender": ""
+    },
+    {
+      "id": 5,
+      "word": "war",
+      "part_of_speech": "Verb",
+      "frequency": 2842,
+      "rank": 1,
+      "translation": "was",
+      "gender": ""
+    },
+    {
+      "id": 6,
+      "word": "bin",
+      "part_of_speech": "Verb",
+      "frequency": 2406,
+      "rank": 1,
+      "translation": "am",
+      "gender": ""
+    },
+    {
+      "id": 7,
+      "word": "sind",
+      "part_of_speech": "Verb",
+      "frequency": 2210,
+      "rank": 1,
+      "translation": "are (plural)",
+      "gender": ""
+    },
+    {
+      "id": 8,
+      "word": "haben",
+      "part_of_speech": "Verb",
+      "frequency": 2080,
+      "rank": 1,
+      "translation": "have",
+      "gender": ""
+    },
+    {
+      "id": 9,
+      "word": "kann",
+      "part_of_speech": "Verb",
+      "frequency": 1809,
+      "rank": 1,
+      "translation": "can",
+      "gender": ""
+    },
+    {
+      "id": 10,
+      "word": "will",
+      "part_of_speech": "Verb",
+      "frequency": 1490,
+      "rank": 1,
+      "translation": "want",
+      "gender": ""
+    },
+    {
+      "id": 11,
+      "word": "wird",
+      "part_of_speech": "Verb",
+      "frequency": 1466,
+      "rank": 1,
+      "translation": "becomes",
+      "gender": ""
+    },
+    {
+      "id": 12,
+      "word": "bist",
+      "part_of_speech": "Verb",
+      "frequency": 1456,
+      "rank": 1,
+      "translation": "are",
+      "gender": ""
+    },
+    {
+      "id": 13,
+      "word": "sagen",
+      "part_of_speech": "Verb",
+      "frequency": 1234,
+      "rank": 1,
+      "translation": "to say",
+      "gender": ""
+    },
+    {
+      "id": 14,
+      "word": "sein",
+      "part_of_speech": "Verb",
+      "frequency": 1233,
+      "rank": 1,
+      "translation": "to be",
+      "gender": ""
+    },
+    {
+      "id": 15,
+      "word": "werde",
+      "part_of_speech": "Verb",
+      "frequency": 1229,
+      "rank": 1,
+      "translation": "become",
+      "gender": ""
+    },
+    {
+      "id": 16,
+      "word": "hab",
+      "part_of_speech": "Verb",
+      "frequency": 1172,
+      "rank": 1,
+      "translation": "have",
+      "gender": ""
+    },
+    {
+      "id": 17,
+      "word": "muss",
+      "part_of_speech": "Verb",
+      "frequency": 1085,
+      "rank": 1,
+      "translation": "must",
+      "gender": ""
+    },
+    {
+      "id": 18,
+      "word": "weißt",
+      "part_of_speech": "Verb",
+      "frequency": 1016,
+      "rank": 1,
+      "translation": "know",
+      "gender": ""
+    },
+    {
+      "id": 19,
+      "word": "soll",
+      "part_of_speech": "Verb",
+      "frequency": 1015,
+      "rank": 1,
+      "translation": "should",
+      "gender": ""
+    },
+    {
+      "id": 20,
+      "word": "würde",
+      "part_of_speech": "Verb",
+      "frequency": 998,
+      "rank": 1,
+      "translation": "would",
+      "gender": ""
+    },
+    {
+      "id": 21,
+      "word": "geht",
+      "part_of_speech": "Verb",
+      "frequency": 953,
+      "rank": 1,
+      "translation": "goes",
+      "gender": ""
+    },
+    {
+      "id": 22,
+      "word": "werden",
+      "part_of_speech": "Verb",
+      "frequency": 934,
+      "rank": 1,
+      "translation": "to become",
+      "gender": ""
+    },
+    {
+      "id": 23,
+      "word": "willst",
+      "part_of_speech": "Verb",
+      "frequency": 933,
+      "rank": 1,
+      "translation": "want",
+      "gender": ""
+    },
+    {
+      "id": 24,
+      "word": "tut",
+      "part_of_speech": "Verb",
+      "frequency": 933,
+      "rank": 1,
+      "translation": "does",
+      "gender": ""
+    },
+    {
+      "id": 25,
+      "word": "machen",
+      "part_of_speech": "Verb",
+      "frequency": 895,
+      "rank": 1,
+      "translation": "make",
+      "gender": ""
+    },
+    {
+      "id": 26,
+      "word": "gehen",
+      "part_of_speech": "Verb",
+      "frequency": 889,
+      "rank": 1,
+      "translation": "go",
+      "gender": ""
+    },
+    {
+      "id": 27,
+      "word": "sehen",
+      "part_of_speech": "Verb",
+      "frequency": 869,
+      "rank": 1,
+      "translation": "see",
+      "gender": ""
+    },
+    {
+      "id": 28,
+      "word": "wollte",
+      "part_of_speech": "Verb",
+      "frequency": 863,
+      "rank": 1,
+      "translation": "wanted",
+      "gender": ""
+    },
+    {
+      "id": 29,
+      "word": "kannst",
+      "part_of_speech": "Verb",
+      "frequency": 754,
+      "rank": 1,
+      "translation": "can",
+      "gender": ""
+    },
+    {
+      "id": 30,
+      "word": "gesagt",
+      "part_of_speech": "Verb",
+      "frequency": 752,
+      "rank": 1,
+      "translation": "said",
+      "gender": ""
+    },
+    {
+      "id": 31,
+      "word": "wäre",
+      "part_of_speech": "Verb",
+      "frequency": 751,
+      "rank": 1,
+      "translation": "would be",
+      "gender": ""
+    },
+    {
+      "id": 32,
+      "word": "tun",
+      "part_of_speech": "Verb",
+      "frequency": 704,
+      "rank": 1,
+      "translation": "do",
+      "gender": ""
+    },
+    {
+      "id": 33,
+      "word": "können",
+      "part_of_speech": "Verb",
+      "frequency": 699,
+      "rank": 1,
+      "translation": "can",
+      "gender": ""
+    },
+    {
+      "id": 34,
+      "word": "finde",
+      "part_of_speech": "Verb",
+      "frequency": 665,
+      "rank": 1,
+      "translation": "find",
+      "gender": ""
+    },
+    {
+      "id": 35,
+      "word": "wollen",
+      "part_of_speech": "Verb",
+      "frequency": 631,
+      "rank": 1,
+      "translation": "want",
+      "gender": ""
+    },
+    {
+      "id": 36,
+      "word": "wissen",
+      "part_of_speech": "Verb",
+      "frequency": 624,
+      "rank": 1,
+      "translation": "know",
+      "gender": ""
+    },
+    {
+      "id": 37,
+      "word": "hatte",
+      "part_of_speech": "Verb",
+      "frequency": 582,
+      "rank": 1,
+      "translation": "had",
+      "gender": ""
+    },
+    {
+      "id": 38,
+      "word": "hätte",
+      "part_of_speech": "Verb",
+      "frequency": 554,
+      "rank": 1,
+      "translation": "would have",
+      "gender": ""
+    },
+    {
+      "id": 39,
+      "word": "meinen",
+      "part_of_speech": "Verb",
+      "frequency": 520,
+      "rank": 1,
+      "translation": "think",
+      "gender": ""
+    },
+    {
+      "id": 40,
+      "word": "komm",
+      "part_of_speech": "Verb",
+      "frequency": 470,
+      "rank": 1,
+      "translation": "come",
+      "gender": ""
+    },
+    {
+      "id": 41,
+      "word": "möchte",
+      "part_of_speech": "Verb",
+      "frequency": 468,
+      "rank": 1,
+      "translation": "would like",
+      "gender": ""
+    },
+    {
+      "id": 42,
+      "word": "essen",
+      "part_of_speech": "Verb",
+      "frequency": 466,
+      "rank": 1,
+      "translation": "eat",
+      "gender": ""
+    },
+    {
+      "id": 43,
+      "word": "musst",
+      "part_of_speech": "Verb",
+      "frequency": 463,
+      "rank": 1,
+      "translation": "must",
+      "gender": ""
+    },
+    {
+      "id": 44,
+      "word": "wirst",
+      "part_of_speech": "Verb",
+      "frequency": 456,
+      "rank": 1,
+      "translation": "will",
+      "gender": ""
+    },
+    {
+      "id": 45,
+      "word": "kommt",
+      "part_of_speech": "Verb",
+      "frequency": 452,
+      "rank": 1,
+      "translation": "comes",
+      "gender": ""
+    },
+    {
+      "id": 46,
+      "word": "müssen",
+      "part_of_speech": "Verb",
+      "frequency": 451,
+      "rank": 1,
+      "translation": "must",
+      "gender": ""
+    },
+    {
+      "id": 47,
+      "word": "hör",
+      "part_of_speech": "Verb",
+      "frequency": 443,
+      "rank": 1,
+      "translation": "listen",
+      "gender": ""
+    },
+    {
+      "id": 48,
+      "word": "gemacht",
+      "part_of_speech": "Verb",
+      "frequency": 440,
+      "rank": 1,
+      "translation": "made",
+      "gender": ""
+    },
+    {
+      "id": 49,
+      "word": "passiert",
+      "part_of_speech": "Verb",
+      "frequency": 409,
+      "rank": 1,
+      "translation": "happened",
+      "gender": ""
+    },
+    {
+      "id": 50,
+      "word": "gibt",
+      "part_of_speech": "Verb",
+      "frequency": 396,
+      "rank": 1,
+      "translation": "gives",
+      "gender": ""
+    },
+    {
+      "id": 51,
+      "word": "dachte",
+      "part_of_speech": "Verb",
+      "frequency": 391,
+      "rank": 1,
+      "translation": "thought",
+      "gender": ""
+    },
+    {
+      "id": 52,
+      "word": "warte",
+      "part_of_speech": "Verb",
+      "frequency": 387,
+      "rank": 1,
+      "translation": "wait",
+      "gender": ""
+    },
+    {
+      "id": 53,
+      "word": "lassen",
+      "part_of_speech": "Verb",
+      "frequency": 387,
+      "rank": 1,
+      "translation": "let",
+      "gender": ""
+    },
+    {
+      "id": 54,
+      "word": "reden",
+      "part_of_speech": "Verb",
+      "frequency": 380,
+      "rank": 1,
+      "translation": "talk",
+      "gender": ""
+    },
+    {
+      "id": 55,
+      "word": "könnte",
+      "part_of_speech": "Verb",
+      "frequency": 380,
+      "rank": 1,
+      "translation": "could",
+      "gender": ""
+    },
+    {
+      "id": 56,
+      "word": "sag",
+      "part_of_speech": "Verb",
+      "frequency": 379,
+      "rank": 1,
+      "translation": "say",
+      "gender": ""
+    },
+    {
+      "id": 57,
+      "word": "sollte",
+      "part_of_speech": "Verb",
+      "frequency": 378,
+      "rank": 1,
+      "translation": "should",
+      "gender": ""
+    },
+    {
+      "id": 58,
+      "word": "waren",
+      "part_of_speech": "Verb",
+      "frequency": 377,
+      "rank": 1,
+      "translation": "were",
+      "gender": ""
+    },
+    {
+      "id": 59,
+      "word": "kommen",
+      "part_of_speech": "Verb",
+      "frequency": 356,
+      "rank": 1,
+      "translation": "to come",
+      "gender": ""
+    },
+    {
+      "id": 60,
+      "word": "habt",
+      "part_of_speech": "Verb",
+      "frequency": 354,
+      "rank": 1,
+      "translation": "have",
+      "gender": ""
+    },
+    {
+      "id": 61,
+      "word": "darf",
+      "part_of_speech": "Verb",
+      "frequency": 336,
+      "rank": 1,
+      "translation": "may",
+      "gender": ""
+    },
+    {
+      "id": 62,
+      "word": "wurde",
+      "part_of_speech": "Verb",
+      "frequency": 326,
+      "rank": 1,
+      "translation": "became",
+      "gender": ""
+    },
+    {
+      "id": 63,
+      "word": "sagte",
+      "part_of_speech": "Verb",
+      "frequency": 324,
+      "rank": 1,
+      "translation": "said",
+      "gender": ""
+    },
+    {
+      "id": 64,
+      "word": "sollten",
+      "part_of_speech": "Verb",
+      "frequency": 312,
+      "rank": 1,
+      "translation": "should",
+      "gender": ""
+    },
+    {
+      "id": 65,
+      "word": "leben",
+      "part_of_speech": "Verb",
+      "frequency": 312,
+      "rank": 1,
+      "translation": "live",
+      "gender": "neuter"
+    },
+    {
+      "id": 66,
+      "word": "warst",
+      "part_of_speech": "Verb",
+      "frequency": 311,
+      "rank": 1,
+      "translation": "were",
+      "gender": ""
+    },
+    {
+      "id": 67,
+      "word": "gehört",
+      "part_of_speech": "Verb",
+      "frequency": 310,
+      "rank": 1,
+      "translation": "belongs",
+      "gender": ""
+    },
+    {
+      "id": 68,
+      "word": "gesehen",
+      "part_of_speech": "Verb",
+      "frequency": 307,
+      "rank": 1,
+      "translation": "seen",
+      "gender": ""
+    },
+    {
+      "id": 69,
+      "word": "vergessen",
+      "part_of_speech": "Verb",
+      "frequency": 304,
+      "rank": 1,
+      "translation": "forget",
+      "gender": ""
+    },
+    {
+      "id": 70,
+      "word": "verstehe",
+      "part_of_speech": "Verb",
+      "frequency": 300,
+      "rank": 1,
+      "translation": "understand",
+      "gender": ""
+    },
+    {
+      "id": 71,
+      "word": "siehst",
+      "part_of_speech": "Verb",
+      "frequency": 291,
+      "rank": 1,
+      "translation": "see",
+      "gender": ""
+    },
+    {
+      "id": 72,
+      "word": "gehts",
+      "part_of_speech": "Verb",
+      "frequency": 287,
+      "rank": 1,
+      "translation": "going?",
+      "gender": ""
+    },
+    {
+      "id": 73,
+      "word": "lass",
+      "part_of_speech": "Verb",
+      "frequency": 283,
+      "rank": 1,
+      "translation": "let",
+      "gender": ""
+    },
+    {
+      "id": 74,
+      "word": "machst",
+      "part_of_speech": "Verb",
+      "frequency": 277,
+      "rank": 1,
+      "translation": "do",
+      "gender": ""
+    },
+    {
+      "id": 75,
+      "word": "mach",
+      "part_of_speech": "Verb",
+      "frequency": 276,
+      "rank": 1,
+      "translation": "make",
+      "gender": ""
+    },
+    {
+      "id": 76,
+      "word": "sieht",
+      "part_of_speech": "Verb",
+      "frequency": 270,
+      "rank": 1,
+      "translation": "sees",
+      "gender": ""
+    },
+    {
+      "id": 77,
+      "word": "fragen",
+      "part_of_speech": "Verb",
+      "frequency": 268,
+      "rank": 1,
+      "translation": "ask",
+      "gender": ""
+    },
+    {
+      "id": 78,
+      "word": "würdest",
+      "part_of_speech": "Verb",
+      "frequency": 266,
+      "rank": 1,
+      "translation": "would",
+      "gender": ""
+    },
+    {
+      "id": 79,
+      "word": "hört",
+      "part_of_speech": "Verb",
+      "frequency": 262,
+      "rank": 1,
+      "translation": "hears",
+      "gender": ""
+    },
+    {
+      "id": 80,
+      "word": "seid",
+      "part_of_speech": "Verb",
+      "frequency": 255,
+      "rank": 2,
+      "translation": "are",
+      "gender": ""
+    },
+    {
+      "id": 81,
+      "word": "heißt",
+      "part_of_speech": "Verb",
+      "frequency": 255,
+      "rank": 2,
+      "translation": "is called",
+      "gender": ""
+    },
+    {
+      "id": 82,
+      "word": "meinst",
+      "part_of_speech": "Verb",
+      "frequency": 254,
+      "rank": 2,
+      "translation": "think",
+      "gender": ""
+    },
+    {
+      "id": 83,
+      "word": "geben",
+      "part_of_speech": "Verb",
+      "frequency": 248,
+      "rank": 2,
+      "translation": "give",
+      "gender": ""
+    },
+    {
+      "id": 84,
+      "word": "steht",
+      "part_of_speech": "Verb",
+      "frequency": 242,
+      "rank": 2,
+      "translation": "stands",
+      "gender": ""
+    },
+    {
+      "id": 85,
+      "word": "sprechen",
+      "part_of_speech": "Verb",
+      "frequency": 240,
+      "rank": 2,
+      "translation": "speak",
+      "gender": ""
+    },
+    {
+      "id": 86,
+      "word": "sehe",
+      "part_of_speech": "Verb",
+      "frequency": 236,
+      "rank": 2,
+      "translation": "see",
+      "gender": ""
+    },
+    {
+      "id": 87,
+      "word": "gehe",
+      "part_of_speech": "Verb",
+      "frequency": 235,
+      "rank": 2,
+      "translation": "go",
+      "gender": ""
+    },
+    {
+      "id": 88,
+      "word": "sei",
+      "part_of_speech": "Verb",
+      "frequency": 233,
+      "rank": 2,
+      "translation": "be",
+      "gender": ""
+    },
+    {
+      "id": 89,
+      "word": "geh",
+      "part_of_speech": "Verb",
+      "frequency": 233,
+      "rank": 2,
+      "translation": "go",
+      "gender": ""
+    },
+    {
+      "id": 90,
+      "word": "bekommen",
+      "part_of_speech": "Verb",
+      "frequency": 232,
+      "rank": 2,
+      "translation": "get",
+      "gender": ""
+    },
+    {
+      "id": 91,
+      "word": "heiraten",
+      "part_of_speech": "Verb",
+      "frequency": 228,
+      "rank": 2,
+      "translation": "marry",
+      "gender": ""
+    },
+    {
+      "id": 92,
+      "word": "sieh",
+      "part_of_speech": "Verb",
+      "frequency": 226,
+      "rank": 2,
+      "translation": "see",
+      "gender": ""
+    },
+    {
+      "id": 93,
+      "word": "helfen",
+      "part_of_speech": "Verb",
+      "frequency": 221,
+      "rank": 2,
+      "translation": "help",
+      "gender": ""
+    },
+    {
+      "id": 94,
+      "word": "spielen",
+      "part_of_speech": "Verb",
+      "frequency": 212,
+      "rank": 2,
+      "translation": "play",
+      "gender": ""
+    },
+    {
+      "id": 95,
+      "word": "sagt",
+      "part_of_speech": "Verb",
+      "frequency": 212,
+      "rank": 2,
+      "translation": "says",
+      "gender": ""
+    },
+    {
+      "id": 96,
+      "word": "wisst",
+      "part_of_speech": "Verb",
+      "frequency": 208,
+      "rank": 2,
+      "translation": "know",
+      "gender": ""
+    },
+    {
+      "id": 97,
+      "word": "solltest",
+      "part_of_speech": "Verb",
+      "frequency": 208,
+      "rank": 2,
+      "translation": "should",
+      "gender": ""
+    },
+    {
+      "id": 98,
+      "word": "hören",
+      "part_of_speech": "Verb",
+      "frequency": 208,
+      "rank": 2,
+      "translation": "hear",
+      "gender": ""
+    },
+    {
+      "id": 99,
+      "word": "würden",
+      "part_of_speech": "Verb",
+      "frequency": 207,
+      "rank": 2,
+      "translation": "would",
+      "gender": ""
+    }
+  ]
+}

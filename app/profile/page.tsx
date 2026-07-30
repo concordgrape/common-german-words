@@ -33,7 +33,7 @@ const ProfileContentPage: React.FC = () => {
 
   useEffect(() => {
     if (!user && !loading) {
-      go("/signin", true);
+      go("/signin");
     }
   }, [user, loading]);
 
@@ -304,7 +304,7 @@ const DeleteAccountPrompt: React.FC = () => {
         variant: "success",
       });
 
-      go("/signin", true);
+      go("/signin");
     } catch (error) {
       console.error("Error deleting account:", error);
       toast({

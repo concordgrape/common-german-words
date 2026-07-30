@@ -6,7 +6,7 @@ import { kLANG_NAME_CAPITAL } from "../lib/constants";
 
 export const metadata: Metadata = {
   title: `About Us | Common ${kLANG_NAME_CAPITAL} Words`,
-  description: `Learn about Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words: our mission, how it works, and what we value.`,
+  description: `Learn about Common ${kLANG_NAME_CAPITAL} Words and Common Words: our mission, how it works, and what we value.`,
 };
 
 export default function AboutPage() {

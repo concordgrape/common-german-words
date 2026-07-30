@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "../lib/constants";
-import StickyFooterAd from "../components/ads/StickyFooterAd";
 
 export const metadata: Metadata = {
   title: `Top 500 ${kLANG_NAME_CAPITAL} Words – Common ${kLANG_NAME_CAPITAL} Words`,
@@ -39,7 +38,6 @@ export default function WordsLayout({
   return (
     <>
       {children}
-      <StickyFooterAd />
     </>
   );
 }

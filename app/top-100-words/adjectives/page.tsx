@@ -20,7 +20,7 @@ const TopAdjectives: React.FC = () => {
 
   // Fetch words
   useEffect(() => {
-    fetchTopWords(kLANG_NAME, "Adjective", 100).then(setWords);
+    fetchTopWords(kLANG_NAME, "Adjective", 100, setWords).then(setWords);
   }, []);
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 
 export const metadata: Metadata = {
   title: `GDPR Cookie Policy | Common ${kLANG_NAME_CAPITAL} Words`,
-  description: `GDPR-compliant Cookie Policy for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
+  description: `GDPR-compliant Cookie Policy for Common ${kLANG_NAME_CAPITAL} Words and Common Words.`,
 };
 
 const EFFECTIVE_DATE = "August 8, 2025";
@@ -30,7 +30,7 @@ function GDPRCookiePolicy() {
       <p>
         This GDPR Cookie Policy explains how{" "}
         <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the “Website”) and{" "}
-        <strong>Verbuu – Common Words</strong> (the “App”) use cookies and
+        <strong>Common Words</strong> (the “App”) use cookies and
         similar technologies in compliance with the{" "}
         <strong>General Data Protection Regulation (GDPR)</strong> and other
         applicable laws.

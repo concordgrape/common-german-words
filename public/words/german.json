@@ -1,0 +1,904 @@
+{
+  "words": [
+    {
+      "id": 0,
+      "word": "ich",
+      "part_of_speech": "Pronoun",
+      "frequency": 28127,
+      "rank": 1,
+      "translation": "I",
+      "gender": ""
+    },
+    {
+      "id": 1,
+      "word": "du",
+      "part_of_speech": "Pronoun",
+      "frequency": 15271,
+      "rank": 1,
+      "translation": "you",
+      "gender": ""
+    },
+    {
+      "id": 2,
+      "word": "das",
+      "part_of_speech": "Determiner",
+      "frequency": 14500,
+      "rank": 1,
+      "translation": "the",
+      "gender": "Neuter"
+    },
+    {
+      "id": 3,
+      "word": "ist",
+      "part_of_speech": "Verb",
+      "frequency": 12921,
+      "rank": 1,
+      "translation": "is",
+      "gender": ""
+    },
+    {
+      "id": 4,
+      "word": "nicht",
+      "part_of_speech": "Adverb",
+      "frequency": 12088,
+      "rank": 1,
+      "translation": "not",
+      "gender": ""
+    },
+    {
+      "id": 5,
+      "word": "Sie",
+      "part_of_speech": "Pronoun",
+      "frequency": 9401,
+      "rank": 1,
+      "translation": "you (formal)",
+      "gender": ""
+    },
+    {
+      "id": 6,
+      "word": "und",
+      "part_of_speech": "Conjunction",
+      "frequency": 8944,
+      "rank": 1,
+      "translation": "and",
+      "gender": ""
+    },
+    {
+      "id": 7,
+      "word": "ja",
+      "part_of_speech": "Adverb",
+      "frequency": 8239,
+      "rank": 1,
+      "translation": "yes",
+      "gender": ""
+    },
+    {
+      "id": 8,
+      "word": "was",
+      "part_of_speech": "Verb",
+      "frequency": 8012,
+      "rank": 1,
+      "translation": "past form of be",
+      "gender": "neutral"
+    },
+    {
+      "id": 9,
+      "word": "es",
+      "part_of_speech": "Pronoun",
+      "frequency": 7774,
+      "rank": 1,
+      "translation": "it",
+      "gender": "neuter"
+    },
+    {
+      "id": 10,
+      "word": "die",
+      "part_of_speech": "Determiner",
+      "frequency": 7512,
+      "rank": 1,
+      "translation": "the",
+      "gender": "feminine"
+    },
+    {
+      "id": 11,
+      "word": "wir",
+      "part_of_speech": "Pronoun",
+      "frequency": 6568,
+      "rank": 1,
+      "translation": "we",
+      "gender": ""
+    },
+    {
+      "id": 12,
+      "word": "der",
+      "part_of_speech": "Determiner",
+      "frequency": 5089,
+      "rank": 1,
+      "translation": "the",
+      "gender": "masculine"
+    },
+    {
+      "id": 13,
+      "word": "dass",
+      "part_of_speech": "Conjunction",
+      "frequency": 4960,
+      "rank": 1,
+      "translation": "that",
+      "gender": ""
+    },
+    {
+      "id": 14,
+      "word": "ein",
+      "part_of_speech": "Determiner",
+      "frequency": 4951,
+      "rank": 1,
+      "translation": "a",
+      "gender": ""
+    },
+    {
+      "id": 15,
+      "word": "so",
+      "part_of_speech": "Adverb",
+      "frequency": 4729,
+      "rank": 1,
+      "translation": "so",
+      "gender": ""
+    },
+    {
+      "id": 16,
+      "word": "mir",
+      "part_of_speech": "Pronoun",
+      "frequency": 4720,
+      "rank": 1,
+      "translation": "me",
+      "gender": ""
+    },
+    {
+      "id": 17,
+      "word": "mit",
+      "part_of_speech": "Preposition",
+      "frequency": 4439,
+      "rank": 1,
+      "translation": "with",
+      "gender": ""
+    },
+    {
+      "id": 18,
+      "word": "zu",
+      "part_of_speech": "Preposition",
+      "frequency": 4313,
+      "rank": 1,
+      "translation": "to",
+      "gender": ""
+    },
+    {
+      "id": 19,
+      "word": "aber",
+      "part_of_speech": "Conjunction",
+      "frequency": 4150,
+      "rank": 1,
+      "translation": "but",
+      "gender": ""
+    },
+    {
+      "id": 20,
+      "word": "nein",
+      "part_of_speech": "Interjection",
+      "frequency": 3819,
+      "rank": 1,
+      "translation": "no",
+      "gender": ""
+    },
+    {
+      "id": 21,
+      "word": "sie",
+      "part_of_speech": "Pronoun",
+      "frequency": 3747,
+      "rank": 1,
+      "translation": "she",
+      "gender": "Feminine (when 'she')"
+    },
+    {
+      "id": 22,
+      "word": "er",
+      "part_of_speech": "Pronoun",
+      "frequency": 3746,
+      "rank": 1,
+      "translation": "he",
+      "gender": "masculine"
+    },
+    {
+      "id": 23,
+      "word": "doch",
+      "part_of_speech": "Adverb",
+      "frequency": 3746,
+      "rank": 1,
+      "translation": "yes, it is",
+      "gender": ""
+    },
+    {
+      "id": 24,
+      "word": "wie",
+      "part_of_speech": "Adverb",
+      "frequency": 3644,
+      "rank": 1,
+      "translation": "how",
+      "gender": ""
+    },
+    {
+      "id": 25,
+      "word": "mich",
+      "part_of_speech": "Pronoun",
+      "frequency": 3314,
+      "rank": 1,
+      "translation": "me",
+      "gender": ""
+    },
+    {
+      "id": 26,
+      "word": "eine",
+      "part_of_speech": "Determiner",
+      "frequency": 3279,
+      "rank": 1,
+      "translation": "a",
+      "gender": "feminine"
+    },
+    {
+      "id": 27,
+      "word": "dir",
+      "part_of_speech": "Pronoun",
+      "frequency": 3213,
+      "rank": 1,
+      "translation": "you",
+      "gender": ""
+    },
+    {
+      "id": 28,
+      "word": "dich",
+      "part_of_speech": "Pronoun",
+      "frequency": 3198,
+      "rank": 1,
+      "translation": "you",
+      "gender": ""
+    },
+    {
+      "id": 29,
+      "word": "hat",
+      "part_of_speech": "Verb",
+      "frequency": 3133,
+      "rank": 1,
+      "translation": "has",
+      "gender": ""
+    },
+    {
+      "id": 30,
+      "word": "ihr",
+      "part_of_speech": "Pronoun",
+      "frequency": 3102,
+      "rank": 1,
+      "translation": "you (plural)",
+      "gender": ""
+    },
+    {
+      "id": 31,
+      "word": "hast",
+      "part_of_speech": "Verb",
+      "frequency": 3095,
+      "rank": 1,
+      "translation": "have",
+      "gender": ""
+    },
+    {
+      "id": 32,
+      "word": "wenn",
+      "part_of_speech": "Conjunction",
+      "frequency": 3085,
+      "rank": 1,
+      "translation": "if",
+      "gender": ""
+    },
+    {
+      "id": 33,
+      "word": "habe",
+      "part_of_speech": "Verb",
+      "frequency": 3052,
+      "rank": 1,
+      "translation": "have",
+      "gender": ""
+    },
+    {
+      "id": 34,
+      "word": "den",
+      "part_of_speech": "Determiner",
+      "frequency": 2929,
+      "rank": 1,
+      "translation": "the",
+      "gender": "masculine"
+    },
+    {
+      "id": 35,
+      "word": "auf",
+      "part_of_speech": "Preposition",
+      "frequency": 2921,
+      "rank": 1,
+      "translation": "on",
+      "gender": ""
+    },
+    {
+      "id": 36,
+      "word": "noch",
+      "part_of_speech": "Adverb",
+      "frequency": 2917,
+      "rank": 1,
+      "translation": "still",
+      "gender": ""
+    },
+    {
+      "id": 37,
+      "word": "dann",
+      "part_of_speech": "Adverb",
+      "frequency": 2885,
+      "rank": 1,
+      "translation": "then",
+      "gender": ""
+    },
+    {
+      "id": 38,
+      "word": "da",
+      "part_of_speech": "Adverb",
+      "frequency": 2870,
+      "rank": 1,
+      "translation": "there",
+      "gender": ""
+    },
+    {
+      "id": 39,
+      "word": "war",
+      "part_of_speech": "Verb",
+      "frequency": 2842,
+      "rank": 1,
+      "translation": "was",
+      "gender": ""
+    },
+    {
+      "id": 40,
+      "word": "auch",
+      "part_of_speech": "Adverb",
+      "frequency": 2774,
+      "rank": 1,
+      "translation": "also",
+      "gender": ""
+    },
+    {
+      "id": 41,
+      "word": "für",
+      "part_of_speech": "Preposition",
+      "frequency": 2722,
+      "rank": 1,
+      "translation": "for",
+      "gender": ""
+    },
+    {
+      "id": 42,
+      "word": "mal",
+      "part_of_speech": "Adverb",
+      "frequency": 2692,
+      "rank": 1,
+      "translation": "times",
+      "gender": ""
+    },
+    {
+      "id": 43,
+      "word": "hier",
+      "part_of_speech": "Adverb",
+      "frequency": 2601,
+      "rank": 1,
+      "translation": "here",
+      "gender": ""
+    },
+    {
+      "id": 44,
+      "word": "nur",
+      "part_of_speech": "Adverb",
+      "frequency": 2543,
+      "rank": 1,
+      "translation": "only",
+      "gender": ""
+    },
+    {
+      "id": 45,
+      "word": "gut",
+      "part_of_speech": "Adjective",
+      "frequency": 2424,
+      "rank": 1,
+      "translation": "good",
+      "gender": ""
+    },
+    {
+      "id": 46,
+      "word": "bin",
+      "part_of_speech": "Verb",
+      "frequency": 2406,
+      "rank": 1,
+      "translation": "am",
+      "gender": ""
+    },
+    {
+      "id": 47,
+      "word": "schon",
+      "part_of_speech": "Adverb",
+      "frequency": 2282,
+      "rank": 1,
+      "translation": "already",
+      "gender": ""
+    },
+    {
+      "id": 48,
+      "word": "jetzt",
+      "part_of_speech": "Adverb",
+      "frequency": 2266,
+      "rank": 1,
+      "translation": "now",
+      "gender": ""
+    },
+    {
+      "id": 49,
+      "word": "sind",
+      "part_of_speech": "Verb",
+      "frequency": 2210,
+      "rank": 1,
+      "translation": "are (plural)",
+      "gender": ""
+    },
+    {
+      "id": 50,
+      "word": "von",
+      "part_of_speech": "Preposition",
+      "frequency": 2165,
+      "rank": 1,
+      "translation": "of",
+      "gender": ""
+    },
+    {
+      "id": 51,
+      "word": "an",
+      "part_of_speech": "Preposition",
+      "frequency": 2164,
+      "rank": 1,
+      "translation": "on",
+      "gender": ""
+    },
+    {
+      "id": 52,
+      "word": "haben",
+      "part_of_speech": "Verb",
+      "frequency": 2080,
+      "rank": 1,
+      "translation": "have",
+      "gender": ""
+    },
+    {
+      "id": 53,
+      "word": "einen",
+      "part_of_speech": "Determiner",
+      "frequency": 2052,
+      "rank": 1,
+      "translation": "a",
+      "gender": "masculine"
+    },
+    {
+      "id": 54,
+      "word": "uns",
+      "part_of_speech": "Pronoun",
+      "frequency": 1987,
+      "rank": 1,
+      "translation": "us",
+      "gender": ""
+    },
+    {
+      "id": 55,
+      "word": "denn",
+      "part_of_speech": "Conjunction",
+      "frequency": 1981,
+      "rank": 1,
+      "translation": "because",
+      "gender": ""
+    },
+    {
+      "id": 56,
+      "word": "meine",
+      "part_of_speech": "Determiner",
+      "frequency": 1874,
+      "rank": 1,
+      "translation": "my",
+      "gender": ""
+    },
+    {
+      "id": 57,
+      "word": "kann",
+      "part_of_speech": "Verb",
+      "frequency": 1809,
+      "rank": 1,
+      "translation": "can",
+      "gender": ""
+    },
+    {
+      "id": 58,
+      "word": "weiß",
+      "part_of_speech": "Adjective",
+      "frequency": 1769,
+      "rank": 1,
+      "translation": "white",
+      "gender": ""
+    },
+    {
+      "id": 59,
+      "word": "mein",
+      "part_of_speech": "Determiner",
+      "frequency": 1757,
+      "rank": 1,
+      "translation": "my",
+      "gender": ""
+    },
+    {
+      "id": 60,
+      "word": "sich",
+      "part_of_speech": "Pronoun",
+      "frequency": 1648,
+      "rank": 1,
+      "translation": "oneself",
+      "gender": ""
+    },
+    {
+      "id": 61,
+      "word": "na",
+      "part_of_speech": "Interjection",
+      "frequency": 1646,
+      "rank": 1,
+      "translation": "well",
+      "gender": ""
+    },
+    {
+      "id": 62,
+      "word": "wirklich",
+      "part_of_speech": "Adverb",
+      "frequency": 1636,
+      "rank": 1,
+      "translation": "really",
+      "gender": ""
+    },
+    {
+      "id": 63,
+      "word": "will",
+      "part_of_speech": "Verb",
+      "frequency": 1490,
+      "rank": 1,
+      "translation": "want",
+      "gender": ""
+    },
+    {
+      "id": 64,
+      "word": "wird",
+      "part_of_speech": "Verb",
+      "frequency": 1466,
+      "rank": 1,
+      "translation": "becomes",
+      "gender": ""
+    },
+    {
+      "id": 65,
+      "word": "bist",
+      "part_of_speech": "Verb",
+      "frequency": 1456,
+      "rank": 1,
+      "translation": "are",
+      "gender": ""
+    },
+    {
+      "id": 66,
+      "word": "als",
+      "part_of_speech": "Conjunction",
+      "frequency": 1425,
+      "rank": 1,
+      "translation": "than",
+      "gender": ""
+    },
+    {
+      "id": 67,
+      "word": "sehr",
+      "part_of_speech": "Adverb",
+      "frequency": 1398,
+      "rank": 1,
+      "translation": "very",
+      "gender": ""
+    },
+    {
+      "id": 68,
+      "word": "aus",
+      "part_of_speech": "Preposition",
+      "frequency": 1395,
+      "rank": 1,
+      "translation": "out",
+      "gender": ""
+    },
+    {
+      "id": 69,
+      "word": "wieder",
+      "part_of_speech": "Adverb",
+      "frequency": 1311,
+      "rank": 1,
+      "translation": "again",
+      "gender": ""
+    },
+    {
+      "id": 70,
+      "word": "bitte",
+      "part_of_speech": "Interjection",
+      "frequency": 1243,
+      "rank": 1,
+      "translation": "please",
+      "gender": ""
+    },
+    {
+      "id": 71,
+      "word": "sagen",
+      "part_of_speech": "Verb",
+      "frequency": 1234,
+      "rank": 1,
+      "translation": "to say",
+      "gender": ""
+    },
+    {
+      "id": 72,
+      "word": "oder",
+      "part_of_speech": "Conjunction",
+      "frequency": 1234,
+      "rank": 1,
+      "translation": "or",
+      "gender": ""
+    },
+    {
+      "id": 73,
+      "word": "sein",
+      "part_of_speech": "Verb",
+      "frequency": 1233,
+      "rank": 1,
+      "translation": "to be",
+      "gender": ""
+    },
+    {
+      "id": 74,
+      "word": "werde",
+      "part_of_speech": "Verb",
+      "frequency": 1229,
+      "rank": 1,
+      "translation": "become",
+      "gender": ""
+    },
+    {
+      "id": 75,
+      "word": "alles",
+      "part_of_speech": "Pronoun",
+      "frequency": 1228,
+      "rank": 1,
+      "translation": "everything",
+      "gender": "neuter"
+    },
+    {
+      "id": 76,
+      "word": "dem",
+      "part_of_speech": "Pronoun",
+      "frequency": 1207,
+      "rank": 1,
+      "translation": "the",
+      "gender": ""
+    },
+    {
+      "id": 77,
+      "word": "ach",
+      "part_of_speech": "Interjection",
+      "frequency": 1191,
+      "rank": 1,
+      "translation": "oh",
+      "gender": ""
+    },
+    {
+      "id": 78,
+      "word": "hab",
+      "part_of_speech": "Verb",
+      "frequency": 1172,
+      "rank": 1,
+      "translation": "have",
+      "gender": ""
+    },
+    {
+      "id": 79,
+      "word": "ganz",
+      "part_of_speech": "Adjective",
+      "frequency": 1171,
+      "rank": 1,
+      "translation": "whole",
+      "gender": ""
+    },
+    {
+      "id": 80,
+      "word": "keine",
+      "part_of_speech": "Determiner",
+      "frequency": 1158,
+      "rank": 1,
+      "translation": "no",
+      "gender": ""
+    },
+    {
+      "id": 81,
+      "word": "ihn",
+      "part_of_speech": "Pronoun",
+      "frequency": 1131,
+      "rank": 1,
+      "translation": "him",
+      "gender": ""
+    },
+    {
+      "id": 82,
+      "word": "im",
+      "part_of_speech": "Preposition",
+      "frequency": 1108,
+      "rank": 1,
+      "translation": "in the",
+      "gender": ""
+    },
+    {
+      "id": 83,
+      "word": "euch",
+      "part_of_speech": "Pronoun",
+      "frequency": 1103,
+      "rank": 1,
+      "translation": "you",
+      "gender": ""
+    },
+    {
+      "id": 84,
+      "word": "nichts",
+      "part_of_speech": "Pronoun",
+      "frequency": 1102,
+      "rank": 1,
+      "translation": "nothing",
+      "gender": "neuter"
+    },
+    {
+      "id": 85,
+      "word": "danke",
+      "part_of_speech": "Interjection",
+      "frequency": 1090,
+      "rank": 1,
+      "translation": "thanks",
+      "gender": ""
+    },
+    {
+      "id": 86,
+      "word": "muss",
+      "part_of_speech": "Verb",
+      "frequency": 1085,
+      "rank": 1,
+      "translation": "must",
+      "gender": ""
+    },
+    {
+      "id": 87,
+      "word": "einfach",
+      "part_of_speech": "Adjective",
+      "frequency": 1058,
+      "rank": 1,
+      "translation": "simple",
+      "gender": ""
+    },
+    {
+      "id": 88,
+      "word": "mehr",
+      "part_of_speech": "Adverb",
+      "frequency": 1019,
+      "rank": 1,
+      "translation": "more",
+      "gender": ""
+    },
+    {
+      "id": 89,
+      "word": "weißt",
+      "part_of_speech": "Verb",
+      "frequency": 1016,
+      "rank": 1,
+      "translation": "know",
+      "gender": ""
+    },
+    {
+      "id": 90,
+      "word": "soll",
+      "part_of_speech": "Verb",
+      "frequency": 1015,
+      "rank": 1,
+      "translation": "should",
+      "gender": ""
+    },
+    {
+      "id": 91,
+      "word": "wieso",
+      "part_of_speech": "Adverb",
+      "frequency": 1005,
+      "rank": 1,
+      "translation": "why",
+      "gender": ""
+    },
+    {
+      "id": 92,
+      "word": "würde",
+      "part_of_speech": "Verb",
+      "frequency": 998,
+      "rank": 1,
+      "translation": "would",
+      "gender": ""
+    },
+    {
+      "id": 93,
+      "word": "immer",
+      "part_of_speech": "Adverb",
+      "frequency": 989,
+      "rank": 1,
+      "translation": "always",
+      "gender": ""
+    },
+    {
+      "id": 94,
+      "word": "weil",
+      "part_of_speech": "Conjunction",
+      "frequency": 988,
+      "rank": 1,
+      "translation": "because",
+      "gender": ""
+    },
+    {
+      "id": 95,
+      "word": "bei",
+      "part_of_speech": "Preposition",
+      "frequency": 961,
+      "rank": 1,
+      "translation": "at",
+      "gender": ""
+    },
+    {
+      "id": 96,
+      "word": "geht",
+      "part_of_speech": "Verb",
+      "frequency": 953,
+      "rank": 1,
+      "translation": "goes",
+      "gender": ""
+    },
+    {
+      "id": 97,
+      "word": "werden",
+      "part_of_speech": "Verb",
+      "frequency": 934,
+      "rank": 1,
+      "translation": "to become",
+      "gender": ""
+    },
+    {
+      "id": 98,
+      "word": "willst",
+      "part_of_speech": "Verb",
+      "frequency": 933,
+      "rank": 1,
+      "translation": "want",
+      "gender": ""
+    },
+    {
+      "id": 99,
+      "word": "tut",
+      "part_of_speech": "Verb",
+      "frequency": 933,
+      "rank": 1,
+      "translation": "does",
+      "gender": ""
+    }
+  ]
+}

@@ -7,9 +7,10 @@ import { FullWordData } from "./WordInfo";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
 import {
   kARTICLES_BY_GENDER,
-  kCOUNTRY_FLAG_EMOJI,
+  kCOUNTRY_LANG_CODE,
   kLANG_NAME,
 } from "../lib/constants";
+import { Flag } from "./Flag";
 
 import "../globals.css";
 
@@ -215,7 +216,7 @@ const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({
                           >
                             <div className="flex justify-between items-center">
                               <span>
-                                {kCOUNTRY_FLAG_EMOJI}{" "}
+                                <Flag code={kCOUNTRY_LANG_CODE} />{" "}
                                 {ex.sentence.replace(/\./g, "")}
                               </span>
                               <GoogleTTSButton
@@ -224,7 +225,8 @@ const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({
                               />
                             </div>
                             <div className="text-white/70">
-                              🇬🇧 {ex.translation.replace(/\./g, "")}
+                              <Flag code="gb" />{" "}
+                              {ex.translation.replace(/\./g, "")}
                             </div>
                           </motion.li>
                         ))}

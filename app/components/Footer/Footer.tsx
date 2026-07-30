@@ -5,21 +5,18 @@ const Footer = () => {
   return (
     <footer className="footer text-black dark:text-white mt-10 pb-25 sm:footer-horizontal bg-base-200 text-base-content p-10 bg-white dark:bg-[#181922]">
       <aside>
-        <Image src="/verbuu-logo.webp" alt="Logo" width={50} height={50} />
+        <Image
+          src="/common-words-logo.webp"
+          alt="Logo"
+          width={50}
+          height={50}
+        />
         <p className="text-gray-600 dark:text-gray-400">
           <span className="text-black dark:text-white">
             <i>
               <b>Common {kLANG_NAME_CAPITAL} Words</b>
             </i>
-          </span>{" "}
-          is a&nbsp;
-          <a
-            href="https://verbuu.com/"
-            className="text-blue-400 hover:underline"
-          >
-            Verbuu
-          </a>{" "}
-          project
+          </span>
           <br />
           Copyright © {new Date().getFullYear()} – All rights reserved
         </p>

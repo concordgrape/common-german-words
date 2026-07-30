@@ -20,7 +20,7 @@ const TopVerbs: React.FC = () => {
 
   // Fetch words
   useEffect(() => {
-    fetchTopWords(kLANG_NAME, "Verb", 100).then(setWords);
+    fetchTopWords(kLANG_NAME, "Verb", 100, setWords).then(setWords);
   }, []);
 
   useEffect(() => {

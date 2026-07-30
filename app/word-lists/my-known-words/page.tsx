@@ -19,7 +19,7 @@ const KnownWordList: React.FC = () => {
 
   // Fetch words
   useEffect(() => {
-    fetchBasicWords(kLANG_NAME).then(setWords);
+    fetchBasicWords(kLANG_NAME, setWords).then(setWords);
   }, []);
 
   useEffect(() => {

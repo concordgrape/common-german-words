@@ -7,9 +7,10 @@ import Link from "next/link";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
 import {
   kARTICLES_BY_GENDER,
-  kCOUNTRY_FLAG_EMOJI,
+  kCOUNTRY_LANG_CODE,
   kLANG_NAME,
 } from "../lib/constants";
+import { Flag } from "./Flag";
 
 interface WordInfoProps {
   selectedWord?: Word | null;
@@ -231,7 +232,7 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
                           >
                             <div className="flex justify-between items-center">
                               <span className="flex flex-wrap gap-1">
-                                {kCOUNTRY_FLAG_EMOJI}
+                                <Flag code={kCOUNTRY_LANG_CODE} />
                                 {ex.sentence
                                   .replace(/[.,!?;:]/g, "")
                                   .split(" ")
@@ -252,7 +253,8 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
                               />
                             </div>
                             <div className="text-white/70">
-                              🇬🇧 {ex.translation.replace(/\./g, "")}
+                              <Flag code="gb" />{" "}
+                              {ex.translation.replace(/\./g, "")}
                             </div>
                           </motion.li>
                         ))}

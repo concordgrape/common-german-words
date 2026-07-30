@@ -1,4 +1,3 @@
-import StickyFooterAd from "@/app/components/ads/StickyFooterAd";
 import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 import type { Metadata } from "next";
 
@@ -38,7 +37,6 @@ export default function VerbsLayout({
   return (
     <>
       {children}
-      <StickyFooterAd />
     </>
   );
 }

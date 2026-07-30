@@ -4,7 +4,7 @@ import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 
 export const metadata: Metadata = {
   title: `Terms & Conditions | Common ${kLANG_NAME_CAPITAL} Words`,
-  description: `Terms and Conditions for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
+  description: `Terms and Conditions for Common ${kLANG_NAME_CAPITAL} Words and Common Words.`,
 };
 
 const EFFECTIVE_DATE = "August 8, 2025";
@@ -29,7 +29,7 @@ function Policy() {
 
       <p>
         Welcome to <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the
-        “Website”) and <strong>Verbuu – Common Words</strong> (the “App”). These
+        “Website”) and <strong>Common Words</strong> (the “App”). These
         Terms and Conditions (“Terms”) govern your access to and use of our
         website, applications, and related services (collectively, the
         “Services”). By using the Services, you agree to these Terms. If you do
@@ -216,7 +216,7 @@ function Policy() {
 
       <p className="text-sm">
         Website: <strong>{kCOMMONWORDS_URL_WWW}</strong> &nbsp;|&nbsp; App:{" "}
-        <strong>Verbuu – Common Words</strong>
+        <strong>Common Words</strong>
       </p>
     </main>
   );

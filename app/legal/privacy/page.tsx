@@ -4,7 +4,7 @@ import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 
 export const metadata: Metadata = {
   title: `Privacy Policy | Common ${kLANG_NAME_CAPITAL} Words`,
-  description: `Privacy Policy for Common ${kLANG_NAME_CAPITAL} Words and Verbuu – Common Words.`,
+  description: `Privacy Policy for Common ${kLANG_NAME_CAPITAL} Words and Common Words.`,
 };
 
 const EFFECTIVE_DATE = "August 8, 2025";
@@ -30,7 +30,7 @@ function PrivacyPolicy() {
       <p>
         This Privacy Policy explains how{" "}
         <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the “Website”) and{" "}
-        <strong>Verbuu – Common Words</strong> (the “App”) collect, use, and
+        <strong>Common Words</strong> (the “App”) collect, use, and
         protect your information when you use our services (“Services”). By
         using the Services, you agree to this policy.
       </p>

@@ -4,7 +4,6 @@ import {
   kDEFAULT_WORD_COUNT,
   kLANG_NAME_CAPITAL,
 } from "../lib/constants";
-import StickyFooterAd from "../components/ads/StickyFooterAd";
 
 export const metadata: Metadata = {
   metadataBase: new URL(kCOMMONWORDS_URL_WWW),
@@ -68,7 +67,6 @@ export default function BrowseLayout({
   return (
     <>
       {children}
-      <StickyFooterAd />
     </>
   );
 }

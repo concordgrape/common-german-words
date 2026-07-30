@@ -16,7 +16,6 @@ import Lottie from "lottie-react";
 import fireAnimation from "../../external/Lottie/fire.json";
 import {
   kESTIMATE_TOTAL_WORD_COUNT,
-  kCOUNTRY_FLAG_IMG,
   kLANG_NAME_CAPITAL,
 } from "@/app/lib/constants";
 
@@ -59,7 +58,7 @@ export const Navbar: React.FC = () => {
             {/* Left: Logo */}
             <Link href="/" className="flex-shrink-0">
               <Image
-                src={kCOUNTRY_FLAG_IMG}
+                src="/common-words-logo.webp"
                 alt="Logo"
                 width={70}
                 height={70}
@@ -212,7 +211,7 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center mb-4">
             <a className="mr-auto text-3xl font-bold leading-none" href="#">
               <Image
-                src={kCOUNTRY_FLAG_IMG}
+                src="/common-words-logo.webp"
                 alt="Logo"
                 width={70}
                 height={70}
@@ -316,7 +315,7 @@ export const Navbar: React.FC = () => {
               </a>*/}
             </div>
             <p className="my-4 text-xs text-center text-gray-400">
-              <span>Copyright © Verbuu 2025</span>
+              <span>Copyright © Common Words 2025</span>
             </p>
           </div>
         </nav>
