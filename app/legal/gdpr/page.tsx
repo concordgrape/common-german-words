@@ -1,8 +1,11 @@
 import React from "react";
 import type { Metadata } from "next";
-import { kLANG_NAME_CAPITAL } from "@/app/lib/constants";
+import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${kCOMMONWORDS_URL_WWW}/legal/gdpr`,
+  },
   title: `GDPR Cookie Policy | Common ${kLANG_NAME_CAPITAL} Words`,
   description: `GDPR-compliant Cookie Policy for Common ${kLANG_NAME_CAPITAL} Words and Common Words.`,
 };
@@ -11,7 +14,7 @@ const EFFECTIVE_DATE = "August 8, 2025";
 
 export default function GDPRCookiePolicyPage() {
   return (
-    <div className="pt-10 sm:pt-15 sm:pt-20 sm:p-4 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
+    <div className="pt-10 sm:pt-24 max-w-[1200px] m-auto flex flex-col md:flex-row">
       <div className="w-full px-6 py-6 mt-4 pb-6 bg-white sm:border-1 sm:border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
         <GDPRCookiePolicy />
       </div>
@@ -30,8 +33,8 @@ function GDPRCookiePolicy() {
       <p>
         This GDPR Cookie Policy explains how{" "}
         <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the “Website”) and{" "}
-        <strong>Common Words</strong> (the “App”) use cookies and
-        similar technologies in compliance with the{" "}
+        <strong>Common Words</strong> (the “App”) use cookies and similar
+        technologies in compliance with the{" "}
         <strong>General Data Protection Regulation (GDPR)</strong> and other
         applicable laws.
       </p>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { WordListStructuredData } from "../components/StructuredData";
 import {
   kCOMMONWORDS_URL_WWW,
   kDEFAULT_WORD_COUNT,
@@ -66,6 +67,11 @@ export default function BrowseLayout({
 }) {
   return (
     <>
+      <WordListStructuredData
+        path="/browse"
+        name={`Browse the Most Common ${kLANG_NAME_CAPITAL} Words – Word Library | Common ${kLANG_NAME_CAPITAL} Words`}
+        description={`Explore ${kDEFAULT_WORD_COUNT}+ of the most common ${kLANG_NAME_CAPITAL} words. View definitions, examples, part of speech, gender, and pronunciation. Filter by CEFR level, length, or part of speech, and save or mark words as known. Study with flashcards and quizzes.`}
+      />
       {children}
     </>
   );

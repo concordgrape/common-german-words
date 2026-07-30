@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: `Profile – Common $ Words`,
+    title: `Profile – Common ${kLANG_NAME_CAPITAL} Words`,
     description:
       "View and manage your saved words, study settings, and account preferences",
     url: `${kCOMMONWORDS_URL_WWW}/profile`,

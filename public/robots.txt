@@ -1,9 +1,14 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /profile
+Disallow: /progress
+Disallow: /signin
+Disallow: /sign-in-complete
+Disallow: /word-lists/*
 
 # Host
-Host: commongermanwords.com
+Host: https://commongermanwords.com
 
 # Sitemaps
-Sitemap: commongermanwords.com/sitemap.xml
+Sitemap: https://commongermanwords.com/sitemap.xml

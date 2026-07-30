@@ -2,16 +2,19 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { kLANG_NAME_CAPITAL } from "../lib/constants";
+import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "../lib/constants";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${kCOMMONWORDS_URL_WWW}/about`,
+  },
   title: `About Us | Common ${kLANG_NAME_CAPITAL} Words`,
   description: `Learn about Common ${kLANG_NAME_CAPITAL} Words and Common Words: our mission, how it works, and what we value.`,
 };
 
 export default function AboutPage() {
   return (
-    <div className="pt-10 sm:pt-15 sm:pt-20 sm:p-4 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
+    <div className="pt-10 sm:pt-24 max-w-[1200px] m-auto flex flex-col md:flex-row">
       <div className="w-full px-6 py-6 mt-4 pb-6 bg-white sm:border-1 sm:border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
         <About />
       </div>

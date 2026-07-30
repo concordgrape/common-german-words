@@ -60,8 +60,8 @@ export const Navbar: React.FC = () => {
               <Image
                 src="/common-words-logo.webp"
                 alt="Logo"
-                width={70}
-                height={70}
+                width={60}
+                height={60}
                 quality={100}
                 unoptimized
               />

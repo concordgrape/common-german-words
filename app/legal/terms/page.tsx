@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import { kCOMMONWORDS_URL_WWW, kLANG_NAME_CAPITAL } from "@/app/lib/constants";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: `${kCOMMONWORDS_URL_WWW}/legal/terms`,
+  },
   title: `Terms & Conditions | Common ${kLANG_NAME_CAPITAL} Words`,
   description: `Terms and Conditions for Common ${kLANG_NAME_CAPITAL} Words and Common Words.`,
 };
@@ -11,7 +14,7 @@ const EFFECTIVE_DATE = "August 8, 2025";
 
 export default function TermsAndConditionsPage() {
   return (
-    <div className="pt-10 sm:pt-15 sm:pt-20 sm:p-4 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
+    <div className="pt-10 sm:pt-24 max-w-[1200px] m-auto flex flex-col md:flex-row">
       <div className="w-full px-6 py-6 mt-4 pb-6 bg-white sm:border-1 sm:border-gray-200 dark:border-gray-700 dark:bg-[#0D1B2A]">
         <Policy />
       </div>
@@ -29,11 +32,11 @@ function Policy() {
 
       <p>
         Welcome to <strong>Common {kLANG_NAME_CAPITAL} Words</strong> (the
-        “Website”) and <strong>Common Words</strong> (the “App”). These
-        Terms and Conditions (“Terms”) govern your access to and use of our
-        website, applications, and related services (collectively, the
-        “Services”). By using the Services, you agree to these Terms. If you do
-        not agree, do not use the Services.
+        “Website”) and <strong>Common Words</strong> (the “App”). These Terms
+        and Conditions (“Terms”) govern your access to and use of our website,
+        applications, and related services (collectively, the “Services”). By
+        using the Services, you agree to these Terms. If you do not agree, do
+        not use the Services.
       </p>
 
       <h2 className="mt-8 text-2xl font-semibold">Who we are</h2>
