@@ -1,10 +1,7 @@
 # *
 User-agent: *
 Allow: /
-Disallow: /profile
 Disallow: /progress
-Disallow: /signin
-Disallow: /sign-in-complete
 Disallow: /word-lists/*
 
 # Host

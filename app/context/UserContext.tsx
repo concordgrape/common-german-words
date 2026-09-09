@@ -7,20 +7,9 @@ import React, {
   useState,
   ReactNode,
 } from "react";
-import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "@/lib/firebaseClient";
-import { updateStreak } from "../helpers/userWordLibrary";
-
-interface SimpleUser {
-  uid: string;
-  email: string | null;
-  displayName: string | null;
-  photoURL: string | null;
-}
+import { updateStreak } from "../helpers/localWordStore";
 
 interface UserContextType {
-  user: SimpleUser | null;
-  loading: boolean;
   streak: number;
   theme: "light" | "dark" | "system";
   setTheme: (mode: "light" | "dark" | "system") => void;
@@ -29,8 +18,6 @@ interface UserContextType {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<SimpleUser | null>(null);
-  const [loading, setLoading] = useState(true);
   const [streak, setStreak] = useState(1);
   const [theme, setTheme] = useState<"light" | "dark" | "system">(() => {
     if (typeof window === "undefined") return "system";
@@ -41,30 +28,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   });
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(
-      auth,
-      async (firebaseUser: User | null) => {
-        if (firebaseUser) {
-          const { uid, email, displayName, photoURL } = firebaseUser;
-          const simpleUser = { uid, email, displayName, photoURL };
-          setUser(simpleUser);
-
-          try {
-            const currentStreak = await updateStreak(uid);
-            setStreak(Math.max(currentStreak, 1));
-          } catch (err) {
-            console.error("Failed to update streak:", err);
-            setStreak(1); // fallback
-          }
-        } else {
-          setUser(null);
-          setStreak(1);
-        }
-        setLoading(false);
-      },
-    );
-
-    return () => unsubscribe();
+    setStreak(Math.max(updateStreak(), 1));
   }, []);
 
   useEffect(() => {
@@ -85,23 +49,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     root.classList.toggle("dark", theme === "dark");
   }, [theme]);
 
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-    const root = document.documentElement;
-
-    if (
-      theme === "dark" ||
-      (theme === "system" &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-  }, [theme]);
-
   return (
-    <UserContext.Provider value={{ user, loading, streak, theme, setTheme }}>
+    <UserContext.Provider value={{ streak, theme, setTheme }}>
       {children}
     </UserContext.Provider>
   );

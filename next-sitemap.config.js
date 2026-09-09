@@ -7,14 +7,8 @@ const SITE_URL = /^https?:\/\//.test(RAW_SITE_URL)
   ? RAW_SITE_URL
   : `https://${RAW_SITE_URL}`;
 
-// Signed-in / personal pages: keep them out of the index entirely.
-const PRIVATE_PATHS = [
-  "/profile",
-  "/progress",
-  "/signin",
-  "/sign-in-complete",
-  "/word-lists/*",
-];
+// Per-device personal pages: keep them out of the index entirely.
+const PRIVATE_PATHS = ["/progress", "/word-lists/*"];
 
 // Noindexed but still crawlable — keep it out of the sitemap only.
 const SITEMAP_EXCLUDE = [...PRIVATE_PATHS, "/learn/cards"];

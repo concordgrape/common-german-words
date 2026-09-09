@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { Word } from "../helpers/fetchBasicWordList";
+import { Word, fetchWordDetail } from "../helpers/fetchBasicWordList";
 import GoogleTTSButton from "./GoogleTTSButton/GoogleTTSButton";
 import Link from "next/link";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
@@ -16,14 +16,16 @@ interface WordInfoProps {
   selectedWord?: Word | null;
 }
 
+/**
+ * The detail panels render whatever the static word list provides. Fields the
+ * JSON files do not carry (definitions, related words) are simply absent.
+ */
 export interface FullWordData {
-  connected_words: string[];
-  definitions: string[];
+  connected_words?: string[];
+  definitions?: string[];
   examples: { sentence: string; translation: string }[];
-  language: string;
-  part_of_speech: string;
+  part_of_speech: string | null;
   phonetic_spelling: string;
-  same_words: string[];
   gender: string;
   translation: string;
 }
@@ -53,20 +55,8 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
     }
 
     const fetchData = async () => {
-      try {
-        const res = await fetch(
-          `/api/word?language=${kLANG_NAME}&word=${selectedWord.word}`,
-        );
-        const json = await res.json();
-        if (json.word) {
-          setFullData(json.word);
-        } else {
-          setFullData(null);
-        }
-        lastFetchedWord.current = selectedWord.word;
-      } catch {
-        setFullData(null);
-      }
+      setFullData(await fetchWordDetail(kLANG_NAME, selectedWord.word));
+      lastFetchedWord.current = selectedWord.word;
     };
 
     fetchData();
@@ -205,94 +195,105 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
                     transition={{ duration: 0.15 }}
                     className="text-center text-gray-200 italic"
                   >
-                    {fullData?.part_of_speech} ·{" "}
-                    {fullData?.gender ? `${fullData.gender} · ` : ""}[
-                    {fullData?.phonetic_spelling}]
+                    {fullData?.part_of_speech}
+                    {fullData?.gender ? ` · ${fullData.gender}` : ""}
+                    {fullData?.phonetic_spelling
+                      ? ` · [${fullData.phonetic_spelling}]`
+                      : ""}
                   </motion.p>
 
                   <hr className="h-px my-4 border-0 bg-blue-400" />
 
                   {/* Example Sentences */}
-                  <div>
-                    <h3 className="text-lg font-semibold mb-1">Examples</h3>
-                    <ul className="space-y-2">
-                      {fullData?.examples
-                        .slice(0, visibleExamples)
-                        .map((ex, idx) => (
-                          <motion.li
-                            key={ex.sentence + idx}
-                            className="text-white/90"
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -8 }}
-                            transition={{
-                              duration: 0.18,
-                              delay: idx * 0.025,
-                            }}
-                          >
-                            <div className="flex justify-between items-center">
-                              <span className="flex flex-wrap gap-1">
-                                <Flag code={kCOUNTRY_LANG_CODE} />
-                                {ex.sentence
-                                  .replace(/[.,!?;:]/g, "")
-                                  .split(" ")
-                                  .map((word, i) => (
-                                    <Link key={i} href={`/browse?word=${word}`}>
-                                      <span
+                  {!!fullData?.examples?.length && (
+                    <div>
+                      <h3 className="text-lg font-semibold mb-1">Examples</h3>
+                      <ul className="space-y-2">
+                        {fullData?.examples
+                          .slice(0, visibleExamples)
+                          .map((ex, idx) => (
+                            <motion.li
+                              key={ex.sentence + idx}
+                              className="text-white/90"
+                              initial={{ opacity: 0, y: 8 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -8 }}
+                              transition={{
+                                duration: 0.18,
+                                delay: idx * 0.025,
+                              }}
+                            >
+                              <div className="flex justify-between items-center">
+                                <span className="flex flex-wrap gap-1">
+                                  <Flag code={kCOUNTRY_LANG_CODE} />
+                                  {ex.sentence
+                                    .replace(/[.,!?;:]/g, "")
+                                    .split(" ")
+                                    .map((word, i) => (
+                                      <Link
                                         key={i}
-                                        className="hover:bg-blue-300 cursor-pointer rounded"
+                                        href={`/browse?word=${word}`}
                                       >
-                                        {word}
-                                      </span>
-                                    </Link>
-                                  ))}
-                              </span>
-                              <GoogleTTSButton
-                                text={ex.sentence}
-                                color="text-white hover:bg-blue-400"
-                              />
-                            </div>
-                            <div className="text-white/70">
-                              <Flag code="gb" />{" "}
-                              {ex.translation.replace(/\./g, "")}
-                            </div>
-                          </motion.li>
-                        ))}
-                    </ul>
+                                        <span
+                                          key={i}
+                                          className="hover:bg-blue-300 cursor-pointer rounded"
+                                        >
+                                          {word}
+                                        </span>
+                                      </Link>
+                                    ))}
+                                </span>
+                                <GoogleTTSButton
+                                  text={ex.sentence}
+                                  color="text-white hover:bg-blue-400"
+                                />
+                              </div>
+                              <div className="text-white/70">
+                                <Flag code="gb" />{" "}
+                                {ex.translation.replace(/\./g, "")}
+                              </div>
+                            </motion.li>
+                          ))}
+                      </ul>
 
-                    {visibleExamples < fullData.examples.length && (
-                      <motion.button
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => setVisibleExamples((prev) => prev + 4)}
-                        className="mt-4 text-sm text-blue-100 hover:text-white underline"
-                      >
-                        Load more examples
-                      </motion.button>
-                    )}
-                  </div>
+                      {visibleExamples < fullData.examples.length && (
+                        <motion.button
+                          whileTap={{ scale: 0.98 }}
+                          onClick={() => setVisibleExamples((prev) => prev + 4)}
+                          className="mt-4 text-sm text-blue-100 hover:text-white underline"
+                        >
+                          Load more examples
+                        </motion.button>
+                      )}
+                    </div>
+                  )}
 
                   {/* Definitions */}
-                  <div>
-                    <h3 className="text-lg font-semibold mb-1">Definitions</h3>
-                    <ul className="list-disc list-inside text-white/90">
-                      <AnimatePresence initial={false}>
-                        {fullData?.definitions.slice(0, 3).map((def, idx) => (
-                          <motion.li
-                            key={def + idx}
-                            initial={{ opacity: 0, y: 6 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -6 }}
-                            transition={{ duration: 0.15, delay: idx * 0.03 }}
-                          >
-                            {def}
-                          </motion.li>
-                        ))}
-                      </AnimatePresence>
-                    </ul>
-                  </div>
+                  {!!fullData?.definitions?.length && (
+                    <div>
+                      <h3 className="text-lg font-semibold mb-1">
+                        Definitions
+                      </h3>
+                      <ul className="list-disc list-inside text-white/90">
+                        <AnimatePresence initial={false}>
+                          {fullData.definitions!.slice(0, 3).map((def, idx) => (
+                            <motion.li
+                              key={def + idx}
+                              initial={{ opacity: 0, y: 6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -6 }}
+                              transition={{ duration: 0.15, delay: idx * 0.03 }}
+                            >
+                              {def}
+                            </motion.li>
+                          ))}
+                        </AnimatePresence>
+                      </ul>
+                    </div>
+                  )}
 
                   {/* Connected Words */}
-                  {fullData.connected_words.length > 0 && (
+                  {!!fullData.connected_words?.length && (
                     <div>
                       <h3 className="text-lg font-semibold mb-1">
                         Related Words
@@ -307,7 +308,7 @@ export const WordInfo: React.FC<WordInfoProps> = ({ selectedWord }) => {
                         }}
                       >
                         <AnimatePresence initial={false}>
-                          {fullData.connected_words.map((w, index) => (
+                          {fullData.connected_words!.map((w, index) => (
                             <Link key={w + index} href={`/browse?word=${w}`}>
                               <motion.span
                                 key={w + index}

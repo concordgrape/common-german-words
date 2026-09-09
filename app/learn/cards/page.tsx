@@ -14,15 +14,11 @@ import { useGoNavigation } from "@/app/lib/navigation";
 import { FaLightbulb } from "react-icons/fa6";
 import WordStatusButtons from "@/app/components/WordStatusButtons/WordStatusButtons";
 import { useToggleWordStatus } from "@/app/helpers/userWordLibrary";
-import { useUser } from "@/app/context/UserContext";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebaseClient";
-import { kCOUNTRY_LANG_CODE } from "@/app/lib/constants";
+import { hasWordStatus } from "@/app/helpers/localWordStore";
 
 const LearnCardsPage: React.FC = () => {
   const { submittedWords } = useWordForm();
   const { go } = useGoNavigation();
-  const { user } = useUser();
   const { toggleSavedStatus, toggleKnownStatus } = useToggleWordStatus();
   const [idx, setIdx] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
@@ -71,39 +67,15 @@ const LearnCardsPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      if (!user?.uid || !isWord(current)) {
-        setIsSaved(false);
-        setIsKnown(false);
-        return;
-      }
+    if (!isWord(current)) {
+      setIsSaved(false);
+      setIsKnown(false);
+      return;
+    }
 
-      const [savedSnap, knownSnap] = await Promise.all([
-        getDoc(
-          doc(
-            db,
-            `users/${user.uid}/${kCOUNTRY_LANG_CODE}/cards/saved/${current.word}`,
-          ),
-        ),
-        getDoc(
-          doc(
-            db,
-            `users/${user.uid}/${kCOUNTRY_LANG_CODE}/cards/known/${current.word}`,
-          ),
-        ),
-      ]);
-
-      if (!cancelled) {
-        setIsSaved(savedSnap.exists());
-        setIsKnown(knownSnap.exists());
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [user?.uid, current]);
+    setIsSaved(hasWordStatus(current.word, "saved"));
+    setIsKnown(hasWordStatus(current.word, "known"));
+  }, [current]);
 
   if (!total) {
     return (

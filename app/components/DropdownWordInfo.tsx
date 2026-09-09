@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Word } from "../helpers/fetchBasicWordList";
+import { Word, fetchWordDetail } from "../helpers/fetchBasicWordList";
 import GoogleTTSButton from "./GoogleTTSButton/GoogleTTSButton";
 import { FullWordData } from "./WordInfo";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
@@ -30,16 +30,7 @@ const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({
     if (!isOpen) return;
 
     const fetchData = async () => {
-      try {
-        const res = await fetch(
-          `/api/word?language=${kLANG_NAME}&word=${word.word}`,
-        );
-        const json = await res.json();
-        setFullData(json.word || null);
-      } catch (error) {
-        console.error("Error fetching word info:", error);
-        setFullData(null);
-      }
+      setFullData(await fetchWordDetail(kLANG_NAME, word.word));
     };
 
     fetchData();
@@ -197,81 +188,85 @@ const InnerDropdownWordInfo: React.FC<DropdownWordInfoProps> = ({
                 <hr className="h-px my-4 border-0 bg-blue-400" />
 
                 {/* Examples (tiny stagger) */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-1 poppins">
-                    Examples
-                  </h3>
-                  <ul className="space-y-2">
-                    <AnimatePresence initial={false}>
-                      {fullData.examples
-                        .slice(0, visibleExamples)
-                        .map((ex, idx) => (
-                          <motion.li
-                            key={ex.sentence + idx}
-                            initial={{ opacity: 0, y: 6 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -6 }}
-                            transition={{ duration: 0.12, delay: idx * 0.02 }}
-                            className="text-white/90"
-                          >
-                            <div className="flex justify-between items-center">
-                              <span>
-                                <Flag code={kCOUNTRY_LANG_CODE} />{" "}
-                                {ex.sentence.replace(/\./g, "")}
-                              </span>
-                              <GoogleTTSButton
-                                text={ex.sentence}
-                                color="text-white hover:bg-blue-400"
-                              />
-                            </div>
-                            <div className="text-white/70">
-                              <Flag code="gb" />{" "}
-                              {ex.translation.replace(/\./g, "")}
-                            </div>
-                          </motion.li>
-                        ))}
-                    </AnimatePresence>
-                  </ul>
-                  {visibleExamples < fullData.examples.length && (
-                    <motion.button
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => setVisibleExamples((p) => p + 4)}
-                      className="mt-2 text-sm text-blue-100 hover:text-white underline"
-                    >
-                      Load more examples
-                    </motion.button>
-                  )}
-                </div>
+                {!!fullData.examples?.length && (
+                  <div>
+                    <h3 className="text-lg font-semibold mb-1 poppins">
+                      Examples
+                    </h3>
+                    <ul className="space-y-2">
+                      <AnimatePresence initial={false}>
+                        {fullData.examples
+                          .slice(0, visibleExamples)
+                          .map((ex, idx) => (
+                            <motion.li
+                              key={ex.sentence + idx}
+                              initial={{ opacity: 0, y: 6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -6 }}
+                              transition={{ duration: 0.12, delay: idx * 0.02 }}
+                              className="text-white/90"
+                            >
+                              <div className="flex justify-between items-center">
+                                <span>
+                                  <Flag code={kCOUNTRY_LANG_CODE} />{" "}
+                                  {ex.sentence.replace(/\./g, "")}
+                                </span>
+                                <GoogleTTSButton
+                                  text={ex.sentence}
+                                  color="text-white hover:bg-blue-400"
+                                />
+                              </div>
+                              <div className="text-white/70">
+                                <Flag code="gb" />{" "}
+                                {ex.translation.replace(/\./g, "")}
+                              </div>
+                            </motion.li>
+                          ))}
+                      </AnimatePresence>
+                    </ul>
+                    {visibleExamples < fullData.examples.length && (
+                      <motion.button
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setVisibleExamples((p) => p + 4)}
+                        className="mt-2 text-sm text-blue-100 hover:text-white underline"
+                      >
+                        Load more examples
+                      </motion.button>
+                    )}
+                  </div>
+                )}
 
                 {/* Definitions */}
-                <div>
-                  <h3 className="text-lg font-semibold mb-1">Definitions</h3>
-                  <ul className="list-disc list-inside text-white/90">
-                    <AnimatePresence initial={false}>
-                      {fullData.definitions.slice(0, 3).map((def, idx) => (
-                        <motion.li
-                          key={def + idx}
-                          initial={{ opacity: 0, y: 4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -4 }}
-                          transition={{ duration: 0.1, delay: idx * 0.015 }}
-                        >
-                          {def}
-                        </motion.li>
-                      ))}
-                    </AnimatePresence>
-                  </ul>
-                </div>
+                {!!fullData.definitions?.length && (
+                  <div>
+                    <h3 className="text-lg font-semibold mb-1">Definitions</h3>
+                    <ul className="list-disc list-inside text-white/90">
+                      <AnimatePresence initial={false}>
+                        {fullData.definitions!.slice(0, 3).map((def, idx) => (
+                          <motion.li
+                            key={def + idx}
+                            initial={{ opacity: 0, y: 4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -4 }}
+                            transition={{ duration: 0.1, delay: idx * 0.015 }}
+                          >
+                            {def}
+                          </motion.li>
+                        ))}
+                      </AnimatePresence>
+                    </ul>
+                  </div>
+                )}
 
                 {/* Related Words */}
-                {!!fullData.connected_words.length && (
+                {!!fullData.connected_words?.length && (
                   <div>
                     <h3 className="text-lg font-semibold mb-1">
                       Related Words
                     </h3>
                     <motion.div layout className="flex flex-wrap gap-2">
                       <AnimatePresence initial={false}>
-                        {fullData.connected_words.map((w, index) => (
+                        {fullData.connected_words!.map((w, index) => (
                           <motion.span
                             key={w + index}
                             initial={{ opacity: 0, y: 4 }}

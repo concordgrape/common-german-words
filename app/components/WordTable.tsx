@@ -13,9 +13,11 @@ import { DropdownWordInfo } from "./DropdownWordInfo";
 import { useToast } from "../hooks/useToast";
 import WordPopover from "./Popover/Popover";
 import WordStatusButtons from "./WordStatusButtons/WordStatusButtons";
-import { fetchWordStatusMetaData } from "../helpers/userWordLibrary";
-import { useWordStatusSetters } from "../hooks/useWordStatusSetters";
-import { useUser } from "../context/UserContext";
+import {
+  fetchWordStatusMetaData,
+  useWordStatusSetters,
+} from "../helpers/userWordLibrary";
+import { onWordStatusChange } from "../helpers/localWordStore";
 import { kESTIMATE_TOTAL_WORD_COUNT } from "../lib/constants";
 
 // WordTable component props interface
@@ -72,7 +74,6 @@ export const WordTable: React.FC<WordTableProps> = ({
   const searchParams = useSearchParams();
   const { go } = useGoNavigation();
   const toast = useToast();
-  const { user } = useUser();
   const { setSaved, setKnown } = useWordStatusSetters();
 
   const initialSearch = searchParams.get("search") || "";
@@ -203,31 +204,24 @@ export const WordTable: React.FC<WordTableProps> = ({
   }, [displayedWords.length, expandedRows.length, isMobile]);
 
   useEffect(() => {
-    const fetchStatusData = async () => {
-      if (!user?.uid) return;
+    const loadStatusData = () => {
+      const saved = fetchWordStatusMetaData("saved");
+      const known = fetchWordStatusMetaData("known");
 
-      try {
-        const [saved, known] = await Promise.all([
-          fetchWordStatusMetaData(user.uid, "saved", 5000),
-          fetchWordStatusMetaData(user.uid, "known", 5000),
-        ]);
+      setSavedWordIds(new Set(saved.map((entry) => entry.id)));
+      setKnownWordIds(new Set(known.map((entry) => entry.id)));
 
-        setSavedWordIds(new Set(saved.map((doc) => doc.id)));
-        setKnownWordIds(new Set(known.map((doc) => doc.id)));
-
-        setSavedTimestamps(
-          new Map(saved.map((doc) => [doc.id, doc.timestamp.toMillis()])),
-        );
-        setKnownTimestamps(
-          new Map(known.map((doc) => [doc.id, doc.timestamp.toMillis()])),
-        );
-      } catch (err) {
-        console.error("❌ Error preloading word status:", err);
-      }
+      setSavedTimestamps(
+        new Map(saved.map((entry) => [entry.id, entry.timestamp])),
+      );
+      setKnownTimestamps(
+        new Map(known.map((entry) => [entry.id, entry.timestamp])),
+      );
     };
 
-    fetchStatusData();
-  }, [user?.uid]);
+    loadStatusData();
+    return onWordStatusChange(loadStatusData);
+  }, []);
 
   useEffect(() => {
     if (searchTerm) {
@@ -822,9 +816,6 @@ export const WordTable: React.FC<WordTableProps> = ({
                             newSet.delete(word.word);
                             return newSet;
                           });
-                          if (!user) {
-                            return;
-                          }
                           toast({
                             title: savedWordIds.has(word.word)
                               ? "Removed from Saved"
@@ -849,9 +840,6 @@ export const WordTable: React.FC<WordTableProps> = ({
                             newSet.delete(word.word);
                             return newSet;
                           });
-                          if (!user) {
-                            return;
-                          }
                           toast({
                             title: knownWordIds.has(word.word)
                               ? "Removed from Known"

@@ -1,4 +1,7 @@
-// lib/fetchBasicWords.ts
+// app/helpers/fetchBasicWordList.ts
+//
+// Every word on the site comes from the static JSON lists in /public/words.
+// There is no backend: these helpers just load, filter and sort those files.
 
 export interface Word {
   word: string;
@@ -12,72 +15,43 @@ export interface Word {
   examples: { sentence: string; translation: string }[];
 }
 
-/**
- * Load the static word list shipped in /public/words. These files hold the most
- * common words for the language, so page 1 can render before the API responds.
- */
-async function fetchStaticWords(file: string): Promise<Word[]> {
-  try {
-    const res = await fetch(`/words/${file}.json`);
-    if (!res.ok) return [];
+const cache = new Map<string, Promise<Word[]>>();
 
-    const data = await res.json();
-    if (!Array.isArray(data.words) || data.words.length === 0) return [];
+/** Load one file from /public/words, normalising the optional fields. */
+function loadWordFile(file: string): Promise<Word[]> {
+  const cached = cache.get(file);
+  if (cached) return cached;
 
-    return [...data.words].sort(
-      (a: Word, b: Word) => b.frequency - a.frequency,
-    );
-  } catch {
-    return [];
-  }
-}
+  const pending = (async () => {
+    try {
+      const res = await fetch(`/words/${file}.json`);
+      if (!res.ok) return [];
 
-export async function fetchBasicWords(
-  language: string,
-  onPartial?: (words: Word[]) => void,
-): Promise<Word[]> {
-  // Static JSON first — populates page 1 instantly
-  let partial: Word[] = [];
-  if (onPartial) {
-    partial = await fetchStaticWords(language);
-    if (partial.length > 0) onPartial(partial);
-  }
+      const data = await res.json();
+      if (!Array.isArray(data.words)) return [];
 
-  try {
-    const res = await fetch(`/api/basic-words?language=${language}`);
-
-    if (!res.ok) {
-      console.error("Failed to fetch basic words:", res.statusText);
-      return partial;
-    }
-
-    const data = await res.json();
-
-    // Make sure we return exactly the `words` array
-    return Array.isArray(data) && data.length > 0 ? data : partial;
-  } catch (error) {
-    console.error("Error fetching basic words:", error);
-    return partial;
-  }
-}
-
-export async function fetchAllWords(language: string): Promise<Word[]> {
-  try {
-    const res = await fetch(`/api/all-words?language=${language}`);
-
-    if (!res.ok) {
-      console.error("Failed to fetch all words:", res.statusText);
+      return (data.words as Partial<Word>[])
+        .map((w, index) => ({
+          word: w.word ?? "",
+          id: w.id ?? index,
+          part_of_speech: w.part_of_speech ?? null,
+          frequency: w.frequency ?? 0,
+          rank: w.rank ?? 0,
+          translation: w.translation ?? "",
+          gender: w.gender ?? "",
+          phonetic_spelling: w.phonetic_spelling ?? "",
+          examples: w.examples ?? [],
+        }))
+        .filter((w) => w.word !== "")
+        .sort((a, b) => b.frequency - a.frequency);
+    } catch (error) {
+      console.error(`Error loading /words/${file}.json:`, error);
       return [];
     }
+  })();
 
-    const data = await res.json();
-
-    // Make sure we return exactly the `words` array
-    return Array.isArray(data) ? data : [];
-  } catch (error) {
-    console.error("Error fetching all words:", error);
-    return [];
-  }
+  cache.set(file, pending);
+  return pending;
 }
 
 /** Static file in /public/words that best matches a part of speech, if any. */
@@ -92,59 +66,38 @@ function staticFileFor(language: string, partOfSpeech: string | null): string {
   }
 }
 
+export async function fetchBasicWords(
+  language: string,
+  onPartial?: (words: Word[]) => void,
+): Promise<Word[]> {
+  const words = await loadWordFile(language);
+  onPartial?.(words);
+  return words;
+}
+
+export async function fetchAllWords(language: string): Promise<Word[]> {
+  return loadWordFile(language);
+}
+
 export async function fetchTopWords(
   language: string,
-  partOfSpeech: string | null, // now optional
+  partOfSpeech: string | null,
   count: number,
   onPartial?: (words: Word[]) => void,
 ): Promise<Word[]> {
   const hasPOS = !!(partOfSpeech && partOfSpeech.trim() !== "");
+  const file = staticFileFor(language, partOfSpeech);
 
-  // Static JSON first — populates page 1 instantly
-  let partial: Word[] = [];
-  if (onPartial) {
-    const file = staticFileFor(language, partOfSpeech);
-    let staticWords = await fetchStaticWords(file);
+  let words = await loadWordFile(file);
 
-    // The generic list is mixed, so filter it down when a POS was requested
-    if (hasPOS && file === language) {
-      staticWords = staticWords.filter(
-        (w) => w.part_of_speech === partOfSpeech,
-      );
-    }
-
-    if (staticWords.length > 0) {
-      partial = staticWords.slice(0, Math.min(count, 100));
-      onPartial(partial);
-    }
+  // The generic list is mixed, so filter it down when a POS was requested
+  if (hasPOS && file === language) {
+    words = words.filter((w) => w.part_of_speech === partOfSpeech);
   }
 
-  try {
-    // Base URL
-    let url = `/api/filtered-words?language=${language}&count=${count > 500 ? 500 : count}`;
-
-    // Only add part_of_speech if provided
-    if (partOfSpeech && partOfSpeech.trim() !== "") {
-      url += `&part_of_speech=${encodeURIComponent(partOfSpeech)}`;
-    }
-
-    const res = await fetch(url);
-
-    if (!res.ok) {
-      console.error("Failed to fetch words:", res.statusText);
-      return partial;
-    }
-
-    const data = await res.json();
-
-    // Ensure we return exactly the `words` array
-    return Array.isArray(data.words) && data.words.length > 0
-      ? data.words.sort((a: Word, b: Word) => b.frequency - a.frequency)
-      : partial;
-  } catch (error) {
-    console.error("Error fetching words:", error);
-    return partial;
-  }
+  const top = words.slice(0, count);
+  onPartial?.(top);
+  return top;
 }
 
 export async function fetchRandomWords(
@@ -153,46 +106,58 @@ export async function fetchRandomWords(
   count: number,
   rank: number | null = null,
   priority: "common-words" | "random" = "random",
-  savedWords: string[] = [], // <-- NEW PARAM
+  savedWords: string[] = [],
 ): Promise<Word[]> {
-  try {
-    const params = new URLSearchParams({
-      language,
-      count: String(Math.min(Math.max(0, count), 1000)), // 0..1000
-      priority,
-    });
+  const all = await loadWordFile(language);
 
-    if (partOfSpeech && partOfSpeech.trim() !== "") {
-      params.set("part_of_speech", partOfSpeech);
-    }
+  const normalizedPOS = (partOfSpeech ?? "").trim().toLowerCase();
+  const shouldFilterPOS =
+    normalizedPOS !== "" && !["unknown", "any", "all"].includes(normalizedPOS);
 
-    if (rank !== null && !Number.isNaN(rank)) {
-      params.set("rank", String(rank));
-    }
-
-    if (savedWords.length > 0) {
-      // Shuffle and take up to 100 saved words
-      const shuffled = savedWords
-        .map((word) => ({ word, sort: Math.random() }))
-        .sort((a, b) => a.sort - b.sort)
-        .map((entry) => entry.word)
-        .slice(0, 100);
-
-      params.set("saved", shuffled.join(","));
-    }
-
-    const url = `/api/random-words?${params.toString()}`;
-    const res = await fetch(url);
-
-    if (!res.ok) {
-      console.error("Failed to fetch words:", res.status, res.statusText);
-      return [];
-    }
-
-    const data = await res.json();
-    return Array.isArray(data.words) ? (data.words as Word[]) : [];
-  } catch (error) {
-    console.error("Error fetching words:", error);
-    return [];
+  let pool = all;
+  if (shouldFilterPOS) {
+    pool = pool.filter(
+      (w) => (w.part_of_speech ?? "").toLowerCase() === normalizedPOS,
+    );
   }
+
+  const hasRank = rank !== null && !Number.isNaN(rank) && rank !== 0;
+  if (hasRank) {
+    pool = pool.filter((w) => w.rank === rank);
+  } else if (priority === "common-words" && !shouldFilterPOS) {
+    // "Common words" means the two easiest CEFR buckets, when they exist
+    const common = pool.filter((w) => w.rank === 1 || w.rank === 2);
+    if (common.length > 0) pool = common;
+  }
+
+  const amount = Math.min(Math.max(count, 0), 1000);
+  const picked = shuffleWords(pool).slice(0, amount);
+
+  // Saved words the learner explicitly asked to include
+  const savedSet = new Set(savedWords);
+  const saved = all.filter((w) => savedSet.has(w.word));
+
+  const byWord = new Map<string, Word>();
+  for (const w of [...picked, ...saved]) byWord.set(w.word, w);
+  return Array.from(byWord.values());
+}
+
+/** Full record for a single word, used by the detail panels. */
+export async function fetchWordDetail(
+  language: string,
+  word: string,
+): Promise<Word | null> {
+  if (!word) return null;
+  const all = await loadWordFile(language);
+  const lower = word.toLowerCase();
+  return all.find((w) => w.word.toLowerCase() === lower) ?? null;
+}
+
+function shuffleWords(words: Word[]): Word[] {
+  const copy = [...words];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
 }

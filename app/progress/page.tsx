@@ -5,6 +5,7 @@ import {
   fetchSavedWordMetadata,
   fetchKnownWordMetadata,
 } from "../helpers/userWordLibrary";
+import { onWordStatusChange } from "../helpers/localWordStore";
 import { useUser } from "../context/UserContext";
 import {
   LineChart,
@@ -19,16 +20,14 @@ import {
   Bar,
 } from "recharts";
 import dayjs from "dayjs";
-import { Timestamp } from "firebase/firestore";
 import Lottie from "lottie-react";
 import fireAnimation from "../external/Lottie/fire.json";
 import { fetchBasicWords, Word } from "../helpers/fetchBasicWordList";
-import Link from "next/link";
 import { kLANG_NAME } from "../lib/constants";
 
 interface WordWithTimestamp {
   word: string;
-  timestamp: Timestamp;
+  timestamp: number;
 }
 
 const ranges = {
@@ -63,7 +62,7 @@ function mergeSavedAndKnownData(
 }
 
 function ProgressPage() {
-  const { user, streak, loading } = useUser();
+  const { streak } = useUser();
   const [savedData, setSavedData] = useState<{ date: string; count: number }[]>(
     [],
   );
@@ -90,56 +89,40 @@ function ProgressPage() {
   }, []);
 
   useEffect(() => {
-    if (!user?.uid) return;
+    /** Bucket words into one count per day across the selected range. */
+    const countByDay = (words: WordWithTimestamp[]) => {
+      const countsByDate: Record<string, number> = {};
+      for (const word of words) {
+        const date = dayjs(word.timestamp).format("YYYY-MM-DD");
+        countsByDate[date] = (countsByDate[date] || 0) + 1;
+      }
 
-    const loadSavedData = async () => {
-      const savedWords = await fetchSavedWordMetadata(user.uid, 9000);
+      const today = dayjs();
+      const days = ranges[rangeKey];
+      const temp: { date: string; count: number }[] = [];
+
+      for (let i = days - 1; i >= 0; i--) {
+        const date = today.subtract(i, "day").format("YYYY-MM-DD");
+        temp.push({ date, count: countsByDate[date] || 0 });
+      }
+
+      return temp;
+    };
+
+    const loadData = () => {
+      const savedWords = fetchSavedWordMetadata();
       setTotalSavedWords(savedWords.length);
       setRawSavedWords(savedWords);
-      const countsByDate: Record<string, number> = {};
+      setSavedData(countByDay(savedWords));
 
-      for (const word of savedWords as WordWithTimestamp[]) {
-        const date = dayjs(word.timestamp.toDate()).format("YYYY-MM-DD");
-        countsByDate[date] = (countsByDate[date] || 0) + 1;
-      }
-
-      const today = dayjs();
-      const days = ranges[rangeKey];
-      const temp: { date: string; count: number }[] = [];
-
-      for (let i = days - 1; i >= 0; i--) {
-        const date = today.subtract(i, "day").format("YYYY-MM-DD");
-        temp.push({ date, count: countsByDate[date] || 0 });
-      }
-
-      setSavedData(temp);
-    };
-
-    const loadKnownData = async () => {
-      const knownWords = await fetchKnownWordMetadata(user.uid, 9000);
+      const knownWords = fetchKnownWordMetadata();
       setTotalKnownWords(knownWords.length);
-      const countsByDate: Record<string, number> = {};
-
-      for (const word of knownWords as WordWithTimestamp[]) {
-        const date = dayjs(word.timestamp.toDate()).format("YYYY-MM-DD");
-        countsByDate[date] = (countsByDate[date] || 0) + 1;
-      }
-
-      const today = dayjs();
-      const days = ranges[rangeKey];
-      const temp: { date: string; count: number }[] = [];
-
-      for (let i = days - 1; i >= 0; i--) {
-        const date = today.subtract(i, "day").format("YYYY-MM-DD");
-        temp.push({ date, count: countsByDate[date] || 0 });
-      }
-
-      setKnownData(temp);
+      setKnownData(countByDay(knownWords));
     };
 
-    loadSavedData();
-    loadKnownData();
-  }, [user?.uid, rangeKey]);
+    loadData();
+    return onWordStatusChange(loadData);
+  }, [rangeKey]);
 
   const matchAndSortSavedWords = async () => {
     if (!rawSavedWords.length || !words.length) return;
@@ -218,19 +201,6 @@ function ProgressPage() {
   const totalSavedCount = savedData.reduce((sum, item) => sum + item.count, 0);
   const totalKnownCount = knownData.reduce((sum, item) => sum + item.count, 0);
 
-  if (!user && !loading) {
-    return (
-      <div className="min-h-screen w-full pt-15 pt-50 text-center items-center justify-center">
-        <p className="text-gray-500">You&apos;re not signed in</p>
-        <Link href="/signin">
-          <button className="bg-blue-500 text-white font-bold font-mono p-4 rounded-2xl mt-5 cursor-pointer hover:shadow-lg">
-            &gt; Sign in &lt;
-          </button>
-        </Link>
-      </div>
-    );
-  }
-
   return (
     <div className="pt-10 sm:pt-18 sm:p-4 md:pt-20 max-w-[1200px] m-auto flex flex-col md:flex-row">
       <div className="w-full px-6 py-6 mt-4 pb-6 bg-white dark:bg-[#0D1B2A]">
@@ -285,9 +255,7 @@ function ProgressPage() {
             </div>
             <div
               data-tip="Your daily streak"
-              className={`${
-                loading ? "skeleton opacity-50" : ""
-              } tooltip px-4 py-6 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs hover:scale-105 transition-transform duration-200`}
+              className={`tooltip px-4 py-6 bg-gray-200 dark:bg-gray-700 w-40 h-30 rounded-sm lg:rounded-xs hover:scale-105 transition-transform duration-200`}
             >
               <div className="flex flex-row items-center justify-center h-full w-full">
                 <span className="text-5xl font-mono font-bold text-orange-400">

@@ -26,7 +26,7 @@ export const Navbar: React.FC = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
-  const { user, streak, loading } = useUser();
+  const { streak } = useUser();
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -71,7 +71,7 @@ export const Navbar: React.FC = () => {
             <div className="hidden sm:flex items-center flex-nowrap">
               <SearchBar />
               <AnimatePresence>
-                {user && !loading && (
+                {streak > 0 && (
                   <motion.div
                     key="streak-badge"
                     initial={{ opacity: 0, scale: 0.9, x: 10 }}
@@ -98,17 +98,13 @@ export const Navbar: React.FC = () => {
           {/* Right side */}
           <div className="flex items-center gap-2 lg:gap-6 relative">
             <div className="font-mono text-black dark:text-white text-sm hidden sm:flex space-x-6">
-              {user ? (
-                <Link
-                  href="/progress"
-                  className="hidden lg:flex hover:underline flex items-center"
-                >
-                  <FaChartLine className="mr-2" />
-                  <span>Progress</span>
-                </Link>
-              ) : (
-                <></>
-              )}
+              <Link
+                href="/progress"
+                className="hidden lg:flex hover:underline flex items-center"
+              >
+                <FaChartLine className="mr-2" />
+                <span>Progress</span>
+              </Link>
               <Link
                 href="/browse"
                 className="hover:underline flex items-center"
@@ -124,7 +120,7 @@ export const Navbar: React.FC = () => {
             <div className={`w-full flex justify-end`}>
               <div className="block sm:hidden">
                 <AnimatePresence>
-                  {user && (
+                  {streak > 0 && (
                     <motion.div
                       key="streak-badge"
                       initial={{ opacity: 0, scale: 0.9, x: 10 }}
@@ -146,34 +142,8 @@ export const Navbar: React.FC = () => {
                   )}
                 </AnimatePresence>
               </div>
-              <div className={`${user ? "block" : "sm:hidden"}`}>
+              <div className="block">
                 <AvatarDropdown />
-              </div>
-              <div className={`${user ? "hidden" : "hidden sm:flex"}`}>
-                <Link
-                  href="/signin"
-                  className={`${loading ? "skeleton opacity-50 disabled" : ""} flex items-center px-4 py-2 text-sm text-black border border-gray-200 bg-gray-100 hover:border-gray-300 hover:shadow-sm rounded-sm w-full justify-center`}
-                >
-                  <svg
-                    width="20px"
-                    height="20px"
-                    viewBox="0 0 24 24"
-                    role="img"
-                    xmlns="http://www.w3.org/2000/svg"
-                    stroke="#000"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                  >
-                    <title id="happyFaceIconTitle">Happy Face</title>
-                    <path d="M7.3,14 C8.07,15.76 9.99,17 12,17 C14,17 15.91,15.75 16.69,14" />
-                    <line x1="9" y1="9" x2="9" y2="9" />
-                    <line x1="15" y1="9" x2="15" y2="9" />
-                    <circle cx="12" cy="12" r="10" />
-                  </svg>
-                  <span className="pl-2">Sign In</span>
-                </Link>
               </div>
             </div>
             {/* Desktop Dropdown (Hamburger Icon) */}
@@ -266,54 +236,21 @@ export const Navbar: React.FC = () => {
                   </span>
                 </Link>
               </li>
-              {user ? (
-                <Link
-                  onClick={closeMenu}
-                  href="/progress"
-                  className="block py-3 px-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 font-bold"
-                >
-                  <span className="pr-1">📈</span> Progress
-                  <br />
-                  <span className="pr-1 text-gray-400 font-bold text-xs">
-                    View your current progress
-                  </span>
-                </Link>
-              ) : (
-                <></>
-              )}
+              <Link
+                onClick={closeMenu}
+                href="/progress"
+                className="block py-3 px-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-800 font-bold"
+              >
+                <span className="pr-1">📈</span> Progress
+                <br />
+                <span className="pr-1 text-gray-400 font-bold text-xs">
+                  View your current progress
+                </span>
+              </Link>
               <hr className="h-px my-2 bg-gray-200 border-0" />
             </ul>
           </div>
           <div className="mt-auto">
-            <div className="pt-6">
-              <Link
-                href="/signin"
-                className="flex items-center px-4 py-2 text-sm text-black dark:text-white border border-gray-200 dark:border-blue-400 bg-gray-100 dark:bg-blue-500 hover:border-gray-300 dark:hover:border-blue-700 hover:shadow-sm rounded-sm w-full justify-center"
-              >
-                <svg
-                  width="20px"
-                  height="20px"
-                  viewBox="0 0 24 24"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                  className="stroke-black dark:stroke-white"
-                >
-                  <title id="happyFaceIconTitle">Happy Face</title>
-                  <path d="M7.3,14 C8.07,15.76 9.99,17 12,17 C14,17 15.91,15.75 16.69,14" />
-                  <line x1="9" y1="9" x2="9" y2="9" />
-                  <line x1="15" y1="9" x2="15" y2="9" />
-                  <circle cx="12" cy="12" r="10" />
-                </svg>
-                <span className="pl-2">Sign In</span>
-              </Link>
-              {/*<a className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-black font-semibold bg-blue-600 hover:bg-blue-700 rounded-xl" href="#">
-                Sign Up
-              </a>*/}
-            </div>
             <p className="my-4 text-xs text-center text-gray-400">
               <span>Copyright © Common Words 2025</span>
             </p>

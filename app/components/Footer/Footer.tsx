@@ -29,8 +29,8 @@ const Footer = () => {
         <a className="link link-hover" href="/learn">
           Learn
         </a>
-        <a className="link link-hover" href="/signin">
-          Sign in
+        <a className="link link-hover" href="/progress">
+          Progress
         </a>
       </nav>
       <nav>

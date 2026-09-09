@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useUser } from "../context/UserContext";
 import { useWordForm } from "../context/WordFormContext";
 import { fetchWordStatusData } from "../helpers/userWordLibrary";
+import { onWordStatusChange } from "../helpers/localWordStore";
 import { shuffle } from "../helpers/utils";
 import { FaUndo } from "react-icons/fa";
 import { useToast } from "../hooks/useToast";
@@ -16,36 +16,19 @@ interface LearnFormConfirmProps {
 
 export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
   const { submittedWords, allWords, setSavedWords, savedWords } = useWordForm();
-  const { user } = useUser();
   const [savedWordsObject, setSavedWordsObjects] = useState<Word[]>([]);
   const toast = useToast();
 
   useEffect(() => {
-    const fetchStatusData = async () => {
-      if (!user?.uid) return;
-      try {
-        const saved = await fetchWordStatusData(user.uid, "saved", 5000);
-
-        setSavedWordsObjects(saved);
-      } catch (err) {
-        console.error("❌ Error preloading word status:", err);
-      }
+    const loadStatusData = () => {
+      setSavedWordsObjects(fetchWordStatusData(allWords, "saved"));
     };
-    fetchStatusData();
-  }, [user?.uid]);
 
-  useEffect(() => {}, [submittedWords]);
+    loadStatusData();
+    return onWordStatusChange(loadStatusData);
+  }, [allWords]);
 
   const handleAddAll = () => {
-    if (!user) {
-      toast({
-        title: "Not signed in",
-        subtitle: "You must sign in to save words",
-        variant: "error",
-      });
-      return;
-    }
-
     // Filter savedWordsObject to only those not already submitted
     const available = savedWordsObject.filter(
       (word) =>
@@ -66,15 +49,6 @@ export const LearnFormConfirm = ({ wordCount }: LearnFormConfirmProps) => {
   };
 
   const handleAdd = (amount: number) => {
-    if (!user) {
-      toast({
-        title: "Not signed in",
-        subtitle: "You must sign in to save words",
-        variant: "error",
-      });
-      return;
-    }
-
     if (savedWordsObject.length === 0) {
       toast({
         title: "No More Saved Words",
