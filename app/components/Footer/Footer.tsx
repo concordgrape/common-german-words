@@ -38,9 +38,6 @@ const Footer = () => {
         <a className="link link-hover" href="/about">
           About us
         </a>
-        <a className="link link-hover" href="mailto:hi@skyroth.com">
-          Email us
-        </a>
         <a
           className="link link-hover"
           href="https://forms.gle/5Y2QAkXmtiQtgmjT8"

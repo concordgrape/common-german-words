@@ -43,10 +43,10 @@ function PrivacyPolicy() {
         The Services are operated by an individual based in Ontario, Canada
         (“we,” “us,” or “our”). Contact us at{" "}
         <a
-          href="mailto:hi@skyroth.com"
+          href="mailto:"
           className="text-blue-500 hover:underline"
         >
-          hi@skyroth.com
+          
         </a>
         .
       </p>
@@ -149,18 +149,6 @@ function PrivacyPolicy() {
         We may update this Privacy Policy from time to time. Changes will be
         posted on this page with the updated effective date. Your continued use
         of the Services after updates constitutes acceptance of the changes.
-      </p>
-
-      <h2 className="mt-8 text-2xl font-semibold">Contact Us</h2>
-      <p>
-        For questions or concerns about this Privacy Policy, email us at{" "}
-        <a
-          href="mailto:hi@skyroth.com"
-          className="text-blue-500 hover:underline"
-        >
-          hi@skyroth.com
-        </a>
-        .
       </p>
     </main>
   );

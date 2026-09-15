@@ -83,18 +83,6 @@ function About() {
         </a>
       </p>
 
-      <h2 className="mt-4 text-2xl font-semibold">Questions?</h2>
-      <p>
-        Reach us at{" "}
-        <a
-          href="mailto:hi@skyroth.com"
-          className="text-blue-500 hover:underline"
-        >
-          hi@skyroth.com
-        </a>
-        .
-      </p>
-
       <hr className="my-8 border-gray-300 dark:border-gray-600" />
 
       <p className="text-sm">

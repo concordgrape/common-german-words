@@ -132,10 +132,10 @@ function CookiePolicy() {
       <p>
         If you have any questions about this Cookie Policy, contact us at{" "}
         <a
-          href="mailto:hi@skyroth.com"
+          href="mailto:"
           className="text-blue-500 hover:underline"
         >
-          hi@skyroth.com
+          
         </a>
         .
       </p>

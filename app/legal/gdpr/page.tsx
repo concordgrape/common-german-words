@@ -141,10 +141,10 @@ function GDPRCookiePolicy() {
       <p>
         For any GDPR-related questions or concerns, contact us at{" "}
         <a
-          href="mailto:hi@skyroth.com"
+          href="mailto:"
           className="text-blue-500 hover:underline"
         >
-          hi@skyroth.com
+          
         </a>
         .
       </p>
